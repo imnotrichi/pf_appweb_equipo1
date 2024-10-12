@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="estilos/estilosIniciarRegistrar.css">
+    <title>Iniciar Sesión / Registrarse</title>
+
+</head>
+
+<body>
+
+    <input type="checkbox" id="chk" aria-hidden="true">
+    <div class="form-container sign-up-container">
+        <form action="#">
+            <h1>Registrarse</h1>
+            <label for="nombre">Nombre(s)</label>
+            <input type="text" name="nombre" />
+
+            <label for="apellidos">Apellidos</label>
+            <input type="text" name="apellidos" />
+
+            <label for="usuario">Usuario</label>
+            <input type="text" name="usuario" />
+
+            <label for="telefono">Teléfono</label>
+            <input type="number" name="telefono" />
+
+            <label for="email">Correo electrónico</label>
+            <input type="email" name="email" />
+
+            <label for="ciudad">Ciudad</label>
+            <input type="text" name="ciudad" />
+
+            <label for="contrasena">Contraseña</label>
+            <input type="password" name="contrasena" />
+
+            <label for="genero">Género</label>
+            <select name="genero" id="genero">
+                <option value="masculino">Masculino</option>
+                <option value="femenino">Femeninio</option>
+                <option value="no binario">No binario</option>
+                <option value="otro">Otro</option>
+            </select>
+
+            <label for="fechaNacimiento">Fecha nacimiento</label>
+            <input type="fechaNacimiento" name="fechaNacimiento" />
+
+            <label for="avatar">Avatar</label>
+            <input type="file" multiple name="avatar">
+
+            <button>Registrarse</button>
+        </form>
+    </div>
+
+    <div class="form-container sign-in-container">
+        <form action="#">
+            <h1>Iniciar Sesión</h1>
+            <label for="nombreUsuario">Nombre de ususrio</label>
+            <input type="text" name="nombreUsuario">
+
+            <label for="nombreUsuario">Contraseña</label>
+            <input type="password" />
+            <button>Iniciar Sesión</button>
+        </form>
+    </div>
+
+    <div class="overlay-container">
+        <div class="overlay">
+            <div class="overlay-panel overlay-left">
+                <div class="logo">THE MUSIC HUB</div>
+                <h1>Si ya tienes una Cuenta:</h1>
+                <label for="chk" class="switch">Iniciar sesión</label>
+            </div>
+            <div class="overlay-panel overlay-right">
+                <div class="logo">THE music hub</div>
+                <h1>¿No tienes cuenta?</h1>
+                <label for="chk" class="switch">Registrarse</label>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
