@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
+
+* {
+    font-family: 'Montserrat';
+}
+
+body {
+    background-color: #101111;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+}
+
+nav {
+    background-color: #262727;
+    border-radius: 0.7rem;
+    padding: 1rem;
+    font-weight: 650;
+    position: sticky;
+}
+
+nav ul {
+    list-style-type: none;
+}
+
+nav a {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+.iniciar-sesion {
+    text-align: center;
+}
+
+.iniciar-sesion a {
+    color: #6FC0F8;
+}
+
+main {
+    background-color: #262727;
+    border-radius: 0.7rem;
+}
+
+header {
+    margin: auto;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    height: fit-content;
+}
+
+header input {
+    height: 2rem;
+    background-color: #262727;
+    color: #FFFFFF;
+    border-radius: 0.6rem;
+    border-style: none;
+    width: 25%;
+    font-size: 1rem;
+    font-weight: 700;
+    padding-left: 1rem;
+}
+
+header h1 {
+    font-family: 'Archivo Black';
+    font-size: 2rem;
+    color: #6FC0F8;
+    margin: 0rem;
+    text-decoration: underline;
+}
+
+header h1 span {
+    font-family: 'Archivo Black';
+    color: #F539B4;
+    text-decoration: underline;
+}
+
+header h1 span::before {
+    content: " ";
+}
+
+header h1 span::after {
+    content: " ";
+}
+
+main {
+    padding: 1rem;
+}
+
+main div {
+    border-radius: 0.5rem;
+    background-color: #F539B4;
+}
