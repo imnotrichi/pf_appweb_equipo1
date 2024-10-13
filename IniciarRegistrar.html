@@ -53,7 +53,7 @@
                 <input type="password" name="contrasena" />
             </div>
 
-            <div class="column2 campos">
+            <div class="column2 campos genero">
                 <label for="genero">Género</label>
                 <select name="genero" id="genero">
                     <option value="masculino">Masculino</option>
@@ -65,15 +65,13 @@
 
             <div class="column1 campos">
                 <label for="fechaNacimiento">Fecha nacimiento</label>
-                <input type="fechaNacimiento" name="fechaNacimiento" />
+                <input type="date" name="fechaNacimiento" />
             </div>
 
             <div class="column2 campos">
                 <label for="avatar">Avatar</label>
-                <input type="file" multiple name="avatar">
+                <input type="file" multiple name="avatar" >
             </div>
-
-
             <button>Registrarse</button>
         </form>
     </div>
@@ -93,14 +91,15 @@
     <div class="overlay-container">
         <div class="overlay">
             <div class="overlay-panel overlay-left">
-                <div class="logo">THE MUSIC HUB</div>
-                <h1>Si ya tienes una Cuenta:</h1>
-                <label for="chk" class="switch">Iniciar sesión</label>
+                <h2>THE<span>MUSIC</span>HUB</h2>
+                <h3>Si ya tienes una Cuenta:</h3>
+                <label for="chk" class="switch switch-iniciar">Iniciar sesión</label>
             </div>
+
             <div class="overlay-panel overlay-right">
-                <div class="logo">THE music hub</div>
-                <h1>¿No tienes cuenta?</h1>
-                <label for="chk" class="switch">Registrarse</label>
+                <h2>THE<span>MUSIC</span>HUB</h2>
+                <h3>¿No tienes cuenta?</h3>
+                <label for="chk" class="switch switch-registrar">Registrarse</label>
             </div>
         </div>
     </div>
