@@ -23,7 +23,7 @@ h1{
     font-size: 3rem;
 
 }
-.sign-up-container h1{
+.registrar-contenedor h1{
     width: 100%;
     margin-top: 2rem;
 }
@@ -39,17 +39,33 @@ h3{
 
 h2 {
     font-family: 'Archivo Black';
-    font-size: 2rem;
-    color: #6FC0F8;
+    font-size: 3rem;
+    color: #000000;
     margin: 0rem;
     text-decoration: underline;
 }
 
+
 h2 span{
     font-family: 'Archivo Black';
-    font-size: 2rem;
+    font-size: 3rem;
     color: #F539B4;
     text-decoration: underline;
+}
+
+.logo{
+    display:flex;
+    align-items: center;
+    text-shadow: 0px 0px 9px rgb(42, 42, 42);
+}
+.logo img{
+    height: 4rem;
+    filter: drop-shadow(4px 6px 12px rgb(42, 42, 42));
+}
+
+
+.overlay-left h2 span{
+    color: #6FC0F8;
 }
 
 h2 span::before {
@@ -134,7 +150,7 @@ select {
     margin: 5px 0;
 }
 
-.sign-in-container form {
+.iniciar-contenedor form {
     background-color: #181c14;
     display: flex;
     align-items: first baseline;
@@ -146,7 +162,7 @@ select {
     text-align: center;
 }
 
-.sign-up-container form{
+.registrar-contenedor form{
     background-color: #181c14;
     display: flex;
     flex-direction: row;
@@ -158,32 +174,34 @@ select {
     justify-content: space-between;
 }
 
-.form-container {
+.form-contenedor{
     position: absolute;
     top: 0;
     height: 100%;
     transition: all 0.6s ease-in-out;
 }
 
-.sign-in-container {
+.iniciar-contenedor {
     left: 0;
     width: 50%;
     z-index: 2;
+    display: flex;
+    justify-content: center;
 
 }
 
-.sign-in-container label + input,label + select {
+.iniciar-contenedor label + input,label + select {
     margin-bottom: 3rem; 
     display: block; 
 
 }
 
-.sign-up-container label + input,label + select {
+.registrar-contenedor label + input,label + select {
     display: block; 
 }
 
 
-.sign-up-container {
+.registrar-contenedor {
     width: 50%;
     height: 100%;
     opacity: 0;
@@ -191,17 +209,17 @@ select {
     margin-top: 0%;
 }
 
-.names{
+.nombres{
     width: 48%;
         
 }
 
-.column1{
+.columna1{
     width: 60%;
 
 }
 
-.column2{
+.columna2{
     width: 38%;
     margin-left: 2%;
 }
@@ -321,19 +339,24 @@ button:active,
     transform: scale(0.95);
 }
 
+.registrar-contenedor button{
+    background-color: #F539B4;
+    border-color: #F539B4;
+}
+
 
 #chk {
     display: none;
 }
 
-#chk:checked~.sign-up-container {
+#chk:checked~.registrar-contenedor {
     transform: translateX(100%);
     opacity: 1;
     z-index: 5;
     animation: show 0.6s;
 }
 
-#chk:checked~.sign-in-container {
+#chk:checked~.iniciar-contenedor {
     transform: translateX(100%);
 }
 
