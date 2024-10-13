@@ -15,40 +15,64 @@
     <div class="form-container sign-up-container">
         <form action="#">
             <h1>Registrarse</h1>
-            <label for="nombre">Nombre(s)</label>
-            <input type="text" name="nombre" />
+            <div class="names campos">
+                <label for="nombre">Nombre(s)</label>
+                <input type="text" name="nombre" />
+            </div>
 
-            <label for="apellidos">Apellidos</label>
-            <input type="text" name="apellidos" />
+            <div class="names campos">
+                <label for="apellidos">Apellidos</label>
+                <input type="text" name="apellidos" />
+            </div>
 
-            <label for="usuario">Usuario</label>
-            <input type="text" name="usuario" />
 
-            <label for="telefono">Teléfono</label>
-            <input type="number" name="telefono" />
+            <div class="column1 campos">
+                <label for="usuario">Usuario</label>
+                <input type="text" name="usuario" />
 
-            <label for="email">Correo electrónico</label>
-            <input type="email" name="email" />
+            </div>
 
-            <label for="ciudad">Ciudad</label>
-            <input type="text" name="ciudad" />
+            <div class="column2 campos">
+                <label for="telefono">Teléfono</label>
+                <input type="number" name="telefono" />
+            </div>
 
-            <label for="contrasena">Contraseña</label>
-            <input type="password" name="contrasena" />
+            <div class="column1 campos">
+                <label for="email">Correo electrónico</label>
+                <input type="email" name="email" />
+            </div>
 
-            <label for="genero">Género</label>
-            <select name="genero" id="genero">
-                <option value="masculino">Masculino</option>
-                <option value="femenino">Femeninio</option>
-                <option value="no binario">No binario</option>
-                <option value="otro">Otro</option>
-            </select>
 
-            <label for="fechaNacimiento">Fecha nacimiento</label>
-            <input type="fechaNacimiento" name="fechaNacimiento" />
+            <div class="column2 campos">
+                <label for="ciudad">Ciudad</label>
+                <input type="text" name="ciudad" />
+            </div>
 
-            <label for="avatar">Avatar</label>
-            <input type="file" multiple name="avatar">
+            <div class="column1 campos">
+                <label for="contrasena">Contraseña</label>
+                <input type="password" name="contrasena" />
+            </div>
+
+            <div class="column2 campos">
+                <label for="genero">Género</label>
+                <select name="genero" id="genero">
+                    <option value="masculino">Masculino</option>
+                    <option value="femenino">Femeninio</option>
+                    <option value="no binario">No binario</option>
+                    <option value="otro">Otro</option>
+                </select>
+            </div>
+
+            <div class="column1 campos">
+                <label for="fechaNacimiento">Fecha nacimiento</label>
+                <input type="fechaNacimiento" name="fechaNacimiento" />
+            </div>
+
+            <div class="column2 campos">
+                <label for="avatar">Avatar</label>
+                <input type="file" multiple name="avatar">
+            </div>
+
 
             <button>Registrarse</button>
         </form>
