@@ -1,4 +1,4 @@
-.secciones li:nth-child(1) a{
+.secciones li:nth-child(1) a {
     color: #000000;
     background-color: #F539B4;
     border-radius: 1rem;
@@ -6,11 +6,21 @@
 
 main article {
     background-color: #F539B4;
-    border-radius: 0.8rem;
+    border-radius: 1.2rem;
     padding: 1rem;
-    height: 12rem;
-    line-height: 4rem;
     background: linear-gradient(#6FC0F8, #F539B4);
+}
+
+main a:nth-child(1) article {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(111, 192, 248, 1)), url(../imagenes/brat-image.jpeg);
+    background-size: cover;
+    background-position: center;
+}
+
+main a:nth-child(2) article {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(111, 192, 248, 1)), url(../imagenes/the-marias-image.jpeg);
+    background-size: cover;
+    background-position: center;
 }
 
 main article h3 {
