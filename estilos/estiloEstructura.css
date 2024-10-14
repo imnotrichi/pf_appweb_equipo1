@@ -20,6 +20,7 @@
     background-color: #6FC0F8;
     border-radius: 10px;
     border: 2px solid #ffffff;
+    background-clip: padding-box;
 }
 
 * {
