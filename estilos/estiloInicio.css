@@ -17,10 +17,12 @@ header {
     width: 100%;
     display: flex;
     justify-content: space-between;
+    height: fit-content;
+    align-items: center;
 }
 
 header img {
-    width: 4%;
+    width: 6%;
 }
 
 header h1 {
@@ -29,6 +31,8 @@ header h1 {
     color: #6FC0F8;
     margin: 0rem;
     text-decoration: underline;
+    display: flex;
+    gap: 0.5rem;
 }
 
 header span {
@@ -38,7 +42,7 @@ header span {
 }
 
 header input {
-    height: 2rem;
+    height: 2.5rem;
     background-color: #262727;
     color: #FFFFFF;
     border-radius: 0.6rem;
@@ -50,19 +54,49 @@ header input {
 }
 
 aside {
-    background-color: #262727;
     border-radius: 0.7rem;
-    padding: 0.5em;
     font-weight: 650;
     position: sticky;
     height: 100vh;
+}
+
+nav {
+    background-color: #262727;
+    border-top-left-radius: 0.7rem;
+    border-top-right-radius: 0.7rem;
+    padding: 0.5rem;
+    margin-bottom: 0.3rem;
+    width: 12rem;
+}
+
+aside div {
+    padding: 1rem;
+    background-color: #262727;
+    border-bottom-right-radius: 0.7rem;
+    border-bottom-left-radius: 0.7rem;
+    text-align: center;
+}
+
+aside div a {
+    color: #6FC0F8;
 }
 
 nav ul {
     list-style-type: none;
 }
 
+nav li {
+    margin-bottom: 2.6rem;
+}
+
+nav li img {
+    margin-right: 0.5rem;
+}
+
 nav a {
+    display: flex;
+    align-items: center;
+    height: fit-content;
     color: #FFFFFF;
     text-decoration: none;
 }
@@ -71,23 +105,49 @@ nav img {
     width: 16%;
 }
 
-.iniciar-sesion {
-    text-align: center;
-}
-
-.iniciar-sesion a {
-    color: #6FC0F8;
-}
-
 main {
     background-color: #262727;
     border-radius: 0.7rem;
-    padding: 1rem;
-    width: 78.5%;
+    padding: 2rem;
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
 }
 
+main a {
+    text-decoration: none;
+    color: #000000;
+}
 
 main article {
-    border-radius: 0.5rem;
-    background-color: #F539B4;
+    border-radius: 0.8rem;
+    background: linear-gradient(rgba(245, 57, 180, 1), rgba(111, 192, 248, 1));
+    padding: 1rem 1rem 0.11rem 1rem;
 }
+
+main article h3 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0rem;
+}
+
+main article p {
+    margin-top: 0rem;
+    margin-top: 0rem;
+    font-weight: 500;
+    margin-left: 0.7rem;
+}
+
+main article:nth-child(1) {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(111, 192, 248, 0.9)), url(../imagenes/brat-image.jpeg);
+    background-size: cover;
+    background-position: center;
+}
+
+main article:nth-child(2) {
+    background-image: linear-gradient(rgba(245, 57, 180, 0), rgba(111, 192, 248, 0.9)), url(../imagenes/the-marias-image.jpeg);
+    background-size: cover;
+    background-position: center;
+}
+
