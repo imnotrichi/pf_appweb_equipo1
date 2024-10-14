@@ -52,8 +52,8 @@ p{
 hr {
     margin-top: 0.5rem;
     height: 4px;
-    border: 2px solid black;
-    background-color: black;
+    border: 2px solid rgb(24, 24, 24);
+    background-color: rgb(24, 24, 24);
 }
 
 .post button{
@@ -84,4 +84,7 @@ button img{
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+.contenedor-comentario{
+    color: white;
 }
