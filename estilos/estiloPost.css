@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
+
+
+*{
+
+}
+
+main{
+    font-size: 16px;
+    color: white;
+}
+
+article{
+    display: flex;
+    flex-direction: column;
+}
+.post img{
+    width:100%;
+    height: 20rem;
+    border-radius: 1.2rem;
+}
+
+h1{
+    font-size: 2.5rem;
+    margin: 0.5rem 0rem;
+}
+h2{
+    font-size: 1.3rem;
+    font-weight: 300;
+    margin-top: 0.4rem;
+    text-decoration: underline;
+}
+
+.usuario-fecha{
+    text-decoration: none;
+}
+
+p{
+    text-align: left;
+    font-size: 1.2rem;
+    font-weight:350;
+}
+
+.post p{
+    margin: 1rem 0rem;
+}
+.usuario{
+    font-weight: 600;
+}
+.comentario{
+    display: flex;
+    margin: 0.5rem 0rem;
+}
+
+hr {
+    margin-top: 0.5rem;
+    height: 4px;
+    border: 2px solid black;
+    background-color: black;
+  }
