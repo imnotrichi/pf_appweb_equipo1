@@ -2,11 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
 
 
-*{
-
-}
-
-main{
+.post{
     font-size: 16px;
     color: white;
 }
@@ -16,8 +12,7 @@ article{
     flex-direction: column;
 }
 .post img{
-    width:100%;
-    height: 20rem;
+    height: rem;
     border-radius: 1.2rem;
 }
 
@@ -35,6 +30,7 @@ h2{
 .usuario-fecha{
     text-decoration: none;
 }
+
 
 p{
     text-align: left;
@@ -58,4 +54,34 @@ hr {
     height: 4px;
     border: 2px solid black;
     background-color: black;
-  }
+}
+
+.post button{
+    width: 13%;
+    height: 3rem;
+    border-radius: 20px;
+    padding: 0.5rem;
+    background-color: #F539B4;
+    border: 1px solid white;
+    color: rgb(255, 255, 255);
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+button{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 0.2rem;
+
+}
+
+button img{
+    height: 3rem;
+}
+.post div{
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
