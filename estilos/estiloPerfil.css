@@ -72,6 +72,17 @@ header img {
     text-decoration: underline;
 }
 
+.header-derecha {
+    display: flex;
+}
+
+.header-derecha img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
 header input {
     background-color: #262727;
     color: #FFFFFF;
@@ -123,13 +134,16 @@ aside a {
 
 nav {
     height: calc(100vh - 90px);
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
 }
 
 .secciones {
     background-color: #262727;
     border-radius: 0.5rem 0.5rem 0 0;
     padding: 1rem;
-    height: 89%;
+    height: 90%;
 }
 
 .secciones ul {
@@ -148,7 +162,6 @@ nav {
 .iniciar-sesion {
     background-color: #262727;
     border-radius: 0 0 0.5rem 0.5rem;
-    margin-top: 0.5rem;
     height: 10%;
     display: flex;
     justify-content: center;
@@ -174,10 +187,64 @@ main {
     gap: 1.5rem;
 }
 
+.perfil {
+    color: #FFFFFF;
+}
+
+.perfil>p {
+    font-size: 1.3rem;
+}
+
+.datos {
+    display: flex;
+    margin-bottom: 1rem;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.datos img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.datos p {
+    font-style: italic;
+}
+
 main article {
     border-radius: 0.5rem;
     background-color: #F539B4;
     height: 200px;
     max-height: 300px;
     min-height: 200px;
+    background: linear-gradient(rgba(245, 57, 180, 1), rgba(111, 192, 248, 1));
+}
+
+main article h3 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0rem;
+}
+
+main article p {
+    margin-top: 0rem;
+    margin-top: 0rem;
+    font-weight: 500;
+    margin-left: 0.7rem;
+}
+
+main article:nth-child(1) {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(111, 192, 248, 0.9)), url(../imagenes/brat-image.jpeg);
+    background-size: cover;
+    background-position: center;
+}
+
+main article:nth-child(2) {
+    background-image: linear-gradient(rgba(245, 57, 180, 0), rgba(111, 192, 248, 0.9)), url(../imagenes/gatito.jpeg);
+    background-size: cover;
+    background-position: center;
 }

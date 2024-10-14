@@ -119,6 +119,12 @@ aside li a {
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 0.3rem;
+}
+
+aside li a:hover {
+    background-color: #F539B4;
+    border-radius: 1rem;
 }
 
 aside img {
@@ -238,7 +244,7 @@ main article p {
 }
 
 main article:nth-child(1) {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(111, 192, 248, 0.9)), url(../imagenes/gatito.jpeg);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(111, 192, 248, 0.9)), url(../imagenes/brat-image.jpeg);
     background-size: cover;
     background-position: center;
 }
