@@ -5,85 +5,103 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./estilos/estiloNuevoPost.css">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+    <link rel="stylesheet" href="./estilos/estiloEstructura.css">
+    <script src="https://kit.fontawesome.com/75561fa68d.js" crossorigin="anonymous"></script>
     <title>The Music Hub - Nuevo post</title>
 </head>
 
 <body>
     <header>
-        <h1><img src="./imagenes/blue-vinyl-icon.png" alt="Disco de Vinilo Azul">THE <span>MUSIC</span> HUB</h1>
-        <a href="Perfil.html">Mi perfil</a>
-        <p>|</p>
-        <input type="text" name="buscar" placeholder="Buscar">
+        <a href="Inicio2.html" class="logo">
+            <img src="./imagenes/blue-vinyl-icon.png" alt="Disco de Vinilo Azul">
+            <span class="the">THE</span>
+            <span class="music">MUSIC</span>
+            <span class="hub">HUB</span>
+        </a>
+        <div class="header-derecha">
+            <a href="Perfil.html" class="mi-perfil">
+                <img src="imagenes/avatar.jpeg" alt="Avatar del usuario actual.">
+                <p>Mi perfil</p>
+            </a>
+            <p>I</p>
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" name="buscar" placeholder="Buscar">
+        </div>
     </header>
 
-    <aside>
-        <nav>
-            <ul>
-                <li><a href="Inicio2.html"><img src="./imagenes/white-home-icon.png" alt="">Inicio</a></li>
-                <li><a href="Reviews.html"><img src="./imagenes/white-review-icon.png" alt="">Reviews</a></li>
-                <li><a href="Popular.html"><img src="./imagenes/white-popular-icon.png" alt="">Popular</a></li>
-                <li><a href="Noticias.html"><img src="./imagenes/white-news-icon.png" alt="">Noticias</a></li>
-                <li><a href="Playlists.html"><img src="./imagenes/white-playlist-icon.png" alt="">Playlists</a></li>
-                <li><a href="General.html"><img src="./imagenes/white-general-icon.png" alt="">General</a></li>
-            </ul>
-        </nav>
-        <div class="cerrar-sesion">
-            <a href="IniciarRegistrar.html">Cerrar Sesión</a>
-        </div>
-    </aside>
-
-    <main>
-        <div>
-            <form action="#">
-                <h2>Nuevo post</h2>
-                <div>
-                    <label for="titulo">Título</label>
-                    <input type="text" name="titulo" />
+    <div class="contenedor">
+        <aside>
+            <nav>
+                <div class="secciones">
+                    <ul>
+                        <li><a href="Inicio.html"><img src="./imagenes/white-home-icon.png" alt="">Inicio</a></li>
+                        <li><a href="Reviews.html"><img src="./imagenes/white-review-icon.png" alt="">Reviews</a></li>
+                        <li><a href="Popular.html"><img src="./imagenes/white-popular-icon.png" alt="">Popular</a></li>
+                        <li><a href="Noticias.html"><img src="./imagenes/white-news-icon.png" alt="">Noticias</a></li>
+                        <li><a href="Playlists.html"><img src="./imagenes/white-playlist-icon.png" alt="">Playlists</a>
+                        </li>
+                        <li><a href="General.html"><img src="./imagenes/white-general-icon.png" alt="">General</a></li>
+                    </ul>
                 </div>
 
-                <div>
-                    <label for="subtitulo">Subtítulo</label>
-                    <input type="text" name="subtitulo" />
+                <div class="iniciar-sesion">
+                    <a href="IniciarRegistrar.html">Cerrar Sesión</a>
                 </div>
+            </nav>
+        </aside>
 
-                <div class="imagen campos">
-                    <label class="espacio" for="imagen">Añadir imagen</label>
-                    <label for="archivo" class="custom-file-upload">
-                        Seleccionar
-                        <img src="./imagenes\black-folder-icon.png" alt="" class="icono" />
-                    </label>
-                    <input type="file" id="archivo" accept="image/*" />
-                </div>
-
-                <div class="imagen campos">
-                    <label for="tipo-post">Tipo de post</label>
-                    <div class="select-container">
-                        <select class="custom-select" name="tipo-post" id="tipo-post">
-                            <option value="general">General</option>
-                            <option value="review">Review</option>
-                            <option value="noticia">Noticia</option>
-                            <option value="playlist">Playlist</option>
-                        </select>
+        <main>
+            <div>
+                <form action="#">
+                    <h2>Nuevo post</h2>
+                    <div>
+                        <label for="titulo">Título</label>
+                        <input type="text" name="titulo" />
                     </div>
-                </div>
-
-                <div>
-                    <label for="cuerpo">Cuerpo</label>
-                    <textarea id="cuerpo" name="cuerpo" rows="10" cols="50" maxlength="2000">
-                    </textarea>
-                </div>
-
-                <div>
-                    <button>Descartar</button>
-                </div>
-
-                <div>
-                    <button>Publicar</button>
-                </div>
-            </form>
-        </div>
-    </main>
+    
+                    <div>
+                        <label for="subtitulo">Subtítulo</label>
+                        <input type="text" name="subtitulo" />
+                    </div>
+    
+                    <div class="imagen campos">
+                        <label class="espacio" for="imagen">Añadir imagen</label>
+                        <label for="archivo" class="custom-file-upload">
+                            Seleccionar
+                            <img src="./imagenes\black-folder-icon.png" alt="" class="icono" />
+                        </label>
+                        <input type="file" id="archivo" accept="image/*" />
+                    </div>
+    
+                    <div class="imagen campos">
+                        <label for="tipo-post">Tipo de post</label>
+                        <div class="select-container">
+                            <select class="custom-select" name="tipo-post" id="tipo-post">
+                                <option value="general">General</option>
+                                <option value="review">Review</option>
+                                <option value="noticia">Noticia</option>
+                                <option value="playlist">Playlist</option>
+                            </select>
+                        </div>
+                    </div>
+    
+                    <div>
+                        <label for="cuerpo">Cuerpo</label>
+                        <textarea id="cuerpo" name="cuerpo" rows="10" cols="50" maxlength="2000">
+                        </textarea>
+                    </div>
+    
+                    <div>
+                        <button>Descartar</button>
+                    </div>
+    
+                    <div>
+                        <button>Publicar</button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
 </body>
 
 </html>
