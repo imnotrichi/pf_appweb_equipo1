@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./estilos/estiloNuevoPost.css">
+    <link rel="stylesheet" href="./estilos/estiloEditarPost.css">
     <link rel="stylesheet" href="./estilos/estiloEstructura.css">
     <script src="https://kit.fontawesome.com/75561fa68d.js" crossorigin="anonymous"></script>
-    <title>The Music Hub - Nuevo post</title>
+    <title>The Music Hub - Editar</title>
 </head>
 
 <body>
@@ -52,15 +52,16 @@
 
         <main>
             <form action="#">
-                <h2>Nuevo post</h2>
+                <h2>Editar post</h2>
                 <div>
                     <label for="titulo">Título</label>
-                    <input type="text" name="titulo" />
+                    <input type="text" name="titulo" value="¡ACTUALICÉ MI PLAYLIST Y YA TIENE MÁS DE 9000 CANCIONES!">
                 </div>
 
                 <div>
                     <label for="subtitulo">Subtítulo</label>
-                    <input type="text" name="subtitulo" />
+                    <input type="text" name="subtitulo"
+                        value="Escuchen mi playlist, tiene un poco de mucho (no de todo) :D">
                 </div>
 
                 <div class="imagen-tipo">
@@ -79,19 +80,20 @@
                             <option value="general">General</option>
                             <option value="review">Review</option>
                             <option value="noticia">Noticia</option>
-                            <option value="playlist">Playlist</option>
+                            <option value="playlist" selected>Playlist</option>
                         </select>
                     </div>
                 </div>
 
                 <div>
                     <label for="cuerpo">Cuerpo</label>
-                    <textarea id="cuerpo" name="cuerpo" rows="10" cols="50" maxlength="2000"></textarea>
+                    <textarea id="cuerpo" name="cuerpo" rows="10" cols="50" maxlength="2000">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit delectus iure voluptatibus molestiae qui nemo aliquam velit dolorum labore maiores quam quisquam mollitia non dolor iusto, consectetur eveniet omnis voluptate.
+                    </textarea>
                 </div>
 
                 <div class="botones">
                     <button class="">Descartar</button>
-                    <input type="submit" value="Publicar">
+                    <input type="submit" value="Editar">
                 </div>
             </form>
         </main>

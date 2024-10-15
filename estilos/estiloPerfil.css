@@ -34,13 +34,13 @@ main article {
     background: linear-gradient(#6FC0F8, #F539B4);
 }
 
-main a:nth-child(2) article {
+main div:nth-child(2) article {
     background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(111, 192, 248, 1)), url(../imagenes/bort-playlist.png);
     background-size: cover;
     background-position: center;
 }
 
-main a:nth-child(3) article {
+main div:nth-child(3) article {
     background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(111, 192, 248, 1)), url(../imagenes/fishmans.jpg);
     background-size: cover;
     background-position: center;
@@ -65,7 +65,20 @@ main a {
     color: #000000;
 }
 
-button {
+.editar-button {
+    all: unset;
+    float: right;
+    position: relative;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+.editar-button img {
+    width: 40px;
+}
+
+.nuevoPost-button {
     width: 4rem;
     height: 4rem;
     font-size: 4rem;

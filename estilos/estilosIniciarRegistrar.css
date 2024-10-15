@@ -96,7 +96,6 @@ input {
     border-radius: 0.8rem;
 }
 
-
 input[type="file"] {
     display: none;
 }
@@ -104,6 +103,7 @@ input[type="file"] {
 #archivo{
     display: none;
 }
+
 .custom-file-upload {
     background-color: #F539B4;
     color: #000;

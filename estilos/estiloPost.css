@@ -11,8 +11,7 @@ article{
     display: flex;
     flex-direction: column;
 }
-.post img{
-    height: rem;
+.post>img{
     border-radius: 1.2rem;
 }
 
@@ -45,9 +44,6 @@ main p{
     font-weight: 600;
 }
 
-
-
-
 hr {
     margin-top: 0.5rem;
     height: 4px;
@@ -55,19 +51,6 @@ hr {
     background-color: rgb(24, 24, 24);
 }
 
-
-
-.eliminar{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 0.2rem;
-
-}
-
-button img{
-    height: 3rem;
-}
 .post div{
     margin-top: 1rem;
     display: flex;
@@ -92,29 +75,37 @@ button img{
 .comentario img{
 }
 
-.comentario button{
+.boton-comentario{
     all: unset;
     cursor: pointer;
-    display: flex;
-    justify-content: end;
-    height: 100%;
-    background-color: #262727;
+    height: fit-content;
+    margin-left: 0.5rem;
 }
+
+.boton-comentario img {
+    width: 40px;
+}
+
 .post div{
     display: flex;
 }
 .eliminar{
-    width: 13%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 10%;
     height: 3rem;
-    border-radius: 20px;
-    padding: 0.5rem;
+    border-style: none;
+    border-radius: 1rem;
+    padding: 1rem 0.5rem;
     background-color: #F539B4;
-    border: 1px solid white;
-    color: rgb(255, 255, 255);
+    color: #000000;
     font-weight: 700;
     font-size: 1rem;
-    display: flex;
-    flex-direction: row;
+}
+
+.eliminar img {
+    height: 30px;
 }
 
 .eliminar a{
