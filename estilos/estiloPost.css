@@ -32,7 +32,7 @@ h2{
 }
 
 
-p{
+main p{
     text-align: left;
     font-size: 1.2rem;
     font-weight:350;
@@ -44,10 +44,9 @@ p{
 .usuario{
     font-weight: 600;
 }
-.comentario{
-    display: flex;
-    margin: 0.5rem 0rem;
-}
+
+
+
 
 hr {
     margin-top: 0.5rem;
@@ -56,19 +55,9 @@ hr {
     background-color: rgb(24, 24, 24);
 }
 
-.post button{
-    width: 13%;
-    height: 3rem;
-    border-radius: 20px;
-    padding: 0.5rem;
-    background-color: #F539B4;
-    border: 1px solid white;
-    color: rgb(255, 255, 255);
-    font-weight: 700;
-    font-size: 1rem;
-}
 
-button{
+
+.eliminar{
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -87,4 +76,53 @@ button img{
 }
 .contenedor-comentario{
     color: white;
+}
+
+.comentario{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    margin: 0.5rem 0rem;
+}
+
+.comentario p{
+}
+
+.comentario img{
+}
+
+.comentario button{
+    all: unset;
+    cursor: pointer;
+    display: flex;
+    justify-content: end;
+    height: 100%;
+    background-color: #262727;
+}
+.post div{
+    display: flex;
+}
+.eliminar{
+    width: 13%;
+    height: 3rem;
+    border-radius: 20px;
+    padding: 0.5rem;
+    background-color: #F539B4;
+    border: 1px solid white;
+    color: rgb(255, 255, 255);
+    font-weight: 700;
+    font-size: 1rem;
+    display: flex;
+    flex-direction: row;
+}
+
+.eliminar a{
+    color: white;
+    text-decoration: none;
+}
+
+
+.eliminar:hover {
+    transform: scale(1.1);
 }
