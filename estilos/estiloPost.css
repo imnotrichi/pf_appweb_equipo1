@@ -117,3 +117,141 @@ hr {
 .eliminar:hover {
     transform: scale(1.1);
 }
+
+.comentario{
+    background-color: #5D5D5D;
+    border-radius: 1rem;
+    padding: 1rem 0.3rem;
+}
+
+.post .imagen-post {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 1.2rem;
+}
+
+.comentario{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5em;
+}
+.contenido-comentario{
+    display: flex;
+    flex-direction: row;
+}
+.comentar{
+    display: flex;
+    flex-direction: column;
+}
+
+.comentar> textarea{
+    height: 4rem;
+    border-radius: 1.2rem;
+    margin: 0.5rem 0rem;
+}
+
+.comentar button{
+    width:8rem;
+    height: 2rem;
+    border-radius: 1.2rem;
+}
+
+.respuestas {
+    margin-left: 2rem;
+    margin-top: 1rem;
+    border-left: 2px solid #F539B4;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    width: 100%;
+
+}
+
+
+.comentario.respuesta {
+    font-size: 0.9em; 
+    background-color: #4d4d4d;
+    margin-bottom: 0.8rem;
+}
+
+
+.comentario.respuesta p {
+    margin: 0.5rem 0;
+}
+
+.comentario .responder-btn {
+    font-size: 0.8em;
+    color: #F539B4;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    display: inline-block;
+}
+
+.responder-form {
+    margin-top: 0.5rem;
+    margin-left: 2rem;
+}
+
+
+.responder-form button {
+    background-color: #F539B4;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+}
+
+.comentario {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border-radius: 1rem;
+}
+
+.responder-btn {
+    background-color: transparent;
+    color: #F539B4;
+    border: none;
+
+    cursor: pointer;
+    font-size: 0.9em;
+    margin-top: 0.5rem;
+}
+
+.responder-btn:hover {
+    text-decoration: underline;
+}
+
+.comentar textarea {
+    width: 100%;
+    min-height: 80px;
+    border-radius: 1.2rem;
+    margin: 0.5rem 0;
+    padding: 1rem;
+    background-color: #5D5D5D;
+    font-size: 1.2rem;
+    color: white;
+    border: none;
+    resize: none;
+}
+
+.comentar textarea::placeholder{
+    color: #C4C4C4;
+    font-size: 1.2rem;
+}
+.boton-comentar {
+    width: 8rem;
+    height: 2rem;
+    border-radius: 1.2rem;
+    background-color: #F539B4;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.boton-comentar:hover {
+    opacity: 0.9;
+}
+
