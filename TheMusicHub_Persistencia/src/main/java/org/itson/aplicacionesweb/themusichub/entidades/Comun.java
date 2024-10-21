@@ -15,24 +15,23 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
- * 
+ *
  * @author Abel
  */
 @Entity
-@Table(name="comunes")
+@Table(name = "comunes")
 public class Comun extends Post implements Serializable {
 
     @ManyToOne
-    @JoinColumn(name="id_usuario",nullable = false)
+    @JoinColumn(name = "id_usuario", nullable = false)
     private Usuario usuario;
-        
+
     public Comun() {
     }
-    
+
     @Override
     public String toString() {
         return "Comun{" + '}';
     }
 
-    
 }

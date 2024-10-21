@@ -20,21 +20,19 @@ import javax.persistence.Table;
  * @author Abe
  */
 @Entity
-@Table(name="anclados")
+@Table(name = "anclados")
 public class Anclado extends Post implements Serializable {
 
-
     @ManyToOne
-    @JoinColumn(name="id_administrador", nullable = false)
+    @JoinColumn(name = "id_administrador", nullable = false)
     private Administrador administrador;
-    
+
     public Anclado() {
     }
+
     @Override
     public String toString() {
         return "Anclado{" + '}';
     }
 
-    
-    
 }
