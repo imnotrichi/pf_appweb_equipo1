@@ -11,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -22,9 +24,12 @@ import javax.persistence.Table;
 public class Anclado extends Post implements Serializable {
 
 
+    @ManyToOne
+    @JoinColumn(name="id_administrador", nullable = false)
+    private Administrador administrador;
+    
     public Anclado() {
     }
-
     @Override
     public String toString() {
         return "Anclado{" + '}';

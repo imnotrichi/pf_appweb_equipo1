@@ -5,7 +5,10 @@ package org.itson.aplicacionesweb.themusichub.entidades;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -14,6 +17,11 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "administradores")
 public class Administrador extends Usuario implements Serializable {
+
+    
+    
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "administrador")
+    private List<Anclado> anclados;
 
     /**
      * Constructor vacío.
@@ -24,7 +32,7 @@ public class Administrador extends Usuario implements Serializable {
     public Administrador(String nombres, String apellidoPaterno, String apellidoMaterno, String correo, byte[] contrasenia, byte[] telefono, String avatar, String ciudad, Calendar fechaNacimiento, String genero) {
         super(nombres, apellidoPaterno, apellidoMaterno, correo, contrasenia, telefono, avatar, ciudad, fechaNacimiento, genero);
     }
-
+    
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

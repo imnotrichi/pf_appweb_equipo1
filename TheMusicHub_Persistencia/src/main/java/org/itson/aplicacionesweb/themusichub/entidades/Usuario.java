@@ -5,6 +5,8 @@ package org.itson.aplicacionesweb.themusichub.entidades;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
@@ -15,6 +17,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -70,6 +73,9 @@ public class Usuario implements Serializable {
     @OneToOne
     @JoinColumn(name = "id_municipio", nullable = false)
     protected Municipio municipio;
+    
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "usuario")
+    private List<Comun> comunes;
 
     /**
      * Constructor vacío.

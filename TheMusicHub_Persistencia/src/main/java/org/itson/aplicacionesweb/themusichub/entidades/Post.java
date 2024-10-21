@@ -10,6 +10,8 @@ import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,25 +33,26 @@ public class Post implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="idPost")
-    private Long id;
+    @Column(name="id_post")
+    protected Long id;
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "fechaHoraCreacion", nullable = false)
-    private Calendar fechaHoraCreacion;
+    @Column(name = "fecha_hora_creacion", nullable = false)
+    protected Calendar fechaHoraCreacion;
     
     @Column(name="titulo",nullable = false)
-    private String titulo;
+    protected String titulo;
     
     @Column(name="contenido", nullable = false)
-    private String contenido;
+    protected String contenido;
     
-    @Column(name="categoria",nullable = false)
-    private CategoriaPost categoria;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "categoria", nullable = false)
+    protected CategoriaPost categoria;
     
     @Temporal(TemporalType.DATE)
-    @Column(name = "fechaHoraEdicion", nullable = false)
-    private Calendar fechaHoraEdicion;
+    @Column(name = "fecha_hora_edicion", nullable = false)
+    protected Calendar fechaHoraEdicion;
 
     public Post(Long id, Calendar fechaHoraCreacion, String titulo, String contenido, Calendar fechaHoraEdicion) {
         this.id = id;
@@ -62,6 +65,15 @@ public class Post implements Serializable {
     public Post() {
     }
 
+    public CategoriaPost getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(CategoriaPost categoria) {
+        this.categoria = categoria;
+    }
+
+    
     public Long getId() {
         return id;
     }

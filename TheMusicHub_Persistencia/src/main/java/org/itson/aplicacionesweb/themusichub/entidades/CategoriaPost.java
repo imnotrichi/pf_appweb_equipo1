@@ -9,5 +9,5 @@ package org.itson.aplicacionesweb.themusichub.entidades;
  * @author Abe
  */
 public enum CategoriaPost {
-    PLAYLIST, REVIEWS,NOTICIAS,GENERAL;
+    PLAYLIST, REVIEWS,NOTICIAS,GENERAL
 }
