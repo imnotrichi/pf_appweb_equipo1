@@ -13,7 +13,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -28,7 +30,7 @@ import javax.persistence.TemporalType;
 public class Usuario implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_usuario")
     protected Long id;
 
@@ -64,6 +66,10 @@ public class Usuario implements Serializable {
 
     @Column(name = "genero", length = 20)
     protected String genero;
+
+    @OneToOne
+    @JoinColumn(name = "id_municipio", nullable = false)
+    protected Municipio municipio;
 
     /**
      * Constructor vacío.
@@ -206,6 +212,7 @@ public class Usuario implements Serializable {
         sb.append(", ciudad=").append(ciudad);
         sb.append(", fechaNacimiento=").append(fechaNacimiento);
         sb.append(", genero=").append(genero);
+        sb.append(", municipio=").append(municipio);
         sb.append('}');
         return sb.toString();
     }

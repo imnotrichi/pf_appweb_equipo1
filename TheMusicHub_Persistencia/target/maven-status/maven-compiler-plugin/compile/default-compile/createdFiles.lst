@@ -2,13 +2,17 @@ org\itson\aplicacionesweb\themusichub\entidades\Normal_.class
 org\itson\aplicacionesweb\themusichub\entidades\Comun.class
 org\itson\aplicacionesweb\themusichub\entidades\Comun_.class
 org\itson\aplicacionesweb\themusichub\entidades\Post_.class
+org\itson\aplicacionesweb\themusichub\entidades\Municipio.class
+org\itson\aplicacionesweb\themusichub\entidades\Municipio_.class
 org\itson\aplicacionesweb\themusichub\entidades\Anclado.class
 org\itson\aplicacionesweb\themusichub\entidades\CategoriaPost.class
 org\itson\aplicacionesweb\themusichub\entidades\Usuario.class
 org\itson\aplicacionesweb\themusichub\entidades\Normal.class
 org\itson\aplicacionesweb\themusichub\entidades\Post.class
 org\itson\aplicacionesweb\themusichub\entidades\Administrador_.class
+org\itson\aplicacionesweb\themusichub\entidades\Estado_.class
 org\itson\aplicacionesweb\themusichub\pruebas\Prueba.class
 org\itson\aplicacionesweb\themusichub\entidades\Anclado_.class
 org\itson\aplicacionesweb\themusichub\entidades\Usuario_.class
+org\itson\aplicacionesweb\themusichub\entidades\Estado.class
 org\itson\aplicacionesweb\themusichub\entidades\Administrador.class
