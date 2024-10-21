@@ -5,7 +5,7 @@
 package org.itson.aplicacionesweb.themusichub.entidades;
 
 import java.io.Serializable;
-import java.util.GregorianCalendar;
+import java.util.Calendar;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
@@ -36,7 +36,7 @@ public class Post implements Serializable {
 
     @Temporal(TemporalType.DATE)
     @Column(name = "fechaHoraCreacion", nullable = false)
-    private GregorianCalendar fechaHoraCreacion;
+    private Calendar fechaHoraCreacion;
     
     @Column(name="titulo",nullable = false)
     private String titulo;
@@ -44,11 +44,14 @@ public class Post implements Serializable {
     @Column(name="contenido", nullable = false)
     private String contenido;
     
+    @Column(name="categoria",nullable = false)
+    private CategoriaPost categoria;
+    
     @Temporal(TemporalType.DATE)
     @Column(name = "fechaHoraEdicion", nullable = false)
-    private GregorianCalendar fechaHoraEdicion;
+    private Calendar fechaHoraEdicion;
 
-    public Post(Long id, GregorianCalendar fechaHoraCreacion, String titulo, String contenido, GregorianCalendar fechaHoraEdicion) {
+    public Post(Long id, Calendar fechaHoraCreacion, String titulo, String contenido, Calendar fechaHoraEdicion) {
         this.id = id;
         this.fechaHoraCreacion = fechaHoraCreacion;
         this.titulo = titulo;
@@ -67,11 +70,11 @@ public class Post implements Serializable {
         this.id = id;
     }
 
-    public GregorianCalendar getFechaHoraCreacion() {
+    public Calendar getFechaHoraCreacion() {
         return fechaHoraCreacion;
     }
 
-    public void setFechaHoraCreacion(GregorianCalendar fechaHoraCreacion) {
+    public void setFechaHoraCreacion(Calendar fechaHoraCreacion) {
         this.fechaHoraCreacion = fechaHoraCreacion;
     }
 
@@ -91,11 +94,11 @@ public class Post implements Serializable {
         this.contenido = contenido;
     }
 
-    public GregorianCalendar getFechaHoraEdicion() {
+    public Calendar getFechaHoraEdicion() {
         return fechaHoraEdicion;
     }
 
-    public void setFechaHoraEdicion(GregorianCalendar fechaHoraEdicion) {
+    public void setFechaHoraEdicion(Calendar fechaHoraEdicion) {
         this.fechaHoraEdicion = fechaHoraEdicion;
     }
 
