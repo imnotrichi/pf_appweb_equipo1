@@ -5,7 +5,10 @@ package org.itson.aplicacionesweb.themusichub.entidades;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -20,9 +23,20 @@ public class Normal extends Usuario implements Serializable {
      */
     public Normal() {
     }
+    
+    @OneToMany(mappedBy = "comentario", cascade = CascadeType.PERSIST)
+    private List<Comentario> comentarios;
 
     public Normal(String nombres, String apellidoPaterno, String apellidoMaterno, String correo, byte[] contrasenia, byte[] telefono, String avatar, String ciudad, Calendar fechaNacimiento, String genero) {
         super(nombres, apellidoPaterno, apellidoMaterno, correo, contrasenia, telefono, avatar, ciudad, fechaNacimiento, genero);
+    }
+
+    public List<Comentario> getComentarios() {
+        return comentarios;
+    }
+
+    public void setComentarios(List<Comentario> comentarios) {
+        this.comentarios = comentarios;
     }
 
     @Override

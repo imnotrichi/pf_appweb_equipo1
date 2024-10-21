@@ -3,13 +3,7 @@
   <persistence-unit name="TheMusicHubPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>org.itson.aplicacionesweb.themusichub.entidades.Usuario</class>
-    <class>org.itson.aplicacionesweb.themusichub.entidades.Post</class>
-    <class>org.itson.aplicacionesweb.themusichub.entidades.Anclado</class>
-    <class>org.itson.aplicacionesweb.themusichub.entidades.Comun</class>
-    <class>org.itson.aplicacionesweb.themusichub.entidades.Administrador</class>
-    <class>org.itson.aplicacionesweb.themusichub.entidades.Normal</class>
-    <class>org.itson.aplicacionesweb.themusichub.entidades.Municipio</class>
-    <class>org.itson.aplicacionesweb.themusichub.entidades.Estado</class>
+    <class>org.itson.aplicacionesweb.themusichub.entidades.Comentario</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/themusichub_database?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
