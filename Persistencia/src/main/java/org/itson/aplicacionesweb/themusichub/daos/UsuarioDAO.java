@@ -1,5 +1,6 @@
 package org.itson.aplicacionesweb.themusichub.daos;
 
+import java.nio.charset.StandardCharsets;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
@@ -92,15 +93,19 @@ public class UsuarioDAO implements IUsuarioDAO {
         EntityManager em = this.conexion.crearConexion();
 
         String jpqlQuery = """
-                           SELECT * FROM usuarios u 
-                           WHERE u.correo = :correo
-                           AND u.contrasena = :contrasena;
+                           SELECT u FROM Usuario u 
+                           WHERE u.correo = :correo 
+                           AND u.contrasenia = :contrasenia
                            """;
         try {
-            TypedQuery<Usuario> query = em.createQuery(jpqlQuery, Usuario.class);
-            query.setParameter("correo", correo);
-            query.setParameter("contrasena", contrasena);
-            return query.getResultStream().findFirst().orElse(null);
+            byte[] contrasenaBytes = contrasena.getBytes(StandardCharsets.UTF_8);
+            Usuario usuario = em.createQuery(jpqlQuery, Usuario.class)
+                            .setParameter("correo", correo)
+                            .setParameter("contrasenia", contrasenaBytes) 
+                            .getSingleResult();
+
+        return usuario;
+         
 
         } catch (PersistenceException e) {
             logger.log(Level.SEVERE, "No se pudo inicir sesion", e);
