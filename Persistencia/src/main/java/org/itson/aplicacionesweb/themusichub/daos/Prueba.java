@@ -46,11 +46,11 @@ public class Prueba {
                 "Sanchez", 
                 "Perez", 
                 "hola@gmail.com",
-                "contraseña123".getBytes(), // Mejor usar un método de encriptación
-                "6441234567".getBytes(),    // Mejor usar un método de encriptación
+                "contraseña123".getBytes(), 
+                "6441234567".getBytes(),    
                 "avatar.jpg",
                 "Obregon",
-                new GregorianCalendar(1990, Calendar.JANUARY, 1), // Fecha específica
+                new GregorianCalendar(1990, Calendar.JANUARY, 1), 
                 "Mujer"
             );
             
@@ -67,8 +67,7 @@ public class Prueba {
             System.err.println("Error general: " + e.getMessage());
             e.printStackTrace();
         } finally {
-            // Cerrar la conexión si es necesario
-            // conexion.close();
+         
         }
         
     }
