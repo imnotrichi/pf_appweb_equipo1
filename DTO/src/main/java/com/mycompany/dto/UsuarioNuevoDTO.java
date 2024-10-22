@@ -1,13 +1,12 @@
 package com.mycompany.dto;
 
 import java.util.Calendar;
-import java.util.List;
 
 /**
  *
  * @author Equipo1
  */
-public class UsuarioDTO {
+public class UsuarioNuevoDTO {
     
     private String nombres;
     private String apellidoPaterno;
@@ -20,9 +19,8 @@ public class UsuarioDTO {
     private Calendar fechaNacimiento;
     private String genero;
     private MunicipioDTO municipio;
-    private List<ComunDTO> posts;
 
-    public UsuarioDTO(String nombres, String apellidoPaterno, String apellidoMaterno, String correo, String contrasenia, String telefono, String ciudad, Calendar fechaNacimiento, String genero, MunicipioDTO municipio) {
+    public UsuarioNuevoDTO(String nombres, String apellidoPaterno, String apellidoMaterno, String correo, String contrasenia, String telefono, String ciudad, Calendar fechaNacimiento, String genero, MunicipioDTO municipio) {
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
@@ -81,14 +79,6 @@ public class UsuarioDTO {
 
     public MunicipioDTO getMunicipio() {
         return municipio;
-    }
-
-    public List<ComunDTO> getPosts() {
-        return posts;
-    }
-
-    public void setPosts(List<ComunDTO> posts) {
-        this.posts = posts;
     }
     
 }

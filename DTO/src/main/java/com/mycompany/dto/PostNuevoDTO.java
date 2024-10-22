@@ -6,15 +6,15 @@ import java.util.Calendar;
  *
  * @author Equipo1
  */
-public class PostDTO {
+public class PostNuevoDTO {
     
     private Calendar fechaHoraCreacion;
     private String titulo;
     private String contenido;
     private String categoria;
-    private Calendar fechaHoraEdicion;
+    private UsuarioNuevoDTO usuario;
 
-    public PostDTO(Calendar fechaHoraCreacion, String titulo, String contenido, String categoria) {
+    public PostNuevoDTO(Calendar fechaHoraCreacion, String titulo, String contenido, String categoria) {
         this.fechaHoraCreacion = fechaHoraCreacion;
         this.titulo = titulo;
         this.contenido = contenido;
@@ -35,14 +35,6 @@ public class PostDTO {
 
     public String getCategoria() {
         return categoria;
-    }
-
-    public Calendar getFechaHoraEdicion() {
-        return fechaHoraEdicion;
-    }
-
-    public void setFechaHoraEdicion(Calendar fechaHoraEdicion) {
-        this.fechaHoraEdicion = fechaHoraEdicion;
     }
     
 }

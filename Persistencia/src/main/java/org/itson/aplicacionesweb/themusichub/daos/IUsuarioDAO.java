@@ -4,7 +4,7 @@
  */
 package org.itson.aplicacionesweb.themusichub.daos;
 
-import com.mycompany.dto.UsuarioDTO;
+import com.mycompany.dto.UsuarioNuevoDTO;
 import org.itson.aplicacionesweb.themusichub.modelo.Usuario;
 import org.itson.aplicacionesweb.themusichub.persistenciaException.PersistenciaException;
 

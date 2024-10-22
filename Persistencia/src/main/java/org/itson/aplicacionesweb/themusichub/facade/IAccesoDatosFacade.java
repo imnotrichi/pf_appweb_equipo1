@@ -4,8 +4,9 @@
 package org.itson.aplicacionesweb.themusichub.facade;
 
 import com.mycompany.dto.ComentarioDTO;
-import com.mycompany.dto.PostDTO;
-import com.mycompany.dto.UsuarioDTO;
+import com.mycompany.dto.NormalDTO;
+import com.mycompany.dto.PostNuevoDTO;
+import com.mycompany.dto.UsuarioNuevoDTO;
 import org.itson.aplicacionesweb.themusichub.persistenciaException.FacadeException;
 
 /**
@@ -13,16 +14,16 @@ import org.itson.aplicacionesweb.themusichub.persistenciaException.FacadeExcepti
  */
 public interface IAccesoDatosFacade {
     
-    public void registrarUsuario(UsuarioDTO usuario);
+    public void registrarUsuario(UsuarioNuevoDTO usuario);
     
-    public void publicarPost(PostDTO post) throws FacadeException;
+    public void publicarPost(PostNuevoDTO post, UsuarioNuevoDTO usuario) throws FacadeException;
     
-    public void eliminarPost(PostDTO post);
+    public void eliminarPost(PostNuevoDTO post);
     
-    public void comentarPost(ComentarioDTO comentario);
+    public void comentarPost(ComentarioDTO comentario, NormalDTO usuario, PostNuevoDTO postComentado);
     
     public void eliminarComentario(ComentarioDTO comentario);
     
-    public void responderComentario(ComentarioDTO respuesta);
+    public void responderComentario(ComentarioDTO respuesta, NormalDTO usuario, ComentarioDTO comentarioRespondido);
     
 }
