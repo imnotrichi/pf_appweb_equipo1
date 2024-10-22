@@ -98,7 +98,7 @@ public class UsuarioDAO implements IUsuarioDAO {
                            AND u.contrasenia = :contrasenia
                            """;
         try {
-            byte[] contrasenaBytes = contrasena.getBytes(StandardCharsets.UTF_8);
+            byte[] contrasenaBytes = contrasena.getBytes();
             Usuario usuario = em.createQuery(jpqlQuery, Usuario.class)
                             .setParameter("correo", correo)
                             .setParameter("contrasenia", contrasenaBytes) 

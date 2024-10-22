@@ -25,46 +25,47 @@ public class Prueba {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws PersistenciaException {
-         try {
+        try {
             IConexion conexion = new Conexion();
-            
+
             IUsuarioDAO usuarioDAO = new UsuarioDAO(conexion);
-            
+
             // Crear Estado
             Estado estado = new Estado("Sonora");
-            
+
             // Crear Municipio
             Municipio municipio = new Municipio("Obregon");
             municipio.setEstado(estado);
-            
-            
+
             // Crear Usuario
             Usuario usuario = new Normal(
-                "Juanito",
-                "Sanchez", 
-                "Perez", 
-                "hola@gmail.com",
-                "contraseña123".getBytes(), 
-                "6441234567".getBytes(),    
-                "avatar.jpg",
-                "Obregon",
-                new GregorianCalendar(1990, Calendar.JANUARY, 1), 
-                "Mujer"
+                    "Juanito",
+                    "Sanchez",
+                    "Perez",
+                    "hola@gmail.com",
+                    "contraseña123".getBytes(),
+                    "6441234567".getBytes(),
+                    "avatar.jpg",
+                    "Obregon",
+                    new GregorianCalendar(1990, Calendar.JANUARY, 1),
+                    "Mujer"
             );
-            
+
             usuario.setMunicipio(municipio);
-        
-            
+
             usuarioDAO.registrarUsuario(usuario);
-            
+
             Encriptador ec = new Encriptador();
-            
+
             String contrasena = ec.encriptar("contraseña123");
-            if(usuarioDAO.iniciarSesion(contrasena, "hola@gmail.com")!=null){
-                System.out.println("Se inicio sesión");
+
+            try {
+                Usuario iniciarSesion = usuarioDAO.iniciarSesion(contrasena, "hola@gmail.com");
+
+            } catch (Exception e) {
+                System.out.println("Ese usuario no existe");
             }
-            
-            
+
         } catch (PersistenciaException e) {
             System.err.println("Error al persistir los datos: " + e.getMessage());
             e.printStackTrace();
@@ -72,11 +73,9 @@ public class Prueba {
             System.err.println("Error general: " + e.getMessage());
             e.printStackTrace();
         } finally {
-         
+
         }
-         
-        
-        
+
     }
-    
+
 }
