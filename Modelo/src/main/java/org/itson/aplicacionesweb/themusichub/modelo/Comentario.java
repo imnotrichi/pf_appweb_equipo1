@@ -52,6 +52,9 @@ public class Comentario implements Serializable {
     @JoinColumn(name = "id_normal", nullable = false)
     private Normal normal;
 
+    public Comentario(){
+        
+    }
     public Comentario(Calendar fechaHora, String contenido, Comun comun, Normal normal) {
         this.fechaHora = fechaHora;
         this.contenido = contenido;

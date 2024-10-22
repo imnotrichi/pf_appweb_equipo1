@@ -4,12 +4,21 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>org.itson.aplicacionesweb.themusichub.entidades.Usuario</class>
     <class>org.itson.aplicacionesweb.themusichub.entidades.Comentario</class>
+    <class>org.itson.aplicacionesweb.themusichub.modelo.Administrador</class>
+    <class>org.itson.aplicacionesweb.themusichub.modelo.Anclado</class>
+    <class>org.itson.aplicacionesweb.themusichub.modelo.Comentario</class>
+    <class>org.itson.aplicacionesweb.themusichub.modelo.Comun</class>
+    <class>org.itson.aplicacionesweb.themusichub.modelo.Estado</class>
+    <class>org.itson.aplicacionesweb.themusichub.modelo.Municipio</class>
+    <class>org.itson.aplicacionesweb.themusichub.modelo.Normal</class>
+    <class>org.itson.aplicacionesweb.themusichub.modelo.Post</class>
+    <class>org.itson.aplicacionesweb.themusichub.modelo.Usuario</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/themusichub_database?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
-      <property name="javax.persistence.jdbc.password" value="password"/>
-      <property name="javax.persistence.schema-generation.database.action" value="create"/>
+      <property name="javax.persistence.jdbc.password" value="Abel123"/>
+      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
     </properties>
   </persistence-unit>
 </persistence>

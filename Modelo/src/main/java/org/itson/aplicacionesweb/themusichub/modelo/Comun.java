@@ -25,7 +25,7 @@ import javax.persistence.Table;
 @Table(name = "comunes")
 public class Comun extends Post implements Serializable {
 
-    @OneToMany(mappedBy = "comentario", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "comun", cascade = CascadeType.PERSIST)
     private List<Comentario> comentarios;
     
     @ManyToOne
