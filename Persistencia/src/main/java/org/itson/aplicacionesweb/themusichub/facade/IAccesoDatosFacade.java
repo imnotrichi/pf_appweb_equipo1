@@ -8,6 +8,6 @@ package org.itson.aplicacionesweb.themusichub.facade;
  */
 public interface IAccesoDatosFacade {
     
-    public 
+    
     
 }
