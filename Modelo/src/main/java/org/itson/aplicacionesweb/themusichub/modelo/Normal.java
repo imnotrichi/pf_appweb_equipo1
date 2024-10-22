@@ -18,14 +18,14 @@ import javax.persistence.Table;
 @Table(name = "normales")
 public class Normal extends Usuario implements Serializable {
 
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.PERSIST)
+    private List<Comentario> comentarios;
+
     /**
      * Constructor vacío.
      */
     public Normal() {
     }
-    
-    @OneToMany(mappedBy = "comentario", cascade = CascadeType.PERSIST)
-    private List<Comentario> comentarios;
 
     public Normal(String nombres, String apellidoPaterno, String apellidoMaterno, String correo, byte[] contrasenia, byte[] telefono, String avatar, String ciudad, Calendar fechaNacimiento, String genero) {
         super(nombres, apellidoPaterno, apellidoMaterno, correo, contrasenia, telefono, avatar, ciudad, fechaNacimiento, genero);
@@ -56,5 +56,5 @@ public class Normal extends Usuario implements Serializable {
         sb.append('}');
         return sb.toString();
     }
-    
+
 }

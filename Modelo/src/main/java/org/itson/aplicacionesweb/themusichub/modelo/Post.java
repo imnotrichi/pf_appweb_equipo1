@@ -1,6 +1,5 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * Post.java
  */
 package org.itson.aplicacionesweb.themusichub.modelo;
 
@@ -22,37 +21,39 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- *
  * @author Equipo 1
  */
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name ="tipoPost")
-@Table(name="posts")
+@DiscriminatorColumn(name = "tipoPost")
+@Table(name = "posts")
 public class Post implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id_post")
+    @Column(name = "id_post")
     protected Long id;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "fecha_hora_creacion", nullable = false)
     protected Calendar fechaHoraCreacion;
-    
-    @Column(name="titulo",nullable = false)
+
+    @Column(name = "titulo", nullable = false)
     protected String titulo;
-    
-    @Column(name="contenido", nullable = false)
+
+    @Column(name = "contenido", nullable = false)
     protected String contenido;
-    
+
     @Enumerated(EnumType.STRING)
     @Column(name = "categoria", nullable = false)
     protected CategoriaPost categoria;
-    
+
     @Temporal(TemporalType.DATE)
     @Column(name = "fecha_hora_edicion", nullable = false)
     protected Calendar fechaHoraEdicion;
+
+    public Post() {
+    }
 
     public Post(Long id, Calendar fechaHoraCreacion, String titulo, String contenido, Calendar fechaHoraEdicion) {
         this.id = id;
@@ -60,9 +61,6 @@ public class Post implements Serializable {
         this.titulo = titulo;
         this.contenido = contenido;
         this.fechaHoraEdicion = fechaHoraEdicion;
-    }
-
-    public Post() {
     }
 
     public CategoriaPost getCategoria() {
@@ -73,7 +71,6 @@ public class Post implements Serializable {
         this.categoria = categoria;
     }
 
-    
     public Long getId() {
         return id;
     }
@@ -151,7 +148,5 @@ public class Post implements Serializable {
         }
         return Objects.equals(this.fechaHoraEdicion, other.fechaHoraEdicion);
     }
-    
-    
-    
+
 }

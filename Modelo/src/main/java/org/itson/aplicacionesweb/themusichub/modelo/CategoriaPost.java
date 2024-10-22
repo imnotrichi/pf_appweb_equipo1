@@ -1,13 +1,13 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Enum.java to edit this template
+ * CategoríaPost.java
  */
 package org.itson.aplicacionesweb.themusichub.modelo;
 
 /**
- *
- * @author Abe
+ * @author Equipo1
  */
 public enum CategoriaPost {
-    PLAYLIST, REVIEWS,NOTICIAS,GENERAL
+    
+    PLAYLIST, REVIEWS, NOTICIAS, GENERAL
+
 }

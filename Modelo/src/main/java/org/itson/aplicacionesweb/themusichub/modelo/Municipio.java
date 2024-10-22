@@ -4,6 +4,7 @@
 package org.itson.aplicacionesweb.themusichub.modelo;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import static org.itson.aplicacionesweb.themusichub.modelo.Comun_.usuario;
 
 /**
  * @author Equipo1
@@ -31,7 +33,7 @@ public class Municipio implements Serializable {
     private String nombre;
     
     @OneToOne(mappedBy = "municipio", cascade = CascadeType.PERSIST)
-    private Usuario usuario;
+    private List<Usuario> usuarios;
     
     @ManyToOne
     @JoinColumn(name = "id_estado", nullable = false)

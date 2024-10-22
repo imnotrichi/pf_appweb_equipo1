@@ -1,3 +1,6 @@
+/**
+ * Comentario.java
+ */
 package org.itson.aplicacionesweb.themusichub.modelo;
 
 import java.io.Serializable;
@@ -18,7 +21,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- *
  * @author Equipo1
  */
 @Entity
@@ -37,29 +39,29 @@ public class Comentario implements Serializable {
     @Column(name = "contenido", nullable = false, length = 200)
     private String contenido;
     
-    @OneToMany(mappedBy = "comentario", cascade = CascadeType.PERSIST)
-    private List<Comentario> comentarios;
+    @OneToMany(mappedBy = "respuesta", cascade = CascadeType.PERSIST)
+    private List<Comentario> respuestas;
     
     @ManyToOne
-    @JoinColumn(name = "id_comentario_respuesta")
-    private Comentario idComentarioRespuesta;
+    @JoinColumn(name = "id_respuesta")
+    private Comentario respuesta;
     
     @ManyToOne
-    @JoinColumn(name = "id_comun", nullable = false)
-    private Comun comun;
+    @JoinColumn(name = "id_post", nullable = false)
+    private Comun post;
     
     @ManyToOne
-    @JoinColumn(name = "id_normal", nullable = false)
-    private Normal normal;
+    @JoinColumn(name = "id_usuario", nullable = false)
+    private Normal usuario;
 
-    public Comentario(){
-        
+    public Comentario(){  
     }
+    
     public Comentario(Calendar fechaHora, String contenido, Comun comun, Normal normal) {
         this.fechaHora = fechaHora;
         this.contenido = contenido;
-        this.comun = comun;
-        this.normal = normal;
+        this.post = comun;
+        this.usuario = normal;
     }
 
     public Long getId() {
@@ -86,36 +88,36 @@ public class Comentario implements Serializable {
         this.contenido = contenido;
     }
 
-    public List<Comentario> getComentarios() {
-        return comentarios;
+    public List<Comentario> getRespuestas() {
+        return respuestas;
     }
 
-    public void setComentarios(List<Comentario> comentarios) {
-        this.comentarios = comentarios;
+    public void setRespuestas(List<Comentario> respuestas) {
+        this.respuestas = respuestas;
     }
 
-    public Comentario getIdComentarioRespuesta() {
-        return idComentarioRespuesta;
+    public Comentario getRespuesta() {
+        return respuesta;
     }
 
-    public void setIdComentarioRespuesta(Comentario idComentarioRespuesta) {
-        this.idComentarioRespuesta = idComentarioRespuesta;
+    public void setRespuesta(Comentario Respuesta) {
+        this.respuesta = Respuesta;
     }
 
-    public Comun getComun() {
-        return comun;
+    public Comun getPost() {
+        return post;
     }
 
-    public void setComun(Comun comun) {
-        this.comun = comun;
+    public void setPost(Comun post) {
+        this.post = post;
     }
 
-    public Normal getNormal() {
-        return normal;
+    public Normal getUsuario() {
+        return usuario;
     }
 
-    public void setNormal(Normal normal) {
-        this.normal = normal;
+    public void setUsuario(Normal usuario) {
+        this.usuario = usuario;
     }
 
     @Override
@@ -124,10 +126,10 @@ public class Comentario implements Serializable {
         hash = 47 * hash + Objects.hashCode(this.id);
         hash = 47 * hash + Objects.hashCode(this.fechaHora);
         hash = 47 * hash + Objects.hashCode(this.contenido);
-        hash = 47 * hash + Objects.hashCode(this.comentarios);
-        hash = 47 * hash + Objects.hashCode(this.idComentarioRespuesta);
-        hash = 47 * hash + Objects.hashCode(this.comun);
-        hash = 47 * hash + Objects.hashCode(this.normal);
+        hash = 47 * hash + Objects.hashCode(this.respuestas);
+        hash = 47 * hash + Objects.hashCode(this.respuesta);
+        hash = 47 * hash + Objects.hashCode(this.post);
+        hash = 47 * hash + Objects.hashCode(this.usuario);
         return hash;
     }
 
@@ -152,21 +154,30 @@ public class Comentario implements Serializable {
         if (!Objects.equals(this.fechaHora, other.fechaHora)) {
             return false;
         }
-        if (!Objects.equals(this.comentarios, other.comentarios)) {
+        if (!Objects.equals(this.respuestas, other.respuestas)) {
             return false;
         }
-        if (!Objects.equals(this.idComentarioRespuesta, other.idComentarioRespuesta)) {
+        if (!Objects.equals(this.respuesta, other.respuesta)) {
             return false;
         }
-        if (!Objects.equals(this.comun, other.comun)) {
+        if (!Objects.equals(this.post, other.post)) {
             return false;
         }
-        return Objects.equals(this.normal, other.normal);
+        return Objects.equals(this.usuario, other.usuario);
     }
 
     @Override
     public String toString() {
-        return "Comentario{" + "id=" + id + ", fechaHora=" + fechaHora + ", contenido=" + contenido + ", comentarios=" + comentarios + ", idComentarioRespuesta=" + idComentarioRespuesta + ", comun=" + comun + ", normal=" + normal + '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("Comentario{");
+        sb.append("fechaHora=").append(fechaHora);
+        sb.append(", contenido=").append(contenido);
+        sb.append(", comentarios=").append(respuestas);
+        sb.append(", respuesta=").append(respuesta);
+        sb.append(", post=").append(post);
+        sb.append(", usuario=").append(usuario);
+        sb.append('}');
+        return sb.toString();
     }
     
 }
