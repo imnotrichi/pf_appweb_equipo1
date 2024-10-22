@@ -6,11 +6,9 @@ package org.itson.aplicacionesweb.themusichub.daos;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.LinkedList;
-import java.util.List;
+import org.itson.aplicacionesweb.themusichub.auxiliares.Encriptador;
 import org.itson.aplicacionesweb.themusichub.conexion.Conexion;
 import org.itson.aplicacionesweb.themusichub.conexion.IConexion;
-import static org.itson.aplicacionesweb.themusichub.modelo.Comun_.usuario;
 import org.itson.aplicacionesweb.themusichub.modelo.Estado;
 import org.itson.aplicacionesweb.themusichub.modelo.Municipio;
 import org.itson.aplicacionesweb.themusichub.modelo.Normal;
@@ -59,6 +57,13 @@ public class Prueba {
             
             usuarioDAO.registrarUsuario(usuario);
             
+            Encriptador ec = new Encriptador();
+            
+            String contrasena = ec.encriptar("contraseña123");
+            if(usuarioDAO.iniciarSesion(contrasena, "hola@gmail.com")!=null){
+                System.out.println("Se inicio sesión");
+            }
+            
             
         } catch (PersistenciaException e) {
             System.err.println("Error al persistir los datos: " + e.getMessage());
@@ -69,6 +74,8 @@ public class Prueba {
         } finally {
          
         }
+         
+        
         
     }
     

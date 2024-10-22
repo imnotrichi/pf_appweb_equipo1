@@ -5,6 +5,7 @@ package org.itson.aplicacionesweb.themusichub.modelo;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,10 +31,10 @@ public class Municipio implements Serializable {
 
     @Column(name = "nombre", nullable = false, length = 100)
     private String nombre;
-    
+
     @OneToMany(mappedBy = "municipio", cascade = CascadeType.PERSIST)
     private List<Usuario> usuarios;
-    
+
     @ManyToOne
     @JoinColumn(name = "id_estado", nullable = false)
     private Estado estado;
@@ -79,35 +80,39 @@ public class Municipio implements Serializable {
     public void setEstado(Estado estado) {
         this.estado = estado;
     }
-    
-    
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        int hash = 3;
+        hash = 41 * hash + Objects.hashCode(this.nombre);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Municipio)) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
             return false;
         }
-        Municipio other = (Municipio) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if (getClass() != obj.getClass()) {
             return false;
         }
-        return true;
+        final Municipio other = (Municipio) obj;
+        return this.nombre.equalsIgnoreCase(other.nombre);
     }
 
     @Override
     public String toString() {
-    return "Municipio{" +
-            "nombre='" + nombre + '\'' +
-            ", estado=" + (estado != null ? estado.getNombre() : "N/A") +
-            '}';
-}
+        StringBuilder sb = new StringBuilder();
+        sb.append("Municipio{");
+        sb.append("id=").append(id);
+        sb.append(", nombre=").append(nombre);
+        sb.append(", usuarios=").append(usuarios);
+        sb.append(", estado=").append(estado);
+        sb.append('}');
+        return sb.toString();
+    }
 
 }

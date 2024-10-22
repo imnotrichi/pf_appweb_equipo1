@@ -49,18 +49,17 @@ public class Post implements Serializable {
     protected CategoriaPost categoria;
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "fecha_hora_edicion", nullable = false)
+    @Column(name = "fecha_hora_edicion")
     protected Calendar fechaHoraEdicion;
 
     public Post() {
     }
 
-    public Post(Long id, Calendar fechaHoraCreacion, String titulo, String contenido, Calendar fechaHoraEdicion) {
-        this.id = id;
+    public Post(Calendar fechaHoraCreacion, String titulo, String contenido, CategoriaPost categoria) {
         this.fechaHoraCreacion = fechaHoraCreacion;
         this.titulo = titulo;
         this.contenido = contenido;
-        this.fechaHoraEdicion = fechaHoraEdicion;
+        this.categoria = categoria;
     }
 
     public CategoriaPost getCategoria() {
