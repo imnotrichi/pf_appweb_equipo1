@@ -26,4 +26,5 @@ public interface IAccesoDatosFacade {
     
     public void responderComentario(ComentarioDTO respuesta, NormalDTO usuario, ComentarioDTO comentarioRespondido);
     
+    public UsuarioDTO obtenerUsuario(UsuarioDTO usuarioBuscado);
 }

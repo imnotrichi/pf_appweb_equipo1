@@ -6,12 +6,11 @@ package org.itson.aplicacionesweb.themusichub.modelo;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -32,9 +31,8 @@ import javax.persistence.TemporalType;
 public class Usuario implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_usuario")
-    protected Long id;
+    @Column(name = "correo", nullable = false, length = 200)
+    protected String correo;
 
     @Column(name = "nombres", nullable = false, length = 50)
     protected String nombres;
@@ -44,9 +42,6 @@ public class Usuario implements Serializable {
 
     @Column(name = "apellidoMaterno", length = 50)
     protected String apellidoMaterno;
-
-    @Column(name = "correo", nullable = false, length = 200)
-    protected String correo;
 
     @Column(name = "contrasenia", nullable = false, length = 128)
     @Lob
@@ -91,14 +86,6 @@ public class Usuario implements Serializable {
         this.ciudad = ciudad;
         this.fechaNacimiento = fechaNacimiento;
         this.genero = genero;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getNombres() {
@@ -189,35 +176,36 @@ public class Usuario implements Serializable {
         this.municipio = municipio;
     }
 
-    
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        int hash = 3;
+        hash = 23 * hash + Objects.hashCode(this.correo);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Usuario)) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
             return false;
         }
-        Usuario other = (Usuario) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if (getClass() != obj.getClass()) {
             return false;
         }
-        return true;
+        final Usuario other = (Usuario) obj;
+        return this.correo.equalsIgnoreCase(other.correo);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Usuario{");
-        sb.append("nombres=").append(nombres);
+        sb.append("correo=").append(correo);
+        sb.append(", nombres=").append(nombres);
         sb.append(", apellidoPaterno=").append(apellidoPaterno);
         sb.append(", apellidoMaterno=").append(apellidoMaterno);
-        sb.append(", correo=").append(correo);
         sb.append(", contrasenia=").append(contrasenia);
         sb.append(", telefono=").append(telefono);
         sb.append(", avatar=").append(avatar);
@@ -225,6 +213,7 @@ public class Usuario implements Serializable {
         sb.append(", fechaNacimiento=").append(fechaNacimiento);
         sb.append(", genero=").append(genero);
         sb.append(", municipio=").append(municipio);
+        sb.append(", posts=").append(posts);
         sb.append('}');
         return sb.toString();
     }

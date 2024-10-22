@@ -16,7 +16,9 @@ import org.itson.aplicacionesweb.themusichub.factory.AbstractDAOFactory;
 import org.itson.aplicacionesweb.themusichub.factory.DAOFactory;
 import org.itson.aplicacionesweb.themusichub.modelo.CategoriaPost;
 import org.itson.aplicacionesweb.themusichub.modelo.Comun;
+import org.itson.aplicacionesweb.themusichub.modelo.Normal;
 import org.itson.aplicacionesweb.themusichub.modelo.Post;
+import org.itson.aplicacionesweb.themusichub.modelo.Usuario;
 import org.itson.aplicacionesweb.themusichub.persistenciaException.FacadeException;
 import org.itson.aplicacionesweb.themusichub.persistenciaException.PersistenciaException;
 
@@ -48,31 +50,33 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
 
     @Override
     public void publicarPost(PostNuevoDTO post, UsuarioNuevoDTO usuario) throws FacadeException {
-//        CategoriaPost categoria;
-//        switch (post.getCategoria().toUpperCase()) {
-//            case "GENERAL":
-//                categoria = CategoriaPost.GENERAL;
-//                break;
-//            case "NOTICIAS":
-//                categoria = CategoriaPost.NOTICIAS;    
-//                break;
-//            case "PLAYLIST":
-//                categoria = CategoriaPost.PLAYLIST;
-//                break;
-//            case "REVIEW":
-//                categoria = CategoriaPost.REVIEWS;
-//                break;
-//            default:
-//                categoria = CategoriaPost.GENERAL;
-//        }
-//        
-////        Post postNuevo = new Comun(post.getFechaHoraCreacion(), post.getTitulo(), post.getContenido(), categoria);
-//
-//        try {
-//            postsDAO.publicarPost(postNuevo);
-//        } catch (PersistenciaException ex) {
-//            throw new FacadeException("No se pudo publicar el post.");
-//        }
+        CategoriaPost categoria;
+        switch (post.getCategoria().toUpperCase()) {
+            case "GENERAL":
+                categoria = CategoriaPost.GENERAL;
+                break;
+            case "NOTICIAS":
+                categoria = CategoriaPost.NOTICIAS;    
+                break;
+            case "PLAYLIST":
+                categoria = CategoriaPost.PLAYLIST;
+                break;
+            case "REVIEW":
+                categoria = CategoriaPost.REVIEWS;
+                break;
+            default:
+                categoria = CategoriaPost.GENERAL;
+        }
+        
+        Usuario usuarioPost = 
+        
+        Post postNuevo = new Comun(post.getFechaHoraCreacion(), post.getTitulo(), post.getContenido(), categoria);
+
+        try {
+            postsDAO.publicarPost(postNuevo);
+        } catch (PersistenciaException ex) {
+            throw new FacadeException("No se pudo publicar el post.");
+        }
     }
 
     @Override
