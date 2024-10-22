@@ -13,7 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -31,7 +31,7 @@ public class Municipio implements Serializable {
     @Column(name = "nombre", nullable = false, length = 100)
     private String nombre;
     
-    @OneToOne(mappedBy = "municipio", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "municipio", cascade = CascadeType.PERSIST)
     private List<Usuario> usuarios;
     
     @ManyToOne
@@ -55,6 +55,32 @@ public class Municipio implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public List<Usuario> getUsuarios() {
+        return usuarios;
+    }
+
+    public void setUsuarios(List<Usuario> usuarios) {
+        this.usuarios = usuarios;
+    }
+
+    public Estado getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Estado estado) {
+        this.estado = estado;
+    }
+    
+    
 
     @Override
     public int hashCode() {

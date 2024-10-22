@@ -58,6 +58,15 @@ public class Estado implements Serializable {
         this.nombre = nombre;
     }
 
+    public List<Municipio> getMunicipio() {
+        return municipio;
+    }
+
+    public void setMunicipio(List<Municipio> municipio) {
+        this.municipio = municipio;
+    }
+
+    
     @Override
     public int hashCode() {
         int hash = 0;
