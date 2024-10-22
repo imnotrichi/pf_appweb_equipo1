@@ -15,7 +15,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import static org.itson.aplicacionesweb.themusichub.modelo.Comun_.usuario;
 
 /**
  * @author Equipo1
@@ -82,7 +81,7 @@ public class Municipio implements Serializable {
         StringBuilder sb = new StringBuilder();
         sb.append("Municipio{");
         sb.append("nombre=").append(nombre);
-        sb.append(", usuario=").append(usuario);
+        sb.append(", usuarios=").append(usuarios);
         sb.append(", estado=").append(estado);
         sb.append('}');
         return sb.toString();
