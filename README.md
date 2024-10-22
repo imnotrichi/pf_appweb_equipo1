@@ -5,10 +5,10 @@ Proyecto de Aplicaciones Web donde creamos un blog en HTML, CSS, JSP y MySQL.
 
 ## ***Créditos***
 ### **Integrantes del equipo:**
-Ricardo Alán Gutiérrez Garcés 00000247398
-Abel Eduardo Sánchez Guerrero 00000245473
-Diego Valenzuela Parra 00000247700
-Victoria Vega Bernal 0000247804
+Ricardo Alán Gutiérrez Garcés 00000247398  
+Abel Eduardo Sánchez Guerrero 00000245473  
+Diego Valenzuela Parra 00000247700  
+Victoria Vega Bernal 0000247804  
 
 ## ***Tema del blog***
 ### **Música 🎵🎶🎵🎶**
