@@ -13,8 +13,8 @@ public class UsuarioDTO {
     private String apellidoPaterno;
     private String apellidoMaterno;
     private String correo;
-    private byte[] contrasenia;
-    private byte[] telefono;
+    private String contrasenia;
+    private String telefono;
     private String avatar;
     private String ciudad;
     private Calendar fechaNacimiento;
@@ -22,7 +22,7 @@ public class UsuarioDTO {
     private MunicipioDTO municipio;
     private List<ComunDTO> posts;
 
-    public UsuarioDTO(String nombres, String apellidoPaterno, String apellidoMaterno, String correo, byte[] contrasenia, byte[] telefono, String ciudad, Calendar fechaNacimiento, String genero, MunicipioDTO municipio) {
+    public UsuarioDTO(String nombres, String apellidoPaterno, String apellidoMaterno, String correo, String contrasenia, String telefono, String ciudad, Calendar fechaNacimiento, String genero, MunicipioDTO municipio) {
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
@@ -51,11 +51,11 @@ public class UsuarioDTO {
         return correo;
     }
 
-    public byte[] getContrasenia() {
+    public String getContrasenia() {
         return contrasenia;
     }
 
-    public byte[] getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
