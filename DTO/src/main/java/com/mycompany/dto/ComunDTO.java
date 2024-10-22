@@ -9,7 +9,7 @@ import java.util.List;
 public class ComunDTO {
     
     private List<ComentarioDTO> comentarios;
-    private UsuarioDTO usuario;
+    private UsuarioNuevoDTO usuario;
 
     public ComunDTO() {
     }
@@ -18,7 +18,7 @@ public class ComunDTO {
         return comentarios;
     }
 
-    public UsuarioDTO getUsuario() {
+    public UsuarioNuevoDTO getUsuario() {
         return usuario;
     }
     
