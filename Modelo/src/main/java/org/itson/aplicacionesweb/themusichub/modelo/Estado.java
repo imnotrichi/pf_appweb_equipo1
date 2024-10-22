@@ -5,6 +5,7 @@ package org.itson.aplicacionesweb.themusichub.modelo;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,7 +31,7 @@ public class Estado implements Serializable {
     private String nombre;
 
     @OneToMany(mappedBy = "estado", cascade = CascadeType.PERSIST)
-    private List<Municipio> municipio;
+    private List<Municipio> municipios;
 
     /**
      * Constructor vacío.
@@ -58,42 +59,45 @@ public class Estado implements Serializable {
         this.nombre = nombre;
     }
 
-    public List<Municipio> getMunicipio() {
-        return municipio;
+    public List<Municipio> getMunicipios() {
+        return municipios;
     }
 
-    public void setMunicipio(List<Municipio> municipio) {
-        this.municipio = municipio;
+    public void setMunicipio(List<Municipio> municipios) {
+        this.municipios = municipios;
     }
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        int hash = 5;
+        hash = 43 * hash + Objects.hashCode(this.nombre);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Estado)) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
             return false;
         }
-        Estado other = (Estado) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if (getClass() != obj.getClass()) {
             return false;
         }
-        return true;
+        final Estado other = (Estado) obj;
+        return this.nombre.equalsIgnoreCase(other.nombre);
     }
 
     @Override
     public String toString() {
-        return "Estado{"
-                + "nombre='" + nombre + '\''
-                + ", municipios=" + municipio.stream()
-                        .map(Municipio::getNombre) // Solo imprimir nombres
-                        .toList()
-                + '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("Estado{");
+        sb.append("id=").append(id);
+        sb.append(", nombre=").append(nombre);
+        sb.append(", municipios=").append(municipios);
+        sb.append('}');
+        return sb.toString();
     }
 
 }
