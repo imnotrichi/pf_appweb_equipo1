@@ -48,13 +48,12 @@ public class Usuario implements Serializable {
     @Column(name = "correo", nullable = false, length = 200)
     protected String correo;
 
-    @Column(name = "contrasenia", nullable = false, columnDefinition = "VARBINARY(32)")
+    @Column(name = "contrasenia", nullable = false, length = 128)
     @Lob
-    protected byte[] contrasenia;
+    protected String contrasenia;
 
-    @Column(name = "telefono", nullable = false, columnDefinition = "VARBINARY(32)")
-    @Lob
-    protected byte[] telefono;
+    @Column(name = "telefono", nullable = false, length = 128) 
+    protected String telefono;
 
     @Column(name = "avatar", length = 500)
     protected String avatar;
@@ -81,7 +80,7 @@ public class Usuario implements Serializable {
     public Usuario() {
     }
 
-    public Usuario(String nombres, String apellidoPaterno, String apellidoMaterno, String correo, byte[] contrasenia, byte[] telefono, String avatar, String ciudad, Calendar fechaNacimiento, String genero) {
+    public Usuario(String nombres, String apellidoPaterno, String apellidoMaterno, String correo, String contrasenia, String telefono, String avatar, String ciudad, Calendar fechaNacimiento, String genero) {
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
@@ -134,19 +133,19 @@ public class Usuario implements Serializable {
         this.correo = correo;
     }
 
-    public byte[] getContrasenia() {
+    public String getContrasenia() {
         return contrasenia;
     }
 
-    public void setContrasenia(byte[] contrasenia) {
+    public void setContrasenia(String contrasenia) {
         this.contrasenia = contrasenia;
     }
 
-    public byte[] getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(byte[] telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 

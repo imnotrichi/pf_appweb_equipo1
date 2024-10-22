@@ -1,6 +1,8 @@
 package org.itson.aplicacionesweb.themusichub.daos;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Iterator;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
@@ -31,50 +33,50 @@ public class UsuarioDAO implements IUsuarioDAO {
         try {
             em = this.conexion.crearConexion();
             em.getTransaction().begin();
-            
+
             Municipio municipio = usuario.getMunicipio();
             if (municipio != null && municipio.getId() == null) {
                 Estado estado = municipio.getEstado();
                 if (estado != null && estado.getId() == null) {
                     TypedQuery<Estado> queryEstado = em.createQuery(
-                        "SELECT e FROM Estado e WHERE e.nombre = :nombre", 
-                        Estado.class
+                            "SELECT e FROM Estado e WHERE e.nombre = :nombre",
+                            Estado.class
                     );
                     queryEstado.setParameter("nombre", estado.getNombre());
-                    
+
                     Estado estadoExistente = queryEstado.getResultStream()
-                        .findFirst()
-                        .orElse(null);
-                    
+                            .findFirst()
+                            .orElse(null);
+
                     if (estadoExistente == null) {
                         em.persist(estado);
                     } else {
                         municipio.setEstado(estadoExistente);
                     }
                 }
-                
+
                 TypedQuery<Municipio> queryMunicipio = em.createQuery(
-                    "SELECT m FROM Municipio m WHERE m.nombre = :nombre AND m.estado.id = :estadoId", 
-                    Municipio.class
+                        "SELECT m FROM Municipio m WHERE m.nombre = :nombre AND m.estado.id = :estadoId",
+                        Municipio.class
                 );
                 queryMunicipio.setParameter("nombre", municipio.getNombre());
                 queryMunicipio.setParameter("estadoId", municipio.getEstado().getId());
-                
+
                 Municipio municipioExistente = queryMunicipio.getResultStream()
-                    .findFirst()
-                    .orElse(null);
-                
+                        .findFirst()
+                        .orElse(null);
+
                 if (municipioExistente == null) {
                     em.persist(municipio);
                 } else {
                     usuario.setMunicipio(municipioExistente);
                 }
             }
-            
+
             em.persist(usuario);
             em.getTransaction().commit();
             return usuario;
-            
+
         } catch (PersistenceException e) {
             if (em != null && em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
@@ -90,29 +92,33 @@ public class UsuarioDAO implements IUsuarioDAO {
 
     @Override
     public Usuario iniciarSesion(String contrasena, String correo) throws PersistenciaException {
-        EntityManager em = this.conexion.crearConexion();
-
-        String jpqlQuery = """
-                           SELECT u FROM Usuario u 
-                           WHERE u.correo = :correo 
-                           AND u.contrasenia = :contrasenia
-                           """;
+        EntityManager em = null;
         try {
-            byte[] contrasenaBytes = contrasena.getBytes();
-            Usuario usuario = em.createQuery(jpqlQuery, Usuario.class)
-                            .setParameter("correo", correo)
-                            .setParameter("contrasenia", contrasenaBytes) 
-                            .getSingleResult();
+            em = this.conexion.crearConexion();
 
-        return usuario;
-         
+            String jpqlQuery = """
+            SELECT u FROM Usuario u 
+            WHERE u.correo = :correo 
+            AND u.contrasenia = :contrasenia
+            """;
+
+            TypedQuery<Usuario> query = em.createQuery(jpqlQuery, Usuario.class);
+            query.setParameter("correo", correo);
+            query.setParameter("contrasenia", contrasena);
+
+            List<Usuario> resultados = query.getResultList();
+            if (resultados.isEmpty()) {
+                return null;
+            } else {
+                return resultados.get(0);
+            }
 
         } catch (PersistenceException e) {
-            logger.log(Level.SEVERE, "No se pudo inicir sesion", e);
+            logger.log(Level.SEVERE, "No se pudo iniciar sesión", e);
             throw new PersistenciaException("No se pudo consultar la información", e);
         } finally {
             em.close();
         }
-    }
 
+    }
 }

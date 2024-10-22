@@ -6,6 +6,7 @@ package org.itson.aplicacionesweb.themusichub.daos;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import org.itson.aplicacionesweb.themusichub.auxiliares.AESEncriptador;
 import org.itson.aplicacionesweb.themusichub.auxiliares.Encriptador;
 import org.itson.aplicacionesweb.themusichub.conexion.Conexion;
 import org.itson.aplicacionesweb.themusichub.conexion.IConexion;
@@ -43,8 +44,8 @@ public class Prueba {
                     "Sanchez",
                     "Perez",
                     "hola@gmail.com",
-                    "contraseña123".getBytes(),
-                    "6441234567".getBytes(),
+                    "contraseña123",
+                    "6441234567",
                     "avatar.jpg",
                     "Obregon",
                     new GregorianCalendar(1990, Calendar.JANUARY, 1),
@@ -52,16 +53,14 @@ public class Prueba {
             );
 
             usuario.setMunicipio(municipio);
+            AESEncriptador ae = new AESEncriptador();
 
+            usuario.setContrasenia(AESEncriptador.encriptar(usuario.getContrasenia()));
             usuarioDAO.registrarUsuario(usuario);
 
-            Encriptador ec = new Encriptador();
-
-            String contrasena = ec.encriptar("contraseña123");
-
             try {
-                Usuario iniciarSesion = usuarioDAO.iniciarSesion(contrasena, "hola@gmail.com");
-
+                Usuario iniciarSesion = usuarioDAO.iniciarSesion(usuario.getContrasenia(), "hola@gmail.com");
+                System.out.println("Se inicio sesión");
             } catch (Exception e) {
                 System.out.println("Ese usuario no existe");
             }
