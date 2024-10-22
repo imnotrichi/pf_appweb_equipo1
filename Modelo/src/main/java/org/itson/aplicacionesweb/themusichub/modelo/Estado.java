@@ -25,10 +25,10 @@ public class Estado implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_estado")
     private Long id;
-    
+
     @Column(name = "nombre", nullable = false, length = 100)
     private String nombre;
-    
+
     @OneToMany(mappedBy = "estado", cascade = CascadeType.PERSIST)
     private List<Municipio> municipio;
 
@@ -66,7 +66,6 @@ public class Estado implements Serializable {
         this.municipio = municipio;
     }
 
-    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -89,12 +88,12 @@ public class Estado implements Serializable {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Estado{");
-        sb.append("nombre=").append(nombre);
-        sb.append(", municipio=").append(municipio);
-        sb.append('}');
-        return sb.toString();
+        return "Estado{"
+                + "nombre='" + nombre + '\''
+                + ", municipios=" + municipio.stream()
+                        .map(Municipio::getNombre) // Solo imprimir nombres
+                        .toList()
+                + '}';
     }
-    
+
 }

@@ -1,13 +1,13 @@
 package org.itson.aplicacionesweb.themusichub.daos;
 
-import com.mycompany.dto.UsuarioDTO;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 import org.itson.aplicacionesweb.themusichub.conexion.IConexion;
-import org.itson.aplicacionesweb.themusichub.modelo.Normal;
+import org.itson.aplicacionesweb.themusichub.modelo.Estado;
+import org.itson.aplicacionesweb.themusichub.modelo.Municipio;
 import org.itson.aplicacionesweb.themusichub.modelo.Usuario;
 import org.itson.aplicacionesweb.themusichub.persistenciaException.PersistenciaException;
 
@@ -25,22 +25,64 @@ public class UsuarioDAO implements IUsuarioDAO {
     }
 
     @Override
-    public Usuario registrarUsuario(Usuario usuario) throws PersistenciaException{
-
+    public Usuario registrarUsuario(Usuario usuario) throws PersistenciaException {
         EntityManager em = null;
         try {
             em = this.conexion.crearConexion();
             em.getTransaction().begin();
+            
+            Municipio municipio = usuario.getMunicipio();
+            if (municipio != null && municipio.getId() == null) {
+                Estado estado = municipio.getEstado();
+                if (estado != null && estado.getId() == null) {
+                    TypedQuery<Estado> queryEstado = em.createQuery(
+                        "SELECT e FROM Estado e WHERE e.nombre = :nombre", 
+                        Estado.class
+                    );
+                    queryEstado.setParameter("nombre", estado.getNombre());
+                    
+                    Estado estadoExistente = queryEstado.getResultStream()
+                        .findFirst()
+                        .orElse(null);
+                    
+                    if (estadoExistente == null) {
+                        em.persist(estado);
+                    } else {
+                        municipio.setEstado(estadoExistente);
+                    }
+                }
+                
+                TypedQuery<Municipio> queryMunicipio = em.createQuery(
+                    "SELECT m FROM Municipio m WHERE m.nombre = :nombre AND m.estado.id = :estadoId", 
+                    Municipio.class
+                );
+                queryMunicipio.setParameter("nombre", municipio.getNombre());
+                queryMunicipio.setParameter("estadoId", municipio.getEstado().getId());
+                
+                Municipio municipioExistente = queryMunicipio.getResultStream()
+                    .findFirst()
+                    .orElse(null);
+                
+                if (municipioExistente == null) {
+                    em.persist(municipio);
+                } else {
+                    usuario.setMunicipio(municipioExistente);
+                }
+            }
+            
             em.persist(usuario);
             em.getTransaction().commit();
-            return usuario; 
-        } catch (PersistenceException e) {
+            return usuario;
             
+        } catch (PersistenceException e) {
+            if (em != null && em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
             logger.log(Level.SEVERE, "Error al registrar el usuario", e);
             throw new PersistenciaException("No se pudo registrar el usuario", e);
         } finally {
-            if (em != null) {
-                em.close(); // Cerrar EntityManager
+            if (em != null && em.isOpen()) {
+                em.close();
             }
         }
     }

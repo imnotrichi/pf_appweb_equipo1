@@ -4,6 +4,7 @@
  */
 package org.itson.aplicacionesweb.themusichub.daos;
 
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
@@ -26,27 +27,49 @@ public class Prueba {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws PersistenciaException {
-        IConexion conexion = new Conexion();
+         try {
+            IConexion conexion = new Conexion();
+            
+            IUsuarioDAO usuarioDAO = new UsuarioDAO(conexion);
+            
+            // Crear Estado
+            Estado estado = new Estado("Sonora");
+            
+            // Crear Municipio
+            Municipio municipio = new Municipio("Obregon");
+            municipio.setEstado(estado);
+            
+            
+            // Crear Usuario
+            Usuario usuario = new Normal(
+                "Juanito",
+                "Sanchez", 
+                "Perez", 
+                "hola@gmail.com",
+                "contraseña123".getBytes(), // Mejor usar un método de encriptación
+                "6441234567".getBytes(),    // Mejor usar un método de encriptación
+                "avatar.jpg",
+                "Obregon",
+                new GregorianCalendar(1990, Calendar.JANUARY, 1), // Fecha específica
+                "Mujer"
+            );
+            
+            usuario.setMunicipio(municipio);
         
-        IUsuarioDAO usuarioDAO = new UsuarioDAO(conexion);
-        
-        String contra = "si";
-        String telefono = "13123";
-        Municipio municipio = new Municipio("Obregon");
-        Estado estado = new Estado("Sonora");
-        
-        List<Municipio> municipios = new LinkedList<>();
-        estado.setMunicipio(municipios);
-        municipio.setEstado(estado);
-        
-        Usuario usuario = new Normal("Juanito", "Sanchez", "Perez", "hola@gmail.com", contra.getBytes(), telefono.getBytes(), "Si", "obregon", new GregorianCalendar(), "Mujer");
-        usuario.setMunicipio(municipio);
-        
-        List<Usuario> usuarios = new LinkedList<>();
-        usuarios.add(usuario);
-        municipio.setUsuarios(usuarios);
-        
-        usuarioDAO.registrarUsuario(usuario);
+            
+            usuarioDAO.registrarUsuario(usuario);
+            
+            
+        } catch (PersistenciaException e) {
+            System.err.println("Error al persistir los datos: " + e.getMessage());
+            e.printStackTrace();
+        } catch (Exception e) {
+            System.err.println("Error general: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            // Cerrar la conexión si es necesario
+            // conexion.close();
+        }
         
     }
     

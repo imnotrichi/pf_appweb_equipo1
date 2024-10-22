@@ -104,13 +104,10 @@ public class Municipio implements Serializable {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Municipio{");
-        sb.append("nombre=").append(nombre);
-        sb.append(", usuarios=").append(usuarios);
-        sb.append(", estado=").append(estado);
-        sb.append('}');
-        return sb.toString();
-    }
+    return "Municipio{" +
+            "nombre='" + nombre + '\'' +
+            ", estado=" + (estado != null ? estado.getNombre() : "N/A") +
+            '}';
+}
 
 }
