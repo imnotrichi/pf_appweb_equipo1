@@ -4,9 +4,14 @@
 package org.itson.aplicacionesweb.themusichub.facade;
 
 import com.mycompany.dto.ComentarioDTO;
+import com.mycompany.dto.ComunDTO;
 import com.mycompany.dto.NormalDTO;
 import com.mycompany.dto.PostNuevoDTO;
+import com.mycompany.dto.UsuarioDTO;
 import com.mycompany.dto.UsuarioNuevoDTO;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import org.itson.aplicacionesweb.themusichub.auxiliares.AESEncriptador;
 import org.itson.aplicacionesweb.themusichub.conexion.Conexion;
 import org.itson.aplicacionesweb.themusichub.conexion.IConexion;
 import org.itson.aplicacionesweb.themusichub.daos.IComentarioDAO;
@@ -44,8 +49,23 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
     }
 
     @Override
-    public void registrarUsuario(UsuarioNuevoDTO usuario) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void registrarUsuario(UsuarioNuevoDTO usuariodto) {
+        Normal usuario = new Normal(usuariodto.getNombres(),
+                usuariodto.getApellidoPaterno(),
+                usuariodto.getApellidoMaterno(),
+                usuariodto.getCorreo(),
+                AESEncriptador.encriptar(usuariodto.getContrasenia()),
+                usuariodto.getTelefono(),
+                usuariodto.getAvatar(),
+                usuariodto.getCiudad(),
+                usuariodto.getFechaNacimiento(),
+                usuariodto.getGenero());
+
+        try {
+            usuariosDAO.registrarUsuario(usuario);
+        } catch (PersistenciaException ex) {
+
+        }
     }
 
     @Override
@@ -56,7 +76,7 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
                 categoria = CategoriaPost.GENERAL;
                 break;
             case "NOTICIAS":
-                categoria = CategoriaPost.NOTICIAS;    
+                categoria = CategoriaPost.NOTICIAS;
                 break;
             case "PLAYLIST":
                 categoria = CategoriaPost.PLAYLIST;
@@ -67,10 +87,29 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
             default:
                 categoria = CategoriaPost.GENERAL;
         }
+
+        Comun nuevoPost = new Comun(post.getFechaHoraCreacion(), 
+                post.getTitulo(), 
+                post.getContenido(), 
+                categoria);
         
-        Usuario usuarioPost = 
+        Usuario usuario1 = new Normal(usuario.getNombres(), 
+                usuario.getApellidoPaterno(), 
+                usuario.getApellidoMaterno(),
+                usuario.getCorreo(),
+                AESEncriptador.encriptar(usuario.getContrasenia()), 
+                usuario.getTelefono(), 
+                usuario.getAvatar(), 
+                usuario.getCiudad(), 
+                usuario.getFechaNacimiento(),
+                usuario.getGenero());
         
-        Post postNuevo = new Comun(post.getFechaHoraCreacion(), post.getTitulo(), post.getContenido(), categoria);
+        nuevoPost.setCategoria(CategoriaPost.GENERAL);
+        nuevoPost.setUsuario(usuario);
+        postDAO.publicarPost(nuevoPost);
+
+        Usuario usuarioPost = new Post 
+        postNuevo = new Comun(post.getFechaHoraCreacion(), post.getTitulo(), post.getContenido(), categoria);
 
         try {
             postsDAO.publicarPost(postNuevo);
@@ -96,6 +135,11 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
 
     @Override
     public void responderComentario(ComentarioDTO respuesta, NormalDTO usuario, ComentarioDTO comentarioRespondido) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public UsuarioDTO obtenerUsuario(UsuarioDTO usuarioBuscado) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

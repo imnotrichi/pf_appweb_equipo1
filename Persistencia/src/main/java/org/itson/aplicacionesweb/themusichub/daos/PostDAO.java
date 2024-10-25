@@ -116,7 +116,7 @@ public class PostDAO implements IPostDAO {
             }
 
             // Imprimimos un mensaje de que se ejecutó una consulta.
-            logger.log(Level.INFO, "Se ha consultado la tabla 'tarifas_licencia' y se obtuvieron " + i + " resultados.");
+            logger.log(Level.INFO, "Se ha consultado la tabla 'posts' y se obtuvieron " + i + " resultados.");
             // Retornamos la lista de posts.
             return listaPosts;
         } catch (PersistenceException pe) {

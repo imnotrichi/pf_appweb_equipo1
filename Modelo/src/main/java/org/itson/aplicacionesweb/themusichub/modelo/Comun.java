@@ -35,6 +35,25 @@ public class Comun extends Post implements Serializable {
     public Comun() {
     }
 
+    public List<Comentario> getComentarios() {
+        return comentarios;
+    }
+
+    public void setComentarios(List<Comentario> comentarios) {
+        this.comentarios = comentarios;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+    
+    
+
+    
     @Override
     public String toString() {
         return "Comun{" + '}';

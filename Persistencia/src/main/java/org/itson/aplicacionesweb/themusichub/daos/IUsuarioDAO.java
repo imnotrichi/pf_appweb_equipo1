@@ -17,4 +17,6 @@ public interface IUsuarioDAO {
     
     public Usuario iniciarSesion(String contrasena, String correo) throws PersistenciaException;
     
+    public Usuario buscarUsuario(String correo) throws PersistenciaException;
+    
 }

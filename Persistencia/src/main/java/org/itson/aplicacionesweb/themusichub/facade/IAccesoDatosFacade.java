@@ -6,6 +6,7 @@ package org.itson.aplicacionesweb.themusichub.facade;
 import com.mycompany.dto.ComentarioDTO;
 import com.mycompany.dto.NormalDTO;
 import com.mycompany.dto.PostNuevoDTO;
+import com.mycompany.dto.UsuarioDTO;
 import com.mycompany.dto.UsuarioNuevoDTO;
 import org.itson.aplicacionesweb.themusichub.persistenciaException.FacadeException;
 

@@ -63,6 +63,8 @@ public class Comentario implements Serializable {
         this.post = comun;
         this.usuario = normal;
     }
+    
+    
 
     public Long getId() {
         return id;
