@@ -4,6 +4,7 @@
 package org.itson.aplicacionesweb.themusichub.modelo;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -23,6 +24,20 @@ public class Anclado extends Post implements Serializable {
     public Anclado() {
     }
 
+    public Anclado(Calendar fechaHoraCreacion, String titulo, String contenido, CategoriaPost categoria) {
+        super(fechaHoraCreacion, titulo, contenido, categoria);
+    }
+
+    public Administrador getAdministrador() {
+        return administrador;
+    }
+
+    public void setAdministrador(Administrador administrador) {
+        this.administrador = administrador;
+    }
+    
+    
+    
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

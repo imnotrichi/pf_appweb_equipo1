@@ -3,16 +3,21 @@
  */
 package org.itson.aplicacionesweb.themusichub.daos;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import org.itson.aplicacionesweb.themusichub.conexion.IConexion;
+import org.itson.aplicacionesweb.themusichub.modelo.Anclado;
+import org.itson.aplicacionesweb.themusichub.modelo.Comun;
 import org.itson.aplicacionesweb.themusichub.modelo.Post;
 import org.itson.aplicacionesweb.themusichub.persistenciaException.PersistenciaException;
 
@@ -211,6 +216,66 @@ public class PostDAO implements IPostDAO {
             logger.log(Level.INFO, "Se ha eliminado 1 post correctamente.");
         } catch (PersistenceException pe) {
             throw new PersistenciaException("No se pudo eliminar el post.");
+        }
+    }
+
+    /**
+     * Obtiene un post que cumpla con todos los atributos
+     * @param postParaBuscar
+     * @return
+     * @throws PersistenciaException 
+     */
+    @Override
+    public Post buscarPostPorAtributos(Post postParaBuscar) throws PersistenciaException {
+        EntityManager em = conexion.crearConexion();
+
+        try {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<Post> cq = cb.createQuery(Post.class);
+
+            Root<? extends Post> root;
+            if (postParaBuscar instanceof Comun) {
+                root = cq.from(Comun.class);
+            } else if (postParaBuscar instanceof Anclado) {
+                root = cq.from(Anclado.class);
+            } else {
+                root = cq.from(Post.class);
+            }
+
+            cq.select(root);
+
+            if (postParaBuscar.getTitulo() != null) {
+                cq.where(cb.equal(root.get("titulo"), postParaBuscar.getTitulo()));
+            }
+            if (postParaBuscar.getContenido() != null) {
+                cq.where(cb.equal(root.get("contenido"), postParaBuscar.getContenido()));
+            }
+            if (postParaBuscar.getCategoria() != null) {
+                cq.where(cb.equal(root.get("categoria"), postParaBuscar.getCategoria()));
+            }
+
+            if (postParaBuscar instanceof Comun) {
+                Comun comun = (Comun) postParaBuscar;
+                if (comun.getUsuario() != null) {
+                    cq.where(cb.equal(root.get("usuario"), comun.getUsuario()));
+                }
+            }
+
+            if (postParaBuscar instanceof Anclado) {
+                Anclado anclado = (Anclado) postParaBuscar;
+                if (anclado.getAdministrador() != null) {
+                    cq.where(cb.equal(root.get("administrador"), anclado.getAdministrador()));
+                }
+            }
+
+            TypedQuery<Post> query = em.createQuery(cq);
+            List<Post> resultados = query.getResultList();
+
+            return resultados.isEmpty() ? null : resultados.get(0);
+        } catch (PersistenceException pe) {
+            throw new PersistenciaException("Error al buscar el post.", pe);
+        } finally {
+            em.close();
         }
     }
 

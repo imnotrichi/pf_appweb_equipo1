@@ -7,7 +7,7 @@ import java.util.List;
  *
  * @author Equipo1
  */
-public class AdministradorDTO extends UsuarioNuevoDTO{
+public class AdministradorDTO extends UsuarioDTO{
     
     private List<AncladoDTO> postsAnclados;
 

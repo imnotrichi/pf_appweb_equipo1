@@ -5,6 +5,7 @@
 package org.itson.aplicacionesweb.themusichub.modelo;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
@@ -34,6 +35,12 @@ public class Comun extends Post implements Serializable {
 
     public Comun() {
     }
+
+    public Comun(Calendar fechaHoraCreacion, String titulo, String contenido, CategoriaPost categoria) {
+        super(fechaHoraCreacion, titulo, contenido, categoria);
+    }
+    
+    
 
     public List<Comentario> getComentarios() {
         return comentarios;

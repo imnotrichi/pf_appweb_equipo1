@@ -14,18 +14,18 @@ import org.itson.aplicacionesweb.themusichub.persistenciaException.FacadeExcepti
  * @author Equipo1
  */
 public interface IAccesoDatosFacade {
-    
-    public void registrarUsuario(UsuarioNuevoDTO usuario);
-    
-    public void publicarPost(PostNuevoDTO post, UsuarioNuevoDTO usuario) throws FacadeException;
-    
-    public void eliminarPost(PostNuevoDTO post);
-    
-    public void comentarPost(ComentarioDTO comentario, NormalDTO usuario, PostNuevoDTO postComentado);
-    
+
+    public void registrarUsuario(UsuarioNuevoDTO usuario) throws FacadeException;
+
+    public void publicarPost(PostNuevoDTO post, UsuarioDTO usuario) throws FacadeException;
+
+    public void eliminarPost(PostNuevoDTO post, UsuarioDTO usuario) throws FacadeException;
+
+    public void comentarPost(ComentarioDTO comentario, UsuarioDTO usuarioPost, PostNuevoDTO postComentado) throws FacadeException;
+
     public void eliminarComentario(ComentarioDTO comentario);
-    
+
     public void responderComentario(ComentarioDTO respuesta, NormalDTO usuario, ComentarioDTO comentarioRespondido);
-    
+
     public UsuarioDTO obtenerUsuario(UsuarioDTO usuarioBuscado);
 }

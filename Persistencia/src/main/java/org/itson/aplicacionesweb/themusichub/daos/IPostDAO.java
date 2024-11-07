@@ -19,4 +19,5 @@ public interface IPostDAO {
     public void publicarPost(Post post) throws PersistenciaException;
     public void editarPost(Post post) throws PersistenciaException;
     public void eliminarPost(Post post) throws PersistenciaException;
+    public Post buscarPostPorAtributos(Post post) throws PersistenciaException;
 }
