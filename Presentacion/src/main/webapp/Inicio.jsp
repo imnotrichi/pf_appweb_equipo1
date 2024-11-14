@@ -1,7 +1,7 @@
 <%-- 
     Document   : Inicio
     Created on : 13 nov 2024, 20:27:30
-    Author     : ricar
+    Author     : Equipo1
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
