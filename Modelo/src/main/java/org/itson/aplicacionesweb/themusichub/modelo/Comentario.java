@@ -122,6 +122,7 @@ public class Comentario implements Serializable {
         this.usuario = usuario;
     }
 
+    
     @Override
     public int hashCode() {
         int hash = 7;

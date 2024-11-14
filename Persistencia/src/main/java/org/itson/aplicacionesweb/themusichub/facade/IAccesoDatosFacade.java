@@ -25,7 +25,7 @@ public interface IAccesoDatosFacade {
 
     public void eliminarComentario(ComentarioDTO comentario);
 
-    public void responderComentario(ComentarioDTO respuesta, NormalDTO usuario, ComentarioDTO comentarioRespondido);
+    public void responderComentario(ComentarioDTO respuesta, ComentarioDTO comentarioRespondido);
 
     public UsuarioDTO obtenerUsuario(UsuarioDTO usuarioBuscado);
 }

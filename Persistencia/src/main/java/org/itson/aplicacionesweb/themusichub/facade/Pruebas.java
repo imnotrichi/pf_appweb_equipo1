@@ -9,12 +9,12 @@ import com.mycompany.dto.ComunDTO;
 import com.mycompany.dto.EstadoDTO;
 import com.mycompany.dto.MunicipioDTO;
 import com.mycompany.dto.NormalDTO;
-import com.mycompany.dto.NormalNuevoDTO;
 import com.mycompany.dto.PostNuevoDTO;
 import com.mycompany.dto.UsuarioDTO;
-import com.mycompany.dto.UsuarioNuevoDTO;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.LinkedList;
+import java.util.List;
 import org.itson.aplicacionesweb.themusichub.persistenciaException.FacadeException;
 
 /**
@@ -44,7 +44,7 @@ public class Pruebas {
 //                municipio);
 //        accesoDatos.registrarUsuario(usuarioNuevodto);
 
-        UsuarioDTO usuarioComenta = new NormalDTO("Ricardo Alán", 
+        UsuarioDTO usuarioComenta = new NormalDTO("Ricardo Alán",
                 "Gutierrez",
                 "Garcés",
                 "ricardo.gutierrez@gmail.com",
@@ -54,7 +54,7 @@ public class Pruebas {
                 new GregorianCalendar(2004, 3, 21),
                 "Masculino",
                 municipio);
-                
+
         UsuarioDTO usuarioDTO = new NormalDTO("Abel Eduardo",
                 "Sanchez",
                 "Guerrero",
@@ -74,13 +74,21 @@ public class Pruebas {
 //        accesoDatos.publicarPost(post, usuarioDTO);
 //        accesoDatos.eliminarPost(post, usuarioDTO);
 //
-        ComentarioDTO comentario = new ComentarioDTO(
-                Calendar.getInstance(), 
-                "Me encanta, opino lo mismo", 
-               (NormalDTO)usuarioComenta);
+//        ComentarioDTO comentario = new ComentarioDTO(
+//                Calendar.getInstance(), 
+//                "Me encanta, opino lo mismo", 
+//               (NormalDTO)usuarioComenta);
+//
+//        accesoDatos.comentarPost(comentario, usuarioDTO, post);
 
-        accesoDatos.comentarPost(comentario, usuarioDTO, post);
+//    ComentarioDTO comentario  = new ComentarioDTO(Calendar.getInstance(), "No opino lo mismo la verdad", (NormalDTO)usuarioDTO);
+     
+        ComentarioDTO comentarioPrincipal = new ComentarioDTO(Calendar.getInstance(), "Este es el comentairo principal",(ComunDTO) post, (NormalDTO) usuarioDTO);
+//    accesoDatos.comentarPost(comentarioPrincipal, usuarioDTO, post);
 
+        ComentarioDTO comentarioRespuesta = new ComentarioDTO(Calendar.getInstance(), "Este es el comentairo respuesta", (ComunDTO) post,(NormalDTO) usuarioDTO);
+        
+        accesoDatos.responderComentario(comentarioRespuesta, comentarioPrincipal);
     }
 
 }

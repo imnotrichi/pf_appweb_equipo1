@@ -13,6 +13,8 @@ import com.mycompany.dto.UsuarioDTO;
 import com.mycompany.dto.UsuarioNuevoDTO;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.crypto.AEADBadTagException;
@@ -284,28 +286,28 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
             postComentar = anclado;
         }
 
-        Post postExistente =null;
+        Post postExistente = null;
         try {
-             postExistente = postsDAO.buscarPostPorAtributos(postComentar);
+            postExistente = postsDAO.buscarPostPorAtributos(postComentar);
         } catch (PersistenciaException ex) {
             Logger.getLogger(AccesoDatosFacade.class.getName()).log(Level.SEVERE, null, ex);
         }
         Normal usuarioComentario = new Normal(
-                comentario.getUsuario().getNombres(), 
-                comentario.getUsuario().getApellidoPaterno(), 
+                comentario.getUsuario().getNombres(),
+                comentario.getUsuario().getApellidoPaterno(),
                 comentario.getUsuario().getApellidoMaterno(),
                 comentario.getUsuario().getCorreo(),
-                AESEncriptador.encriptar(comentario.getUsuario().getContrasenia()), 
+                AESEncriptador.encriptar(comentario.getUsuario().getContrasenia()),
                 comentario.getUsuario().getTelefono(),
                 comentario.getUsuario().getAvatar(),
                 comentario.getUsuario().getCiudad(),
-                comentario.getUsuario().getFechaNacimiento(), 
+                comentario.getUsuario().getFechaNacimiento(),
                 comentario.getUsuario().getGenero());
-        
+
         Comentario comentario1 = new Comentario(
                 GregorianCalendar.getInstance(),
                 comentario.getContenido(),
-                (Comun)postExistente,
+                (Comun) postExistente,
                 usuarioComentario);
         try {
             comentariosDAO.publicarComentario(comentario1);
@@ -315,18 +317,115 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
     }
 
     @Override
-    public void eliminarComentario(ComentarioDTO comentario) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void eliminarComentario(ComentarioDTO comentariodto) {
+        if (comentariodto == null || comentariodto.getId() == null) {
+            try {
+                throw new FacadeException("El comentario no es válido");
+            } catch (FacadeException ex) {
+                Logger.getLogger(AccesoDatosFacade.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        try {
+            
+            Comentario comentario = new Comentario();
+            comentario.setId(Long.parseLong(comentariodto.getId())); 
+            comentario.setFechaHora(comentariodto.getFechaHora());
+            comentario.setContenido(comentariodto.getContenido());
+
+            
+            comentariosDAO.eliminarComentario(comentario);
+        } catch (PersistenciaException ex) {
+ 
+            try {
+                throw new FacadeException("Error al eliminar el comentario");
+            } catch (FacadeException ex1) {
+                Logger.getLogger(AccesoDatosFacade.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        }
     }
 
     @Override
-    public void responderComentario(ComentarioDTO respuesta, NormalDTO usuario, ComentarioDTO comentarioRespondido) {
-       
+    public void responderComentario(ComentarioDTO respuesta, ComentarioDTO comentarioRespondido) {
+        CategoriaPost categoria;
+        switch (respuesta.getPost().getCategoria().toUpperCase()) {
+            case "GENERAL":
+                categoria = CategoriaPost.GENERAL;
+                break;
+            case "NOTICIAS":
+                categoria = CategoriaPost.NOTICIAS;
+                break;
+            case "PLAYLIST":
+                categoria = CategoriaPost.PLAYLIST;
+                break;
+            case "REVIEW":
+                categoria = CategoriaPost.REVIEWS;
+                break;
+            default:
+                categoria = CategoriaPost.GENERAL;
+        }
+        
+        
+        List<Comentario> respuestas = new LinkedList<>();
+        Comun comun = new Comun(respuesta.getPost().getFechaHoraCreacion(), 
+                respuesta.getPost().getTitulo(), 
+                respuesta.getPost().getContenido(), 
+                categoria);
+        
+        Comentario respuesta1 = new Comentario(
+                respuesta.getFechaHora(), 
+                respuesta.getContenido(), 
+                comun, 
+                (Normal)convertirUsuarioDTOaUsuario(respuesta.getUsuario()));
+                
+        Comentario comentarioRespondido1 = new Comentario(
+                comentarioRespondido.getFechaHora(), 
+                comentarioRespondido.getContenido(), 
+                comun, 
+                (Normal)convertirUsuarioDTOaUsuario(respuesta.getUsuario()));
+                
+        respuesta1.setRespuesta(comentariosDAO.obtenerComentario(Long.MIN_VALUE));
+        try {
+            comentariosDAO.publicarComentario(respuesta1);
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(AccesoDatosFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
     public UsuarioDTO obtenerUsuario(UsuarioDTO usuarioBuscado) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    private Usuario convertirUsuarioDTOaUsuario(UsuarioDTO usuarioDTO) {
+        if (usuarioDTO instanceof NormalDTO) {
+            return new Normal(
+                    usuarioDTO.getNombres(),
+                    usuarioDTO.getApellidoPaterno(),
+                    usuarioDTO.getApellidoMaterno(),
+                    usuarioDTO.getCorreo(),
+                    AESEncriptador.encriptar(usuarioDTO.getContrasenia()),
+                    usuarioDTO.getTelefono(),
+                    usuarioDTO.getAvatar(),
+                    usuarioDTO.getCiudad(),
+                    usuarioDTO.getFechaNacimiento(),
+                    usuarioDTO.getGenero()
+            );
+        } else if (usuarioDTO instanceof AdministradorDTO) {
+            return new Administrador(
+                    usuarioDTO.getNombres(),
+                    usuarioDTO.getApellidoPaterno(),
+                    usuarioDTO.getApellidoMaterno(),
+                    usuarioDTO.getCorreo(),
+                    AESEncriptador.encriptar(usuarioDTO.getContrasenia()),
+                    usuarioDTO.getTelefono(),
+                    usuarioDTO.getAvatar(),
+                    usuarioDTO.getCiudad(),
+                    usuarioDTO.getFechaNacimiento(),
+                    usuarioDTO.getGenero()
+            );
+        }
+        return null;
     }
 
 }

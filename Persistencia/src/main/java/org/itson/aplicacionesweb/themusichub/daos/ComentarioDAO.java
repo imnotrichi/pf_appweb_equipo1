@@ -87,7 +87,7 @@ public class ComentarioDAO implements IComentarioDAO {
             em.close();
             logger.log(Level.INFO, "Se ha insertado 1 comentario correctamente.");
         } catch (PersistenceException pe) {
-            throw new PersistenciaException("No se pudo insertar el comentario.");
+            throw new PersistenciaException("No se pudo insertar el comentario.",pe);
         }
     }
 
