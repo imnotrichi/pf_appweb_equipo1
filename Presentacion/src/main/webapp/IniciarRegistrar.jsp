@@ -1,12 +1,18 @@
+<%-- 
+    Document   : IniciarRegistrar
+    Created on : 13 nov 2024, 20:08:36
+    Author     : ricar
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./estilos/estilosIniciarRegistrar.css">
+    <link rel="stylesheet" href="./estilos/estiloIniciarRegistrar.css">
     <title>Iniciar Sesión / Registrarse</title>
-
 </head>
 
 <body>
@@ -14,7 +20,7 @@
         <section>
             <input type="checkbox" id="chk" aria-hidden="true">
             <div class="form-contenedor registrar-contenedor">
-                <form action="#">
+                <form action="RegistrarUsuario" method="POST">
                     <h1>Registrarse</h1>
                     <div class="nombres campos">
                         <label for="nombre">Nombre(s)</label>
@@ -78,19 +84,20 @@
                         <input type="file" id="archivo" accept="image/*" />
                     </div>
                     
-                    <button>Registrarse</button>
+                    <input type="submit" value="Registrarse">
                 </form>
             </div>
 
             <div class="form-contenedor iniciar-contenedor">
-                <form action="Inicio2.html">
+                <form action="IniciarSesion" method="POST">
                     <h1>Iniciar Sesión</h1>
                     <label for="nombreUsuario">Nombre de usuario</label>
                     <input type="text" name="nombreUsuario" required>
 
                     <label for="nombreUsuario">Contraseña</label>
-                    <input type="password" required>
-                    <button>Iniciar Sesión</button>
+                    <input type="password" name="contrasenia" required>
+                    
+                    <input type="submit" value="Iniciar Sesión">
                 </form>
             </div>
 
@@ -115,9 +122,7 @@
                     </div>
                 </div>
             </div>
-
         </section>
-
     </main>
 </body>
 
