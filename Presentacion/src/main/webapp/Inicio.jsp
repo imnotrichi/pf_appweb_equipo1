@@ -27,7 +27,7 @@
         </a>
         <div class="header-derecha">
             <a href="Perfil.html" class="mi-perfil">
-                <img src="avatar.jpeg" alt="Avatar del usuario actual.">
+                <img src="./imagenes/avatar.jpeg" alt="Avatar del usuario actual.">
                 <p>Mi perfil</p>
             </a>
             <p>I</p>
@@ -41,13 +41,13 @@
             <nav>
                 <div class="secciones">
                     <ul>
-                        <li><a href=""><img src="black-home-icon.png" alt="">Inicio</a></li>
-                        <li><a href="Reviews.html"><img src="white-review-icon.png" alt="">Reviews</a></li>
-                        <li><a href="Popular.html"><img src="white-popular-icon.png" alt="">Popular</a></li>
-                        <li><a href=""><img src="white-news-icon.png" alt="">Noticias</a></li>
-                        <li><a href="Playlists.html"><img src="white-playlist-icon.png" alt="">Playlists</a>
+                        <li><a href=""><img src="./imagenes/black-home-icon.png" alt="">Inicio</a></li>
+                        <li><a href="Reviews.html"><img src="./imagenes/white-review-icon.png" alt="">Reviews</a></li>
+                        <li><a href="Popular.html"><img src="./imagenes/white-popular-icon.png" alt="">Popular</a></li>
+                        <li><a href=""><img src="./imagenes/white-news-icon.png" alt="">Noticias</a></li>
+                        <li><a href="Playlists.html"><img src="./imagenes/white-playlist-icon.png" alt="">Playlists</a>
                         </li>
-                        <li><a href="General.html"><img src="white-general-icon.png" alt="">General</a></li>
+                        <li><a href="General.html"><img src="./imagenes/white-general-icon.png" alt="">General</a></li>
                     </ul>
                 </div>
 
@@ -60,7 +60,7 @@
         <main>
             <a href="Post.html">
                 <article>
-                    <img src="white-pin-icon.png" alt="">
+                    <img src="./imagenes/white-pin-icon.png" alt="">
                     <h3>Nuevo Lanzamiento!</h3>
                     <p>Charli XCX lanzará su nuevo álbum este 11/10/2024.</p>
                 </article>
@@ -68,7 +68,7 @@
 
             <a href="">
                 <article>
-                    <img src="white-pin-icon.png" alt="">
+                    <img src="./imagenes/white-pin-icon.png" alt="">
                     <h3>The Marias en Tiny Desk!</h3>
                     <p>Una gran presentación de parte de la banda.</p>
                 </article>
