@@ -23,7 +23,7 @@
         <%@include file="./fragmentos/BarraNavegacion.xhtml"%>
 
         <main>
-            <form action="#">
+            <form action="CrearPost" metho="POST">
                 <h2>Nuevo post</h2>
                 <br>
                 <div>

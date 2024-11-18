@@ -17,8 +17,8 @@
         <servlet-class>servlets.IniciarSesion</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>si</servlet-name>
-        <servlet-class>si</servlet-class>
+        <servlet-name>CerrarSesion</servlet-name>
+        <servlet-class>servlets.CerrarSesion</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>RegistrarUsuario</servlet-name>
@@ -29,13 +29,17 @@
         <servlet-class>jakarta.faces.webapp.FacesServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
+    <servlet>
+        <servlet-name>CrearPost</servlet-name>
+        <servlet-class>servlets.CrearPost</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>IniciarSesion</servlet-name>
         <url-pattern>/IniciarSesion</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>si</servlet-name>
-        <url-pattern>/si</url-pattern>
+        <servlet-name>CerrarSesion</servlet-name>
+        <url-pattern>/CerrarSesion</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>RegistrarUsuario</servlet-name>
@@ -45,12 +49,24 @@
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>/faces/*</url-pattern>
     </servlet-mapping>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/errores/PaginaNoEncontrada.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>403</error-code>
+        <location>/errores/AccesoDenegado.jsp</location>
+    </error-page>
     <multipart-config>
         <location>/tmp</location>
         <max-file-size>20848820</max-file-size>
         <max-request-size>418018841</max-request-size>
         <file-size-threshold>1048576</file-size-threshold>
     </multipart-config>
+    <servlet-mapping>
+        <servlet-name>CrearPost</servlet-name>
+        <url-pattern>/CrearPost</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30

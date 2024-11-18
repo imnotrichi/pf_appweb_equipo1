@@ -10,7 +10,7 @@ import java.util.List;
  * @author Equipo1
  */
 public class UsuarioDTO {
-    
+
     private String nombres;
     private String apellidoPaterno;
     private String apellidoMaterno;
@@ -25,8 +25,8 @@ public class UsuarioDTO {
     private List<PostDTO> posts;
     private MunicipioDTO municipio;
 
-    public UsuarioDTO(){
-        
+    public UsuarioDTO() {
+
     }
 
     public UsuarioDTO(String nombres, String apellidoPaterno, String apellidoMaterno, String correo, String contrasenia, String telefono, String nombreUsuario, String avatar, String ciudad, Calendar fechaNacimiento, String genero, MunicipioDTO municipio) {
@@ -43,7 +43,6 @@ public class UsuarioDTO {
         this.genero = genero;
         this.municipio = municipio;
     }
-    
 
     public String getNombres() {
         return nombres;
@@ -100,7 +99,9 @@ public class UsuarioDTO {
     public void setNombreUsuario(String nombreUsuario) {
         this.nombreUsuario = nombreUsuario;
     }
-    
-    
-    
+
+    public List<PostDTO> getPosts() {
+        return posts;
+    }
+
 }

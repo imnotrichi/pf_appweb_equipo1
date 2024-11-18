@@ -1,13 +1,15 @@
 package com.mycompany.dto;
 
 import java.util.Calendar;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  *
  * @author Equipo1
  */
 public class UsuarioNuevoDTO {
-    
+
     private String nombres;
     private String apellidoPaterno;
     private String apellidoMaterno;
@@ -20,6 +22,7 @@ public class UsuarioNuevoDTO {
     private Calendar fechaNacimiento;
     private String genero;
     private MunicipioDTO municipio;
+    private List<PostDTO> posts;
 
     public UsuarioNuevoDTO(String nombres, String apellidoPaterno, String apellidoMaterno, String correo, String contrasenia, String telefono, String avatar, String ciudad, String nombreUsuario, Calendar fechaNacimiento, String genero, MunicipioDTO municipio) {
         this.nombres = nombres;
@@ -34,6 +37,7 @@ public class UsuarioNuevoDTO {
         this.fechaNacimiento = fechaNacimiento;
         this.genero = genero;
         this.municipio = municipio;
+        this.posts = new LinkedList<>();
     }
 
     public String getNombreUsuario() {
@@ -43,8 +47,6 @@ public class UsuarioNuevoDTO {
     public void setNombreUsuario(String nombreUsuario) {
         this.nombreUsuario = nombreUsuario;
     }
-
-    
 
     public String getNombres() {
         return nombres;
@@ -93,5 +95,9 @@ public class UsuarioNuevoDTO {
     public MunicipioDTO getMunicipio() {
         return municipio;
     }
-    
+
+    public List<PostDTO> getPosts() {
+        return posts;
+    }
+
 }

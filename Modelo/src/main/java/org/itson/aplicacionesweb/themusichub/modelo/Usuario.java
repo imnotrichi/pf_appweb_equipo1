@@ -5,6 +5,7 @@ package org.itson.aplicacionesweb.themusichub.modelo;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.CascadeType;
@@ -91,6 +92,23 @@ public class Usuario implements Serializable {
         this.fechaNacimiento = fechaNacimiento;
         this.genero = genero;
         this.municipio = municipio;
+        this.posts = new LinkedList<>();
+    }
+
+    public Usuario(String correo, String nombres, String apellidoPaterno, String apellidoMaterno, String nombreUsuario, String contrasenia, String telefono, String avatar, String ciudad, Calendar fechaNacimiento, String genero, Municipio municipio, List<Comun> posts) {
+        this.correo = correo;
+        this.nombres = nombres;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
+        this.nombreUsuario = nombreUsuario;
+        this.contrasenia = contrasenia;
+        this.telefono = telefono;
+        this.avatar = avatar;
+        this.ciudad = ciudad;
+        this.fechaNacimiento = fechaNacimiento;
+        this.genero = genero;
+        this.municipio = municipio;
+        this.posts = posts;
     }
 
     public String getNombres() {
