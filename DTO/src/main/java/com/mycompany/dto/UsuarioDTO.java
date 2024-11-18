@@ -24,6 +24,9 @@ public class UsuarioDTO {
     private List<PostDTO> posts;
     private MunicipioDTO municipio;
 
+    public UsuarioDTO(){
+        
+    }
     public UsuarioDTO(String nombres, String apellidoPaterno, String apellidoMaterno, String correo, String contrasenia, String telefono, String ciudad, Calendar fechaNacimiento, String genero, MunicipioDTO municipio) {
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
