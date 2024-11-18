@@ -25,7 +25,6 @@
         <main>
             <a href="">
                 <article>
-                    <img src="" alt="">
                     <h2>@pipucate</h2>
                     <h3>Black Midi se desintegran</h3>
                     <p>El pasado 10 de agosto, en un Live de Instagram, Geordie Greep anunció que la banda se
@@ -34,7 +33,6 @@
             </a>
             <a href="">
                 <article>
-                    <img src="" alt="">
                     <h2>@pipucate</h2>
                     <h3>Nuevo álbum de King Gizzard</h3>
                     <p>El sexteto australiano de rock psicodélico lanzó su vigésimo quinto album. Ésta nueva entrega nos
@@ -43,7 +41,6 @@
             </a>
             <a href="">
                 <article>
-                    <img src="" alt="">
                     <h2>@ricardoalann</h2>
                     <h3>Hola, quería anunciarles que voy a sacar un nuevo album</h3>
                     <p>El próximo mes sacaré mi nuevo album titulado "Queremos que el Richi nos baile la pelusa".</p>
@@ -51,7 +48,6 @@
             </a>
             <a href="">
                 <article>
-                    <img src="" alt="">
                     <h2>@mintfield_official</h2>
                     <h3>Nuevo álbum!!</h3>
                     <p>Holiii, queremos anunciarles que nuestro nuevo album "Aprende a Ser: Extended" ya está en todas las plataformas de streaming.</p>
@@ -59,7 +55,6 @@
             </a>
             <a href="">
                 <article>
-                    <img src="" alt="">
                     <h2>@pipucate</h2>
                     <h3>Aphex Twins vuelve</h3>
                     <p>El mítico compositor y DJ vuelve con su remasterización del "Selected Ambient Works Volume II" de 1994.</p>
@@ -67,7 +62,6 @@
             </a>
             <a href="">
                 <article>
-                    <img src="" alt="">
                     <h2>@licoree</h2>
                     <h3>Björk anuncia nueva gira</h3>
                     <p>El fenómeno mundial del artpop anuncia una nueva gira mundial. Dentro de la lista de ciudades elegidas están Bacadéhuachi y Bratislava.</p>
