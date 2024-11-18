@@ -64,7 +64,7 @@
 
                 <div class="botones">
                     <button class="">Descartar</button>
-                    <input type="submit" value="Publicar">
+                    <input type="submit" value="Publicar" class="publicar-button">
                 </div>
             </form>
         </main>

@@ -22,7 +22,7 @@ import org.itson.aplicacionesweb.themusichub.persistenciaException.FacadeExcepti
  *
  * @author Abe
  */
-public class RegistarUsuario extends HttpServlet {
+public class RegistrarUsuario extends HttpServlet {
 
     private IAccesoDatosFacade accesoDatos;
 
@@ -105,6 +105,7 @@ public class RegistarUsuario extends HttpServlet {
             accesoDatos.registrarUsuario(usuario);
             response.sendRedirect(request.getContextPath() + "/Inicio.jsp");
         } catch (FacadeException e) {
+            System.out.println("EXCEPCION");
             this.getServletContext()
                     .getRequestDispatcher("/IniciarRegistrar.jsp")
                     .forward(request, response);

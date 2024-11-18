@@ -116,7 +116,7 @@ textarea {
 }
 
 button,
-input[type="submit"] {
+.publicar-button {
     border: none;
     background-color: #F539B4;
     color: #000;
@@ -135,12 +135,12 @@ input[type="submit"] {
     height: fit-content;
 }
 
-button:hover, input[type="submit"]:hover {
+button:hover, .publicar-button:hover {
     background-color: #E52A9F;
     transform: scale(1.05);
 }
 
-button:active, input[type="submit"]:active {
+button:active, .publicar-button:active {
     transform: scale(0.98);
 }
 

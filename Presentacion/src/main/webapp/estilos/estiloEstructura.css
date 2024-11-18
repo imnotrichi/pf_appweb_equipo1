@@ -84,6 +84,13 @@ header img {
     flex-direction: row;
     align-items: center;
     gap: 1rem;
+    background-color: #262727;
+    padding: 0.3rem 0.7rem;
+    border-radius: 0.7rem;
+}
+
+.header-derecha:hover {
+    transform: scale(1.03);
 }
 
 .header-derecha>p {
@@ -112,19 +119,6 @@ header img {
     font-size: 2rem;
     gap: 1rem;
     font-weight: 600;
-}
-
-header input {
-    background-color: #262727;
-    color: #FFFFFF;
-    border-radius: 0.6rem;
-    border-style: none;
-    width: 25%;
-    height: 2.5rem;
-    font-size: 1rem;
-    font-weight: 700;
-    padding-left: 1rem;
-    flex-grow: 1;
 }
 
 .contenedor {
@@ -209,7 +203,7 @@ nav {
     align-items: center;
 }
 
-.cerrar-sesion form input[type='submit'] {
+.cerrar-sesion-button {
     border: none;
     font-size: 1.5rem;
     font-weight: 700;
@@ -219,7 +213,7 @@ nav {
     cursor: pointer;
 }
 
-.cerrar-sesion form input[type='submit']:hover {
+.cerrar-sesion-button:hover {
     color: #F539B4;
 }
 
