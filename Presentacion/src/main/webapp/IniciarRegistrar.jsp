@@ -4,6 +4,12 @@
     Author     : ricar
 --%>
 
+<% 
+    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+    response.setHeader("Pragma", "no-cache");
+    response.setHeader("Expires", "0");
+%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="es">
@@ -20,8 +26,7 @@
         <section>
             <input type="checkbox" id="chk" aria-hidden="true">
             <div class="form-contenedor registrar-contenedor">
-                
-                <form action="RegistrarUsuario" method="POST" id="registroForm">
+                <form action="RegistrarUsuario" method="POST" id="registroForm" enctype="multipart/form-data">
                     <h1>Registrarse</h1>
                     <div class="nombres campos">
                         <label for="nombre">Nombre(s)</label>

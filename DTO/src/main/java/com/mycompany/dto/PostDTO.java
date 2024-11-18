@@ -15,9 +15,9 @@ public class PostDTO {
     private String titulo;
     private String contenido;
     private String categoria;
-    private UsuarioNuevoDTO usuario;
+    private UsuarioDTO usuario;
 
-    public PostDTO(Calendar fechaHoraCreacion, String titulo, String contenido, String categoria, UsuarioNuevoDTO usuario) {
+    public PostDTO(Calendar fechaHoraCreacion, String titulo, String contenido, String categoria, UsuarioDTO usuario) {
         this.fechaHoraCreacion = fechaHoraCreacion;
         this.titulo = titulo;
         this.contenido = contenido;
@@ -41,7 +41,7 @@ public class PostDTO {
         return categoria;
     }
 
-    public UsuarioNuevoDTO getUsuario() {
+    public UsuarioDTO getUsuario() {
         return usuario;
     }
     

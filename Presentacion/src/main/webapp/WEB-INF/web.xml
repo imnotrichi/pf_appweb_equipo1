@@ -29,10 +29,6 @@
         <servlet-class>jakarta.faces.webapp.FacesServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
-    <servlet>
-        <servlet-name>CerrarSesion</servlet-name>
-        <servlet-class>servlets.CerrarSesion</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>IniciarSesion</servlet-name>
         <url-pattern>/IniciarSesion</url-pattern>
@@ -49,10 +45,12 @@
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>/faces/*</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>CerrarSesion</servlet-name>
-        <url-pattern>/CerrarSesion</url-pattern>
-    </servlet-mapping>
+    <multipart-config>
+        <location>/tmp</location>
+        <max-file-size>20848820</max-file-size>
+        <max-request-size>418018841</max-request-size>
+        <file-size-threshold>1048576</file-size-threshold>
+    </multipart-config>
     <session-config>
         <session-timeout>
             30
