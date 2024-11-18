@@ -17,28 +17,10 @@
 </head>
 
 <body>
-    <header>
-        <a href="Inicio2.html" class="logo">
-            <img src="./imagenes/blue-vinyl-icon.png" alt="Disco de Vinilo Azul">
-            <span class="the">THE</span>
-            <span class="music">MUSIC</span>
-            <span class="hub">HUB</span>
-        </a>
-        <div class="header-derecha">
-            <a href="Perfil.html" class="mi-perfil">
-                <img src="imagenes/avatar.jpeg" alt="Avatar del usuario actual.">
-                <p>Mi perfil</p>
-            </a>
-            <p>I</p>
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" name="buscar" placeholder="Buscar">
-        </div>
-    </header>
+    <%@include file="./fragmentos/Encabezado.xhtml" %>
 
     <div class="contenedor">
-        <aside>
-            <%@include file="./fragmentos/BarraNavegacion.xhtml"%>
-        </aside>
+        <%@include file="./fragmentos/BarraNavegacion.xhtml" %>
 
         <main>
             <a href="">

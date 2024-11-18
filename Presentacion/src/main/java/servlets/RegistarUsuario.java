@@ -6,9 +6,7 @@ package servlets;
 
 import com.mycompany.dto.EstadoDTO;
 import com.mycompany.dto.MunicipioDTO;
-import com.mycompany.dto.NormalDTO;
 import com.mycompany.dto.NormalNuevoDTO;
-import com.mycompany.dto.UsuarioDTO;
 import com.mycompany.dto.UsuarioNuevoDTO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -17,8 +15,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Calendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.itson.aplicacionesweb.themusichub.facade.AccesoDatosFacade;
 import org.itson.aplicacionesweb.themusichub.facade.IAccesoDatosFacade;
 import org.itson.aplicacionesweb.themusichub.persistenciaException.FacadeException;

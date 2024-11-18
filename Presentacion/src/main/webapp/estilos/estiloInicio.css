@@ -1,10 +1,9 @@
 /* 
     Created on : 13 nov 2024, 20:33:11
-    Author     : Equipoq
+    Author     : Equipo1
 */
 
 .secciones li:nth-child(1) a {
-    color: #000000;
     background-color: #F539B4;
     border-radius: 1rem;
 }

@@ -10,8 +10,6 @@
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <exec.mainClass>org.itson.aplicacionesweb.themusichub.Persistencia</exec.mainClass>
-        
-        
     </properties>
     <dependencies>
         <dependency>
