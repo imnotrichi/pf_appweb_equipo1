@@ -16,22 +16,35 @@ public class UsuarioNuevoDTO {
     private String telefono;
     private String avatar;
     private String ciudad;
+    private String nombreUsuario;
     private Calendar fechaNacimiento;
     private String genero;
     private MunicipioDTO municipio;
 
-    public UsuarioNuevoDTO(String nombres, String apellidoPaterno, String apellidoMaterno, String correo, String contrasenia, String telefono, String ciudad, Calendar fechaNacimiento, String genero, MunicipioDTO municipio) {
+    public UsuarioNuevoDTO(String nombres, String apellidoPaterno, String apellidoMaterno, String correo, String contrasenia, String telefono, String avatar, String ciudad, String nombreUsuario, Calendar fechaNacimiento, String genero, MunicipioDTO municipio) {
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
         this.correo = correo;
         this.contrasenia = contrasenia;
         this.telefono = telefono;
+        this.avatar = avatar;
         this.ciudad = ciudad;
+        this.nombreUsuario = nombreUsuario;
         this.fechaNacimiento = fechaNacimiento;
         this.genero = genero;
         this.municipio = municipio;
     }
+
+    public String getNombreUsuario() {
+        return nombreUsuario;
+    }
+
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
+    }
+
+    
 
     public String getNombres() {
         return nombres;

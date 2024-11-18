@@ -96,10 +96,10 @@
             <div class="form-contenedor iniciar-contenedor">
                 <form action="IniciarSesion" method="POST">
                     <h1>Iniciar Sesión</h1>
-                    <label for="nombreUsuario">Nombre de usuario</label>
-                    <input type="text" name="nombreUsuario" required>
+                    <label for="correo">correo</label>
+                    <input type="text" name="correo" required>
 
-                    <label for="nombreUsuario">Contraseña</label>
+                    <label for="contrasenia">Contraseña</label>
                     <input type="password" name="contrasenia" required>
                     
                     <input type="submit" value="Iniciar Sesión">

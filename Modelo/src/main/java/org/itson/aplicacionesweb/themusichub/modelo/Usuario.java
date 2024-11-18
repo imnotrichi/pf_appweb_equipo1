@@ -42,6 +42,9 @@ public class Usuario implements Serializable {
 
     @Column(name = "apellidoMaterno", length = 50)
     protected String apellidoMaterno;
+    
+    @Column(name = "nombreUsuario", length = 50)
+    protected String nombreUsuario;
 
     @Column(name = "contrasenia", nullable = false, length = 128)
     @Lob
@@ -75,32 +78,23 @@ public class Usuario implements Serializable {
     public Usuario() {
     }
 
-    public Usuario(String nombres, String apellidoPaterno, String apellidoMaterno, String correo, String contrasenia, String telefono, String avatar, String ciudad, Calendar fechaNacimiento, String genero) {
+    public Usuario(String correo, String nombres, String apellidoPaterno, String apellidoMaterno, String nombreUsuario, String contrasenia, String telefono, String avatar, String ciudad, Calendar fechaNacimiento, String genero, Municipio municipio) {
+        this.correo = correo;
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
-        this.correo = correo;
+        this.nombreUsuario = nombreUsuario;
         this.contrasenia = contrasenia;
         this.telefono = telefono;
         this.avatar = avatar;
         this.ciudad = ciudad;
         this.fechaNacimiento = fechaNacimiento;
         this.genero = genero;
+        this.municipio = municipio;
     }
 
-    public Usuario(String correo, String nombres, String apellidoPaterno, String apellidoMaterno, String contrasenia, String telefono, String avatar, String ciudad, Municipio municipio, Calendar fechaNacimiento, String genero) {
-        this.correo = correo;
-        this.nombres = nombres;
-        this.apellidoPaterno = apellidoPaterno;
-        this.apellidoMaterno = apellidoMaterno;
-        this.contrasenia = contrasenia;
-        this.telefono = telefono;
-        this.avatar = avatar;
-        this.ciudad = ciudad;
-        this.municipio = municipio;
-        this.fechaNacimiento = fechaNacimiento;
-        this.genero = genero;
-    }
+    
+
 
     public String getNombres() {
         return nombres;
@@ -190,6 +184,15 @@ public class Usuario implements Serializable {
         this.municipio = municipio;
     }
 
+    public String getNombreUsuario() {
+        return nombreUsuario;
+    }
+
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
+    }
+
+    
     @Override
     public int hashCode() {
         int hash = 3;

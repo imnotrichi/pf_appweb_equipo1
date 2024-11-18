@@ -4,18 +4,28 @@ package servlets;
  * IniciarSesion.java
  */
 
+import com.mycompany.dto.UsuarioDTO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
+import org.itson.aplicacionesweb.themusichub.facade.AccesoDatosFacade;
+import org.itson.aplicacionesweb.themusichub.facade.IAccesoDatosFacade;
+import org.itson.aplicacionesweb.themusichub.persistenciaException.FacadeException;
 
 /**
  * @author Equipo1
  */
 public class IniciarSesion extends HttpServlet {
 
+    private IAccesoDatosFacade accesoDatos;
+    @Override
+    public void init() throws ServletException {
+        accesoDatos = new AccesoDatosFacade();
+    }
+    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -41,15 +51,24 @@ public class IniciarSesion extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String nombreUsuario = request.getParameter("nombreUsuario");
+        String correo = request.getParameter("correo");
         String contrasenia = request.getParameter("contrasenia");
         
-        if ("imnotrichi".equals(nombreUsuario) && "12345".equals(contrasenia)) {
-            HttpSession sesion = request.getSession();
-            sesion.setAttribute("usuario", nombreUsuario);
-            response.sendRedirect(request.getContextPath() + "/Inicio.jsp");
-        } else {
-            response.sendRedirect(request.getContextPath() + "/IniciarRegistrar.jsp?error=true");
+        try {
+            System.out.println("REGISTRO DE USUARIO");
+            UsuarioDTO usuario = accesoDatos.obtenerUsuario(correo, contrasenia);
+            if (usuario != null) {
+               
+                response.sendRedirect(request.getContextPath() + "/Inicio.jsp");
+            } else {
+               
+                request.setAttribute("error", "Correo o contraseña incorrectos");
+                this.getServletContext().getRequestDispatcher("/IniciarRegistrar.jsp").forward(request, response);
+            }
+        } catch (FacadeException e) {
+            System.out.println("Error al iniciar sesión");
+            request.setAttribute("error", "Ocurrió un error durante el inicio de sesión");
+            this.getServletContext().getRequestDispatcher("/IniciarRegistrar.jsp").forward(request, response);
         }
     }
 

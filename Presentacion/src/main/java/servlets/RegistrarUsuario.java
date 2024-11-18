@@ -89,6 +89,7 @@ public class RegistrarUsuario extends HttpServlet {
             apellido1 = partes[0];
             apellido2 = partes[1];
         }
+        String nombreUsuario = request.getParameter("usuario");
         String correo = request.getParameter("email");
         String contrasenia = request.getParameter("contrasena");
         String telefono = request.getParameter("telefono");
@@ -103,9 +104,10 @@ public class RegistrarUsuario extends HttpServlet {
         EstadoDTO estado = new EstadoDTO("Sonora");
         MunicipioDTO municipio = new MunicipioDTO("Cajeme", estado);
 
-        UsuarioNuevoDTO usuario = new NormalNuevoDTO(nombre, apellido1, apellido2, correo, contrasenia, telefono, ciudad, fechaNacimiento, genero, municipio);
+        UsuarioNuevoDTO usuario = new NormalNuevoDTO(nombre, apellido1, apellido2, correo, contrasenia, telefono, ciudad, ciudad, nombreUsuario, fechaNacimiento, genero, municipio);
         System.out.println("HOLA DESDE EL SERVLET");
         try {
+            System.out.println("REGISTRO DE USUARIO SERVLET");
             accesoDatos.registrarUsuario(usuario);
             response.sendRedirect(request.getContextPath() + "/Inicio.jsp");
         } catch (FacadeException e) {

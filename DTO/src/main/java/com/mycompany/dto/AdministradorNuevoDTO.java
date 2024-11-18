@@ -8,13 +8,15 @@ import java.util.Calendar;
 
 /**
  *
- * @author Abe
+ * @author Equipo 1
  */
 public class AdministradorNuevoDTO extends UsuarioNuevoDTO{
-    
-    public AdministradorNuevoDTO(String nombres, String apellidoPaterno, String apellidoMaterno, String correo, String contrasenia, String telefono, String ciudad, Calendar fechaNacimiento, String genero, MunicipioDTO municipio) {
-        super(nombres, apellidoPaterno, apellidoMaterno, correo, contrasenia, telefono, ciudad, fechaNacimiento, genero, municipio);
+
+    public AdministradorNuevoDTO(String nombres, String apellidoPaterno, String apellidoMaterno, String correo, String contrasenia, String telefono, String avatar, String ciudad, String nombreUsuario, Calendar fechaNacimiento, String genero, MunicipioDTO municipio) {
+        super(nombres, apellidoPaterno, apellidoMaterno, correo, contrasenia, telefono, avatar, ciudad, nombreUsuario, fechaNacimiento, genero, municipio);
     }
+    
+    
     
     
 }

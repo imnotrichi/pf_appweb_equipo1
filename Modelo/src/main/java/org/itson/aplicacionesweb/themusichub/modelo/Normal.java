@@ -27,9 +27,13 @@ public class Normal extends Usuario implements Serializable {
     public Normal() {
     }
 
-    public Normal(String nombres, String apellidoPaterno, String apellidoMaterno, String correo, String contrasenia, String telefono, String avatar, String ciudad, Municipio municipio, Calendar fechaNacimiento, String genero) {
-        super(correo, nombres, apellidoPaterno, apellidoMaterno, contrasenia, telefono, avatar, ciudad, municipio, fechaNacimiento, genero);
+    public Normal(String correo, String nombres, String apellidoPaterno, String apellidoMaterno, String nombreUsuario, String contrasenia, String telefono, String avatar, String ciudad, Calendar fechaNacimiento, String genero, Municipio municipio) {
+        super(correo, nombres, apellidoPaterno, apellidoMaterno, nombreUsuario, contrasenia, telefono, avatar, ciudad, fechaNacimiento, genero, municipio);
     }
+
+   
+
+    
 
     public List<Comentario> getComentarios() {
         return comentarios;

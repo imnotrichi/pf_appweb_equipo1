@@ -74,17 +74,18 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
         }
 
         Normal usuario = new Normal(
+                usuariodto.getCorreo(),
                 usuariodto.getNombres(),
                 usuariodto.getApellidoPaterno(),
                 usuariodto.getApellidoMaterno(),
-                usuariodto.getCorreo(),
-                AESEncriptador.encriptar(usuariodto.getContrasenia()),
+                usuariodto.getNombreUsuario(),
+                usuariodto.getContrasenia(),
                 usuariodto.getTelefono(),
                 usuariodto.getAvatar(),
                 usuariodto.getCiudad(),
-                new Municipio(1L, usuariodto.getMunicipio().getNombre(), new Estado(1L, usuariodto.getMunicipio().getEstado().getNombre())),
                 usuariodto.getFechaNacimiento(),
-                usuariodto.getGenero());
+                usuariodto.getGenero(),
+                new Municipio(1L, usuariodto.getMunicipio().getNombre(), new Estado(1L, usuariodto.getMunicipio().getEstado().getNombre())));
 
         try {
             usuariosDAO.registrarUsuario(usuario);
@@ -120,28 +121,47 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
         Usuario usuario = null;
 
         if (usuariodto instanceof NormalDTO) {
-            usuario = new Normal(usuariodto.getNombres(),
+            usuario = new Normal(
+                    usuariodto.getCorreo(),
+                    usuariodto.getNombres(),
                     usuariodto.getApellidoPaterno(),
                     usuariodto.getApellidoMaterno(),
-                    usuariodto.getCorreo(),
+                    usuariodto.getNombreUsuario(),
                     AESEncriptador.encriptar(usuariodto.getContrasenia()),
                     usuariodto.getTelefono(),
                     usuariodto.getAvatar(),
                     usuariodto.getCiudad(),
-                    new Municipio(usuariodto.getMunicipio().getNombre()),
                     usuariodto.getFechaNacimiento(),
-                    usuariodto.getGenero());
+                    usuariodto.getGenero(),
+                    new Municipio(1L, usuariodto.getMunicipio().getNombre(), new Estado(1L, usuariodto.getMunicipio().getEstado().getNombre())));
+
+//                    usuariodto.getNombres(),
+//                    usuariodto.getApellidoPaterno(),
+//                    usuariodto.getApellidoMaterno(),
+//                    usuariodto.getCorreo(),
+//                    AESEncriptador.encriptar(usuariodto.getContrasenia()),
+//                    usuariodto.getTelefono(),
+//                    usuariodto.getAvatar(),
+//                    usuariodto.getCiudad(),
+//                    new Municipio(usuariodto.getMunicipio().getNombre()),
+//                    usuariodto.getFechaNacimiento(),
+//                    usuariodto.getGenero());
         } else if (usuariodto instanceof AdministradorDTO) {
-            Usuario usuario1 = new Administrador(usuariodto.getNombres(),
+            Usuario usuario1 = new Administrador(
+                                       
+                    usuariodto.getCorreo(),
+                    usuariodto.getNombres(),
                     usuariodto.getApellidoPaterno(),
                     usuariodto.getApellidoMaterno(),
-                    usuariodto.getCorreo(),
+                    usuariodto.getNombreUsuario(),
                     AESEncriptador.encriptar(usuariodto.getContrasenia()),
                     usuariodto.getTelefono(),
                     usuariodto.getAvatar(),
                     usuariodto.getCiudad(),
                     usuariodto.getFechaNacimiento(),
-                    usuariodto.getGenero());
+                    usuariodto.getGenero(),
+                    new Municipio(1L, usuariodto.getMunicipio().getNombre(), new Estado(1L, usuariodto.getMunicipio().getEstado().getNombre())));
+
         }
 
         nuevoPost.setUsuario(usuario);
@@ -176,28 +196,34 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
         Usuario usuario = null;
 
         if (usuariodto instanceof NormalDTO) {
-            usuario = new Normal(usuariodto.getNombres(),
-                    usuariodto.getApellidoPaterno(),
-                    usuariodto.getApellidoMaterno(),
-                    usuariodto.getCorreo(),
-                    AESEncriptador.encriptar(usuariodto.getContrasenia()),
-                    usuariodto.getTelefono(),
-                    usuariodto.getAvatar(),
-                    usuariodto.getCiudad(),
-                    new Municipio(usuariodto.getMunicipio().getNombre()),
-                    usuariodto.getFechaNacimiento(),
-                    usuariodto.getGenero());
+            usuario = new Normal(
+                    usuariodto.getCorreo(), 
+                    usuariodto.getNombres(), 
+                    usuariodto.getApellidoPaterno(), 
+                    usuariodto.getApellidoMaterno(), 
+                    usuariodto.getNombreUsuario(), 
+                    AESEncriptador.encriptar(usuariodto.getContrasenia()), 
+                    usuariodto.getTelefono(), 
+                    usuariodto.getAvatar(), 
+                    usuariodto.getCiudad(), 
+                    usuariodto.getFechaNacimiento(), 
+                    usuariodto.getGenero(),
+                    new Municipio(usuariodto.getMunicipio().getNombre()));
+
         } else if (usuariodto instanceof AdministradorDTO) {
-            usuario = new Administrador(usuariodto.getNombres(),
-                    usuariodto.getApellidoPaterno(),
-                    usuariodto.getApellidoMaterno(),
-                    usuariodto.getCorreo(),
-                    AESEncriptador.encriptar(usuariodto.getContrasenia()),
-                    usuariodto.getTelefono(),
-                    usuariodto.getAvatar(),
-                    usuariodto.getCiudad(),
-                    usuariodto.getFechaNacimiento(),
-                    usuariodto.getGenero());
+            usuario = new Administrador(
+                    usuariodto.getCorreo(), 
+                    usuariodto.getNombres(), 
+                    usuariodto.getApellidoPaterno(), 
+                    usuariodto.getApellidoMaterno(), 
+                    usuariodto.getNombreUsuario(), 
+                    AESEncriptador.encriptar(usuariodto.getContrasenia()), 
+                    usuariodto.getTelefono(), 
+                    usuariodto.getAvatar(), 
+                    usuariodto.getCiudad(), 
+                    usuariodto.getFechaNacimiento(), 
+                    usuariodto.getGenero(),
+                    new Municipio(usuariodto.getMunicipio().getNombre()));
         }
 
         // Crear una instancia de Post con los atributos que quieres buscar
@@ -263,28 +289,33 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
         Usuario usuario = null;
 
         if (usuarioPost instanceof NormalDTO) {
-            usuario = new Normal(usuarioPost.getNombres(),
-                    usuarioPost.getApellidoPaterno(),
-                    usuarioPost.getApellidoMaterno(),
-                    usuarioPost.getCorreo(),
-                    AESEncriptador.encriptar(usuarioPost.getContrasenia()),
-                    usuarioPost.getTelefono(),
-                    usuarioPost.getAvatar(),
-                    usuarioPost.getCiudad(),
-                    new Municipio(usuarioPost.getMunicipio().getNombre()),
-                    usuarioPost.getFechaNacimiento(),
-                    usuarioPost.getGenero());
+            usuario = new Normal(
+                    usuarioPost.getCorreo(), 
+                    usuarioPost.getNombres(), 
+                    usuarioPost.getApellidoPaterno(), 
+                    usuarioPost.getApellidoMaterno(), 
+                    usuarioPost.getNombreUsuario(), 
+                    AESEncriptador.encriptar(usuarioPost.getContrasenia()), 
+                    usuarioPost.getTelefono(), 
+                    usuarioPost.getAvatar(), 
+                    usuarioPost.getCiudad(), 
+                    usuarioPost.getFechaNacimiento(), 
+                    usuarioPost.getGenero(),
+                    new Municipio(usuarioPost.getMunicipio().getNombre()));
         } else if (usuarioPost instanceof AdministradorDTO) {
-            usuario = new Administrador(usuarioPost.getNombres(),
-                    usuarioPost.getApellidoPaterno(),
-                    usuarioPost.getApellidoMaterno(),
-                    usuarioPost.getCorreo(),
-                    AESEncriptador.encriptar(usuarioPost.getContrasenia()),
-                    usuarioPost.getTelefono(),
-                    usuarioPost.getAvatar(),
-                    usuarioPost.getCiudad(),
-                    usuarioPost.getFechaNacimiento(),
-                    usuarioPost.getGenero());
+            usuario = new Administrador(
+                    usuarioPost.getCorreo(), 
+                    usuarioPost.getNombres(), 
+                    usuarioPost.getApellidoPaterno(), 
+                    usuarioPost.getApellidoMaterno(), 
+                    usuarioPost.getNombreUsuario(), 
+                    AESEncriptador.encriptar(usuarioPost.getContrasenia()), 
+                    usuarioPost.getTelefono(), 
+                    usuarioPost.getAvatar(), 
+                    usuarioPost.getCiudad(), 
+                    usuarioPost.getFechaNacimiento(), 
+                    usuarioPost.getGenero(),
+                    new Municipio(usuarioPost.getMunicipio().getNombre()));
         }
 
         Post postComentar = null;
@@ -311,17 +342,19 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
             Logger.getLogger(AccesoDatosFacade.class.getName()).log(Level.SEVERE, null, ex);
         }
         Normal usuarioComentario = new Normal(
-                comentario.getUsuario().getNombres(),
-                comentario.getUsuario().getApellidoPaterno(),
-                comentario.getUsuario().getApellidoMaterno(),
-                comentario.getUsuario().getCorreo(),
-                AESEncriptador.encriptar(comentario.getUsuario().getContrasenia()),
-                comentario.getUsuario().getTelefono(),
-                comentario.getUsuario().getAvatar(),
-                comentario.getUsuario().getCiudad(),
-                new Municipio(comentario.getUsuario().getMunicipio().getNombre()),
-                comentario.getUsuario().getFechaNacimiento(),
-                comentario.getUsuario().getGenero());
+                  comentario.getUsuario().getCorreo(), 
+                  comentario.getUsuario().getNombres(), 
+                  comentario.getUsuario().getApellidoPaterno(), 
+                  comentario.getUsuario().getApellidoMaterno(), 
+                  comentario.getUsuario().getNombreUsuario(), 
+                  comentario.getUsuario().getContrasenia(), 
+                  comentario.getUsuario().getTelefono(), 
+                  comentario.getUsuario().getAvatar(),
+                  comentario.getUsuario().getCiudad(),
+                  comentario.getUsuario().getFechaNacimiento(),
+                  comentario.getUsuario().getGenero(), 
+                  new Municipio(comentario.getUsuario().getMunicipio().getNombre()));
+                
 
         Comentario comentario1 = new Comentario(
                 GregorianCalendar.getInstance(),
@@ -366,16 +399,19 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
             EstadoDTO estadoDTO = new EstadoDTO(usuario.getMunicipio().getEstado().getNombre());
             MunicipioDTO municipioDTO = new MunicipioDTO(usuario.getMunicipio().getNombre(), estadoDTO);
             UsuarioDTO usuarioDTO = new UsuarioDTO(
-                    usuario.getNombres(),
-                    usuario.getApellidoPaterno(),
-                    usuario.getApellidoMaterno(),
-                    usuario.getCorreo(),
-                    usuario.getContrasenia(),
-                    usuario.getTelefono(),
-                    usuario.getCiudad(),
-                    usuario.getFechaNacimiento(),
-                    usuario.getGenero(),
+                    usuario.getNombres(), 
+                    usuario.getApellidoPaterno(), 
+                    usuario.getApellidoMaterno(), 
+                    usuario.getCorreo(), 
+                    usuario.getContrasenia(), 
+                    usuario.getTelefono(), 
+                    usuario.getNombreUsuario(), 
+                    usuario.getAvatar(), 
+                    usuario.getCiudad(), 
+                    usuario.getFechaNacimiento(), 
+                    usuario.getGenero(), 
                     municipioDTO);
+
 
             // Retornamos el usuario.
             return usuarioDTO;
@@ -436,16 +472,18 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
         EstadoDTO estadoDTO = new EstadoDTO(usuario.getMunicipio().getEstado().getNombre());
         MunicipioDTO municipioDTO = new MunicipioDTO(usuario.getMunicipio().getNombre(), estadoDTO);
         UsuarioDTO usuarioDTO = new UsuarioDTO(
-                usuario.getNombres(),
-                usuario.getApellidoPaterno(),
-                usuario.getApellidoMaterno(),
-                usuario.getCorreo(),
-                usuario.getContrasenia(),
-                usuario.getTelefono(),
-                usuario.getCiudad(),
-                usuario.getFechaNacimiento(),
-                usuario.getGenero(),
-                municipioDTO);
+                    usuario.getNombres(), 
+                    usuario.getApellidoPaterno(), 
+                    usuario.getApellidoMaterno(), 
+                    usuario.getCorreo(), 
+                    usuario.getContrasenia(), 
+                    usuario.getTelefono(), 
+                    usuario.getNombreUsuario(), 
+                    usuario.getAvatar(), 
+                    usuario.getCiudad(), 
+                    usuario.getFechaNacimiento(), 
+                    usuario.getGenero(), 
+                    municipioDTO);
         return usuarioDTO;
     }
 
