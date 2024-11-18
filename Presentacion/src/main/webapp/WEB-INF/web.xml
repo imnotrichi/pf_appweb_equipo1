@@ -12,9 +12,25 @@
         <servlet-name>IniciarSesion</servlet-name>
         <servlet-class>servlets.IniciarSesion</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>si</servlet-name>
+        <servlet-class>si</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RegistarUsuario</servlet-name>
+        <servlet-class>servlets.RegistarUsuario</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>IniciarSesion</servlet-name>
         <url-pattern>/IniciarSesion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>si</servlet-name>
+        <url-pattern>/si</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegistarUsuario</servlet-name>
+        <url-pattern>/RegistarUsuario</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

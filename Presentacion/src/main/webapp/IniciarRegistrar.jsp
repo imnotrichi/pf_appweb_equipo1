@@ -20,7 +20,8 @@
         <section>
             <input type="checkbox" id="chk" aria-hidden="true">
             <div class="form-contenedor registrar-contenedor">
-                <form action="RegistrarUsuario" method="POST">
+                
+                <form action="RegistrarUsuario" method="POST" id="registroForm" enctype="multipart/form-data">
                     <h1>Registrarse</h1>
                     <div class="nombres campos">
                         <label for="nombre">Nombre(s)</label>
