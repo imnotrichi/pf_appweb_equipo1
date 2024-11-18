@@ -107,7 +107,9 @@ public class UsuarioDAO implements IUsuarioDAO {
             logger.log(Level.SEVERE, "No se pudo iniciar sesión", e);
             throw new PersistenciaException("No se pudo consultar la información", e);
         } finally {
-            em.close();
+            if (em != null) {
+                em.close();
+            }
         }
     }
 }

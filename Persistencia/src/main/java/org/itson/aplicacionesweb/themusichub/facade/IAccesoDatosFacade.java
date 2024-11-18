@@ -5,9 +5,12 @@ package org.itson.aplicacionesweb.themusichub.facade;
 
 import com.mycompany.dto.ComentarioDTO;
 import com.mycompany.dto.NormalDTO;
+import com.mycompany.dto.PostDTO;
 import com.mycompany.dto.PostNuevoDTO;
 import com.mycompany.dto.UsuarioDTO;
 import com.mycompany.dto.UsuarioNuevoDTO;
+import java.util.List;
+import org.itson.aplicacionesweb.themusichub.modelo.CategoriaPost;
 import org.itson.aplicacionesweb.themusichub.persistenciaException.FacadeException;
 
 /**
@@ -28,4 +31,6 @@ public interface IAccesoDatosFacade {
     public void responderComentario(ComentarioDTO respuesta, NormalDTO usuario, ComentarioDTO comentarioRespondido);
 
     public UsuarioDTO obtenerUsuario(String correo, String contrasenia) throws FacadeException;
+    
+    public List<PostDTO> obtenerPostsPorCategoria(CategoriaPost categoria) throws FacadeException;
 }
