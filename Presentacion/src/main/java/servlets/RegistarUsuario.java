@@ -9,7 +9,6 @@ import com.mycompany.dto.MunicipioDTO;
 import com.mycompany.dto.NormalNuevoDTO;
 import com.mycompany.dto.UsuarioNuevoDTO;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -23,16 +22,15 @@ import org.itson.aplicacionesweb.themusichub.persistenciaException.FacadeExcepti
  *
  * @author Abe
  */
-@WebServlet(name = "RegistrarUsuario", urlPatterns = {"/RegistrarUsuario"})
 public class RegistarUsuario extends HttpServlet {
 
     private IAccesoDatosFacade accesoDatos;
-    
-    
+
     @Override
     public void init() throws ServletException {
         accesoDatos = new AccesoDatosFacade();
     }
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -73,32 +71,48 @@ public class RegistarUsuario extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String nombres = request.getParameter("nombres");
-        String apellidoPaterno = request.getParameter("apellidoPaterno");
-        String apellidoMaterno = request.getParameter("apellidoMaterno");
-        String correo = request.getParameter("correo");
+
+        String nombre = request.getParameter("nombre");
+        String apellidos = request.getParameter("apellidos");
+        apellidos = "";
+        String apellido1, apellido2;
+
+        String[] partes = apellidos.split(" ");
+
+        if (partes.length == 1) {
+            apellido1 = partes[0];
+            apellido2 = "";
+        } else if (partes.length == 2) {
+            apellido1 = partes[0];
+            apellido2 = partes[1];
+        } else {
+
+            apellido1 = "";
+            apellido2 = "";
+        }
+        String correo = request.getParameter("email");
         String contrasenia = request.getParameter("contrasenia");
         String telefono = request.getParameter("telefono");
         String ciudad = request.getParameter("ciudad");
         String genero = request.getParameter("genero");
 
         String fechaNacimientoStr = request.getParameter("fechaNacimiento");
+        
         Calendar fechaNacimiento = Calendar.getInstance();
         String[] dateParts = fechaNacimientoStr.split("-");
         fechaNacimiento.set(Integer.parseInt(dateParts[0]), Integer.parseInt(dateParts[1]) - 1, Integer.parseInt(dateParts[2]));
-
         EstadoDTO estado = new EstadoDTO("Sonora");
         MunicipioDTO municipio = new MunicipioDTO("Cajeme", estado);
 
-        UsuarioNuevoDTO usuario = new NormalNuevoDTO(nombres, apellidoPaterno, apellidoMaterno, correo, contrasenia, telefono, ciudad, fechaNacimiento, genero, municipio);
+        UsuarioNuevoDTO usuario = new NormalNuevoDTO(nombre, apellido1, apellido2, correo, contrasenia, telefono, ciudad, fechaNacimiento, genero, municipio);
         System.out.println("HOLA DESDE EL SERVLET");
         try {
             accesoDatos.registrarUsuario(usuario);
             response.sendRedirect(request.getContextPath() + "/Inicio.jsp");
         } catch (FacadeException e) {
-             this.getServletContext()
-                .getRequestDispatcher("/IniciarRegistrar.jsp")
-                .forward(request, response);
+            this.getServletContext()
+                    .getRequestDispatcher("/IniciarRegistrar.jsp")
+                    .forward(request, response);
         }
     }
 

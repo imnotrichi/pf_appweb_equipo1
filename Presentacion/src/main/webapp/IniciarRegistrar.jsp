@@ -21,7 +21,7 @@
             <input type="checkbox" id="chk" aria-hidden="true">
             <div class="form-contenedor registrar-contenedor">
                 
-                <form action="RegistrarUsuario" method="POST" id="registroForm" enctype="multipart/form-data">
+                <form action="RegistarUsuario" method="POST" id="registroForm">
                     <h1>Registrarse</h1>
                     <div class="nombres campos">
                         <label for="nombre">Nombre(s)</label>
@@ -32,7 +32,6 @@
                         <label for="apellidos">Apellidos</label>
                         <input type="text" name="apellidos" />
                     </div>
-
 
                     <div class="columna1 campos">
                         <label for="usuario">Usuario</label>
