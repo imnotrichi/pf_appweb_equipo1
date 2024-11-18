@@ -9,6 +9,7 @@ import com.mycompany.dto.MunicipioDTO;
 import com.mycompany.dto.NormalNuevoDTO;
 import com.mycompany.dto.UsuarioNuevoDTO;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -22,6 +23,9 @@ import org.itson.aplicacionesweb.themusichub.persistenciaException.FacadeExcepti
  *
  * @author Abe
  */
+@MultipartConfig(fileSizeThreshold = 1024*1024*2,
+                 maxFileSize = 1024*1024*10,
+                 maxRequestSize = 1024*1024*50)
 public class RegistarUsuario extends HttpServlet {
 
     private IAccesoDatosFacade accesoDatos;
