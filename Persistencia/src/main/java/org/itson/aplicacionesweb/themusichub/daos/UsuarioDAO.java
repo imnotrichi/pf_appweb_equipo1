@@ -51,7 +51,7 @@ public class UsuarioDAO implements IUsuarioDAO {
     }
 
     @Override
-    public Usuario iniciarSesion(String contrasena, String correo) throws PersistenciaException {
+    public Usuario obtenerUsuarioCorreoContra(String correo, String contrasenia) throws PersistenciaException {
         EntityManager em = null;
         try {
             em = this.conexion.crearConexion();
@@ -64,7 +64,7 @@ public class UsuarioDAO implements IUsuarioDAO {
 
             TypedQuery<Usuario> query = em.createQuery(jpqlQuery, Usuario.class);
             query.setParameter("correo", correo);
-            query.setParameter("contrasenia", contrasena);
+            query.setParameter("contrasenia", contrasenia);
 
             List<Usuario> resultados = query.getResultList();
             if (resultados.isEmpty()) {

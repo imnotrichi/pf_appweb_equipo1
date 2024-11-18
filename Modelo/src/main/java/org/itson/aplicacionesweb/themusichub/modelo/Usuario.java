@@ -88,6 +88,20 @@ public class Usuario implements Serializable {
         this.genero = genero;
     }
 
+    public Usuario(String correo, String nombres, String apellidoPaterno, String apellidoMaterno, String contrasenia, String telefono, String avatar, String ciudad, Municipio municipio, Calendar fechaNacimiento, String genero) {
+        this.correo = correo;
+        this.nombres = nombres;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
+        this.contrasenia = contrasenia;
+        this.telefono = telefono;
+        this.avatar = avatar;
+        this.ciudad = ciudad;
+        this.municipio = municipio;
+        this.fechaNacimiento = fechaNacimiento;
+        this.genero = genero;
+    }
+
     public String getNombres() {
         return nombres;
     }

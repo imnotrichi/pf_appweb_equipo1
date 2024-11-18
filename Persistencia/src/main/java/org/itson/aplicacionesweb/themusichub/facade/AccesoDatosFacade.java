@@ -7,6 +7,8 @@ import com.mycompany.dto.AdministradorDTO;
 import com.mycompany.dto.AncladoDTO;
 import com.mycompany.dto.ComentarioDTO;
 import com.mycompany.dto.ComunDTO;
+import com.mycompany.dto.EstadoDTO;
+import com.mycompany.dto.MunicipioDTO;
 import com.mycompany.dto.NormalDTO;
 import com.mycompany.dto.PostNuevoDTO;
 import com.mycompany.dto.UsuarioDTO;
@@ -29,6 +31,8 @@ import org.itson.aplicacionesweb.themusichub.modelo.Anclado;
 import org.itson.aplicacionesweb.themusichub.modelo.CategoriaPost;
 import org.itson.aplicacionesweb.themusichub.modelo.Comentario;
 import org.itson.aplicacionesweb.themusichub.modelo.Comun;
+import org.itson.aplicacionesweb.themusichub.modelo.Estado;
+import org.itson.aplicacionesweb.themusichub.modelo.Municipio;
 import org.itson.aplicacionesweb.themusichub.modelo.Normal;
 import org.itson.aplicacionesweb.themusichub.modelo.Post;
 import org.itson.aplicacionesweb.themusichub.modelo.Usuario;
@@ -58,7 +62,18 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
 
     @Override
     public void registrarUsuario(UsuarioNuevoDTO usuariodto) throws FacadeException {
-        Normal usuario = new Normal(usuariodto.getNombres(),
+        try {
+            Usuario usuarioExistente;
+            usuarioExistente = usuariosDAO.buscarUsuario(usuariodto.getCorreo());
+            if (usuarioExistente != null) {
+                throw new FacadeException("El correo que ingresó ya está registrado.");
+            }
+        } catch (PersistenciaException ex) {
+            throw new FacadeException(ex.getMessage());
+        }
+
+        Normal usuario = new Normal(
+                usuariodto.getNombres(),
                 usuariodto.getApellidoPaterno(),
                 usuariodto.getApellidoMaterno(),
                 usuariodto.getCorreo(),
@@ -66,6 +81,7 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
                 usuariodto.getTelefono(),
                 usuariodto.getAvatar(),
                 usuariodto.getCiudad(),
+                new Municipio(1L, usuariodto.getMunicipio().getNombre(), new Estado(1L, usuariodto.getMunicipio().getEstado().getNombre())),
                 usuariodto.getFechaNacimiento(),
                 usuariodto.getGenero());
 
@@ -111,6 +127,7 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
                     usuariodto.getTelefono(),
                     usuariodto.getAvatar(),
                     usuariodto.getCiudad(),
+                    new Municipio(usuariodto.getMunicipio().getNombre()),
                     usuariodto.getFechaNacimiento(),
                     usuariodto.getGenero());
         } else if (usuariodto instanceof AdministradorDTO) {
@@ -166,6 +183,7 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
                     usuariodto.getTelefono(),
                     usuariodto.getAvatar(),
                     usuariodto.getCiudad(),
+                    new Municipio(usuariodto.getMunicipio().getNombre()),
                     usuariodto.getFechaNacimiento(),
                     usuariodto.getGenero());
         } else if (usuariodto instanceof AdministradorDTO) {
@@ -252,6 +270,7 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
                     usuarioPost.getTelefono(),
                     usuarioPost.getAvatar(),
                     usuarioPost.getCiudad(),
+                    new Municipio(usuarioPost.getMunicipio().getNombre()),
                     usuarioPost.getFechaNacimiento(),
                     usuarioPost.getGenero());
         } else if (usuarioPost instanceof AdministradorDTO) {
@@ -284,28 +303,29 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
             postComentar = anclado;
         }
 
-        Post postExistente =null;
+        Post postExistente = null;
         try {
-             postExistente = postsDAO.buscarPostPorAtributos(postComentar);
+            postExistente = postsDAO.buscarPostPorAtributos(postComentar);
         } catch (PersistenciaException ex) {
             Logger.getLogger(AccesoDatosFacade.class.getName()).log(Level.SEVERE, null, ex);
         }
         Normal usuarioComentario = new Normal(
-                comentario.getUsuario().getNombres(), 
-                comentario.getUsuario().getApellidoPaterno(), 
+                comentario.getUsuario().getNombres(),
+                comentario.getUsuario().getApellidoPaterno(),
                 comentario.getUsuario().getApellidoMaterno(),
                 comentario.getUsuario().getCorreo(),
-                AESEncriptador.encriptar(comentario.getUsuario().getContrasenia()), 
+                AESEncriptador.encriptar(comentario.getUsuario().getContrasenia()),
                 comentario.getUsuario().getTelefono(),
                 comentario.getUsuario().getAvatar(),
                 comentario.getUsuario().getCiudad(),
-                comentario.getUsuario().getFechaNacimiento(), 
+                new Municipio(comentario.getUsuario().getMunicipio().getNombre()),
+                comentario.getUsuario().getFechaNacimiento(),
                 comentario.getUsuario().getGenero());
-        
+
         Comentario comentario1 = new Comentario(
                 GregorianCalendar.getInstance(),
                 comentario.getContenido(),
-                (Comun)postExistente,
+                (Comun) postExistente,
                 usuarioComentario);
         try {
             comentariosDAO.publicarComentario(comentario1);
@@ -321,12 +341,46 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
 
     @Override
     public void responderComentario(ComentarioDTO respuesta, NormalDTO usuario, ComentarioDTO comentarioRespondido) {
-       
+
     }
 
+    /**
+     * Método para obtener un usuario dados un correo y contraseña.
+     * 
+     * @param correo Correo del usuario.
+     * @param contrasenia Contraseña del usuario.
+     * @return 
+     * @throws FacadeException 
+     */
     @Override
-    public UsuarioDTO obtenerUsuario(UsuarioDTO usuarioBuscado) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public UsuarioDTO obtenerUsuario(String correo, String contrasenia) throws FacadeException {
+        try {
+            // Encriptamos la contraseña recibida.
+            contrasenia = AESEncriptador.encriptar(contrasenia);
+            
+            // Mandamos a buscar un usuario con el correo y la contraseña.
+            Usuario usuario = usuariosDAO.obtenerUsuarioCorreoContra(correo, contrasenia);
+            
+            // Convertimos el usuario de entidad a DTO.
+            EstadoDTO estadoDTO = new EstadoDTO(usuario.getMunicipio().getEstado().getNombre());
+            MunicipioDTO municipioDTO = new MunicipioDTO(usuario.getMunicipio().getNombre(), estadoDTO);
+            UsuarioDTO usuarioDTO = new UsuarioDTO(
+                    usuario.getNombres(),
+                    usuario.getApellidoPaterno(),
+                    usuario.getApellidoMaterno(),
+                    usuario.getCorreo(),
+                    usuario.getContrasenia(),
+                    usuario.getTelefono(),
+                    usuario.getCiudad(),
+                    usuario.getFechaNacimiento(),
+                    usuario.getGenero(),
+                    municipioDTO);
+            
+            // Retornamos el usuario.
+            return usuarioDTO;
+        } catch (PersistenciaException ex) {
+            throw new FacadeException("No se encontró ningún usuario con los datos proporcionados.");
+        }
     }
 
 }

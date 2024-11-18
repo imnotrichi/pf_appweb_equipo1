@@ -50,13 +50,13 @@ public class AESEncriptador {
      * @return texto desencriptado
      * @throws Exception
      */
-//    public static String desencriptar(String textoEncriptado) throws Exception {
-//        SecretKeySpec claveSecreta = new SecretKeySpec(clave.getBytes(), "AES");
-//        Cipher cifrador = Cipher.getInstance("AES/ECB/PKCS5Padding");
-//        cifrador.init(Cipher.DECRYPT_MODE, claveSecreta);
-//        byte[] textoDecodificado = Base64.getDecoder().decode(textoEncriptado);
-//        byte[] textoDesencriptado = cifrador.doFinal(textoDecodificado);
-//        return new String(textoDesencriptado);
-//    }
+    public static String desencriptar(String textoEncriptado) throws Exception {
+        SecretKeySpec claveSecreta = new SecretKeySpec(CLAVE_SECRETA.getBytes(), "AES");
+        Cipher cifrador = Cipher.getInstance("AES/ECB/PKCS5Padding");
+        cifrador.init(Cipher.DECRYPT_MODE, claveSecreta);
+        byte[] textoDecodificado = Base64.getDecoder().decode(textoEncriptado);
+        byte[] textoDesencriptado = cifrador.doFinal(textoDecodificado);
+        return new String(textoDesencriptado);
+    }
 
 }

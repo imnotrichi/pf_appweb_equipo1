@@ -43,6 +43,11 @@ public class Estado implements Serializable {
         this.nombre = nombre;
     }
 
+    public Estado(Long id, String nombre) {
+        this.id = id;
+        this.nombre = nombre;
+    }
+
     public Long getId() {
         return id;
     }

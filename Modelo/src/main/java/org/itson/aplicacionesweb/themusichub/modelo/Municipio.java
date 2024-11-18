@@ -35,7 +35,7 @@ public class Municipio implements Serializable {
     @OneToMany(mappedBy = "municipio", cascade = CascadeType.PERSIST)
     private List<Usuario> usuarios;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "id_estado", nullable = false)
     private Estado estado;
 
@@ -47,6 +47,12 @@ public class Municipio implements Serializable {
 
     public Municipio(String nombre) {
         this.nombre = nombre;
+    }
+
+    public Municipio(Long id, String nombre, Estado estado) {
+        this.id = id;
+        this.nombre = nombre;
+        this.estado = estado;
     }
 
     public Long getId() {
