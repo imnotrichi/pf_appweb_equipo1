@@ -25,6 +25,7 @@
         <main>
             <form action="#">
                 <h2>Nuevo post</h2>
+                <br>
                 <div>
                     <label for="titulo">Título</label>
                     <input type="text" name="titulo" />
