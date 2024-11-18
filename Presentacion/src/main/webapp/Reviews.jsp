@@ -21,12 +21,10 @@
 
     <div class="contenedor">
         <%@include file="./fragmentos/BarraNavegacion.xhtml"%>
-        
 
         <main>
             <a href="">
                 <article>
-                    <img src="" alt="">
                     <img src="./imagenes/white-pin-icon.png" alt="">
                     <h3>Reseña álbum Eternal Sunshine</h3>
                     <p>¿Por qué Eternal Sunshine es un buen álbum?</p>
@@ -35,7 +33,6 @@
 
             <a href="">
                 <article>
-                    <img src="" alt="">
                     <img src="./imagenes/white-pin-icon.png" alt="">
                     <h3>¿Hit Me Hard and Soft podría ser el álbum del año?</h3>
                     <p>A continuación se estarán presentando algunos puntos importantes de porque se cree que hit...</p>
@@ -51,9 +48,7 @@
                 </article>
             </a>
 
-            <button>
-                <a href="NuevoPost.html">+</a>
-            </button>
+            <%@include file="./fragmentos/BotonNuevoPost.xhtml"%>
         </main>
     </div>
 </body>

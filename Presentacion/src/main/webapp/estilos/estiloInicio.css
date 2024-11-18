@@ -22,7 +22,7 @@ main a:nth-child(1) article {
     background-position: center;
 }
 
-main a:nth-child(1) article img:nth-child(2){
+main a:nth-child(1) article img:nth-child(1){
     width: 2rem;
     position: relative;
     right: -96%;
@@ -34,7 +34,7 @@ main a:nth-child(2) article {
     background-position: center;
 }
 
-main a:nth-child(2) article img:nth-child(2){
+main a:nth-child(2) article img:nth-child(1){
     width: 2rem;
     position: relative;
     right: -96%;

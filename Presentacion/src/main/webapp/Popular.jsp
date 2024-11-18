@@ -50,9 +50,7 @@
                 </article>
             </a>
 
-            <button>
-                <a href="NuevoPost.html">+</a>
-            </button>
+            <%@include file="./fragmentos/BotonNuevoPost.xhtml"%>
         </main>
     </div>
 </body>

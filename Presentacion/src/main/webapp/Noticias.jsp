@@ -13,7 +13,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./estilos/estiloEstructura.css">
     <link rel="stylesheet" href="./estilos/estiloNoticias.css">
-    <script src="https://kit.fontawesome.com/75561fa68d.js" crossorigin="anonymous"></script>
     <title>The Music Hub - Noticias</title>
 </head>
 
@@ -74,9 +73,8 @@
                     <p>El fenómeno mundial del artpop anuncia una nueva gira mundial. Dentro de la lista de ciudades elegidas están Bacadéhuachi y Bratislava.</p>
                 </article>
             </a>
-            <button>
-                <a href="NuevoPost.html">+</a>
-            </button>
+            
+            <%@include file="./fragmentos/BotonNuevoPost.xhtml"%>
         </main>
     </div>
 </body>
