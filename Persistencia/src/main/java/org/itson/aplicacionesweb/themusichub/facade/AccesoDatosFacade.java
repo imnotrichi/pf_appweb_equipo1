@@ -79,7 +79,7 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
                 usuariodto.getApellidoPaterno(),
                 usuariodto.getApellidoMaterno(),
                 usuariodto.getNombreUsuario(),
-                usuariodto.getContrasenia(),
+                AESEncriptador.encriptar(usuariodto.getContrasenia()),
                 usuariodto.getTelefono(),
                 usuariodto.getAvatar(),
                 usuariodto.getCiudad(),

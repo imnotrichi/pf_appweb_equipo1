@@ -58,7 +58,8 @@ public class IniciarSesion extends HttpServlet {
             System.out.println("REGISTRO DE USUARIO");
             UsuarioDTO usuario = accesoDatos.obtenerUsuario(correo, contrasenia);
             if (usuario != null) {
-               
+                HttpSession session = request.getSession();
+                session.setAttribute("usuario", usuario);
                 response.sendRedirect(request.getContextPath() + "/Inicio.jsp");
             } else {
                

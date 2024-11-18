@@ -21,7 +21,7 @@ import java.io.StringWriter;
  * @author Equipo1
  */
 public class FiltroIniciarSesion implements Filter {
-    
+
     private static final boolean debug = true;
     private static final String[] RUTAS_PUBLICAS = {"IniciarRegistrar.jsp", "IniciarSesion", "CerrarSesion", "RegistrarUsuario"};
 
@@ -29,10 +29,10 @@ public class FiltroIniciarSesion implements Filter {
     // this value is null, this filter instance is not currently
     // configured. 
     private FilterConfig filterConfig = null;
-    
+
     public FiltroIniciarSesion() {
-    }    
-    
+    }
+
     private void doBeforeProcessing(ServletRequest request, ServletResponse response)
             throws IOException, ServletException {
         if (debug) {
@@ -59,8 +59,8 @@ public class FiltroIniciarSesion implements Filter {
 	    log(buf.toString());
 	}
          */
-    }    
-    
+    }
+
     private void doAfterProcessing(ServletRequest request, ServletResponse response)
             throws IOException, ServletException {
         if (debug) {
@@ -85,16 +85,14 @@ public class FiltroIniciarSesion implements Filter {
 	respOut.println("<P><B>This has been appended by an intrusive filter.</B>");
          */
     }
-    
+
     //Verifica que haya una sesión activa y que el usuario se encuentre autentificado.
     private boolean estaLogueado(HttpServletRequest httpRequest) {
         HttpSession sesion = httpRequest.getSession(false);
-        
-        boolean logueado = (sesion != null && sesion.getAttribute("usuario") != null);
-        
-        return logueado;
+
+        return (sesion != null && sesion.getAttribute("usuario") != null);
     }
-    
+
     //Verifica si la ruta a la que se quiere acceder es privada.
     private boolean esURLPrivada(String ruta) {
         for (String url : RUTAS_PUBLICAS) {
@@ -102,16 +100,16 @@ public class FiltroIniciarSesion implements Filter {
                 return false;
             }
         }
-        
+
         return true;
     }
-    
+
     //Obtiene la ruta a la que se desea acceder.
     private String getRutaSolicitada(HttpServletRequest httpRequest) {
         String uriSolicitada = httpRequest.getRequestURI();
-        
+
         String ruta = uriSolicitada.substring(httpRequest.getContextPath().length());
-        
+
         return ruta;
     }
 
@@ -128,19 +126,19 @@ public class FiltroIniciarSesion implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain chain)
             throws IOException, ServletException {
-        
+
         if (debug) {
             log("FiltroIniciarSesion:doFilter()");
         }
-        
+
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
-        
+
         String ruta = this.getRutaSolicitada(httpRequest);
         boolean urlPrivada = this.esURLPrivada(ruta);
         boolean logueado = this.estaLogueado(httpRequest);
-        
-        if (!logueado && urlPrivada) {
+
+        if (!logueado && urlPrivada && !ruta.equals("/IniciarRegistrar.jsp")) {
             httpResponse.sendRedirect(httpRequest.getContextPath() + "/IniciarRegistrar.jsp");
         } else {
             chain.doFilter(request, response);
@@ -166,16 +164,16 @@ public class FiltroIniciarSesion implements Filter {
     /**
      * Destroy method for this filter
      */
-    public void destroy() {        
+    public void destroy() {
     }
 
     /**
      * Init method for this filter
      */
-    public void init(FilterConfig filterConfig) {        
+    public void init(FilterConfig filterConfig) {
         this.filterConfig = filterConfig;
         if (filterConfig != null) {
-            if (debug) {                
+            if (debug) {
                 log("FiltroIniciarSesion:Initializing filter");
             }
         }
@@ -194,20 +192,20 @@ public class FiltroIniciarSesion implements Filter {
         sb.append(")");
         return (sb.toString());
     }
-    
+
     private void sendProcessingError(Throwable t, ServletResponse response) {
-        String stackTrace = getStackTrace(t);        
-        
+        String stackTrace = getStackTrace(t);
+
         if (stackTrace != null && !stackTrace.equals("")) {
             try {
                 response.setContentType("text/html");
                 PrintStream ps = new PrintStream(response.getOutputStream());
-                PrintWriter pw = new PrintWriter(ps);                
+                PrintWriter pw = new PrintWriter(ps);
                 pw.print("<html>\n<head>\n<title>Error</title>\n</head>\n<body>\n"); //NOI18N
 
                 // PENDING! Localize this for next official release
-                pw.print("<h1>The resource did not process correctly</h1>\n<pre>\n");                
-                pw.print(stackTrace);                
+                pw.print("<h1>The resource did not process correctly</h1>\n<pre>\n");
+                pw.print(stackTrace);
                 pw.print("</pre></body>\n</html>"); //NOI18N
                 pw.close();
                 ps.close();
@@ -224,7 +222,7 @@ public class FiltroIniciarSesion implements Filter {
             }
         }
     }
-    
+
     public static String getStackTrace(Throwable t) {
         String stackTrace = null;
         try {
@@ -238,9 +236,9 @@ public class FiltroIniciarSesion implements Filter {
         }
         return stackTrace;
     }
-    
+
     public void log(String msg) {
-        filterConfig.getServletContext().log(msg);        
+        filterConfig.getServletContext().log(msg);
     }
-    
+
 }
