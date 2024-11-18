@@ -6,14 +6,13 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./estilos/estiloEstructura.css">
     <link rel="stylesheet" href="./estilos/estiloPost.css">
-    <script src="https://kit.fontawesome.com/75561fa68d.js" crossorigin="anonymous"></script>
 
     <title>The Music Hub - Post</title>
 </head>
@@ -39,23 +38,7 @@
 
     <div class="contenedor">
         <aside>
-            <nav>
-                <div class="secciones">
-                    <ul>
-                        <li><a href="Inicio2.html"><img src="./imagenes/white-home-icon.png" alt="">Inicio</a></li>
-                        <li><a href="Reviews.html"><img src="./imagenes/white-review-icon.png" alt="">Reviews</a></li>
-                        <li><a href="Popular.html"><img src="./imagenes/white-popular-icon.png" alt="">Popular</a></li>
-                        <li><a href="Noticias.html"><img src="./imagenes/white-news-icon.png" alt="">Noticias</a></li>
-                        <li><a href="Playlists.html"><img src="./imagenes/white-playlist-icon.png" alt="">Playlists</a>
-                        </li>
-                        <li><a href="General.html"><img src="./imagenes/white-general-icon.png" alt="">General</a></li>
-                    </ul>
-                </div>
-
-                <div class="iniciar-sesion">
-                    <a href="IniciarRegistrar.html">Cerrar Sesión</a>
-                </div>
-            </nav>
+            <%@include file="./fragmentos/BarraNavegacion.xhtml"%>
         </aside>
 
         <main>

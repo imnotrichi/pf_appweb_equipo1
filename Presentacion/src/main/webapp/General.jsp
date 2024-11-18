@@ -1,6 +1,6 @@
 <%-- 
-    Document   : Inicio
-    Created on : 13 nov 2024, 20:27:30
+    Document   : General
+    Created on : 17 nov 2024, 20:57:17
     Author     : Equipo1
 --%>
 
@@ -12,13 +12,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./estilos/estiloEstructura.css">
-    <link rel="stylesheet" href="./estilos/estiloInicio.css">
-    <title>The Music Hub - Inicio</title>
+    <link rel="stylesheet" href="./estilos/estiloGeneral.css">
+    <title>The Music Hub - General</title>
 </head>
 
 <body>
     <header>
-        <a href="Inicio.jsp" class="logo">
+        <a href="Inicio2.html" class="logo">
             <img src="./imagenes/blue-vinyl-icon.png" alt="Disco de Vinilo Azul">
             <span class="the">THE</span>
             <span class="music">MUSIC</span>
@@ -26,7 +26,7 @@
         </a>
         <div class="header-derecha">
             <a href="Perfil.html" class="mi-perfil">
-                <img src="./imagenes/avatar.jpeg" alt="Avatar del usuario actual.">
+                <img src="imagenes/avatar.jpeg" alt="Avatar del usuario actual.">
                 <p>Mi perfil</p>
             </a>
             <p>I</p>
@@ -41,23 +41,7 @@
         </aside>
 
         <main>
-            <a href="Post.html">
-                <article>
-                    <img src="./imagenes/white-pin-icon.png" alt="">
-                    <h3>Nuevo Lanzamiento!</h3>
-                    <p>Charli XCX lanzará su nuevo álbum este 11/10/2024.</p>
-                </article>
-            </a>
-
             <a href="">
-                <article>
-                    <img src="./imagenes/white-pin-icon.png" alt="">
-                    <h3>The Marias en Tiny Desk!</h3>
-                    <p>Una gran presentación de parte de la banda.</p>
-                </article>
-            </a>
-
-            <a href="PostNormal.html">
                 <article>
                     <img src="" alt="">
                     <h2>@licoreeee</h2>
@@ -74,11 +58,27 @@
                 </article>
             </a>
 
+            <a href="">
+                <article>
+                    <img src="" alt="">
+                    <h2>@Pipucate</h2>
+                    <h3>Ustedes qué opinan de la controversia de Chappel Roan??</h3>
+                    <p>A mí no me importa la verdad, yo la sigo amando.</p>
+                </article>
+            </a>
+
+            <a href="">
+                <article>
+                    <img src="" alt="">
+                    <h2>@salammimami</h2>
+                    <h3>Me gustó mucho 143 de Katy Perry y soporten.</h3>
+                </article>
+            </a>
+
             <button>
                 <a href="NuevoPost.html">+</a>
             </button>
         </main>
     </div>
 </body>
-
 </html>

@@ -1,6 +1,6 @@
 <%-- 
-    Document   : Inicio
-    Created on : 13 nov 2024, 20:27:30
+    Document   : Popular
+    Created on : 17 nov 2024, 22:29:17
     Author     : Equipo1
 --%>
 
@@ -12,13 +12,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./estilos/estiloEstructura.css">
-    <link rel="stylesheet" href="./estilos/estiloInicio.css">
-    <title>The Music Hub - Inicio</title>
+    <link rel="stylesheet" href="./estilos/estiloPopular.css">
+    <title>The Music Hub - Popular</title>
 </head>
 
 <body>
     <header>
-        <a href="Inicio.jsp" class="logo">
+        <a href="Inicio2.html" class="logo">
             <img src="./imagenes/blue-vinyl-icon.png" alt="Disco de Vinilo Azul">
             <span class="the">THE</span>
             <span class="music">MUSIC</span>
@@ -26,7 +26,7 @@
         </a>
         <div class="header-derecha">
             <a href="Perfil.html" class="mi-perfil">
-                <img src="./imagenes/avatar.jpeg" alt="Avatar del usuario actual.">
+                <img src="imagenes/avatar.jpeg" alt="Avatar del usuario actual.">
                 <p>Mi perfil</p>
             </a>
             <p>I</p>
@@ -41,36 +41,30 @@
         </aside>
 
         <main>
-            <a href="Post.html">
+            <a href="">
                 <article>
-                    <img src="./imagenes/white-pin-icon.png" alt="">
-                    <h3>Nuevo Lanzamiento!</h3>
-                    <p>Charli XCX lanzará su nuevo álbum este 11/10/2024.</p>
+                    <img src="" alt="">
+                    <h2>@ricardoalann</h2>
+                    <h3>Jenni Rivera ha regreado???</h3>
+                    <p>He visto unas fotos donde se observa a una persona muy similar a la silueta de Jenni...</p>
                 </article>
             </a>
 
             <a href="">
-                <article>
-                    <img src="./imagenes/white-pin-icon.png" alt="">
-                    <h3>The Marias en Tiny Desk!</h3>
-                    <p>Una gran presentación de parte de la banda.</p>
-                </article>
-            </a>
-
-            <a href="PostNormal.html">
                 <article>
                     <img src="" alt="">
                     <h2>@licoreeee</h2>
-                    <h3>Qué opinan de "XQ ERES ASI"?</h3>
-                    <p>Diganme su opinión.</p>
+                    <h3>¿Qué opinan de "XQ ERES ASÍ"?</h3>
+                    <p>¿Qué opinan del nuevo sencillo de Álvaro Díaz "XQ ERES ASÍ"? A mi la verdad me gustó mucho...</p>
                 </article>
             </a>
 
-            <a href="">
+            <a href="PostNormalUsuarioNormal.html">
                 <article>
                     <img src="" alt="">
-                    <h2>@abel_san13</h2>
-                    <h3>Habrá video musical de Apple de Charli XCX????</h3>
+                    <h2>@pipucate</h2>
+                    <h3>Taylor Swift tu patrona</h3>
+                    <p>Les estaré mostrando porque Taylor Swift es una de las mejores cantantes en la actualidad...</p>
                 </article>
             </a>
 
@@ -80,5 +74,4 @@
         </main>
     </div>
 </body>
-
 </html>
