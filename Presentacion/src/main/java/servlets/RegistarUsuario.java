@@ -74,8 +74,7 @@ public class RegistarUsuario extends HttpServlet {
 
         String nombre = request.getParameter("nombre");
         String apellidos = request.getParameter("apellidos");
-        apellidos = "";
-        String apellido1, apellido2;
+        String apellido1="", apellido2="";
 
         String[] partes = apellidos.split(" ");
 
@@ -85,13 +84,9 @@ public class RegistarUsuario extends HttpServlet {
         } else if (partes.length == 2) {
             apellido1 = partes[0];
             apellido2 = partes[1];
-        } else {
-
-            apellido1 = "";
-            apellido2 = "";
         }
         String correo = request.getParameter("email");
-        String contrasenia = request.getParameter("contrasenia");
+        String contrasenia = request.getParameter("contrasena");
         String telefono = request.getParameter("telefono");
         String ciudad = request.getParameter("ciudad");
         String genero = request.getParameter("genero");

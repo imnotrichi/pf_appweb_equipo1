@@ -25,39 +25,39 @@
                     <h1>Registrarse</h1>
                     <div class="nombres campos">
                         <label for="nombre">Nombre(s)</label>
-                        <input type="text" name="nombre" />
+                        <input type="text" name="nombre" required/>
                     </div>
 
                     <div class="nombres campos">
                         <label for="apellidos">Apellidos</label>
-                        <input type="text" name="apellidos" />
+                        <input type="text" name="apellidos" required/>
                     </div>
 
                     <div class="columna1 campos">
                         <label for="usuario">Usuario</label>
-                        <input type="text" name="usuario" />
+                        <input type="text" name="usuario"required />
 
                     </div>
 
                     <div class="columna2 campos">
                         <label for="telefono">Teléfono</label>
-                        <input type="number" name="telefono" />
+                        <input type="number" name="telefono" required/>
                     </div>
 
                     <div class="columna1 campos">
                         <label for="email">Correo electrónico</label>
-                        <input type="email" name="email" />
+                        <input type="email" name="email" required/>
                     </div>
 
 
                     <div class="columna2 campos">
                         <label for="ciudad">Ciudad</label>
-                        <input type="text" name="ciudad" />
+                        <input type="text" name="ciudad"required />
                     </div>
 
                     <div class="columna1 campos">
                         <label for="contrasena">Contraseña</label>
-                        <input type="password" name="contrasena" />
+                        <input type="password" name="contrasena"required />
                     </div>
 
                     <div class="columna2 campos genero">
@@ -72,7 +72,7 @@
 
                     <div class="columna1 campos">
                         <label for="fechaNacimiento">Fecha nacimiento</label>
-                        <input type="date" name="fechaNacimiento" />
+                        <input type="date" name="fechaNacimiento" required/>
                     </div>
 
                     <div class="columna2 campos">
