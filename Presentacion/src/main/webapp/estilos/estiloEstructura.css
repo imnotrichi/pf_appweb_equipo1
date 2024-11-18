@@ -200,7 +200,7 @@ nav {
     font-size: 1.5rem;
 }
 
-.iniciar-sesion {
+.cerrar-sesion {
     background-color: #262727;
     border-radius: 0 0 0.7rem 0.7rem;
     height: 10%;
@@ -209,11 +209,18 @@ nav {
     align-items: center;
 }
 
-.iniciar-sesion a {
+.cerrar-sesion form input[type='submit'] {
+    border: none;
     font-size: 1.5rem;
     font-weight: 700;
+    background-color: #262727;
     color: #6FC0F8;
     text-decoration: underline;
+    cursor: pointer;
+}
+
+.cerrar-sesion form input[type='submit']:hover {
+    color: #F539B4;
 }
 
 main {

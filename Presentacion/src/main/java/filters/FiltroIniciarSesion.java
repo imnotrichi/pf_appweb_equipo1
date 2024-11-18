@@ -23,7 +23,7 @@ import java.io.StringWriter;
 public class FiltroIniciarSesion implements Filter {
     
     private static final boolean debug = true;
-    private static final String[] RUTAS_PUBLICAS = {"Inicio.jsp", "IniciarRegistrar.jsp", "IniciarSesion"};
+    private static final String[] RUTAS_PUBLICAS = {"IniciarRegistrar.jsp", "IniciarSesion", "CerrarSesion"};
 
     // The filter configuration object we are associated with.  If
     // this value is null, this filter instance is not currently
@@ -124,6 +124,7 @@ public class FiltroIniciarSesion implements Filter {
      * @exception IOException if an input/output error occurs
      * @exception ServletException if a servlet error occurs
      */
+    @Override
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain chain)
             throws IOException, ServletException {
