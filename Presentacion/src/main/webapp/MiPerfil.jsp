@@ -33,12 +33,11 @@
                 <p>Posts(2):</p>
             </div>
             <div>
-                <button class="editar-button" onclick="location.href='Editar.html'">
+                <button class="editar-button" onclick="location.href='EditarPost.jsp'">
                     <img src="imagenes/edit.png" alt="Ícono de editar.">
                 </button>
                 <a target="_blank" href="https://open.spotify.com/playlist/4PFubmBI9iohFQRCw206qs?si=282196fd25374d91">
                     <article>
-                        <img src="" alt="">
                         <h2>@bort_crab</h2>
                         <h3>¡ACTUALICÉ MI PLAYLIST Y YA TIENE MÁS DE 9000 CANCIONES!</h3>
                         <p>Escuchen mi playlist, tiene un poco de mucho (no de todo) :D</p>
@@ -47,7 +46,7 @@
             </div>
 
             <div>
-                <button class="editar-button" onclick="location.href='Editar.html'">
+                <button class="editar-button" onclick="location.href='EditarPost.jsp'">
                     <img src="imagenes/edit.png" alt="Ícono de editar.">
                 </button>
                 <a hef="">
