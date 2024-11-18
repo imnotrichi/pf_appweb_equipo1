@@ -19,7 +19,7 @@
 
 <body>
     <header>
-        <a href="Inicio2.html" class="logo">
+        <a href="Inicio.jsp" class="logo">
             <img src="./imagenes/blue-vinyl-icon.png" alt="Disco de Vinilo Azul">
             <span class="the">THE</span>
             <span class="music">MUSIC</span>
