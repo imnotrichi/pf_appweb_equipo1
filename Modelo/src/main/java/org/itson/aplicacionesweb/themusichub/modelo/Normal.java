@@ -31,10 +31,6 @@ public class Normal extends Usuario implements Serializable {
         super(correo, nombres, apellidoPaterno, apellidoMaterno, nombreUsuario, contrasenia, telefono, avatar, ciudad, fechaNacimiento, genero, municipio);
     }
 
-   
-
-    
-
     public List<Comentario> getComentarios() {
         return comentarios;
     }

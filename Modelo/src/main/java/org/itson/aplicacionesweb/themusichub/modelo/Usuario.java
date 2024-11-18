@@ -40,17 +40,17 @@ public class Usuario implements Serializable {
     @Column(name = "apellidoPaterno", nullable = false, length = 50)
     protected String apellidoPaterno;
 
-    @Column(name = "apellidoMaterno", length = 50)
+    @Column(name = "apellidoMaterno", length = 50, nullable = true)
     protected String apellidoMaterno;
-    
-    @Column(name = "nombreUsuario", length = 50)
+
+    @Column(name = "nombreUsuario", length = 50, nullable = false, unique = true)
     protected String nombreUsuario;
 
     @Column(name = "contrasenia", nullable = false, length = 128)
     @Lob
     protected String contrasenia;
 
-    @Column(name = "telefono", nullable = false, length = 128) 
+    @Column(name = "telefono", nullable = false, length = 128)
     protected String telefono;
 
     @Column(name = "avatar", length = 500)
@@ -70,7 +70,7 @@ public class Usuario implements Serializable {
     protected Municipio municipio;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.PERSIST)
-    private List<Comun> posts;
+    protected List<Comun> posts;
 
     /**
      * Constructor vacío.
@@ -92,9 +92,6 @@ public class Usuario implements Serializable {
         this.genero = genero;
         this.municipio = municipio;
     }
-
-    
-
 
     public String getNombres() {
         return nombres;
@@ -192,7 +189,6 @@ public class Usuario implements Serializable {
         this.nombreUsuario = nombreUsuario;
     }
 
-    
     @Override
     public int hashCode() {
         int hash = 3;

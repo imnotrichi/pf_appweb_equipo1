@@ -62,7 +62,6 @@ public class IniciarSesion extends HttpServlet {
                 session.setAttribute("usuario", usuario);
                 response.sendRedirect(request.getContextPath() + "/Inicio.jsp");
             } else {
-               
                 request.setAttribute("error", "Correo o contraseña incorrectos");
                 this.getServletContext().getRequestDispatcher("/IniciarRegistrar.jsp").forward(request, response);
             }

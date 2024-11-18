@@ -31,8 +31,13 @@ public class Administrador extends Usuario implements Serializable {
         super(correo, nombres, apellidoPaterno, apellidoMaterno, nombreUsuario, contrasenia, telefono, avatar, ciudad, fechaNacimiento, genero, municipio);
     }
 
-    
-    
+    public List<Anclado> getPostsAnclados() {
+        return postsAnclados;
+    }
+
+    public void setPostsAnclados(List<Anclado> postsAnclados) {
+        this.postsAnclados = postsAnclados;
+    }
 
     @Override
     public String toString() {

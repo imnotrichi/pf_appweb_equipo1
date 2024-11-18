@@ -13,6 +13,7 @@ import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Calendar;
 import org.itson.aplicacionesweb.themusichub.facade.AccesoDatosFacade;
@@ -23,9 +24,9 @@ import org.itson.aplicacionesweb.themusichub.persistenciaException.FacadeExcepti
  *
  * @author Abe
  */
-@MultipartConfig(fileSizeThreshold = 1024*1024*2,
-                 maxFileSize = 1024*1024*10,
-                 maxRequestSize = 1024*1024*50)
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2,
+        maxFileSize = 1024 * 1024 * 10,
+        maxRequestSize = 1024 * 1024 * 50)
 public class RegistrarUsuario extends HttpServlet {
 
     private IAccesoDatosFacade accesoDatos;
@@ -78,7 +79,7 @@ public class RegistrarUsuario extends HttpServlet {
 
         String nombre = request.getParameter("nombre");
         String apellidos = request.getParameter("apellidos");
-        String apellido1="", apellido2="";
+        String apellido1 = "", apellido2 = "";
 
         String[] partes = apellidos.split(" ");
 
@@ -97,7 +98,7 @@ public class RegistrarUsuario extends HttpServlet {
         String genero = request.getParameter("genero");
 
         String fechaNacimientoStr = request.getParameter("fechaNacimiento");
-        
+
         Calendar fechaNacimiento = Calendar.getInstance();
         String[] dateParts = fechaNacimientoStr.split("-");
         fechaNacimiento.set(Integer.parseInt(dateParts[0]), Integer.parseInt(dateParts[1]) - 1, Integer.parseInt(dateParts[2]));
@@ -109,6 +110,8 @@ public class RegistrarUsuario extends HttpServlet {
         try {
             System.out.println("REGISTRO DE USUARIO SERVLET");
             accesoDatos.registrarUsuario(usuario);
+            HttpSession session = request.getSession();
+            session.setAttribute("usuario", usuario);
             response.sendRedirect(request.getContextPath() + "/Inicio.jsp");
         } catch (FacadeException e) {
             System.out.println("EXCEPCION");

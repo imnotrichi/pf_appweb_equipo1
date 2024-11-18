@@ -35,9 +35,7 @@ public class Anclado extends Post implements Serializable {
     public void setAdministrador(Administrador administrador) {
         this.administrador = administrador;
     }
-    
-    
-    
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
