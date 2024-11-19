@@ -19,6 +19,10 @@ import org.itson.aplicacionesweb.themusichub.enums.CategoriaPost;
 @Table(name = "anclados")
 public class Anclado extends Post implements Serializable {
 
+    @ManyToOne
+    @JoinColumn(name = "id_administrador", nullable = false)
+    private Administrador administrador;
+    
     /**
      * Constructor vacío.
      */
@@ -37,8 +41,17 @@ public class Anclado extends Post implements Serializable {
      * @param comentarios Los comentarios del post
      * @param usuario El usuario que creó el post
      */
-    public Anclado(Long id, Calendar fechaHoraCreacion, String titulo, String subtitulo, String contenido, CategoriaPost categoria, List<Comentario> comentarios, Administrador usuario) {
+    public Anclado(Long id, Calendar fechaHoraCreacion, String titulo, String subtitulo, String contenido, CategoriaPost categoria, List<Comentario> comentarios, Usuario usuario, Administrador administrador) {
         super(id, fechaHoraCreacion, titulo, subtitulo, contenido, categoria, comentarios, usuario);
+        this.administrador = administrador;
+    }
+
+    public Administrador getAdministrador() {
+        return administrador;
+    }
+
+    public void setAdministrador(Administrador administrador) {
+        this.administrador = administrador;
     }
 
     @Override

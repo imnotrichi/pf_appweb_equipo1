@@ -22,6 +22,10 @@ public class ComentarioDTO {
         this.usuario = usuario;
     }
 
+    public ComentarioDTO(Long id, Calendar fechaHora, String contenido, UsuarioDTO convertirUsuarioAUsuarioDTO, List<ComentarioDTO> convertirComentariosAComentariosDTO) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     public Calendar getFechaHora() {
         return fechaHora;
     }

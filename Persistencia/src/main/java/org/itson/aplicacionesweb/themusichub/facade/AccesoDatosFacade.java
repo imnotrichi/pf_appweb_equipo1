@@ -112,47 +112,21 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
                 categoria = CategoriaPost.GENERAL;
         }
 
-        Usuario usuario = null;
-        Comun nuevoPost = new Comun(
-                post.getFechaHoraCreacion(),
-                post.getTitulo(),
-                post.getSubtitulo(),
-                post.getContenido(),
-                categoria,
-                usuario);
-
-        UsuarioDTO usuarioDTO = post.getUsuario();
-        if (usuarioDTO instanceof NormalDTO) {
-            usuario = new Normal(
-                    usuarioDTO.getCorreo(),
-                    usuarioDTO.getNombres(),
-                    usuarioDTO.getApellidoPaterno(),
-                    usuarioDTO.getApellidoMaterno(),
-                    usuarioDTO.getNombreUsuario(),
-                    AESEncriptador.encriptar(usuarioDTO.getContrasenia()),
-                    usuarioDTO.getTelefono(),
-                    usuarioDTO.getAvatar(),
-                    usuarioDTO.getCiudad(),
-                    usuarioDTO.getFechaNacimiento(),
-                    usuarioDTO.getGenero(),
-                    new Municipio(1L, usuarioDTO.getMunicipio().getNombre(), new Estado(1L, usuarioDTO.getMunicipio().getEstado().getNombre())));
-        } else if (usuarioDTO instanceof AdministradorDTO) {
-            usuario = new Administrador(
-                    usuarioDTO.getCorreo(),
-                    usuarioDTO.getNombres(),
-                    usuarioDTO.getApellidoPaterno(),
-                    usuarioDTO.getApellidoMaterno(),
-                    usuarioDTO.getNombreUsuario(),
-                    AESEncriptador.encriptar(usuarioDTO.getContrasenia()),
-                    usuarioDTO.getTelefono(),
-                    usuarioDTO.getAvatar(),
-                    usuarioDTO.getCiudad(),
-                    usuarioDTO.getFechaNacimiento(),
-                    usuarioDTO.getGenero(),
-                    new Municipio(1L, usuarioDTO.getMunicipio().getNombre(), new Estado(1L, usuarioDTO.getMunicipio().getEstado().getNombre())));
-        }
-
         try {
+            UsuarioDTO usuarioDTO = post.getUsuario();
+            Usuario usuario = null;
+            if (usuarioDTO instanceof NormalDTO) {
+                usuario = (Normal) usuariosDAO.buscarUsuario(usuarioDTO.getCorreo());
+            } else if (usuarioDTO instanceof AdministradorDTO) {
+                usuario = (Administrador) usuariosDAO.buscarUsuario(usuarioDTO.getCorreo());
+            }
+            Comun nuevoPost = new Comun(
+                    post.getFechaHoraCreacion(),
+                    post.getTitulo(),
+                    post.getSubtitulo(),
+                    post.getContenido(),
+                    categoria,
+                    usuario);
             postsDAO.publicarPost(nuevoPost);
         } catch (PersistenciaException ex) {
             throw new FacadeException("No se pudo publicar el post.");
@@ -292,7 +266,8 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
                             post.getSubtitulo(),
                             post.getContenido(),
                             post.getCategoria().toString(),
-                            convertirUsuarioAUsuarioDTO(post.getUsuario())));
+                            convertirUsuarioAUsuarioDTO(post.getUsuario()),
+                            convertirComentariosAComentariosDTO(post.getComentarios())));
             // Si el post es común, se obtiene el usuario que lo publicó.
         }
         return postsDTO;
@@ -321,6 +296,19 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
                 usuario.getGenero(),
                 municipioDTO);
         return usuarioDTO;
+    }
+
+    private List<ComentarioDTO> convertirComentariosAComentariosDTO(List<Comentario> comentarios) {
+        if (comentarios.isEmpty()) {
+            return null;
+        }
+        List<ComentarioDTO> comentariosDTO = new ArrayList<>();
+        for (Comentario comentario : comentarios) {
+            comentariosDTO.add(
+                    new ComentarioDTO(comentario.getId(), comentario.getFechaHora(), comentario.getContenido(), convertirUsuarioAUsuarioDTO(comentario.getUsuario()), convertirComentariosAComentariosDTO(comentario.getRespuestas()))
+            );
+        }
+        return comentariosDTO;
     }
 
 }
