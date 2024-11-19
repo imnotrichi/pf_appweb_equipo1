@@ -240,6 +240,62 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
             throw new FacadeException("No se encontró ningún usuario con los datos proporcionados.");
         }
     }
+    
+    /**
+     * Método para obtener un usuario dado un correo.
+     *
+     * @param correo Correo del usuario.
+     * @return
+     * @throws FacadeException
+     */
+    @Override
+    public UsuarioDTO obtenerUsuario(String correo) throws FacadeException {
+        try {
+            // Mandamos a buscar un usuario con el correo y la contraseña.
+            Usuario usuario = usuariosDAO.buscarUsuario(correo);
+
+            // Convertimos el usuario de entidad a DTO.
+            UsuarioDTO usuarioDTO = null;
+            EstadoDTO estadoDTO = new EstadoDTO(usuario.getMunicipio().getEstado().getNombre());
+            MunicipioDTO municipioDTO = new MunicipioDTO(usuario.getMunicipio().getNombre(), estadoDTO);
+            if (usuario instanceof Normal) {
+                usuarioDTO = new NormalDTO(
+                        usuario.getNombres(),
+                        usuario.getApellidoPaterno(),
+                        usuario.getApellidoMaterno(),
+                        usuario.getCorreo(),
+                        usuario.getContrasenia(),
+                        usuario.getTelefono(),
+                        usuario.getNombreUsuario(),
+                        usuario.getAvatar(),
+                        usuario.getCiudad(),
+                        usuario.getFechaNacimiento(),
+                        usuario.getGenero(),
+                        convertirPostsAPostsDTO(usuario.getPosts()),
+                        municipioDTO);
+            } else if (usuario instanceof Administrador) {
+                usuarioDTO = new NormalDTO(
+                        usuario.getNombres(),
+                        usuario.getApellidoPaterno(),
+                        usuario.getApellidoMaterno(),
+                        usuario.getCorreo(),
+                        usuario.getContrasenia(),
+                        usuario.getTelefono(),
+                        usuario.getNombreUsuario(),
+                        usuario.getAvatar(),
+                        usuario.getCiudad(),
+                        usuario.getFechaNacimiento(),
+                        usuario.getGenero(),
+                        convertirPostsAPostsDTO(usuario.getPosts()),
+                        municipioDTO);
+            }
+
+            // Retornamos el usuario.
+            return usuarioDTO;
+        } catch (PersistenciaException ex) {
+            throw new FacadeException("No se encontró ningún usuario con los datos proporcionados.");
+        }
+    }
 
     /**
      * Método para obtener todos los posts por categoría y convertirlos a DTO.

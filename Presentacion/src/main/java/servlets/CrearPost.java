@@ -35,7 +35,6 @@ public class CrearPost extends HttpServlet {
             throws ServletException, IOException {
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -78,7 +77,7 @@ public class CrearPost extends HttpServlet {
                 ComunDTO postNuevo = new ComunDTO(new GregorianCalendar(), titulo, subtitulo, cuerpo, tipoPost, usuario);
                 accesoDatos.publicarPost(postNuevo);
                 
-                UsuarioDTO usuarioActualizado = accesoDatos.obtenerUsuario(usuario.getCorreo(), usuario.getContrasenia());
+                UsuarioDTO usuarioActualizado = accesoDatos.obtenerUsuario(usuario.getCorreo());
                 request.getSession().setAttribute("usuario", usuarioActualizado);
             } catch (FacadeException ex) {
                 System.out.println("Error al crear la publicación");
@@ -110,6 +109,6 @@ public class CrearPost extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }
 
 }

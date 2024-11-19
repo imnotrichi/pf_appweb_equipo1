@@ -33,6 +33,10 @@
         <servlet-name>CrearPost</servlet-name>
         <servlet-class>servlets.CrearPost</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MiPerfil</servlet-name>
+        <servlet-class>servlets.MiPerfil</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>IniciarSesion</servlet-name>
         <url-pattern>/IniciarSesion</url-pattern>
@@ -70,6 +74,10 @@
     <servlet-mapping>
         <servlet-name>CrearPost</servlet-name>
         <url-pattern>/CrearPost</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MiPerfil</servlet-name>
+        <url-pattern>/MiPerfil</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

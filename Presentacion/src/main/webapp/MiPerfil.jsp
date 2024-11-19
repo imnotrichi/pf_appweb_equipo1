@@ -40,31 +40,28 @@
                     </div>
                     <p>Posts(${fn:length(sessionScope.usuario.getPosts())}):</p>
                 </div>
-                <div>
-                    <button class="editar-button" onclick="location.href = 'EditarPost.jsp'">
-                        <img src="imagenes/edit.png" alt="Ícono de editar.">
-                    </button>
-                    <a target="_blank" href="https://open.spotify.com/playlist/4PFubmBI9iohFQRCw206qs?si=282196fd25374d91">
-                        <article>
-                            <h2>@bort_crab</h2>
-                            <h3>¡ACTUALICÉ MI PLAYLIST Y YA TIENE MÁS DE 9000 CANCIONES!</h3>
-                            <p>Escuchen mi playlist, tiene un poco de mucho (no de todo) :D</p>
-                        </article>
-                    </a>
-                </div>
-
-                <div>
-                    <button class="editar-button" onclick="location.href = 'EditarPost.jsp'">
-                        <img src="imagenes/edit.png" alt="Ícono de editar.">
-                    </button>
-                    <a hef="">
-                        <article>
-                            <h2>@bort_crab</h2>
-                            <h3>Ya escucharon el Otokotachi no Wakare de Fishmans?</h3>
-                            <p>Directos de los GOD.</p>
-                        </article>
-                    </a>
-                </div>
+                <c:forEach items="${requestScope.listaPosts}" var="post">
+                    <div>
+                        <button class="editar-button" onclick="location.href = 'EditarPost.jsp'">
+                            <img src="imagenes/edit.png" alt="Ícono de editar.">
+                        </button>
+                        <a target="_blank" href="https://open.spotify.com/playlist/4PFubmBI9iohFQRCw206qs?si=282196fd25374d91">
+                            <article>
+                                <h2>${post.getUsuario().getNombreUsuario()}</h2>
+                                <h3>${post.getTitulo()}</h3>
+                                <p>${post.getSubtitulo()}</p>
+                            </article>
+                        </a>
+                    </div>
+                    <tr>
+                        <td>${pokemon.getNumero()}</td>
+                        <td>${pokemon.getNombre()}</td>
+                        <td>${pokemon.getTipo()}</td>
+                        <td>${pokemon.getEvolucion()}</td>
+                        <td>${pokemon.getNivelPoder()}</td>
+                        <td>${pokemon.getDescripcion()}</td>
+                    </tr>
+                </c:forEach>
 
                 <%@include file="./fragmentos/BotonNuevoPost.xhtml"%>
             </main>

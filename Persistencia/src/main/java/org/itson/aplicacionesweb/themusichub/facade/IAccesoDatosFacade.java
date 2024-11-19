@@ -30,6 +30,8 @@ public interface IAccesoDatosFacade {
     public void responderComentario(ComentarioDTO respuesta, NormalDTO usuario, ComentarioDTO comentarioRespondido);
 
     public UsuarioDTO obtenerUsuario(String correo, String contrasenia) throws FacadeException;
-    
+
+    public UsuarioDTO obtenerUsuario(String correo) throws FacadeException;
+
     public List<PostDTO> obtenerPostsPorCategoria(CategoriaPost categoria) throws FacadeException;
 }
