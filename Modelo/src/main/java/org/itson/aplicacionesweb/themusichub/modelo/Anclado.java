@@ -5,10 +5,12 @@ package org.itson.aplicacionesweb.themusichub.modelo;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import org.itson.aplicacionesweb.themusichub.enums.CategoriaPost;
 
 /**
  * @author Equipo1
@@ -17,30 +19,32 @@ import javax.persistence.Table;
 @Table(name = "anclados")
 public class Anclado extends Post implements Serializable {
 
-    @ManyToOne
-    @JoinColumn(name = "id_administrador", nullable = false)
-    private Administrador administrador;
-
+    /**
+     * Constructor vacío.
+     */
     public Anclado() {
     }
-
-    public Anclado(Calendar fechaHoraCreacion, String titulo, String contenido, CategoriaPost categoria) {
-        super(fechaHoraCreacion, titulo, contenido, categoria);
-    }
-
-    public Administrador getAdministrador() {
-        return administrador;
-    }
-
-    public void setAdministrador(Administrador administrador) {
-        this.administrador = administrador;
+    
+    /**
+     * Constructor para un Post Anclado.
+     *
+     * @param id ID del post.
+     * @param fechaHoraCreacion La fecha y hora de creación del post.
+     * @param titulo El titulo del post
+     * @param subtitulo El subtitulo del post
+     * @param contenido El contenido del post
+     * @param categoria La categoría del post
+     * @param comentarios Los comentarios del post
+     * @param usuario El usuario que creó el post
+     */
+    public Anclado(Long id, Calendar fechaHoraCreacion, String titulo, String subtitulo, String contenido, CategoriaPost categoria, List<Comentario> comentarios, Administrador usuario) {
+        super(id, fechaHoraCreacion, titulo, subtitulo, contenido, categoria, comentarios, usuario);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Anclado{");
-        sb.append("administrador=").append(administrador);
         sb.append('}');
         return sb.toString();
     }

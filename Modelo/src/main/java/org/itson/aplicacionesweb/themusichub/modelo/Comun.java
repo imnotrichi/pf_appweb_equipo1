@@ -6,12 +6,9 @@ package org.itson.aplicacionesweb.themusichub.modelo;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import org.itson.aplicacionesweb.themusichub.enums.CategoriaPost;
 
 /**
  * @author Equipo1
@@ -20,20 +17,53 @@ import javax.persistence.Table;
 @Table(name = "comunes")
 public class Comun extends Post implements Serializable {
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.PERSIST)
-    private List<Comentario> comentarios;
-
-    @ManyToOne
-    @JoinColumn(name = "id_usuario", nullable = false)
-    private Usuario usuario;
-
     public Comun() {
     }
 
-    public Comun(Calendar fechaHoraCreacion, String titulo, String contenido, CategoriaPost categoria) {
-        super(fechaHoraCreacion, titulo, contenido, categoria);
+    /**
+     * Constructor para un Post Común nuevo.
+     *
+     * @param fechaHoraCreacion La fecha y hora de creación del post.
+     * @param titulo El titulo del post
+     * @param subtitulo El subtitulo del post
+     * @param contenido El contenido del post
+     * @param categoria La categoría del post
+     * @param usuario El usuario que creó el post
+     */
+    public Comun(Calendar fechaHoraCreacion, String titulo, String subtitulo, String contenido, CategoriaPost categoria, Usuario usuario) {
+        super(
+                fechaHoraCreacion,
+                titulo,
+                subtitulo,
+                contenido,
+                categoria,
+                usuario);
     }
 
+    /**
+     * Constructor para un Post Común ya existente.
+     *
+     * @param id
+     * @param fechaHoraCreacion La fecha y hora de creación del post.
+     * @param titulo El titulo del post
+     * @param subtitulo El subtitulo del post
+     * @param contenido El contenido del post
+     * @param categoria La categoría del post
+     * @param usuario El usuario que creó el post
+     * @param comentarios Los comentarios del post
+     */
+    public Comun(Long id, Calendar fechaHoraCreacion, String titulo, String subtitulo, String contenido, CategoriaPost categoria, List<Comentario> comentarios, Usuario usuario) {
+        super(
+                id,
+                fechaHoraCreacion,
+                titulo,
+                subtitulo,
+                contenido,
+                categoria,
+                comentarios,
+                usuario);
+    }
+    
     public List<Comentario> getComentarios() {
         return comentarios;
     }

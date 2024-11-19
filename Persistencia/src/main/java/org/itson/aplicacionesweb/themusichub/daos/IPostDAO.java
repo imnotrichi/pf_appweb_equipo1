@@ -5,7 +5,7 @@
 package org.itson.aplicacionesweb.themusichub.daos;
 
 import java.util.List;
-import org.itson.aplicacionesweb.themusichub.modelo.CategoriaPost;
+import org.itson.aplicacionesweb.themusichub.enums.CategoriaPost;
 import org.itson.aplicacionesweb.themusichub.modelo.Comun;
 import org.itson.aplicacionesweb.themusichub.modelo.Post;
 import org.itson.aplicacionesweb.themusichub.persistenciaException.PersistenciaException;

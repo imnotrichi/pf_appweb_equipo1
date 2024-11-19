@@ -1,26 +1,35 @@
 package com.mycompany.dto;
 
 import java.util.Calendar;
+import java.util.List;
 
 /**
  *
  * @author Equipo1
  */
-public class AncladoDTO extends PostNuevoDTO{
+public class AncladoDTO extends PostDTO{
     
-    private AdministradorDTO administrador;
-
-    public AncladoDTO(Calendar fechaHoraCreacion, String titulo, String contenido, String categoria) {
-        super(fechaHoraCreacion, titulo, contenido, categoria);
+    /**
+     * Constructor para posts anclados.
+     * @param id ID del post.
+     * @param fechaHoraCreacion
+     * @param titulo
+     * @param subtitulo
+     * @param contenido
+     * @param categoria
+     * @param usuario 
+     * @param comentarios 
+     */
+    public AncladoDTO(Long id, Calendar fechaHoraCreacion, String titulo, String subtitulo, String contenido, String categoria, UsuarioDTO usuario, List<ComentarioDTO> comentarios) {
+        super(
+                id,
+                fechaHoraCreacion,
+                titulo,
+                subtitulo,
+                contenido,
+                categoria,
+                usuario,
+                comentarios);
     }
-
-    public AdministradorDTO getAdministrador() {
-        return administrador;
-    }
-
-    public void setAdministrador(AdministradorDTO administrador) {
-        this.administrador = administrador;
-    }
-    
     
 }

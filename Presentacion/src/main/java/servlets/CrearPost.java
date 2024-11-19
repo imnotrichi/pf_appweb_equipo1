@@ -61,23 +61,23 @@ public class CrearPost extends HttpServlet {
         String tipoPost = request.getParameter("tipo-post");
         String cuerpo = request.getParameter("cuerpo");
 
-        if (!titulo.isBlank() && !tipoPost.isBlank()) {
-            if (subtitulo.isBlank()) {
-                subtitulo = "";
-            }
-            
-            PostDTO postNuevo = new PostDTO(Calendar.getInstance(), titulo, subtitulo, cuerpo, usuario);
-            
-            HttpSession session = request.getSession();
-            String returnTo = (String) session.getAttribute("returnTo");
-
-            if (returnTo != null) {
-                session.removeAttribute("returnTo");
-                response.sendRedirect(returnTo);
-            } else {
-                response.sendRedirect("Inicio.jsp");
-            }
-        }
+//        if (!titulo.isBlank() && !tipoPost.isBlank()) {
+//            if (subtitulo.isBlank()) {
+//                subtitulo = "";
+//            }
+//            
+//            PostDTO postNuevo = new PostDTO(Calendar.getInstance(), titulo, subtitulo, cuerpo, usuario);
+//            
+//            HttpSession session = request.getSession();
+//            String returnTo = (String) session.getAttribute("returnTo");
+//
+//            if (returnTo != null) {
+//                session.removeAttribute("returnTo");
+//                response.sendRedirect(returnTo);
+//            } else {
+//                response.sendRedirect("Inicio.jsp");
+//            }
+//        }
 
     }
 

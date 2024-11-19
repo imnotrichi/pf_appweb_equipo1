@@ -6,8 +6,8 @@ package servlets;
 
 import com.mycompany.dto.EstadoDTO;
 import com.mycompany.dto.MunicipioDTO;
-import com.mycompany.dto.NormalNuevoDTO;
-import com.mycompany.dto.UsuarioNuevoDTO;
+import com.mycompany.dto.NormalDTO;
+import com.mycompany.dto.UsuarioDTO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
@@ -105,7 +105,7 @@ public class RegistrarUsuario extends HttpServlet {
         EstadoDTO estado = new EstadoDTO("Sonora");
         MunicipioDTO municipio = new MunicipioDTO("Cajeme", estado);
 
-        UsuarioNuevoDTO usuario = new NormalNuevoDTO(nombre, apellido1, apellido2, correo, contrasenia, telefono, ciudad, ciudad, nombreUsuario, fechaNacimiento, genero, municipio);
+        UsuarioDTO usuario = new NormalDTO(nombre, apellido1, apellido2, correo, contrasenia, telefono, ciudad, ciudad, nombreUsuario, fechaNacimiento, genero, municipio);
         System.out.println("HOLA DESDE EL SERVLET");
         try {
             System.out.println("REGISTRO DE USUARIO SERVLET");

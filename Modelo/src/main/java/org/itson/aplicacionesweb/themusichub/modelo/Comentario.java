@@ -31,40 +31,38 @@ public class Comentario implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_comentario")
     private Long id;
-    
+
     @Column(name = "fechaHora", nullable = false)
     @Temporal(TemporalType.DATE)
     private Calendar fechaHora;
-    
+
     @Column(name = "contenido", nullable = false, length = 200)
     private String contenido;
-    
+
     @OneToMany(mappedBy = "respuesta", cascade = CascadeType.PERSIST)
     private List<Comentario> respuestas;
-    
+
     @ManyToOne
     @JoinColumn(name = "id_respuesta")
     private Comentario respuesta;
-    
+
     @ManyToOne
     @JoinColumn(name = "id_post", nullable = false)
-    private Comun post;
-    
+    private Post post;
+
     @ManyToOne
     @JoinColumn(name = "id_usuario", nullable = false)
     private Normal usuario;
 
-    public Comentario(){  
+    public Comentario() {
     }
-    
+
     public Comentario(Calendar fechaHora, String contenido, Comun comun, Normal normal) {
         this.fechaHora = fechaHora;
         this.contenido = contenido;
         this.post = comun;
         this.usuario = normal;
     }
-    
-    
 
     public Long getId() {
         return id;
@@ -106,11 +104,11 @@ public class Comentario implements Serializable {
         this.respuesta = Respuesta;
     }
 
-    public Comun getPost() {
+    public Post getPost() {
         return post;
     }
 
-    public void setPost(Comun post) {
+    public void setPost(Post post) {
         this.post = post;
     }
 
@@ -181,5 +179,5 @@ public class Comentario implements Serializable {
         sb.append('}');
         return sb.toString();
     }
-    
+
 }

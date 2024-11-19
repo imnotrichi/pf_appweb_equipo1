@@ -15,7 +15,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import org.itson.aplicacionesweb.themusichub.conexion.IConexion;
 import org.itson.aplicacionesweb.themusichub.modelo.Anclado;
-import org.itson.aplicacionesweb.themusichub.modelo.CategoriaPost;
+import org.itson.aplicacionesweb.themusichub.enums.CategoriaPost;
 import org.itson.aplicacionesweb.themusichub.modelo.Comun;
 import org.itson.aplicacionesweb.themusichub.modelo.Post;
 import org.itson.aplicacionesweb.themusichub.persistenciaException.PersistenciaException;
@@ -124,6 +124,7 @@ public class PostDAO implements IPostDAO {
             // Retornamos la lista de posts.
             return listaPosts;
         } catch (PersistenceException pe) {
+            logger.log(Level.WARNING, pe.getMessage());
             throw new PersistenciaException("No se pudieron consultar todos los posts.");
         } finally {
             // Cerramos el entity manager.
@@ -315,13 +316,13 @@ public class PostDAO implements IPostDAO {
                     cq.where(cb.equal(root.get("usuario"), comun.getUsuario()));
                 }
             }
-
-            if (postParaBuscar instanceof Anclado) {
-                Anclado anclado = (Anclado) postParaBuscar;
-                if (anclado.getAdministrador() != null) {
-                    cq.where(cb.equal(root.get("administrador"), anclado.getAdministrador()));
-                }
-            }
+//
+//            if (postParaBuscar instanceof Anclado) {
+//                Anclado anclado = (Anclado) postParaBuscar;
+//                if (anclado.getAdministrador() != null) {
+//                    cq.where(cb.equal(root.get("administrador"), anclado.getAdministrador()));
+//                }
+//            }
 
             TypedQuery<Post> query = em.createQuery(cq);
             List<Post> resultados = query.getResultList();

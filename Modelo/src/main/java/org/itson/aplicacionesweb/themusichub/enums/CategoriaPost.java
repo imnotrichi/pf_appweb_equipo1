@@ -1,7 +1,7 @@
 /*
  * CategoríaPost.java
  */
-package org.itson.aplicacionesweb.themusichub.modelo;
+package org.itson.aplicacionesweb.themusichub.enums;
 
 /**
  * @author Equipo1
