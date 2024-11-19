@@ -71,7 +71,7 @@ public class Usuario implements Serializable {
     protected Municipio municipio;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.PERSIST)
-    protected List<Comun> posts;
+    protected List<Post> posts;
 
     /**
      * Constructor vacío.
@@ -95,7 +95,7 @@ public class Usuario implements Serializable {
         this.posts = new LinkedList<>();
     }
 
-    public Usuario(String correo, String nombres, String apellidoPaterno, String apellidoMaterno, String nombreUsuario, String contrasenia, String telefono, String avatar, String ciudad, Calendar fechaNacimiento, String genero, Municipio municipio, List<Comun> posts) {
+    public Usuario(String correo, String nombres, String apellidoPaterno, String apellidoMaterno, String nombreUsuario, String contrasenia, String telefono, String avatar, String ciudad, Calendar fechaNacimiento, String genero, Municipio municipio, List<Post> posts) {
         this.correo = correo;
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
@@ -205,6 +205,14 @@ public class Usuario implements Serializable {
 
     public void setNombreUsuario(String nombreUsuario) {
         this.nombreUsuario = nombreUsuario;
+    }
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
     }
 
     @Override

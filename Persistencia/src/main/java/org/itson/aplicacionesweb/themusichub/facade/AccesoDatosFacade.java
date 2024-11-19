@@ -13,7 +13,6 @@ import com.mycompany.dto.NormalDTO;
 import com.mycompany.dto.PostDTO;
 import com.mycompany.dto.UsuarioDTO;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,7 +25,6 @@ import org.itson.aplicacionesweb.themusichub.daos.IUsuarioDAO;
 import org.itson.aplicacionesweb.themusichub.factory.AbstractDAOFactory;
 import org.itson.aplicacionesweb.themusichub.factory.DAOFactory;
 import org.itson.aplicacionesweb.themusichub.modelo.Administrador;
-import org.itson.aplicacionesweb.themusichub.modelo.Anclado;
 import org.itson.aplicacionesweb.themusichub.enums.CategoriaPost;
 import org.itson.aplicacionesweb.themusichub.modelo.Comentario;
 import org.itson.aplicacionesweb.themusichub.modelo.Comun;
@@ -114,12 +112,8 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
 
         try {
             UsuarioDTO usuarioDTO = post.getUsuario();
-            Usuario usuario = null;
-            if (usuarioDTO instanceof NormalDTO) {
-                usuario = (Normal) usuariosDAO.buscarUsuario(usuarioDTO.getCorreo());
-            } else if (usuarioDTO instanceof AdministradorDTO) {
-                usuario = (Administrador) usuariosDAO.buscarUsuario(usuarioDTO.getCorreo());
-            }
+            Usuario usuario = usuariosDAO.buscarUsuario(usuarioDTO.getCorreo());
+
             Comun nuevoPost = new Comun(
                     post.getFechaHoraCreacion(),
                     post.getTitulo(),
@@ -205,21 +199,40 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
             Usuario usuario = usuariosDAO.obtenerUsuarioCorreoContra(correo, contrasenia);
 
             // Convertimos el usuario de entidad a DTO.
+            UsuarioDTO usuarioDTO = null;
             EstadoDTO estadoDTO = new EstadoDTO(usuario.getMunicipio().getEstado().getNombre());
             MunicipioDTO municipioDTO = new MunicipioDTO(usuario.getMunicipio().getNombre(), estadoDTO);
-            UsuarioDTO usuarioDTO = new NormalDTO(
-                    usuario.getNombres(),
-                    usuario.getApellidoPaterno(),
-                    usuario.getApellidoMaterno(),
-                    usuario.getCorreo(),
-                    usuario.getContrasenia(),
-                    usuario.getTelefono(),
-                    usuario.getNombreUsuario(),
-                    usuario.getAvatar(),
-                    usuario.getCiudad(),
-                    usuario.getFechaNacimiento(),
-                    usuario.getGenero(),
-                    municipioDTO);
+            if (usuario instanceof Normal) {
+                usuarioDTO = new NormalDTO(
+                        usuario.getNombres(),
+                        usuario.getApellidoPaterno(),
+                        usuario.getApellidoMaterno(),
+                        usuario.getCorreo(),
+                        usuario.getContrasenia(),
+                        usuario.getTelefono(),
+                        usuario.getNombreUsuario(),
+                        usuario.getAvatar(),
+                        usuario.getCiudad(),
+                        usuario.getFechaNacimiento(),
+                        usuario.getGenero(),
+                        convertirPostsAPostsDTO(usuario.getPosts()),
+                        municipioDTO);
+            } else if (usuario instanceof Administrador) {
+                usuarioDTO = new NormalDTO(
+                        usuario.getNombres(),
+                        usuario.getApellidoPaterno(),
+                        usuario.getApellidoMaterno(),
+                        usuario.getCorreo(),
+                        usuario.getContrasenia(),
+                        usuario.getTelefono(),
+                        usuario.getNombreUsuario(),
+                        usuario.getAvatar(),
+                        usuario.getCiudad(),
+                        usuario.getFechaNacimiento(),
+                        usuario.getGenero(),
+                        convertirPostsAPostsDTO(usuario.getPosts()),
+                        municipioDTO);
+            }
 
             // Retornamos el usuario.
             return usuarioDTO;

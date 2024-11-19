@@ -43,6 +43,22 @@ public class UsuarioDTO {
         this.genero = genero;
         this.municipio = municipio;
     }
+    
+    public UsuarioDTO(String nombres, String apellidoPaterno, String apellidoMaterno, String correo, String contrasenia, String telefono, String nombreUsuario, String avatar, String ciudad, Calendar fechaNacimiento, String genero, List<PostDTO> posts, MunicipioDTO municipio) {
+        this.nombres = nombres;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
+        this.correo = correo;
+        this.contrasenia = contrasenia;
+        this.telefono = telefono;
+        this.nombreUsuario = nombreUsuario;
+        this.avatar = avatar;
+        this.ciudad = ciudad;
+        this.fechaNacimiento = fechaNacimiento;
+        this.genero = genero;
+        this.posts = posts;
+        this.municipio = municipio;
+    }
 
     public String getNombres() {
         return nombres;
