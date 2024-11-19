@@ -47,7 +47,7 @@
                         </button>
                         <a target="_blank" href="https://open.spotify.com/playlist/4PFubmBI9iohFQRCw206qs?si=282196fd25374d91">
                             <article>
-                                <h2>${post.getUsuario().getNombreUsuario()}</h2>
+                                <h2>@${post.getUsuario().getNombreUsuario()}</h2>
                                 <h3>${post.getTitulo()}</h3>
                                 <p>${post.getSubtitulo()}</p>
                             </article>

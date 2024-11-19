@@ -106,4 +106,19 @@ public class ComentarioDAO implements IComentarioDAO {
             throw new PersistenciaException("No se pudo eliminar el comentario.");
         }
     }
+
+    @Override
+    public void responderComentario(Comentario comentario) throws PersistenciaException {
+        EntityManager em = conexion.crearConexion();
+
+        try {
+            em.getTransaction().begin();
+            em.merge(comentario);
+            em.getTransaction().commit();
+            em.close();
+            logger.log(Level.INFO, "Se ha insertado 1 comentario correctamente.");
+        } catch (PersistenceException pe) {
+            throw new PersistenciaException("No se pudo insertar el comentario.");
+        }
+    }
 }

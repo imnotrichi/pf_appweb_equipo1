@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import org.itson.aplicacionesweb.themusichub.auxiliares.AESEncriptador;
 import org.itson.aplicacionesweb.themusichub.conexion.Conexion;
 import org.itson.aplicacionesweb.themusichub.conexion.IConexion;
@@ -172,13 +173,39 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
     }
 
     @Override
-    public void eliminarComentario(ComentarioDTO comentario) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void eliminarComentario(ComentarioDTO comentarioDTO) throws FacadeException {
+        try {
+            Comentario comentario = comentariosDAO.obtenerComentario(comentarioDTO.getId());
+
+            if (comentario == null) {
+                throw new FacadeException("El comentario no existe.");
+            }
+
+            comentariosDAO.eliminarComentario(comentario);
+        } catch (PersistenciaException ex) {
+            throw new FacadeException("No se pudo eliminar el comentario.");
+        }
     }
 
     @Override
-    public void responderComentario(ComentarioDTO respuesta, NormalDTO usuario, ComentarioDTO comentarioRespondido) {
+    public void responderComentario(ComentarioDTO respuestaDTO, ComentarioDTO comentarioDTO) throws FacadeException {
+        try {
+            // Obtenemos la entidad de Comentario.
+            Comentario comentario = comentariosDAO.obtenerComentario(comentarioDTO.getId());
 
+            // Buscamos la entidad del usuario que comentó.
+            Normal usuario = (Normal) usuariosDAO.buscarUsuario(respuestaDTO.getUsuario().getCorreo());
+
+            Comentario respuesta = new Comentario(
+                    respuestaDTO.getFechaHora(),
+                    respuestaDTO.getContenido(),
+                    comentario,
+                    usuario);
+            comentario.getRespuestas().add(respuesta);
+            comentariosDAO.responderComentario(comentario);
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(AccesoDatosFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -240,7 +267,7 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
             throw new FacadeException("No se encontró ningún usuario con los datos proporcionados.");
         }
     }
-    
+
     /**
      * Método para obtener un usuario dado un correo.
      *
@@ -327,19 +354,37 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
     private List<PostDTO> convertirPostsAPostsDTO(List<Post> posts) {
         List<PostDTO> postsDTO = new ArrayList<>();
         for (Post post : posts) {
-            postsDTO.add(
-                    new PostDTO(
-                            post.getId(),
-                            post.getFechaHoraCreacion(),
-                            post.getTitulo(),
-                            post.getSubtitulo(),
-                            post.getContenido(),
-                            post.getCategoria().toString(),
-                            convertirUsuarioAUsuarioDTO(post.getUsuario()),
-                            convertirComentariosAComentariosDTO(post.getComentarios())));
+            postsDTO.add(convertirPostAPostDTO(post));
             // Si el post es común, se obtiene el usuario que lo publicó.
         }
         return postsDTO;
+    }
+
+    private PostDTO convertirPostAPostDTO(Post post) {
+        PostDTO postDTO = null;
+        if (post instanceof Comun) {
+            postDTO = new ComunDTO(
+                    post.getId(),
+                    post.getFechaHoraCreacion(),
+                    post.getTitulo(),
+                    post.getSubtitulo(),
+                    post.getContenido(),
+                    post.getCategoria().toString(),
+                    convertirUsuarioAUsuarioDTO(post.getUsuario()),
+                    convertirComentariosAComentariosDTO(post.getComentarios()));
+        } else {
+            postDTO = new AncladoDTO(
+                    post.getId(),
+                    post.getFechaHoraCreacion(),
+                    post.getTitulo(),
+                    post.getSubtitulo(),
+                    post.getContenido(),
+                    post.getCategoria().toString(),
+                    convertirUsuarioAUsuarioDTO(post.getUsuario()),
+                    convertirComentariosAComentariosDTO(post.getComentarios()));
+        }
+        // Si el post es común, se obtiene el usuario que lo publicó.
+        return postDTO;
     }
 
     /**
@@ -349,35 +394,97 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
      * @return Usuario convertido en DTO.
      */
     public UsuarioDTO convertirUsuarioAUsuarioDTO(Usuario usuario) {
+        UsuarioDTO usuarioDTO = null;
         EstadoDTO estadoDTO = new EstadoDTO(usuario.getMunicipio().getEstado().getNombre());
         MunicipioDTO municipioDTO = new MunicipioDTO(usuario.getMunicipio().getNombre(), estadoDTO);
-        UsuarioDTO usuarioDTO = new UsuarioDTO(
-                usuario.getNombres(),
-                usuario.getApellidoPaterno(),
-                usuario.getApellidoMaterno(),
-                usuario.getCorreo(),
-                usuario.getContrasenia(),
-                usuario.getTelefono(),
-                usuario.getNombreUsuario(),
-                usuario.getAvatar(),
-                usuario.getCiudad(),
-                usuario.getFechaNacimiento(),
-                usuario.getGenero(),
-                municipioDTO);
+        if (usuario instanceof Normal) {
+            usuarioDTO = new NormalDTO(
+                    usuario.getNombres(),
+                    usuario.getApellidoPaterno(),
+                    usuario.getApellidoMaterno(),
+                    usuario.getCorreo(),
+                    usuario.getContrasenia(),
+                    usuario.getTelefono(),
+                    usuario.getNombreUsuario(),
+                    usuario.getAvatar(),
+                    usuario.getCiudad(),
+                    usuario.getFechaNacimiento(),
+                    usuario.getGenero(),
+                    municipioDTO);
+        } else {
+            usuarioDTO = new AdministradorDTO(
+                    usuario.getNombres(),
+                    usuario.getApellidoPaterno(),
+                    usuario.getApellidoMaterno(),
+                    usuario.getCorreo(),
+                    usuario.getContrasenia(),
+                    usuario.getTelefono(),
+                    usuario.getNombreUsuario(),
+                    usuario.getAvatar(),
+                    usuario.getCiudad(),
+                    usuario.getFechaNacimiento(),
+                    usuario.getGenero(),
+                    municipioDTO);
+        }
+
         return usuarioDTO;
     }
 
     private List<ComentarioDTO> convertirComentariosAComentariosDTO(List<Comentario> comentarios) {
-        if (comentarios.isEmpty()) {
-            return null;
-        }
         List<ComentarioDTO> comentariosDTO = new ArrayList<>();
+        if (comentarios == null || comentarios.isEmpty()) {
+            return comentariosDTO;
+        }
         for (Comentario comentario : comentarios) {
-            comentariosDTO.add(
-                    new ComentarioDTO(comentario.getId(), comentario.getFechaHora(), comentario.getContenido(), convertirUsuarioAUsuarioDTO(comentario.getUsuario()), convertirComentariosAComentariosDTO(comentario.getRespuestas()))
-            );
+            comentariosDTO.add(convertirComentarioAComentarioDTO(comentario));
         }
         return comentariosDTO;
+    }
+
+    private ComentarioDTO convertirComentarioAComentarioDTO(Comentario comentario) {
+        if (comentario.getRespuesta() == null) {
+            return null;
+        }
+        ComentarioDTO comentarioDTO = new ComentarioDTO(
+                comentario.getId(),
+                comentario.getFechaHora(),
+                comentario.getContenido(),
+                convertirComentariosAComentariosDTO(comentario.getRespuestas()),
+                convertirComentarioAComentarioDTO(comentario.getRespuesta()),
+                convertirPostAPostDTO(comentario.getPost()),
+                (NormalDTO) convertirUsuarioAUsuarioDTO(comentario.getUsuario()));
+        return comentarioDTO;
+    }
+
+    @Override
+    public PostDTO obtenerPostID(Long id) throws FacadeException {
+        try {
+            Post post = postsDAO.obtenerPostPorID(id);
+
+            PostDTO postDTO = convertirPostAPostDTO(post);
+
+            if (postDTO instanceof ComunDTO) {
+                System.out.println("Comun");
+            } else if (postDTO instanceof AncladoDTO) {
+                System.out.println("Anclado");
+            } else {
+                System.out.println("Ninguno lololol");
+            }
+            return postDTO;
+        } catch (PersistenciaException ex) {
+            throw new FacadeException(ex.getMessage());
+        }
+    }
+
+    @Override
+    public ComentarioDTO obtenerComentarioID(Long id) throws FacadeException {
+        try {
+            Comentario comentario = comentariosDAO.obtenerComentario(id);
+
+            return convertirComentarioAComentarioDTO(comentario);
+        } catch (PersistenciaException ex) {
+            throw new FacadeException(ex.getMessage());
+        }
     }
 
 }

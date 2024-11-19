@@ -64,6 +64,13 @@ public class Comentario implements Serializable {
         this.usuario = normal;
     }
 
+    public Comentario(Calendar fechaHora, String contenido, Comentario respuesta, Normal usuario) {
+        this.fechaHora = fechaHora;
+        this.contenido = contenido;
+        this.respuesta = respuesta;
+        this.usuario = usuario;
+    }
+    
     public Long getId() {
         return id;
     }
