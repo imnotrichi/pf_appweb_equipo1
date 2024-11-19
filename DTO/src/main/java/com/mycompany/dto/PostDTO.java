@@ -63,6 +63,26 @@ public class PostDTO {
         this.usuario = usuario;
         this.comentarios = comentarios;
     }
+    /**
+     * Constructor para un PostDTO existente.
+     *
+     * @param id ID del post.
+     * @param fechaHoraCreacion
+     * @param titulo
+     * @param subtitulo
+     * @param contenido
+     * @param categoria
+     * @param usuario
+     */
+    public PostDTO(Long id, Calendar fechaHoraCreacion, String titulo, String subtitulo, String contenido, String categoria, UsuarioDTO usuario) {
+        this.id = id;
+        this.fechaHoraCreacion = fechaHoraCreacion;
+        this.titulo = titulo;
+        this.subtitulo = subtitulo;
+        this.contenido = contenido;
+        this.categoria = categoria;
+        this.usuario = usuario;
+    }
 
     public Long getId() {
         return id;
