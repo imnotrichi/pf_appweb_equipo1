@@ -105,7 +105,7 @@ public class RegistrarUsuario extends HttpServlet {
         EstadoDTO estado = new EstadoDTO("Sonora");
         MunicipioDTO municipio = new MunicipioDTO("Cajeme", estado);
 
-        UsuarioDTO usuario = new NormalDTO(nombre, apellido1, apellido2, correo, contrasenia, telefono, ciudad, ciudad, nombreUsuario, fechaNacimiento, genero, municipio);
+        UsuarioDTO usuario = new NormalDTO(nombre, apellido1, apellido2, correo, contrasenia, telefono, nombreUsuario, "", ciudad, fechaNacimiento, genero, municipio);
         System.out.println("HOLA DESDE EL SERVLET");
         try {
             System.out.println("REGISTRO DE USUARIO SERVLET");

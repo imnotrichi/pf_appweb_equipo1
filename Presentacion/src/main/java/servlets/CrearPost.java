@@ -3,14 +3,19 @@
  */
 package servlets;
 
-import com.mycompany.dto.PostDTO;
+import com.mycompany.dto.ComunDTO;
+import com.mycompany.dto.NormalDTO;
+import com.mycompany.dto.UsuarioDTO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Calendar;
+import java.util.GregorianCalendar;
+import org.itson.aplicacionesweb.themusichub.facade.AccesoDatosFacade;
+import org.itson.aplicacionesweb.themusichub.facade.IAccesoDatosFacade;
+import org.itson.aplicacionesweb.themusichub.persistenciaException.FacadeException;
 
 /**
  * @author Equipo1
@@ -55,29 +60,39 @@ public class CrearPost extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        IAccesoDatosFacade accesoDatos = new AccesoDatosFacade();
 
         String titulo = request.getParameter("titulo");
         String subtitulo = request.getParameter("subtitulo");
         String tipoPost = request.getParameter("tipo-post");
         String cuerpo = request.getParameter("cuerpo");
+        UsuarioDTO usuario = (NormalDTO) request.getSession().getAttribute("usuario");
 
-//        if (!titulo.isBlank() && !tipoPost.isBlank()) {
-//            if (subtitulo.isBlank()) {
-//                subtitulo = "";
-//            }
-//            
-//            PostDTO postNuevo = new PostDTO(Calendar.getInstance(), titulo, subtitulo, cuerpo, usuario);
-//            
-//            HttpSession session = request.getSession();
-//            String returnTo = (String) session.getAttribute("returnTo");
-//
-//            if (returnTo != null) {
-//                session.removeAttribute("returnTo");
-//                response.sendRedirect(returnTo);
-//            } else {
-//                response.sendRedirect("Inicio.jsp");
-//            }
-//        }
+        if (!titulo.isBlank() && !tipoPost.isBlank()) {
+            if (subtitulo.isBlank()) {
+                subtitulo = "";
+            }
+
+            try {
+                ComunDTO postNuevo = new ComunDTO(new GregorianCalendar(), titulo, subtitulo, cuerpo, tipoPost, usuario);
+                accesoDatos.publicarPost(postNuevo);
+                
+                UsuarioDTO usuarioActualizado = accesoDatos.obtenerUsuario(usuario.getCorreo(), usuario.getContrasenia());
+                request.getSession().setAttribute("usuario", usuarioActualizado);
+            } catch (FacadeException ex) {
+                System.out.println("Error al crear la publicación");
+            }
+
+            HttpSession session = request.getSession();
+            String returnTo = (String) session.getAttribute("returnTo");
+
+            if (returnTo != null) {
+                session.removeAttribute("returnTo");
+                response.sendRedirect(returnTo);
+            } else {
+                response.sendRedirect("Inicio.jsp");
+            }
+        }
 
     }
 

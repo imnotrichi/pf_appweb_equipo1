@@ -207,7 +207,7 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
             // Convertimos el usuario de entidad a DTO.
             EstadoDTO estadoDTO = new EstadoDTO(usuario.getMunicipio().getEstado().getNombre());
             MunicipioDTO municipioDTO = new MunicipioDTO(usuario.getMunicipio().getNombre(), estadoDTO);
-            UsuarioDTO usuarioDTO = new UsuarioDTO(
+            UsuarioDTO usuarioDTO = new NormalDTO(
                     usuario.getNombres(),
                     usuario.getApellidoPaterno(),
                     usuario.getApellidoMaterno(),
