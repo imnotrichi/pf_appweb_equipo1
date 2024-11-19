@@ -71,7 +71,6 @@ public class CrearPost extends HttpServlet {
             if (subtitulo.isBlank()) {
                 subtitulo = "";
             }
-<<<<<<< Updated upstream
 
             try {
                 ComunDTO postNuevo = new ComunDTO(new GregorianCalendar(), titulo, subtitulo, cuerpo, tipoPost, usuario);
@@ -83,11 +82,6 @@ public class CrearPost extends HttpServlet {
                 System.out.println("Error al crear la publicación");
             }
 
-=======
-            
-//            PostDTO postNuevo = new PostDTO(Calendar.getInstance(), titulo, subtitulo, cuerpo, usuario);
-            
->>>>>>> Stashed changes
             HttpSession session = request.getSession();
             String returnTo = (String) session.getAttribute("returnTo");
 
