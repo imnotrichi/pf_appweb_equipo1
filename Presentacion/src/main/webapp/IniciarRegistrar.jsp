@@ -86,7 +86,7 @@
                             Seleccionar
                             <img src="./imagenes\black-folder-icon.png" alt="" class="icono" />
                         </label>
-                        <input type="file" id="archivo" accept="image/*" />
+                        <input type="file" name="avatar" id="archivo" accept="image/*" required/>
                     </div>
                     
                     <input type="submit" value="Registrarse">

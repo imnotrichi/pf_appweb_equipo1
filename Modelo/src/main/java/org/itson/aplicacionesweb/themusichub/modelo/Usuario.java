@@ -8,10 +8,12 @@ import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -54,8 +56,10 @@ public class Usuario implements Serializable {
     @Column(name = "telefono", nullable = false, length = 128)
     protected String telefono;
 
-    @Column(name = "avatar", length = 500)
-    protected String avatar;
+    @Lob
+    @Column(name = "avatar")
+    @Basic(fetch = FetchType.LAZY)
+    protected byte[] avatar;
 
     @Column(name = "ciudad", length = 150)
     protected String ciudad;
@@ -79,7 +83,7 @@ public class Usuario implements Serializable {
     public Usuario() {
     }
 
-    public Usuario(String correo, String nombres, String apellidoPaterno, String apellidoMaterno, String nombreUsuario, String contrasenia, String telefono, String avatar, String ciudad, Calendar fechaNacimiento, String genero, Municipio municipio) {
+    public Usuario(String correo, String nombres, String apellidoPaterno, String apellidoMaterno, String nombreUsuario, String contrasenia, String telefono, byte[] avatar, String ciudad, Calendar fechaNacimiento, String genero, Municipio municipio) {
         this.correo = correo;
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
@@ -95,7 +99,7 @@ public class Usuario implements Serializable {
         this.posts = new LinkedList<>();
     }
 
-    public Usuario(String correo, String nombres, String apellidoPaterno, String apellidoMaterno, String nombreUsuario, String contrasenia, String telefono, String avatar, String ciudad, Calendar fechaNacimiento, String genero, Municipio municipio, List<Post> posts) {
+    public Usuario(String correo, String nombres, String apellidoPaterno, String apellidoMaterno, String nombreUsuario, String contrasenia, String telefono, byte[] avatar, String ciudad, Calendar fechaNacimiento, String genero, Municipio municipio, List<Post> posts) {
         this.correo = correo;
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
@@ -159,11 +163,11 @@ public class Usuario implements Serializable {
         this.telefono = telefono;
     }
 
-    public String getAvatar() {
+    public byte[] getAvatar() {
         return avatar;
     }
 
-    public void setAvatar(String avatar) {
+    public void setAvatar(byte[] avatar) {
         this.avatar = avatar;
     }
 

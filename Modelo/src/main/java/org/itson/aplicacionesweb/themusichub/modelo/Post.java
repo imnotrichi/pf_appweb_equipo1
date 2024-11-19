@@ -41,7 +41,7 @@ public class Post implements Serializable {
     @Column(name = "id_post")
     protected Long id;
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "fecha_hora_creacion", nullable = false)
     protected Calendar fechaHoraCreacion;
 

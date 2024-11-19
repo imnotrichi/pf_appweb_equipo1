@@ -14,8 +14,15 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.Part;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.Calendar;
+import org.apache.commons.io.IOUtils;
 import org.itson.aplicacionesweb.themusichub.facade.AccesoDatosFacade;
 import org.itson.aplicacionesweb.themusichub.facade.IAccesoDatosFacade;
 import org.itson.aplicacionesweb.themusichub.persistenciaException.FacadeException;
@@ -24,8 +31,7 @@ import org.itson.aplicacionesweb.themusichub.persistenciaException.FacadeExcepti
  *
  * @author Abe
  */
-@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2,
-        maxFileSize = 1024 * 1024 * 10,
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, maxFileSize = 1024 * 1024 * 10,
         maxRequestSize = 1024 * 1024 * 50)
 public class RegistrarUsuario extends HttpServlet {
 
@@ -96,6 +102,22 @@ public class RegistrarUsuario extends HttpServlet {
         String telefono = request.getParameter("telefono");
         String ciudad = request.getParameter("ciudad");
         String genero = request.getParameter("genero");
+
+        //Procesamiento de la imagen
+        String path = request.getServletContext().getRealPath("");
+        String pathGuardar = path + "imagenes";
+        File dir = new File(pathGuardar);
+        if (!dir.exists()) {
+            dir.mkdir();
+        }
+        Part filePart = request.getPart("avatar");
+        String fileName = Paths.get(filePart.getSubmittedFileName())
+                .getFileName().toString();
+        InputStream fileContent = filePart.getInputStream();
+        File targetFile = new File(pathGuardar + File.separator + fileName);
+        Files.copy(fileContent, targetFile.toPath(), 
+                StandardCopyOption.REPLACE_EXISTING);
+        IOUtils.closeQuietly(fileContent);
 
         String fechaNacimientoStr = request.getParameter("fechaNacimiento");
 

@@ -23,11 +23,11 @@
             </a>
         </header>
         <main>
-            <h1>500</h1>
-            <h2>Error interno del servidor</h2>
+            <h1>Error 500</h1>
+            <h2>Ups! Algo salió mal.</h2>
             <p>Ha sucedido un error en el servidor y no pudo completar su solicitud.</p>
             <div>
-                <a href="IniciarRegistrar.jsp">Volver al inicio</a>
+                <a href="Inicio.jsp">Volver al inicio</a>
             </div>
         </main>
     </body>
