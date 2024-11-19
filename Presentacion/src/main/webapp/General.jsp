@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -23,39 +24,19 @@
         <%@include file="./fragmentos/BarraNavegacion.xhtml" %>
 
         <main>
-            <a href="">
-                <article>
-                    <img src="" alt="">
-                    <h2>@licoreeee</h2>
-                    <h3>Qué opinan de "XQ ERES ASI"?</h3>
-                    <p>Diganme su opinión.</p>
-                </article>
-            </a>
-
-            <a href="">
-                <article>
-                    <img src="" alt="">
-                    <h2>@abel_san13</h2>
-                    <h3>Habrá video musical de Apple de Charli XCX????</h3>
-                </article>
-            </a>
-
-            <a href="">
-                <article>
-                    <img src="" alt="">
-                    <h2>@Pipucate</h2>
-                    <h3>Ustedes qué opinan de la controversia de Chappel Roan??</h3>
-                    <p>A mí no me importa la verdad, yo la sigo amando.</p>
-                </article>
-            </a>
-
-            <a href="">
-                <article>
-                    <img src="" alt="">
-                    <h2>@salammimami</h2>
-                    <h3>Me gustó mucho 143 de Katy Perry y soporten.</h3>
-                </article>
-            </a>
+            <!-- Mostrar posts anclados -->
+            <h2>Posts Anclados</h2>
+            <c:forEach var="post" items="${posts}">
+                <a href="detallePost?id=${post.getId()}">
+                    <article>
+                        <img src="" alt="Imagen del post">
+                        <h2>@${post.usuario.nombreUsuario}</h2> 
+                        <h3>${post.titulo}</h3> 
+                        <p>${post.subtitulo}</p> 
+                        <p>${post.contenido}</p> 
+                    </article>
+                </a>
+            </c:forEach>
 
             <%@include file="./fragmentos/BotonNuevoPost.xhtml"%>
         </main>

@@ -37,6 +37,14 @@
         <servlet-name>MiPerfil</servlet-name>
         <servlet-class>servlets.MiPerfil</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Posts</servlet-name>
+        <servlet-class>servlets.General</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Post</servlet-name>
+        <servlet-class>servlets.Post</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>IniciarSesion</servlet-name>
         <url-pattern>/IniciarSesion</url-pattern>
@@ -78,6 +86,14 @@
     <servlet-mapping>
         <servlet-name>MiPerfil</servlet-name>
         <url-pattern>/MiPerfil</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Posts</servlet-name>
+        <url-pattern>/Posts</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Post</servlet-name>
+        <url-pattern>/Post</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
