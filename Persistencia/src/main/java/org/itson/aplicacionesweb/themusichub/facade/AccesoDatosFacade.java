@@ -245,7 +245,7 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
                         convertirPostsAPostsDTO(usuario.getPosts()),
                         municipioDTO);
             } else if (usuario instanceof Administrador) {
-                usuarioDTO = new NormalDTO(
+                usuarioDTO = new AdministradorDTO(
                         usuario.getNombres(),
                         usuario.getApellidoPaterno(),
                         usuario.getApellidoMaterno(),
@@ -301,7 +301,7 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
                         convertirPostsAPostsDTO(usuario.getPosts()),
                         municipioDTO);
             } else if (usuario instanceof Administrador) {
-                usuarioDTO = new NormalDTO(
+                usuarioDTO = new AdministradorDTO(
                         usuario.getNombres(),
                         usuario.getApellidoPaterno(),
                         usuario.getApellidoMaterno(),
@@ -415,18 +415,19 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
                     municipioDTO);
         } else {
             usuarioDTO = new AdministradorDTO(
-                    usuario.getNombres(),
-                    usuario.getApellidoPaterno(),
-                    usuario.getApellidoMaterno(),
-                    usuario.getCorreo(),
-                    usuario.getContrasenia(),
-                    usuario.getTelefono(),
-                    usuario.getNombreUsuario(),
-                    usuario.getAvatar(),
-                    usuario.getCiudad(),
-                    usuario.getFechaNacimiento(),
-                    usuario.getGenero(),
-                    municipioDTO);
+                        usuario.getNombres(),
+                        usuario.getApellidoPaterno(),
+                        usuario.getApellidoMaterno(),
+                        usuario.getCorreo(),
+                        usuario.getContrasenia(),
+                        usuario.getTelefono(),
+                        usuario.getNombreUsuario(),
+                        usuario.getAvatar(),
+                        usuario.getCiudad(),
+                        usuario.getFechaNacimiento(),
+                        usuario.getGenero(),
+                        convertirPostsAPostsDTO(usuario.getPosts()),
+                        municipioDTO);
         }
 
         return usuarioDTO;
@@ -452,7 +453,7 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
                 comentario.getId(),
                 comentario.getFechaHora(),
                 comentario.getContenido(),
-                (NormalDTO)convertirUsuarioAUsuarioDTO(comentario.getUsuario()));
+                (NormalDTO) convertirUsuarioAUsuarioDTO(comentario.getUsuario()));
         return comentarioDTO;
     }
 
@@ -485,6 +486,11 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
         } catch (PersistenciaException ex) {
             throw new FacadeException(ex.getMessage());
         }
+    }
+
+    @Override
+    public List<PostDTO> obtenerPostsPorUsuario(String correo) throws FacadeException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }

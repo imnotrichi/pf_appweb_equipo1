@@ -35,7 +35,10 @@ public interface IAccesoDatosFacade {
 
     public List<PostDTO> obtenerPostsPorCategoria(CategoriaPost categoria) throws FacadeException;
     
+    public List<PostDTO> obtenerPostsPorUsuario(String correo) throws FacadeException;
+    
     public PostDTO obtenerPostID(Long id) throws FacadeException;
     
     public ComentarioDTO obtenerComentarioID(Long id) throws FacadeException;
+
 }
