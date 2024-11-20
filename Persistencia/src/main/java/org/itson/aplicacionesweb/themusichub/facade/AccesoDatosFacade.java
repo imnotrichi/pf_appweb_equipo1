@@ -471,7 +471,7 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
             } else if (postDTO instanceof AncladoDTO) {
                 System.out.println("Anclado");
             } else {
-                System.out.println("Ninguno lololol");
+                System.out.println("Ninguno");
             }
             return postDTO;
         } catch (PersistenciaException ex) {

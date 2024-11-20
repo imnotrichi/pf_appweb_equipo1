@@ -27,7 +27,7 @@
             <!-- Mostrar posts anclados -->
             <h2>Posts Anclados</h2>
             <c:forEach var="post" items="${posts}">
-                <a href="detallePost?id=${post.getId()}">
+                <a href="Post?id=${post.getId()}">
                     <article>
                         <img src="" alt="Imagen del post">
                         <h2>@${post.usuario.nombreUsuario}</h2> 
