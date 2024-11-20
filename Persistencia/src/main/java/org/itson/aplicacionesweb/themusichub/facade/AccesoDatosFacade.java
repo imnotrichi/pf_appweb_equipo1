@@ -202,8 +202,7 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
                     respuestaDTO.getContenido(),
                     comentario,
                     usuario);
-            comentario.getRespuestas().add(respuesta);
-            comentariosDAO.responderComentario(comentario);
+            comentariosDAO.publicarComentario(respuesta);
         } catch (PersistenciaException ex) {
             Logger.getLogger(AccesoDatosFacade.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -445,17 +444,15 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
     }
 
     private ComentarioDTO convertirComentarioAComentarioDTO(Comentario comentario) {
-        if (comentario.getRespuesta() == null) {
+        if (comentario == null) {
             return null;
         }
-        ComentarioDTO comentarioDTO = new ComentarioDTO(
+        ComentarioDTO comentarioDTO;
+        comentarioDTO = new ComentarioDTO(
                 comentario.getId(),
                 comentario.getFechaHora(),
                 comentario.getContenido(),
-                convertirComentariosAComentariosDTO(comentario.getRespuestas()),
-                convertirComentarioAComentarioDTO(comentario.getRespuesta()),
-                convertirPostAPostDTO(comentario.getPost()),
-                (NormalDTO) convertirUsuarioAUsuarioDTO(comentario.getUsuario()));
+                (NormalDTO)convertirUsuarioAUsuarioDTO(comentario.getUsuario()));
         return comentarioDTO;
     }
 

@@ -47,7 +47,7 @@ public class Comentario implements Serializable {
     private Comentario respuesta;
 
     @ManyToOne
-    @JoinColumn(name = "id_post", nullable = false)
+    @JoinColumn(name = "id_post")
     private Post post;
 
     @ManyToOne
