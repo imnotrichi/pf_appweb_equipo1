@@ -97,8 +97,7 @@ public class RegistrarUsuario extends HttpServlet {
 
         //PROCESAMIENTO DE LA IMAGEN
         //Se crea la ruta del directorio donde se almacenarán las imagenes
-        String ruta = getServletContext().getRealPath("");
-        String rutaDirectorio = ruta + "avatares";
+        String rutaDirectorio = getServletContext().getRealPath("/avatares");
         File directorioAvatares = new File(rutaDirectorio);
 
         //Se crea el directorio si no existe
@@ -117,6 +116,10 @@ public class RegistrarUsuario extends HttpServlet {
 
         //Se almacena el archivo en el directorio
         avatar.write(rutaAvatar);
+        
+        // Guardar la ruta relativa
+        String rutaRelativa = "avatares/" + referencia;
+        request.getSession().setAttribute("avatar", rutaRelativa);
         //FIN PROCESAMIENTO IMAGEN
 
         String fechaNacimientoStr = request.getParameter("fechaNacimiento");
