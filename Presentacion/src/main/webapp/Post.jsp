@@ -27,7 +27,7 @@
             <main>
                 <section>
                     <article class="post">
-                        <img class="imagen-post" src="imagenes/taylor.png" alt="">
+                        <img class="imagen-post" src="${imagenPost}" alt="">
                         <div>
                             <h2 class="usuario-fecha">@${nombreUsuario} - <span>10/10/2024</span></h2>
                             <c:choose>
@@ -52,8 +52,29 @@
 
 
                     <article class="contenedor-comentario">
-                        <h3 class="subtitulo-comentario">Comentarios (3):</h3>
+                        <h3 class="subtitulo-comentario">Comentarios (${cantidadComentarios}):</h3>
                         <hr>
+                        <c:forEach var="comentario" items="${comentarios}">
+                            <div class="comentario">
+                                <p>
+                                    <span class="usuario">@${comentario.nombreUsuario} (${comentario.fechaComentario}): </span>
+                                    ${comentario.contenido}
+                                </p>
+                                <button class="responder-btn">Responder</button>
+
+                                <c:if test="${not empty comentario.respuesta}">
+                                    <div class="respuestas">
+                                        <jsp:include page="Comentarios.jsp">
+                                            <jsp:param name="comentarios" value="${comentario.respuesta}" />
+                                        </jsp:include>
+                                    </div>
+
+                                </c:if>
+                            </div>
+                        </c:forEach>
+
+
+
                         <div class="comentario">
                             <p><span class="usuario">@abel_sanchez123 (14/10/2024): </span>yo la verdad estoy muy emocionado
                                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis assumenda fugit error
@@ -87,6 +108,7 @@
                                 labore amet quas ut enim!
                             </p>
                             <button class="responder-btn">Responder</button>
+
                             <div class="respuestas">
                                 <div class="comentario respuesta">
                                     <p><span class="usuario">@ricardoalan (14/10/2024): </span>Estoy de acuerdo contigo, pero Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum totam, assumenda molestiae dolore unde porro cum. Numquam vel officiis aperiam, ducimus eius ipsa voluptas autem necessitatibus nisi. Ut, rerum iste.</p>
@@ -100,6 +122,7 @@
                             </div>
 
                         </div>
+
                         <c:choose>
                             <c:when test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"normal\")}">
                                 <div class="comentar">
