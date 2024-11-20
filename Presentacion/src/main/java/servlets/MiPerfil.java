@@ -56,6 +56,7 @@ public class MiPerfil extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("HOLA, LLEGASTE AL SERVLET MI PERFIL - GET");
         try {
+            
             List<PostDTO> listaPosts = accesoDatos.obtenerPostsPorCategoria(null);
             request.setAttribute("listaPosts", listaPosts);
 

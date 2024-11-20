@@ -3,7 +3,6 @@ package servlets;
 /*
  * IniciarSesion.java
  */
-
 import beans.UsuarioBean;
 import com.mycompany.dto.UsuarioDTO;
 import jakarta.servlet.ServletException;
@@ -22,11 +21,12 @@ import org.itson.aplicacionesweb.themusichub.persistenciaException.FacadeExcepti
 public class IniciarSesion extends HttpServlet {
 
     private IAccesoDatosFacade accesoDatos;
+
     @Override
     public void init() throws ServletException {
         accesoDatos = new AccesoDatosFacade();
     }
-    
+
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -53,12 +53,11 @@ public class IniciarSesion extends HttpServlet {
             throws ServletException, IOException {
         String correo = request.getParameter("correo");
         String contrasenia = request.getParameter("contrasenia");
-        
+
         try {
-            System.out.println("REGISTRO DE USUARIO");
             UsuarioDTO usuario = accesoDatos.obtenerUsuario(correo, contrasenia);
-            UsuarioBean bean = new UsuarioBean(usuario.getNombreUsuario(), usuario.getCorreo(), usuario.getCiudad(), usuario.getAvatar());
             if (usuario != null) {
+                UsuarioBean bean = new UsuarioBean(usuario.getNombreUsuario(), usuario.getCorreo(), usuario.getCiudad(), usuario.getAvatar());
                 HttpSession session = request.getSession();
                 session.setAttribute("usuario", bean);
                 response.sendRedirect(request.getContextPath() + "/Inicio.jsp");
