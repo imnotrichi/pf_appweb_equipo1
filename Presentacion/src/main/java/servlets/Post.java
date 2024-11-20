@@ -4,18 +4,27 @@
  */
 package servlets;
 
+import com.mycompany.dto.PostDTO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
+import org.itson.aplicacionesweb.themusichub.facade.AccesoDatosFacade;
+import org.itson.aplicacionesweb.themusichub.facade.IAccesoDatosFacade;
 
 /**
  *
  * @author Abe
  */
 public class Post extends HttpServlet {
+
+    private IAccesoDatosFacade accesoDatos;
+
+    @Override
+    public void init() throws ServletException {
+        accesoDatos = new AccesoDatosFacade();
+    }
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,6 +52,18 @@ public class Post extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+         String id = request.getParameter("id");
+        try {
+            System.out.println("HOLA DESDE SERVLET POST");
+            PostDTO post = accesoDatos.obtenerPostID(Long.parseLong(id));
+            request.setAttribute("titulo", post.getTitulo());
+            request.setAttribute("nombreUsuario", post.getUsuario().getNombreUsuario());
+            request.setAttribute("subtitulo", post.getSubtitulo());
+            request.setAttribute("contenido", post.getContenido());
+            request.getRequestDispatcher("/Post.jsp").forward(request, response);
+        } catch (Exception e) {
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error al cargar el post.");
+        }
         
     }
 

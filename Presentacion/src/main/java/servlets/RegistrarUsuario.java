@@ -83,64 +83,66 @@ public class RegistrarUsuario extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String nombre = request.getParameter("nombre");
-        String apellidos = request.getParameter("apellidos");
-        String apellido1 = "", apellido2 = "";
-
-        String[] partes = apellidos.split(" ");
-
-        if (partes.length == 1) {
-            apellido1 = partes[0];
-            apellido2 = "";
-        } else if (partes.length == 2) {
-            apellido1 = partes[0];
-            apellido2 = partes[1];
-        }
-        String nombreUsuario = request.getParameter("usuario");
-        String correo = request.getParameter("email");
-        String contrasenia = request.getParameter("contrasena");
-        String telefono = request.getParameter("telefono");
-        String ciudad = request.getParameter("ciudad");
-        String genero = request.getParameter("genero");
-
-        //Procesamiento de la imagen
-        String path = request.getServletContext().getRealPath("");
-        String pathGuardar = path + "imagenes";
-        File dir = new File(pathGuardar);
-        if (!dir.exists()) {
-            dir.mkdir();
-        }
-        Part filePart = request.getPart("avatar");
-        String fileName = Paths.get(filePart.getSubmittedFileName())
-                .getFileName().toString();
-        InputStream fileContent = filePart.getInputStream();
-        File targetFile = new File(pathGuardar + File.separator + fileName);
-        Files.copy(fileContent, targetFile.toPath(), 
-                StandardCopyOption.REPLACE_EXISTING);
-        IOUtils.closeQuietly(fileContent);
-
-        String fechaNacimientoStr = request.getParameter("fechaNacimiento");
-
-        Calendar fechaNacimiento = Calendar.getInstance();
-        String[] dateParts = fechaNacimientoStr.split("-");
-        fechaNacimiento.set(Integer.parseInt(dateParts[0]), Integer.parseInt(dateParts[1]) - 1, Integer.parseInt(dateParts[2]));
-        EstadoDTO estado = new EstadoDTO("Sonora");
-        MunicipioDTO municipio = new MunicipioDTO("Cajeme", estado);
-
-        UsuarioDTO usuario = new NormalDTO(nombre, apellido1, apellido2, correo, contrasenia, telefono, nombreUsuario, "", ciudad, fechaNacimiento, genero, municipio);
-        System.out.println("HOLA DESDE EL SERVLET");
-        try {
-            System.out.println("REGISTRO DE USUARIO SERVLET");
-            accesoDatos.registrarUsuario(usuario);
-            HttpSession session = request.getSession();
-            session.setAttribute("usuario", usuario);
-            response.sendRedirect(request.getContextPath() + "/Inicio.jsp");
-        } catch (FacadeException e) {
-            System.out.println("EXCEPCION");
-            this.getServletContext()
-                    .getRequestDispatcher("/IniciarRegistrar.jsp")
-                    .forward(request, response);
-        }
+//        String nombre = request.getParameter("nombre");
+//        String apellidos = request.getParameter("apellidos");
+//        String apellido1 = "", apellido2 = "";
+//
+//        String[] partes = apellidos.split(" ");
+//
+//        if (partes.length == 1) {
+//            apellido1 = partes[0];
+//            apellido2 = "";
+//        } else if (partes.length == 2) {
+//            apellido1 = partes[0];
+//            apellido2 = partes[1];
+//        }
+//        String nombreUsuario = request.getParameter("usuario");
+//        String correo = request.getParameter("email");
+//        String contrasenia = request.getParameter("contrasena");
+//        String telefono = request.getParameter("telefono");
+//        String ciudad = request.getParameter("ciudad");
+//        String genero = request.getParameter("genero");
+//
+//        //Procesamiento de la imagen
+//        String path = request.getServletContext().getRealPath("");
+//        String pathGuardar = path + "imagenes";
+//        File dir = new File(pathGuardar);
+//        if (!dir.exists()) {
+//            dir.mkdir();
+//        }
+//        Part filePart = request.getPart("avatar");
+//        String fileName = Paths.get(filePart.getSubmittedFileName())
+//                .getFileName().toString();
+//        InputStream fileContent = filePart.getInputStream();
+//        File targetFile = new File(pathGuardar + File.separator + fileName);
+//        Files.copy(fileContent, targetFile.toPath(), 
+//                StandardCopyOption.REPLACE_EXISTING);
+//        IOUtils.closeQuietly(fileContent);
+//
+//        String fechaNacimientoStr = request.getParameter("fechaNacimiento");
+//
+//        Calendar fechaNacimiento = Calendar.getInstance();
+//        String[] dateParts = fechaNacimientoStr.split("-");
+//        fechaNacimiento.set(Integer.parseInt(dateParts[0]), Integer.parseInt(dateParts[1]) - 1, Integer.parseInt(dateParts[2]));
+//        EstadoDTO estado = new EstadoDTO("Sonora");
+//        MunicipioDTO municipio = new MunicipioDTO("Cajeme", estado);
+//
+//
+//        UsuarioDTO usuario = new NormalDTO(nombre, apellido2, apellido2, correo, contrasenia, telefono, nombreUsuario, , ciudad, fechaNacimiento, genero, municipio);
+////                new NormalDTO(nombre, apellido1, apellido2, correo, contrasenia, telefono, nombreUsuario, byte[], ciudad, fechaNacimiento, genero, municipio);
+//        System.out.println("HOLA DESDE EL SERVLET");
+//        try {
+//            System.out.println("REGISTRO DE USUARIO SERVLET");
+//            accesoDatos.registrarUsuario(usuario);
+//            HttpSession session = request.getSession();
+//            session.setAttribute("usuario", usuario);
+//            response.sendRedirect(request.getContextPath() + "/Inicio.jsp");
+//        } catch (FacadeException e) {
+//            System.out.println("EXCEPCION");
+//            this.getServletContext()
+//                    .getRequestDispatcher("/IniciarRegistrar.jsp")
+//                    .forward(request, response);
+//        }
     }
 
     /**

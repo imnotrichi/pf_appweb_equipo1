@@ -6,6 +6,7 @@ package servlets;
 
 import com.mycompany.dto.PostDTO;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -22,6 +23,7 @@ import org.itson.aplicacionesweb.themusichub.persistenciaException.FacadeExcepti
  *
  * @author Equipo 1
  */
+@WebServlet(name = "General", urlPatterns = {"/General"})
 public class General extends HttpServlet {
 
     private IAccesoDatosFacade accesoDatos;
@@ -57,7 +59,7 @@ public class General extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        System.out.println("HOLA DESDE SERVLET GENERAL");
         try {
             List<PostDTO> posts = accesoDatos.obtenerPostsPorCategoria(CategoriaPost.GENERAL);
             request.setAttribute("posts", posts);
