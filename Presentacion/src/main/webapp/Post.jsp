@@ -33,18 +33,14 @@
                             <c:choose>
                                 <c:when test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"administrador\")}">
                                     <div class="funciones-admin">
-                                        <form action="EliminarPost" method="POST">
-                                            <button>
-                                                Eliminar
-                                                <img src="./imagenes/white-trash-icon.png" alt="white trash icon">
-                                            </button>
-                                        </form>
-                                        <form action="AnclarPost" method="POST">
-                                            <button>
-                                                Anclar
-                                                <img src="./imagenes/white-pin-icon.png">
-                                            </button>
-                                        </form>
+                                        <button>
+                                            Eliminar
+                                            <img src="./imagenes/white-trash-icon.png" alt="white trash icon">
+                                        </button>
+                                        <button>
+                                            Anclar
+                                            <img src="./imagenes/white-pin-icon.png">
+                                        </button>
                                     </div>
                                 </c:when>
                             </c:choose>
@@ -64,8 +60,14 @@
                                 quasi accusantium dolores nobis aspernatur ullam, vitae earum! Fugiat iure rem doloremque ad
                                 labore amet quas ut enim!
                             </p>
-                            <button class="responder-btn">Responder</button>
-
+                            <c:choose>
+                                <c:when test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"normal\")}">
+                                    <button class="responder-btn">Responder</button>
+                                </c:when>
+                                <c:when test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"administrador\")}">
+                                    <button class="responder-btn">Eliminar</button>
+                                </c:when>
+                            </c:choose>
                         </div>
 
                         <div class="comentario">
@@ -98,13 +100,16 @@
                             </div>
 
                         </div>
-
-                        <div class="comentar">
-                            <textarea placeholder="Escribe un comentario..."></textarea>
-                            <button class="boton-comentar">
-                                Comentar
-                            </button>
-                        </div>
+                        <c:choose>
+                            <c:when test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"normal\")}">
+                                <div class="comentar">
+                                    <textarea placeholder="Escribe un comentario..."></textarea>
+                                    <button class="boton-comentar">
+                                        Comentar
+                                    </button>
+                                </div>
+                            </c:when>
+                        </c:choose>
                     </article>
                 </section>
 
