@@ -1,6 +1,5 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ * RegistrarUsuario.java
  */
 package servlets;
 
@@ -17,19 +16,13 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.Calendar;
-import org.apache.commons.io.IOUtils;
 import org.itson.aplicacionesweb.themusichub.facade.AccesoDatosFacade;
 import org.itson.aplicacionesweb.themusichub.facade.IAccesoDatosFacade;
 import org.itson.aplicacionesweb.themusichub.persistenciaException.FacadeException;
 
 /**
- *
- * @author Abe
+ * @author Equipo1
  */
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, maxFileSize = 1024 * 1024 * 10,
         maxRequestSize = 1024 * 1024 * 50)
@@ -53,7 +46,6 @@ public class RegistrarUsuario extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -68,7 +60,6 @@ public class RegistrarUsuario extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
     }
 
     /**
@@ -83,66 +74,72 @@ public class RegistrarUsuario extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-//        String nombre = request.getParameter("nombre");
-//        String apellidos = request.getParameter("apellidos");
-//        String apellido1 = "", apellido2 = "";
-//
-//        String[] partes = apellidos.split(" ");
-//
-//        if (partes.length == 1) {
-//            apellido1 = partes[0];
-//            apellido2 = "";
-//        } else if (partes.length == 2) {
-//            apellido1 = partes[0];
-//            apellido2 = partes[1];
-//        }
-//        String nombreUsuario = request.getParameter("usuario");
-//        String correo = request.getParameter("email");
-//        String contrasenia = request.getParameter("contrasena");
-//        String telefono = request.getParameter("telefono");
-//        String ciudad = request.getParameter("ciudad");
-//        String genero = request.getParameter("genero");
-//
-//        //Procesamiento de la imagen
-//        String path = request.getServletContext().getRealPath("");
-//        String pathGuardar = path + "imagenes";
-//        File dir = new File(pathGuardar);
-//        if (!dir.exists()) {
-//            dir.mkdir();
-//        }
-//        Part filePart = request.getPart("avatar");
-//        String fileName = Paths.get(filePart.getSubmittedFileName())
-//                .getFileName().toString();
-//        InputStream fileContent = filePart.getInputStream();
-//        File targetFile = new File(pathGuardar + File.separator + fileName);
-//        Files.copy(fileContent, targetFile.toPath(), 
-//                StandardCopyOption.REPLACE_EXISTING);
-//        IOUtils.closeQuietly(fileContent);
-//
-//        String fechaNacimientoStr = request.getParameter("fechaNacimiento");
-//
-//        Calendar fechaNacimiento = Calendar.getInstance();
-//        String[] dateParts = fechaNacimientoStr.split("-");
-//        fechaNacimiento.set(Integer.parseInt(dateParts[0]), Integer.parseInt(dateParts[1]) - 1, Integer.parseInt(dateParts[2]));
-//        EstadoDTO estado = new EstadoDTO("Sonora");
-//        MunicipioDTO municipio = new MunicipioDTO("Cajeme", estado);
-//
-//
-//        UsuarioDTO usuario = new NormalDTO(nombre, apellido2, apellido2, correo, contrasenia, telefono, nombreUsuario, , ciudad, fechaNacimiento, genero, municipio);
-////                new NormalDTO(nombre, apellido1, apellido2, correo, contrasenia, telefono, nombreUsuario, byte[], ciudad, fechaNacimiento, genero, municipio);
-//        System.out.println("HOLA DESDE EL SERVLET");
-//        try {
-//            System.out.println("REGISTRO DE USUARIO SERVLET");
-//            accesoDatos.registrarUsuario(usuario);
-//            HttpSession session = request.getSession();
-//            session.setAttribute("usuario", usuario);
-//            response.sendRedirect(request.getContextPath() + "/Inicio.jsp");
-//        } catch (FacadeException e) {
-//            System.out.println("EXCEPCION");
-//            this.getServletContext()
-//                    .getRequestDispatcher("/IniciarRegistrar.jsp")
-//                    .forward(request, response);
-//        }
+        String nombre = request.getParameter("nombre");
+        String apellidos = request.getParameter("apellidos");
+        String apellido1 = "", apellido2 = "";
+
+        String[] partes = apellidos.split(" ");
+
+        if (partes.length == 1) {
+            apellido1 = partes[0];
+            apellido2 = "";
+        } else if (partes.length == 2) {
+            apellido1 = partes[0];
+            apellido2 = partes[1];
+        }
+        String nombreUsuario = request.getParameter("usuario");
+        String correo = request.getParameter("email");
+        String contrasenia = request.getParameter("contrasena");
+        String telefono = request.getParameter("telefono");
+        String ciudad = request.getParameter("ciudad");
+        String genero = request.getParameter("genero");
+
+        //PROCESAMIENTO DE LA IMAGEN
+        //Se crea la ruta del directorio donde se almacenarán las imagenes
+        String ruta = getServletContext().getRealPath("");
+        String rutaDirectorio = ruta + "avatares";
+        File directorioAvatares = new File(rutaDirectorio);
+        
+        //Se crea el directorio si no existe
+        if (!directorioAvatares.exists()) {
+            directorioAvatares.mkdir();
+        }
+        
+        //Se obtiene el archivo
+        Part avatar = request.getPart("avatar");
+        
+        //Se obtiene la referencia del archivo
+        String referencia = avatar.getSubmittedFileName();
+        
+        //Se escribe la ruta donde se almacenará el archivo
+        String filePath = rutaDirectorio + File.separator + referencia;
+        
+        //Se almacena el archivo en el directorio
+        avatar.write(filePath);
+        //FIN PROCESAMIENTO IMAGEN
+
+        String fechaNacimientoStr = request.getParameter("fechaNacimiento");
+
+        Calendar fechaNacimiento = Calendar.getInstance();
+        String[] dateParts = fechaNacimientoStr.split("-");
+        fechaNacimiento.set(Integer.parseInt(dateParts[0]), Integer.parseInt(dateParts[1]) - 1, Integer.parseInt(dateParts[2]));
+        EstadoDTO estado = new EstadoDTO("Sonora");
+        MunicipioDTO municipio = new MunicipioDTO("Cajeme", estado);
+
+        UsuarioDTO usuario = new NormalDTO(nombre, apellido1, apellido2, correo, contrasenia, telefono, nombreUsuario, filePath, ciudad, fechaNacimiento, genero, municipio);
+        System.out.println("HOLA DESDE EL SERVLET");
+        try {
+            System.out.println("REGISTRO DE USUARIO SERVLET");
+            accesoDatos.registrarUsuario(usuario);
+            HttpSession session = request.getSession();
+            session.setAttribute("usuario", usuario);
+            response.sendRedirect(request.getContextPath() + "/Inicio.jsp");
+        } catch (FacadeException e) {
+            System.out.println("EXCEPCION");
+            this.getServletContext()
+                    .getRequestDispatcher("/IniciarRegistrar.jsp")
+                    .forward(request, response);
+        }
     }
 
     /**

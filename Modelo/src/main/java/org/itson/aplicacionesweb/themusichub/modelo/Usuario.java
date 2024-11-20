@@ -59,7 +59,7 @@ public class Usuario implements Serializable {
     @Lob
     @Column(name = "avatar")
     @Basic(fetch = FetchType.LAZY)
-    protected byte[] avatar;
+    protected String avatar;
 
     @Column(name = "ciudad", length = 150)
     protected String ciudad;
@@ -83,7 +83,7 @@ public class Usuario implements Serializable {
     public Usuario() {
     }
 
-    public Usuario(String correo, String nombres, String apellidoPaterno, String apellidoMaterno, String nombreUsuario, String contrasenia, String telefono, byte[] avatar, String ciudad, Calendar fechaNacimiento, String genero, Municipio municipio) {
+    public Usuario(String correo, String nombres, String apellidoPaterno, String apellidoMaterno, String nombreUsuario, String contrasenia, String telefono, String avatar, String ciudad, Calendar fechaNacimiento, String genero, Municipio municipio) {
         this.correo = correo;
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
@@ -99,7 +99,7 @@ public class Usuario implements Serializable {
         this.posts = new LinkedList<>();
     }
 
-    public Usuario(String correo, String nombres, String apellidoPaterno, String apellidoMaterno, String nombreUsuario, String contrasenia, String telefono, byte[] avatar, String ciudad, Calendar fechaNacimiento, String genero, Municipio municipio, List<Post> posts) {
+    public Usuario(String correo, String nombres, String apellidoPaterno, String apellidoMaterno, String nombreUsuario, String contrasenia, String telefono, String avatar, String ciudad, Calendar fechaNacimiento, String genero, Municipio municipio, List<Post> posts) {
         this.correo = correo;
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
@@ -163,11 +163,11 @@ public class Usuario implements Serializable {
         this.telefono = telefono;
     }
 
-    public byte[] getAvatar() {
+    public String getAvatar() {
         return avatar;
     }
 
-    public void setAvatar(byte[] avatar) {
+    public void setAvatar(String avatar) {
         this.avatar = avatar;
     }
 
