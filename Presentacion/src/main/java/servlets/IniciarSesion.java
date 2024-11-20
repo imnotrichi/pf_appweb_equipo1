@@ -58,7 +58,12 @@ public class IniciarSesion extends HttpServlet {
             UsuarioDTO usuario = accesoDatos.obtenerUsuario(correo, contrasenia);
             if (usuario != null) {
                 HttpSession session = request.getSession();
-                session.setAttribute("usuario", usuario);
+                session.setAttribute("correo", usuario.getCorreo());
+                session.setAttribute("nombreUsuario", usuario.getNombreUsuario());
+                session.setAttribute("avatar", usuario.getAvatar());
+                session.setAttribute("ciudad", usuario.getCiudad());
+                int numPosts = usuario.getPosts().size();
+                session.setAttribute("numPosts", numPosts);
                 response.sendRedirect(request.getContextPath() + "/Inicio.jsp");
             } else {
                 request.setAttribute("error", "Correo o contraseña incorrectos");
