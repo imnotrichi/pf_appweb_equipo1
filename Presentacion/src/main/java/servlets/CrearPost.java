@@ -81,26 +81,29 @@ public class CrearPost extends HttpServlet {
 
         //PROCESAMIENTO DE LA IMAGEN
         //Se crea la ruta del directorio donde se almacenarán las imagenes
-        String ruta = getServletContext().getRealPath("");
-        String rutaDirectorio = ruta + "imagenesPosts";
-        File directorioAvatares = new File(rutaDirectorio);
+        String rutaImagen = "";
+        if (request.getPart("imagen") != null) {
+            String ruta = getServletContext().getRealPath("");
+            String rutaDirectorio = ruta + "imagenesPosts";
+            File directorioAvatares = new File(rutaDirectorio);
 
-        //Se crea el directorio si no existe
-        if (!directorioAvatares.exists()) {
-            directorioAvatares.mkdir();
+            //Se crea el directorio si no existe
+            if (!directorioAvatares.exists()) {
+                directorioAvatares.mkdir();
+            }
+
+            //Se obtiene el archivo
+            Part imagen = request.getPart("imagen");
+
+            //Se obtiene la referencia del archivo
+            String referencia = imagen.getSubmittedFileName();
+
+            //Se escribe la ruta donde se almacenará el archivo
+            rutaImagen = rutaDirectorio + File.separator + referencia;
+
+            //Se almacena el archivo en el directorio
+            imagen.write(rutaImagen);
         }
-
-        //Se obtiene el archivo
-        Part imagen = request.getPart("imagen");
-
-        //Se obtiene la referencia del archivo
-        String referencia = imagen.getSubmittedFileName();
-
-        //Se escribe la ruta donde se almacenará el archivo
-        String rutaImagen = rutaDirectorio + File.separator + referencia;
-
-        //Se almacena el archivo en el directorio
-        imagen.write(rutaImagen);
         //FIN PROCESAMIENTO IMAGEN
 
         if (!titulo.isBlank() && !tipoPost.isBlank()) {

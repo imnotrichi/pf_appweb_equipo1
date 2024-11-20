@@ -150,3 +150,8 @@ button:active, .publicar-button:active {
     align-items: center;
     gap: 2rem;
 }
+
+.boton-descartar a {
+    text-decoration: none;
+    color: #000;
+}

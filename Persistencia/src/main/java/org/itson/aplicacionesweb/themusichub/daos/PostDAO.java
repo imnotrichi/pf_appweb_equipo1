@@ -18,6 +18,7 @@ import org.itson.aplicacionesweb.themusichub.modelo.Anclado;
 import org.itson.aplicacionesweb.themusichub.enums.CategoriaPost;
 import org.itson.aplicacionesweb.themusichub.modelo.Comun;
 import org.itson.aplicacionesweb.themusichub.modelo.Post;
+import org.itson.aplicacionesweb.themusichub.modelo.Usuario;
 import org.itson.aplicacionesweb.themusichub.persistenciaException.PersistenciaException;
 
 /**
@@ -163,6 +164,48 @@ public class PostDAO implements IPostDAO {
                 // Si no se especifica una categoría, se obtendrán todos los posts.
                 return obtenerTodosPosts();
             }
+
+            // Obtenemos la lista de posts.
+            List<Post> listaPosts = em.createQuery(cq).getResultList();
+
+            // Obtenemos la cantidad de resultados.
+            int i = 0;
+            for (Post post : listaPosts) {
+                i++;
+                if (post instanceof Comun) {
+                    post = obtenerPostPorID(post.getId());
+                }
+            }
+
+            // Imprimimos un mensaje de que se ejecutó una consulta.
+            logger.log(Level.INFO, "Se ha consultado la tabla 'posts' y se obtuvieron " + i + " resultados.");
+            // Retornamos la lista de posts.
+            return listaPosts;
+        } catch (PersistenceException pe) {
+            throw new PersistenciaException("No se pudieron consultar los posts.");
+        } finally {
+            // Cerramos el entity manager.
+            em.close();
+        }
+    }
+    
+    @Override
+    public List<Post> obtenerPostsUsuario(Usuario usuario) throws PersistenciaException {
+        // Creamos un entity manager.
+        EntityManager em = conexion.crearConexion();
+
+        try {
+            // Construimos una instancia de CriteriaBuilder.
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            // Creamos un objeto CriteriaQuery para indicar el resultado de la consulta.
+            CriteriaQuery<Post> cq = cb.createQuery(Post.class);
+            // Creamos una instancia del tipo Root para indicar de qué entidad
+            // se hará la consulta.
+            Root<Post> root = cq.from(Post.class);
+
+            // Con esta línea especificamos que la consulta seleccionará
+            // todos los posts de la categoría especificada.
+            cq.where(cb.equal(root.get("usuario"), usuario));
 
             // Obtenemos la lista de posts.
             List<Post> listaPosts = em.createQuery(cq).getResultList();

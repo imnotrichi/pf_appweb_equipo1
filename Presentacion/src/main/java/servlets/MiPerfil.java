@@ -4,6 +4,7 @@
  */
 package servlets;
 
+import beans.UsuarioBean;
 import com.mycompany.dto.NormalDTO;
 import com.mycompany.dto.PostDTO;
 import com.mycompany.dto.UsuarioDTO;
@@ -56,8 +57,8 @@ public class MiPerfil extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("HOLA, LLEGASTE AL SERVLET MI PERFIL - GET");
         try {
-            
-            List<PostDTO> listaPosts = accesoDatos.obtenerPostsPorCategoria(null);
+
+            List<PostDTO> listaPosts = accesoDatos.obtenerPostsPorUsuario(((UsuarioBean) request.getSession().getAttribute("usuario")).getCorreo());
             request.setAttribute("listaPosts", listaPosts);
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("MiPerfil.jsp");

@@ -63,7 +63,9 @@
                 </div>
 
                 <div class="botones">
-                    <button class="">Descartar</button>
+                    <button class="boton-descartar">
+                        <a href="Inicio.jsp">Descartar</a>
+                    </button>
                     <input type="submit" value="Publicar" class="publicar-button">
                 </div>
             </form>

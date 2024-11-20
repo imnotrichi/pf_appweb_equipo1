@@ -5,7 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -29,7 +29,21 @@
                     <article class="post">
                         <img class="imagen-post" src="${imagenPost}" alt="">
                         <div>
-                            <h2 class="usuario-fecha">@${nombreUsuario} - <span>${fechaPublicacion}</span></h2>
+                            <h2 class="usuario-fecha">@${nombreUsuario} - <span>10/10/2024</span></h2>
+                            <c:choose>
+                                <c:when test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"administrador\")}">
+                                    <div class="funciones-admin">
+                                        <button>
+                                            Eliminar
+                                            <img src="./imagenes/white-trash-icon.png" alt="white trash icon">
+                                        </button>
+                                        <button>
+                                            Anclar
+                                            <img src="./imagenes/white-pin-icon.png">
+                                        </button>
+                                    </div>
+                                </c:when>
+                            </c:choose>
                         </div>
                         <h1>${titulo}</h1> 
                         <h2>${subtitulo}</h2> 
@@ -67,8 +81,14 @@
                                 quasi accusantium dolores nobis aspernatur ullam, vitae earum! Fugiat iure rem doloremque ad
                                 labore amet quas ut enim!
                             </p>
-                            <button class="responder-btn">Responder</button>
-
+                            <c:choose>
+                                <c:when test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"normal\")}">
+                                    <button class="responder-btn">Responder</button>
+                                </c:when>
+                                <c:when test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"administrador\")}">
+                                    <button class="responder-btn">Eliminar</button>
+                                </c:when>
+                            </c:choose>
                         </div>
 
                         <div class="comentario">
@@ -103,14 +123,16 @@
 
                         </div>
 
-
-
-                        <div class="comentar">
-                            <textarea placeholder="Escribe un comentario..."></textarea>
-                            <button class="boton-comentar">
-                                Comentar
-                            </button>
-                        </div>
+                        <c:choose>
+                            <c:when test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"normal\")}">
+                                <div class="comentar">
+                                    <textarea placeholder="Escribe un comentario..."></textarea>
+                                    <button class="boton-comentar">
+                                        Comentar
+                                    </button>
+                                </div>
+                            </c:when>
+                        </c:choose>
                     </article>
                 </section>
 

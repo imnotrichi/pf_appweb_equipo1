@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 import org.itson.aplicacionesweb.themusichub.auxiliares.AESEncriptador;
 import org.itson.aplicacionesweb.themusichub.conexion.Conexion;
 import org.itson.aplicacionesweb.themusichub.conexion.IConexion;
@@ -245,7 +244,7 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
                         convertirPostsAPostsDTO(usuario.getPosts()),
                         municipioDTO);
             } else if (usuario instanceof Administrador) {
-                usuarioDTO = new NormalDTO(
+                usuarioDTO = new AdministradorDTO(
                         usuario.getNombres(),
                         usuario.getApellidoPaterno(),
                         usuario.getApellidoMaterno(),
@@ -301,7 +300,7 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
                         convertirPostsAPostsDTO(usuario.getPosts()),
                         municipioDTO);
             } else if (usuario instanceof Administrador) {
-                usuarioDTO = new NormalDTO(
+                usuarioDTO = new AdministradorDTO(
                         usuario.getNombres(),
                         usuario.getApellidoPaterno(),
                         usuario.getApellidoMaterno(),
@@ -426,6 +425,7 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
                     usuario.getCiudad(),
                     usuario.getFechaNacimiento(),
                     usuario.getGenero(),
+                    convertirPostsAPostsDTO(usuario.getPosts()),
                     municipioDTO);
         }
 
@@ -452,7 +452,7 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
                 comentario.getId(),
                 comentario.getFechaHora(),
                 comentario.getContenido(),
-                (NormalDTO)convertirUsuarioAUsuarioDTO(comentario.getUsuario()));
+                (NormalDTO) convertirUsuarioAUsuarioDTO(comentario.getUsuario()));
         return comentarioDTO;
     }
 
@@ -485,6 +485,22 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
         } catch (PersistenciaException ex) {
             throw new FacadeException(ex.getMessage());
         }
+    }
+
+    @Override
+    public List<PostDTO> obtenerPostsPorUsuario(String correo) throws FacadeException {
+        List<PostDTO> postsDTO = null;
+        try {
+            Usuario usuario = usuariosDAO.buscarUsuario(correo);
+            
+            // Se obtienen los posts.
+            List<Post> posts = postsDAO.obtenerPostsUsuario(usuario);
+            // Se convierten a DTO.
+            postsDTO = convertirPostsAPostsDTO(posts);
+        } catch (PersistenciaException ex) {
+            throw new FacadeException(ex.getMessage());
+        }
+        return postsDTO;
     }
 
 }
