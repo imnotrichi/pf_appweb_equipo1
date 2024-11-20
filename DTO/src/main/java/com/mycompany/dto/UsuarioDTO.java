@@ -18,7 +18,7 @@ public class UsuarioDTO {
     private String contrasenia;
     private String telefono;
     private String nombreUsuario;
-    private byte[] avatar;
+    private String avatar;
     private String ciudad;
     private Calendar fechaNacimiento;
     private String genero;
@@ -29,7 +29,7 @@ public class UsuarioDTO {
 
     }
 
-    public UsuarioDTO(String nombres, String apellidoPaterno, String apellidoMaterno, String correo, String contrasenia, String telefono, String nombreUsuario, byte[] avatar, String ciudad, Calendar fechaNacimiento, String genero, MunicipioDTO municipio) {
+    public UsuarioDTO(String nombres, String apellidoPaterno, String apellidoMaterno, String correo, String contrasenia, String telefono, String nombreUsuario, String avatar, String ciudad, Calendar fechaNacimiento, String genero, MunicipioDTO municipio) {
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
@@ -44,7 +44,7 @@ public class UsuarioDTO {
         this.municipio = municipio;
     }
     
-    public UsuarioDTO(String nombres, String apellidoPaterno, String apellidoMaterno, String correo, String contrasenia, String telefono, String nombreUsuario, byte[] avatar, String ciudad, Calendar fechaNacimiento, String genero, List<PostDTO> posts, MunicipioDTO municipio) {
+    public UsuarioDTO(String nombres, String apellidoPaterno, String apellidoMaterno, String correo, String contrasenia, String telefono, String nombreUsuario, String avatar, String ciudad, Calendar fechaNacimiento, String genero, List<PostDTO> posts, MunicipioDTO municipio) {
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
@@ -84,11 +84,11 @@ public class UsuarioDTO {
         return telefono;
     }
 
-    public byte[] getAvatar() {
+    public String getAvatar() {
         return avatar;
     }
 
-    public void setAvatar(byte[] avatar) {
+    public void setAvatar(String avatar) {
         this.avatar = avatar;
     }
 

@@ -27,7 +27,7 @@ public class Administrador extends Usuario implements Serializable {
     public Administrador() {
     }
 
-    public Administrador(String correo, String nombres, String apellidoPaterno, String apellidoMaterno, String nombreUsuario, String contrasenia, String telefono, byte[] avatar, String ciudad, Calendar fechaNacimiento, String genero, Municipio municipio) {
+    public Administrador(String correo, String nombres, String apellidoPaterno, String apellidoMaterno, String nombreUsuario, String contrasenia, String telefono, String avatar, String ciudad, Calendar fechaNacimiento, String genero, Municipio municipio) {
         super(correo, nombres, apellidoPaterno, apellidoMaterno, nombreUsuario, contrasenia, telefono, avatar, ciudad, fechaNacimiento, genero, municipio);
     }
 
