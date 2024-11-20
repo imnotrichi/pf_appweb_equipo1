@@ -54,6 +54,9 @@ public class Post implements Serializable {
     @Column(name = "contenido", nullable = false)
     protected String contenido;
 
+    @Column(name = "imagen", nullable = true, length = 500)
+    protected String imagen;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "categoria", nullable = false)
     protected CategoriaPost categoria;
@@ -77,14 +80,16 @@ public class Post implements Serializable {
      * @param contenido El contenido del post
      * @param categoria La categoría del post
      * @param usuario El usuario que creó el post
+     * @param imagen La imagen del post
      */
-    public Post(Calendar fechaHoraCreacion, String titulo, String subtitulo, String contenido, CategoriaPost categoria, Usuario usuario) {
+    public Post(Calendar fechaHoraCreacion, String titulo, String subtitulo, String contenido, CategoriaPost categoria, Usuario usuario, String imagen) {
         this.fechaHoraCreacion = fechaHoraCreacion;
         this.titulo = titulo;
         this.subtitulo = subtitulo;
         this.contenido = contenido;
         this.categoria = categoria;
         this.usuario = usuario;
+        this.imagen = imagen;
         this.comentarios = new LinkedList<>();
     }
 
@@ -99,8 +104,9 @@ public class Post implements Serializable {
      * @param categoria La categoría del post
      * @param usuario El usuario que creó el post
      * @param comentarios Los comentarios del post
+     * @param imagen La imagen del post
      */
-    public Post(Long id, Calendar fechaHoraCreacion, String titulo, String subtitulo, String contenido, CategoriaPost categoria, List<Comentario> comentarios, Usuario usuario) {
+    public Post(Long id, Calendar fechaHoraCreacion, String titulo, String subtitulo, String contenido, CategoriaPost categoria, List<Comentario> comentarios, Usuario usuario, String imagen) {
         this.id = id;
         this.fechaHoraCreacion = fechaHoraCreacion;
         this.titulo = titulo;
@@ -108,6 +114,7 @@ public class Post implements Serializable {
         this.contenido = contenido;
         this.categoria = categoria;
         this.usuario = usuario;
+        this.imagen = imagen;
         this.comentarios = comentarios;
     }
 
@@ -175,7 +182,13 @@ public class Post implements Serializable {
         this.usuario = usuario;
     }
 
-    
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
 
     @Override
     public int hashCode() {

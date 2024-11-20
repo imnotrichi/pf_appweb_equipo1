@@ -112,10 +112,10 @@ public class RegistrarUsuario extends HttpServlet {
         String referencia = avatar.getSubmittedFileName();
         
         //Se escribe la ruta donde se almacenará el archivo
-        String filePath = rutaDirectorio + File.separator + referencia;
+        String rutaAvatar = rutaDirectorio + File.separator + referencia;
         
         //Se almacena el archivo en el directorio
-        avatar.write(filePath);
+        avatar.write(rutaAvatar);
         //FIN PROCESAMIENTO IMAGEN
 
         String fechaNacimientoStr = request.getParameter("fechaNacimiento");
@@ -126,7 +126,7 @@ public class RegistrarUsuario extends HttpServlet {
         EstadoDTO estado = new EstadoDTO("Sonora");
         MunicipioDTO municipio = new MunicipioDTO("Cajeme", estado);
 
-        UsuarioDTO usuario = new NormalDTO(nombre, apellido1, apellido2, correo, contrasenia, telefono, nombreUsuario, filePath, ciudad, fechaNacimiento, genero, municipio);
+        UsuarioDTO usuario = new NormalDTO(nombre, apellido1, apellido2, correo, contrasenia, telefono, nombreUsuario, rutaAvatar, ciudad, fechaNacimiento, genero, municipio);
         System.out.println("HOLA DESDE EL SERVLET");
         try {
             System.out.println("REGISTRO DE USUARIO SERVLET");

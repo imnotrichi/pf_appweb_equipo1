@@ -23,7 +23,7 @@
         <%@include file="./fragmentos/BarraNavegacion.xhtml"%>
 
         <main>
-            <form action="CrearPost" method="POST">
+            <form action="CrearPost" method="POST" enctype="multipart/form-data">
                 <h2>Nuevo post</h2>
                 <br>
                 <div>
@@ -43,7 +43,7 @@
                             Seleccionar
                             <img src="imagenes/black-folder-icon.png" alt="" class="icono" />
                         </label>
-                        <input type="file" id="archivo" accept="image/*" />
+                        <input type="file" name="imagen" id="archivo" accept="image/*" />
                     </div>
 
                     <div class="campo">

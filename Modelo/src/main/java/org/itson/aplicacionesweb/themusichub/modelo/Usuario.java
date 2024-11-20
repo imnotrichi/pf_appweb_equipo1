@@ -55,10 +55,8 @@ public class Usuario implements Serializable {
 
     @Column(name = "telefono", nullable = false, length = 128)
     protected String telefono;
-
-    @Lob
-    @Column(name = "avatar")
-    @Basic(fetch = FetchType.LAZY)
+    
+    @Column(name = "avatar", nullable = false, length = 500)
     protected String avatar;
 
     @Column(name = "ciudad", length = 150)

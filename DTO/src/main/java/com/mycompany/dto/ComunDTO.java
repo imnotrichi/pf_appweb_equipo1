@@ -17,14 +17,15 @@ public class ComunDTO extends PostDTO{
      * @param categoria
      * @param usuario 
      */
-    public ComunDTO(Calendar fechaHoraCreacion, String titulo, String subtitulo, String contenido, String categoria, UsuarioDTO usuario) {
+    public ComunDTO(Calendar fechaHoraCreacion, String titulo, String subtitulo, String contenido, String categoria, UsuarioDTO usuario, String imagen) {
         super(
                 fechaHoraCreacion,
                 titulo,
                 subtitulo,
                 contenido,
                 categoria,
-                usuario);
+                usuario, 
+                imagen);
     }
     
     /**
@@ -36,7 +37,7 @@ public class ComunDTO extends PostDTO{
      * @param categoria
      * @param usuario 
      */
-    public ComunDTO(Long id, Calendar fechaHoraCreacion, String titulo, String subtitulo, String contenido, String categoria, UsuarioDTO usuario, List<ComentarioDTO> comentarios) {
+    public ComunDTO(Long id, Calendar fechaHoraCreacion, String titulo, String subtitulo, String contenido, String categoria, UsuarioDTO usuario, List<ComentarioDTO> comentarios, String imagen) {
         super(
                 id,
                 fechaHoraCreacion,
@@ -45,7 +46,8 @@ public class ComunDTO extends PostDTO{
                 contenido,
                 categoria,
                 usuario,
-                comentarios);
+                comentarios,
+                imagen);
     }
     
 }

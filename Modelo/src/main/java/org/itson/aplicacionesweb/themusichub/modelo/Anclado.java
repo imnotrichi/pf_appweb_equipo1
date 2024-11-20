@@ -41,8 +41,8 @@ public class Anclado extends Post implements Serializable {
      * @param comentarios Los comentarios del post
      * @param usuario El usuario que creó el post
      */
-    public Anclado(Long id, Calendar fechaHoraCreacion, String titulo, String subtitulo, String contenido, CategoriaPost categoria, List<Comentario> comentarios, Usuario usuario, Administrador administrador) {
-        super(id, fechaHoraCreacion, titulo, subtitulo, contenido, categoria, comentarios, usuario);
+    public Anclado(Long id, Calendar fechaHoraCreacion, String titulo, String subtitulo, String contenido, CategoriaPost categoria, List<Comentario> comentarios, Usuario usuario, Administrador administrador, String imagen) {
+        super(id, fechaHoraCreacion, titulo, subtitulo, contenido, categoria, comentarios, usuario, imagen);
         this.administrador = administrador;
     }
 

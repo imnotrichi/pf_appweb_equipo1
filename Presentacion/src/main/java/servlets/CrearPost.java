@@ -7,10 +7,13 @@ import com.mycompany.dto.ComunDTO;
 import com.mycompany.dto.NormalDTO;
 import com.mycompany.dto.UsuarioDTO;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.Part;
+import java.io.File;
 import java.io.IOException;
 import java.util.GregorianCalendar;
 import org.itson.aplicacionesweb.themusichub.facade.AccesoDatosFacade;
@@ -20,6 +23,8 @@ import org.itson.aplicacionesweb.themusichub.persistenciaException.FacadeExcepti
 /**
  * @author Equipo1
  */
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, maxFileSize = 1024 * 1024 * 10,
+        maxRequestSize = 1024 * 1024 * 50)
 public class CrearPost extends HttpServlet {
 
     /**
@@ -66,6 +71,30 @@ public class CrearPost extends HttpServlet {
         String tipoPost = request.getParameter("tipo-post");
         String cuerpo = request.getParameter("cuerpo");
         UsuarioDTO usuario = (NormalDTO) request.getSession().getAttribute("usuario");
+        
+        //PROCESAMIENTO DE LA IMAGEN
+        //Se crea la ruta del directorio donde se almacenarán las imagenes
+        String ruta = getServletContext().getRealPath("");
+        String rutaDirectorio = ruta + "imagenesPosts";
+        File directorioAvatares = new File(rutaDirectorio);
+        
+        //Se crea el directorio si no existe
+        if (!directorioAvatares.exists()) {
+            directorioAvatares.mkdir();
+        }
+        
+        //Se obtiene el archivo
+        Part imagen = request.getPart("imagen");
+        
+        //Se obtiene la referencia del archivo
+        String referencia = imagen.getSubmittedFileName();
+        
+        //Se escribe la ruta donde se almacenará el archivo
+        String rutaImagen = rutaDirectorio + File.separator + referencia;
+        
+        //Se almacena el archivo en el directorio
+        imagen.write(rutaImagen);
+        //FIN PROCESAMIENTO IMAGEN
 
         if (!titulo.isBlank() && !tipoPost.isBlank()) {
             if (subtitulo.isBlank()) {
@@ -73,7 +102,7 @@ public class CrearPost extends HttpServlet {
             }
 
             try {
-                ComunDTO postNuevo = new ComunDTO(new GregorianCalendar(), titulo, subtitulo, cuerpo, tipoPost, usuario);
+                ComunDTO postNuevo = new ComunDTO(new GregorianCalendar(), titulo, subtitulo, cuerpo, tipoPost, usuario, rutaImagen);
                 accesoDatos.publicarPost(postNuevo);
                 
                 UsuarioDTO usuarioActualizado = accesoDatos.obtenerUsuario(usuario.getCorreo());
