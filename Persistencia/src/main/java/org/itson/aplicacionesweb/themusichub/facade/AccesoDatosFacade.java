@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 import org.itson.aplicacionesweb.themusichub.auxiliares.AESEncriptador;
 import org.itson.aplicacionesweb.themusichub.conexion.Conexion;
 import org.itson.aplicacionesweb.themusichub.conexion.IConexion;
@@ -415,19 +414,19 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
                     municipioDTO);
         } else {
             usuarioDTO = new AdministradorDTO(
-                        usuario.getNombres(),
-                        usuario.getApellidoPaterno(),
-                        usuario.getApellidoMaterno(),
-                        usuario.getCorreo(),
-                        usuario.getContrasenia(),
-                        usuario.getTelefono(),
-                        usuario.getNombreUsuario(),
-                        usuario.getAvatar(),
-                        usuario.getCiudad(),
-                        usuario.getFechaNacimiento(),
-                        usuario.getGenero(),
-                        convertirPostsAPostsDTO(usuario.getPosts()),
-                        municipioDTO);
+                    usuario.getNombres(),
+                    usuario.getApellidoPaterno(),
+                    usuario.getApellidoMaterno(),
+                    usuario.getCorreo(),
+                    usuario.getContrasenia(),
+                    usuario.getTelefono(),
+                    usuario.getNombreUsuario(),
+                    usuario.getAvatar(),
+                    usuario.getCiudad(),
+                    usuario.getFechaNacimiento(),
+                    usuario.getGenero(),
+                    convertirPostsAPostsDTO(usuario.getPosts()),
+                    municipioDTO);
         }
 
         return usuarioDTO;
@@ -490,7 +489,18 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
 
     @Override
     public List<PostDTO> obtenerPostsPorUsuario(String correo) throws FacadeException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        List<PostDTO> postsDTO = null;
+        try {
+            Usuario usuario = usuariosDAO.buscarUsuario(correo);
+            
+            // Se obtienen los posts.
+            List<Post> posts = postsDAO.obtenerPostsUsuario(usuario);
+            // Se convierten a DTO.
+            postsDTO = convertirPostsAPostsDTO(posts);
+        } catch (PersistenciaException ex) {
+            throw new FacadeException(ex.getMessage());
+        }
+        return postsDTO;
     }
 
 }
