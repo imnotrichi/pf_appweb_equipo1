@@ -4,6 +4,8 @@ package servlets;
  * IniciarSesion.java
  */
 import beans.UsuarioBean;
+import com.mycompany.dto.AdministradorDTO;
+import com.mycompany.dto.NormalDTO;
 import com.mycompany.dto.UsuarioDTO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -57,7 +59,13 @@ public class IniciarSesion extends HttpServlet {
         try {
             UsuarioDTO usuario = accesoDatos.obtenerUsuario(correo, contrasenia);
             if (usuario != null) {
-                UsuarioBean bean = new UsuarioBean(usuario.getNombreUsuario(), usuario.getCorreo(), usuario.getCiudad(), usuario.getAvatar());
+                String tipo = "";
+                if (usuario instanceof NormalDTO) {
+                    tipo = "normal";
+                } else if (usuario instanceof AdministradorDTO) {
+                    tipo = "administrador";
+                }
+                UsuarioBean bean = new UsuarioBean(usuario.getNombreUsuario(), usuario.getCorreo(), usuario.getCiudad(), usuario.getAvatar(), tipo);
                 HttpSession session = request.getSession();
                 session.setAttribute("usuario", bean);
                 response.sendRedirect(request.getContextPath() + "/Inicio.jsp");
