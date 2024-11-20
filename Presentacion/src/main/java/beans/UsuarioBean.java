@@ -9,17 +9,31 @@ package beans;
 public class UsuarioBean {
 
     String nombreUsuario;
+    String correo;
+    String ciudad;
+    String avatar;
 
-    public UsuarioBean(String nombreUsuario) {
+    public UsuarioBean(String nombreUsuario, String correo, String ciudad, String avatar) {
         this.nombreUsuario = nombreUsuario;
+        this.correo = correo;
+        this.ciudad = ciudad;
+        this.avatar = avatar;
     }
 
     public String getNombreUsuario() {
         return nombreUsuario;
     }
 
-    public void setNombreUsuario(String nombreUsuario) {
-        this.nombreUsuario = nombreUsuario;
+    public String getCorreo() {
+        return correo;
+    }
+
+    public String getCiudad() {
+        return ciudad;
+    }
+
+    public String getAvatar() {
+        return avatar;
     }
 
 }

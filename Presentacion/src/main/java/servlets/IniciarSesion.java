@@ -4,6 +4,7 @@ package servlets;
  * IniciarSesion.java
  */
 
+import beans.UsuarioBean;
 import com.mycompany.dto.UsuarioDTO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -56,14 +57,10 @@ public class IniciarSesion extends HttpServlet {
         try {
             System.out.println("REGISTRO DE USUARIO");
             UsuarioDTO usuario = accesoDatos.obtenerUsuario(correo, contrasenia);
+            UsuarioBean bean = new UsuarioBean(usuario.getNombreUsuario(), usuario.getCorreo(), usuario.getCiudad(), usuario.getAvatar());
             if (usuario != null) {
                 HttpSession session = request.getSession();
-                session.setAttribute("correo", usuario.getCorreo());
-                session.setAttribute("nombreUsuario", usuario.getNombreUsuario());
-                session.setAttribute("avatar", usuario.getAvatar());
-                session.setAttribute("ciudad", usuario.getCiudad());
-                int numPosts = usuario.getPosts().size();
-                session.setAttribute("numPosts", numPosts);
+                session.setAttribute("usuario", bean);
                 response.sendRedirect(request.getContextPath() + "/Inicio.jsp");
             } else {
                 request.setAttribute("error", "Correo o contraseña incorrectos");

@@ -90,7 +90,7 @@ public class FiltroIniciarSesion implements Filter {
     private boolean estaLogueado(HttpServletRequest httpRequest) {
         HttpSession sesion = httpRequest.getSession(false);
 
-        return (sesion != null && sesion.getAttribute("correo") != null);
+        return (sesion != null && sesion.getAttribute("usuario") != null);
     }
 
     //Verifica si la ruta a la que se quiere acceder es privada.

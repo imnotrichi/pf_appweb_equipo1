@@ -38,7 +38,7 @@
                         <h2>@${sessionScope.usuario.getNombreUsuario()}</h2>
                         <p>${sessionScope.usuario.getCiudad()}</p>
                     </div>
-                    <p>Posts(${fn:length(sessionScope.usuario.getPosts())}):</p>
+                    <p>Posts(${fn:length(requestScope.listaPosts)}):</p>
                 </div>
                 <c:forEach items="${requestScope.listaPosts}" var="post">
                     <div>
