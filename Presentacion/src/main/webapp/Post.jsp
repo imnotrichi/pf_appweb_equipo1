@@ -5,7 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -30,6 +30,24 @@
                         <img class="imagen-post" src="imagenes/taylor.png" alt="">
                         <div>
                             <h2 class="usuario-fecha">@${nombreUsuario} - <span>10/10/2024</span></h2>
+                            <c:choose>
+                                <c:when test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"administrador\")}">
+                                    <div class="funciones-admin">
+                                        <form action="EliminarPost" method="POST">
+                                            <button>
+                                                Eliminar
+                                                <img src="./imagenes/white-trash-icon.png" alt="white trash icon">
+                                            </button>
+                                        </form>
+                                        <form action="AnclarPost" method="POST">
+                                            <button>
+                                                Anclar
+                                                <img src="./imagenes/white-pin-icon.png">
+                                            </button>
+                                        </form>
+                                    </div>
+                                </c:when>
+                            </c:choose>
                         </div>
                         <h1>${titulo}</h1> 
                         <h2>${subtitulo}</h2> 
