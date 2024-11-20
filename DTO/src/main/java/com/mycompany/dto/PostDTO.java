@@ -19,6 +19,7 @@ public class PostDTO {
     private String subtitulo;
     private String contenido;
     private String categoria;
+    private String imagen;
     private List<ComentarioDTO> comentarios;
     private UsuarioDTO usuario;
 
@@ -32,13 +33,17 @@ public class PostDTO {
      * @param categoria
      * @param usuario
      */
-    public PostDTO(Calendar fechaHoraCreacion, String titulo, String subtitulo, String contenido, String categoria, UsuarioDTO usuario) {
+    public PostDTO(Calendar fechaHoraCreacion, String titulo, String subtitulo, String contenido, String categoria, UsuarioDTO usuario, String imagen) {
         this.fechaHoraCreacion = fechaHoraCreacion;
         this.titulo = titulo;
         this.subtitulo = subtitulo;
         this.contenido = contenido;
         this.categoria = categoria;
         this.usuario = usuario;
+        if (imagen.isBlank()) {
+            imagen = "";
+        }
+        this.imagen = imagen;
         this.comentarios = new LinkedList<>();
     }
 
@@ -53,7 +58,7 @@ public class PostDTO {
      * @param categoria
      * @param usuario
      */
-    public PostDTO(Long id, Calendar fechaHoraCreacion, String titulo, String subtitulo, String contenido, String categoria, UsuarioDTO usuario, List<ComentarioDTO> comentarios) {
+    public PostDTO(Long id, Calendar fechaHoraCreacion, String titulo, String subtitulo, String contenido, String categoria, UsuarioDTO usuario, List<ComentarioDTO> comentarios, String imagen) {
         this.id = id;
         this.fechaHoraCreacion = fechaHoraCreacion;
         this.titulo = titulo;
@@ -61,8 +66,13 @@ public class PostDTO {
         this.contenido = contenido;
         this.categoria = categoria;
         this.usuario = usuario;
+        if (imagen.isBlank()) {
+            imagen = "";
+        }
+        this.imagen = imagen;
         this.comentarios = comentarios;
     }
+
     /**
      * Constructor para un PostDTO existente.
      *
@@ -74,20 +84,24 @@ public class PostDTO {
      * @param categoria
      * @param usuario
      */
-    public PostDTO(Long id, Calendar fechaHoraCreacion, String titulo, String subtitulo, String contenido, String categoria, UsuarioDTO usuario) {
+    public PostDTO(Long id, Calendar fechaHoraCreacion, String titulo, String subtitulo, String contenido, String categoria, UsuarioDTO usuario, String imagen) {
         this.id = id;
         this.fechaHoraCreacion = fechaHoraCreacion;
         this.titulo = titulo;
         this.subtitulo = subtitulo;
         this.contenido = contenido;
         this.categoria = categoria;
+        if (imagen.isBlank()) {
+            imagen = "";
+        }
+        this.imagen = imagen;
         this.usuario = usuario;
     }
 
     public Long getId() {
         return id;
     }
-    
+
     public Calendar getFechaHoraCreacion() {
         return fechaHoraCreacion;
     }
@@ -114,6 +128,14 @@ public class PostDTO {
 
     public List<ComentarioDTO> getComentarios() {
         return comentarios;
+    }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
     }
 
 }

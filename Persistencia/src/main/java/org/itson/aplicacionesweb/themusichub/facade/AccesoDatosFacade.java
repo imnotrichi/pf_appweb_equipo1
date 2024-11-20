@@ -121,7 +121,8 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
                     post.getSubtitulo(),
                     post.getContenido(),
                     categoria,
-                    usuario);
+                    usuario,
+                    post.getImagen());
             postsDAO.publicarPost(nuevoPost);
         } catch (PersistenciaException ex) {
             throw new FacadeException("No se pudo publicar el post.");
@@ -152,7 +153,7 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
             Comun postComun = null;
             if (postDTO instanceof ComunDTO) {
                 // La convertimos a Post Común.
-                postComun = new Comun(post.getId(), post.getFechaHoraCreacion(), post.getTitulo(), post.getSubtitulo(), post.getContenido(), post.getCategoria(), post.getComentarios(), post.getUsuario());
+                postComun = new Comun(post.getId(), post.getFechaHoraCreacion(), post.getTitulo(), post.getSubtitulo(), post.getContenido(), post.getCategoria(), post.getComentarios(), post.getUsuario(), post.getImagen());
             } else if (postDTO instanceof AncladoDTO) {
                 // Error si se trata comentar un post anclado.
                 throw new FacadeException("No se pueden comentar posts anclados.");
@@ -201,8 +202,7 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
                     respuestaDTO.getContenido(),
                     comentario,
                     usuario);
-            comentario.getRespuestas().add(respuesta);
-            comentariosDAO.responderComentario(comentario);
+            comentariosDAO.publicarComentario(respuesta);
         } catch (PersistenciaException ex) {
             Logger.getLogger(AccesoDatosFacade.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -371,7 +371,8 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
                     post.getContenido(),
                     post.getCategoria().toString(),
                     convertirUsuarioAUsuarioDTO(post.getUsuario()),
-                    convertirComentariosAComentariosDTO(post.getComentarios()));
+                    convertirComentariosAComentariosDTO(post.getComentarios()),
+                    post.getImagen());
         } else {
             postDTO = new AncladoDTO(
                     post.getId(),
@@ -381,7 +382,8 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
                     post.getContenido(),
                     post.getCategoria().toString(),
                     convertirUsuarioAUsuarioDTO(post.getUsuario()),
-                    convertirComentariosAComentariosDTO(post.getComentarios()));
+                    convertirComentariosAComentariosDTO(post.getComentarios()),
+                    post.getImagen());
         }
         // Si el post es común, se obtiene el usuario que lo publicó.
         return postDTO;
@@ -442,17 +444,15 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
     }
 
     private ComentarioDTO convertirComentarioAComentarioDTO(Comentario comentario) {
-        if (comentario.getRespuesta() == null) {
+        if (comentario == null) {
             return null;
         }
-        ComentarioDTO comentarioDTO = new ComentarioDTO(
+        ComentarioDTO comentarioDTO;
+        comentarioDTO = new ComentarioDTO(
                 comentario.getId(),
                 comentario.getFechaHora(),
                 comentario.getContenido(),
-                convertirComentariosAComentariosDTO(comentario.getRespuestas()),
-                convertirComentarioAComentarioDTO(comentario.getRespuesta()),
-                convertirPostAPostDTO(comentario.getPost()),
-                (NormalDTO) convertirUsuarioAUsuarioDTO(comentario.getUsuario()));
+                (NormalDTO)convertirUsuarioAUsuarioDTO(comentario.getUsuario()));
         return comentarioDTO;
     }
 

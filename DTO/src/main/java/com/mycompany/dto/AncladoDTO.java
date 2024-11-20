@@ -20,7 +20,7 @@ public class AncladoDTO extends PostDTO{
      * @param usuario 
      * @param comentarios 
      */
-    public AncladoDTO(Long id, Calendar fechaHoraCreacion, String titulo, String subtitulo, String contenido, String categoria, UsuarioDTO usuario, List<ComentarioDTO> comentarios) {
+    public AncladoDTO(Long id, Calendar fechaHoraCreacion, String titulo, String subtitulo, String contenido, String categoria, UsuarioDTO usuario, List<ComentarioDTO> comentarios, String imagen) {
         super(
                 id,
                 fechaHoraCreacion,
@@ -29,7 +29,8 @@ public class AncladoDTO extends PostDTO{
                 contenido,
                 categoria,
                 usuario,
-                comentarios);
+                comentarios,
+                imagen);
     }
     
 }

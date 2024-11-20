@@ -53,14 +53,6 @@
                             </article>
                         </a>
                     </div>
-                    <tr>
-                        <td>${pokemon.getNumero()}</td>
-                        <td>${pokemon.getNombre()}</td>
-                        <td>${pokemon.getTipo()}</td>
-                        <td>${pokemon.getEvolucion()}</td>
-                        <td>${pokemon.getNivelPoder()}</td>
-                        <td>${pokemon.getDescripcion()}</td>
-                    </tr>
                 </c:forEach>
 
                 <%@include file="./fragmentos/BotonNuevoPost.xhtml"%>

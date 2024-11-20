@@ -30,14 +30,15 @@ public class Comun extends Post implements Serializable {
      * @param categoria La categoría del post
      * @param usuario El usuario que creó el post
      */
-    public Comun(Calendar fechaHoraCreacion, String titulo, String subtitulo, String contenido, CategoriaPost categoria, Usuario usuario) {
+    public Comun(Calendar fechaHoraCreacion, String titulo, String subtitulo, String contenido, CategoriaPost categoria, Usuario usuario, String imagen) {
         super(
                 fechaHoraCreacion,
                 titulo,
                 subtitulo,
                 contenido,
                 categoria,
-                usuario);
+                usuario, 
+                imagen);
     }
 
     /**
@@ -52,7 +53,7 @@ public class Comun extends Post implements Serializable {
      * @param usuario El usuario que creó el post
      * @param comentarios Los comentarios del post
      */
-    public Comun(Long id, Calendar fechaHoraCreacion, String titulo, String subtitulo, String contenido, CategoriaPost categoria, List<Comentario> comentarios, Usuario usuario) {
+    public Comun(Long id, Calendar fechaHoraCreacion, String titulo, String subtitulo, String contenido, CategoriaPost categoria, List<Comentario> comentarios, Usuario usuario, String imagen) {
         super(
                 id,
                 fechaHoraCreacion,
@@ -61,9 +62,10 @@ public class Comun extends Post implements Serializable {
                 contenido,
                 categoria,
                 comentarios,
-                usuario);
+                usuario, 
+                imagen);
     }
-    
+
     public List<Comentario> getComentarios() {
         return comentarios;
     }

@@ -96,7 +96,7 @@
             <div class="form-contenedor iniciar-contenedor">
                 <form action="IniciarSesion" method="POST">
                     <h1>Iniciar Sesión</h1>
-                    <label for="correo">correo</label>
+                    <label for="correo">Correo</label>
                     <input type="text" name="correo" required>
 
                     <label for="contrasenia">Contraseña</label>

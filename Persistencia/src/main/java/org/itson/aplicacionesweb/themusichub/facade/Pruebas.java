@@ -48,7 +48,7 @@ public class Pruebas {
         ComentarioDTO comentarioDTO2 = facade.obtenerComentarioID(1L);
 
         ComentarioDTO respuestaDTO = new ComentarioDTO(new GregorianCalendar(), "RESPUESTA DE PRUEBA", comentarioDTO2, usuario);
-
+        
         facade.responderComentario(respuestaDTO, comentarioDTO2);
     }
 
