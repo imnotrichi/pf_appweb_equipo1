@@ -3,6 +3,8 @@
  */
 package servlets;
 
+import beans.UsuarioBean;
+import com.mycompany.dto.AdministradorDTO;
 import com.mycompany.dto.EstadoDTO;
 import com.mycompany.dto.MunicipioDTO;
 import com.mycompany.dto.NormalDTO;
@@ -48,7 +50,6 @@ public class RegistrarUsuario extends HttpServlet {
             throws ServletException, IOException {
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -99,21 +100,21 @@ public class RegistrarUsuario extends HttpServlet {
         String ruta = getServletContext().getRealPath("");
         String rutaDirectorio = ruta + "avatares";
         File directorioAvatares = new File(rutaDirectorio);
-        
+
         //Se crea el directorio si no existe
         if (!directorioAvatares.exists()) {
             directorioAvatares.mkdir();
         }
-        
+
         //Se obtiene el archivo
         Part avatar = request.getPart("avatar");
-        
+
         //Se obtiene la referencia del archivo
         String referencia = avatar.getSubmittedFileName();
-        
+
         //Se escribe la ruta donde se almacenará el archivo
         String rutaAvatar = rutaDirectorio + File.separator + referencia;
-        
+
         //Se almacena el archivo en el directorio
         avatar.write(rutaAvatar);
         //FIN PROCESAMIENTO IMAGEN
@@ -129,8 +130,10 @@ public class RegistrarUsuario extends HttpServlet {
         UsuarioDTO usuario = new NormalDTO(nombre, apellido1, apellido2, correo, contrasenia, telefono, nombreUsuario, rutaAvatar, ciudad, fechaNacimiento, genero, municipio);
         System.out.println("HOLA DESDE EL SERVLET");
         try {
+            String tipo = "normal";
             System.out.println("REGISTRO DE USUARIO SERVLET");
             accesoDatos.registrarUsuario(usuario);
+            UsuarioBean bean = new UsuarioBean(nombreUsuario, correo, ciudad, rutaAvatar, tipo);
             HttpSession session = request.getSession();
             session.setAttribute("usuario", usuario);
             response.sendRedirect(request.getContextPath() + "/Inicio.jsp");
@@ -150,6 +153,6 @@ public class RegistrarUsuario extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }
 
 }
