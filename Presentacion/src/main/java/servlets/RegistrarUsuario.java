@@ -130,22 +130,22 @@ public class RegistrarUsuario extends HttpServlet {
         EstadoDTO estado = new EstadoDTO("Sonora");
         MunicipioDTO municipio = new MunicipioDTO("Cajeme", estado);
 
-        UsuarioDTO usuario = new NormalDTO(nombre, apellido1, apellido2, correo, contrasenia, telefono, nombreUsuario, new byte[1], ciudad, fechaNacimiento, genero, municipio);
-        System.out.println("HOLA DESDE EL SERVLET");
-        try {
-            String tipo = "normal";
-            System.out.println("REGISTRO DE USUARIO SERVLET");
-            accesoDatos.registrarUsuario(usuario);
-            UsuarioBean bean = new UsuarioBean(nombreUsuario, correo, ciudad, new byte[1], tipo);
-            HttpSession session = request.getSession();
-            session.setAttribute("usuario", bean);
-            response.sendRedirect(request.getContextPath() + "/Inicio.jsp");
-        } catch (FacadeException e) {
-            System.out.println("EXCEPCION");
-            this.getServletContext()
-                    .getRequestDispatcher("/IniciarRegistrar.jsp")
-                    .forward(request, response);
-        }
+//        UsuarioDTO usuario = new NormalDTO(nombre, apellido1, apellido2, correo, contrasenia, telefono, nombreUsuario, new byte[1], ciudad, fechaNacimiento, genero, municipio);
+//        System.out.println("HOLA DESDE EL SERVLET");
+//        try {
+//            String tipo = "normal";
+//            System.out.println("REGISTRO DE USUARIO SERVLET");
+//            accesoDatos.registrarUsuario(usuario);
+//            UsuarioBean bean = new UsuarioBean(nombreUsuario, correo, ciudad, new byte[1], tipo);
+//            HttpSession session = request.getSession();
+//            session.setAttribute("usuario", bean);
+//            response.sendRedirect(request.getContextPath() + "/Inicio.jsp");
+//        } catch (FacadeException e) {
+//            System.out.println("EXCEPCION");
+//            this.getServletContext()
+//                    .getRequestDispatcher("/IniciarRegistrar.jsp")
+//                    .forward(request, response);
+//        }
     }
 
     /**

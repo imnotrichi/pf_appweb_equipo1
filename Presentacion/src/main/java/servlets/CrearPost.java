@@ -112,12 +112,12 @@ public class CrearPost extends HttpServlet {
                 subtitulo = "";
             }
 
-            try {
-                ComunDTO postNuevo = new ComunDTO(new GregorianCalendar(), titulo, subtitulo, cuerpo, tipoPost, usuario, new byte[1]);
-                accesoDatos.publicarPost(postNuevo);
-            } catch (FacadeException ex) {
-                System.out.println("Error al crear la publicación");
-            }
+//            try {
+//                ComunDTO postNuevo = new ComunDTO(new GregorianCalendar(), titulo, subtitulo, cuerpo, tipoPost, usuario, new byte[1]);
+//                accesoDatos.publicarPost(postNuevo);
+//            } catch (FacadeException ex) {
+//                System.out.println("Error al crear la publicación");
+//            }
 
             HttpSession session = request.getSession();
             String returnTo = (String) session.getAttribute("returnTo");
