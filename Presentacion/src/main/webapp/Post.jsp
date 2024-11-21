@@ -34,11 +34,13 @@
                             <c:choose>
                                 <c:when test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"administrador\")}">
                                     <div class="funciones-admin">
+                                        <a href="EliminarPost?idPost=${id}">
                                         <button>
                                             Eliminar
                                             <img src="./imagenes/white-trash-icon.png" alt="white trash icon">
                                         </button>
-                                        <button>
+                                        </a>
+                                        <button href="AnclarPost?idPost=${requestScope.post.geId()}">
                                             Anclar
                                             <img src="./imagenes/white-pin-icon.png">
                                         </button>
