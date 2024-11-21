@@ -28,7 +28,7 @@
             <main>
                 <section>
                     <article class="post">
-                        <img class="imagen-post" src="${imagenPost}" alt="">
+                        <img class="imagen-post" src="${pageContext.request.contextPath}/${imagenPost}" alt="">
                         <div>
                             <h2 class="usuario-fecha">@${nombreUsuario} - <span>${fechaPublicacion}</span></h2>
                             <c:choose>
