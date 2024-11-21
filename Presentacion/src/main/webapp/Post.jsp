@@ -70,7 +70,7 @@
 
                                 <c:if test="${not empty comentario.respuesta}">
                                     <div class="respuestas">
-                                        <jsp:include page="Comentarios.jsp">
+                                        <jsp:include page="/fragmentos/Comentarios.jsp">
                                             <jsp:param name="comentarios" value="${comentario.respuesta}" />
                                         </jsp:include>
                                     </div>
@@ -78,21 +78,6 @@
                             </div>
                         </c:forEach>
 
-                        <div class="comentario">
-                            <p><span class="usuario">@abel_sanchez123 (14/10/2024): </span>yo la verdad estoy muy emocionado
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis assumenda fugit error
-                                quasi accusantium dolores nobis aspernatur ullam, vitae earum! Fugiat iure rem doloremque ad
-                                labore amet quas ut enim!
-                            </p>
-                            <c:choose>
-                                <c:when test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"normal\")}">
-                                    <button class="responder-btn">Responder</button>
-                                </c:when>
-                                <c:when test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"administrador\")}">
-                                    <button class="responder-btn">Eliminar</button>
-                                </c:when>
-                            </c:choose>
-                        </div>
 
                         <c:choose>
                             <c:when test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"normal\")}">

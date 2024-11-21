@@ -73,12 +73,15 @@ public class Post extends HttpServlet {
 
             if (post.getComentarios() != null && !post.getComentarios().isEmpty()) {
                 request.setAttribute("cantidadComentarios", post.getComentarios().size());
-                System.out.println("SE OBTUBO COMENTARIOS");
+                System.out.println("SE OBTUVO COMENTARIOS");
                 // Filtrar solo los comentarios principales (aquellos que no son respuestas)
                 List<ComentarioBean> comentariosPrincipales = new LinkedList<>();
-                for (ComentarioDTO comentario : post.getComentarios()) {
+                List<ComentarioDTO> comentariosDTO = post.getComentarios();
+                
+                for (ComentarioDTO comentario : comentariosDTO) {
+                    System.out.println(comentario.getContenido());
                     
-                    if (comentario.getRespuesta().getId() == null) {
+                    if (comentario.getRespuesta() == null) {
                         System.out.println("COMENTARIO PRINCIPAL");
                         // Es un comentario principal, agregarlo a la lista
                         comentariosPrincipales.add(convertirComentario(comentario, dateFormat));
