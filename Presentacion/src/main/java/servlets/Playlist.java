@@ -1,26 +1,31 @@
 /*
- * EliminarPost.java
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 package servlets;
 
-import beans.UsuarioBean;
-import com.mycompany.dto.UsuarioDTO;
+import com.mycompany.dto.PostDTO;
+import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.io.IOException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.itson.aplicacionesweb.themusichub.enums.CategoriaPost;
 import org.itson.aplicacionesweb.themusichub.facade.AccesoDatosFacade;
 import org.itson.aplicacionesweb.themusichub.facade.IAccesoDatosFacade;
 import org.itson.aplicacionesweb.themusichub.persistenciaException.FacadeException;
 
 /**
- * @author Equipo1
+ *
+ * @author Abe
  */
-public class EliminarPost extends HttpServlet {
+@WebServlet(name = "Playlist", urlPatterns = {"/Playlist"})
+public class Playlist extends HttpServlet {
 
     private IAccesoDatosFacade accesoDatos;
 
@@ -40,6 +45,7 @@ public class EliminarPost extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -54,18 +60,18 @@ public class EliminarPost extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//
-//        String idPost = request.getParameter("idPost");
-//        HttpSession sesion = request.getSession();
-//
-//        UsuarioBean usuario = (UsuarioBean) sesion.getAttribute("usuario");
-//        
-//        try {
-//            UsuarioDTO usuarioObtenido = accesoDatos.obtenerUsuario(usuario.getCorreo());
-//            accesoDatos.eliminarPost(Long.valueOf(idPost), usuarioObtenido);
-//        } catch (FacadeException ex) {
-//            Logger.getLogger(EliminarPost.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+         System.out.println("HOLA DESDE SERVLET PLAYLIST");
+        try {
+            List<PostDTO> posts = accesoDatos.obtenerPostsPorCategoria(CategoriaPost.PLAYLIST);
+            request.setAttribute("posts", posts);
+            
+            System.out.println("SERVLET POSTS ");
+            request.getRequestDispatcher("/General.jsp").forward(request, response);
+        } catch (FacadeException ex) {
+            Logger.getLogger(General.class.getName()).log(Level.SEVERE, null, ex);
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error al cargar los posts.");
+        }
+        
     }
 
     /**
@@ -79,6 +85,7 @@ public class EliminarPost extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
     }
 
     /**
