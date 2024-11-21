@@ -60,6 +60,13 @@ public class General extends HttpServlet {
             throws ServletException, IOException {
         System.out.println("HOLA DESDE SERVLET GENERAL");
         try {
+            switch (var) {
+                case val:
+                    
+                    break;
+                default:
+                    throw new AssertionError();
+            }
             List<PostDTO> posts = accesoDatos.obtenerPostsPorCategoria(CategoriaPost.GENERAL);
             request.setAttribute("posts", posts);
             

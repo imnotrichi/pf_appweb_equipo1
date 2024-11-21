@@ -21,7 +21,7 @@
     <%@include file="./fragmentos/Encabezado.xhtml" %>
 
     <div class="contenedor">
-        <%@include file="./fragmentos/BarraNavegacion.xhtml" %>
+        <%@include file="./fragmentos/BarraNavegacion.jsp" %>
 
         <main>
             <!-- Mostrar posts anclados -->
