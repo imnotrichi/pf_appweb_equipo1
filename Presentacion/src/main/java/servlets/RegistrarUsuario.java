@@ -101,25 +101,29 @@ public class RegistrarUsuario extends HttpServlet {
 
         //PROCESAMIENTO DE LA IMAGEN
         // Se crea la ruta del directorio donde se almacenarán las imagenes
-        String path = request.getServletContext().getRealPath("");
-        String pathGuardar = path + "avatares";
-        File dir = new File(pathGuardar);
+        String rutaDirectorio = getServletContext().getRealPath("/avatares");
+        File directorioAvatares = new File(rutaDirectorio);
 
         // Se crea el directorio si no existe
-        if (!dir.exists()) {
-            dir.mkdir();
+        if (!directorioAvatares.exists()) {
+            directorioAvatares.mkdir();
         }
 
         // Se obtiene el archivo
-        Part filePart = request.getPart("avatar");
+        Part avatar = request.getPart("avatar");
 
         // Se obtiene la referencia del archivo (nombre del archivo)
-        String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+        String referencia = avatar.getSubmittedFileName();
         
-        InputStream fileContent = filePart.getInputStream();
-        File targetFile = new File(pathGuardar + File.separator + fileName);
-        Files.copy(fileContent, targetFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-        IOUtils.closeQuietly(fileContent);
+        // Ruta completa donde se almacenará el archivo en el servidor
+        String rutaAvatar = rutaDirectorio + File.separator + referencia;
+        
+        // Se almacena el archivo en el directorio
+        avatar.write(rutaAvatar);
+        
+        // Guardar la ruta relativa que será accesible por la aplicación web
+        String rutaRelativa = "avatares/" + referencia;
+        request.getSession().setAttribute("avatar", rutaRelativa);
         //FIN PROCESAMIENTO IMAGEN
 
         String fechaNacimientoStr = request.getParameter("fechaNacimiento");
@@ -130,13 +134,13 @@ public class RegistrarUsuario extends HttpServlet {
         EstadoDTO estado = new EstadoDTO("Sonora");
         MunicipioDTO municipio = new MunicipioDTO("Cajeme", estado);
 
-        UsuarioDTO usuario = new NormalDTO(nombre, apellido1, apellido2, correo, contrasenia, telefono, nombreUsuario, new byte[1], ciudad, fechaNacimiento, genero, municipio);
+        UsuarioDTO usuario = new NormalDTO(nombre, apellido1, apellido2, correo, contrasenia, telefono, nombreUsuario, rutaRelativa, ciudad, fechaNacimiento, genero, municipio);
         System.out.println("HOLA DESDE EL SERVLET");
         try {
             String tipo = "normal";
             System.out.println("REGISTRO DE USUARIO SERVLET");
             accesoDatos.registrarUsuario(usuario);
-            UsuarioBean bean = new UsuarioBean(nombreUsuario, correo, ciudad, new byte[1], tipo);
+            UsuarioBean bean = new UsuarioBean(nombreUsuario, correo, ciudad, rutaRelativa, tipo);
             HttpSession session = request.getSession();
             session.setAttribute("usuario", bean);
             response.sendRedirect(request.getContextPath() + "/Inicio.jsp");
