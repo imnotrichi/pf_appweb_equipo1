@@ -134,11 +134,10 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
         try {
             Post postExistente = postsDAO.obtenerPostPorID(id);
 
-
             if (postExistente == null) {
                 throw new FacadeException("El post no existe.");
             }
-            
+
             /**
              * Si el usuario que quiere borrar el post no es el dueño o un
              * administrador, se lanza excepción.
@@ -186,11 +185,11 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
     public void eliminarComentario(ComentarioDTO comentarioDTO, UsuarioDTO usuario) throws FacadeException {
         try {
             Comentario comentario = comentariosDAO.obtenerComentario(comentarioDTO.getId());
-            
+
             if (comentario == null) {
                 throw new FacadeException("El comentario no existe.");
             }
-            
+
             /**
              * Si el usuario que quiere borrar el post no es el dueño o un
              * administrador, se lanza excepción.
@@ -242,44 +241,48 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
             // Mandamos a buscar un usuario con el correo y la contraseña.
             Usuario usuario = usuariosDAO.obtenerUsuarioCorreoContra(correo, contrasenia);
 
-            // Convertimos el usuario de entidad a DTO.
-            UsuarioDTO usuarioDTO = null;
-            EstadoDTO estadoDTO = new EstadoDTO(usuario.getMunicipio().getEstado().getNombre());
-            MunicipioDTO municipioDTO = new MunicipioDTO(usuario.getMunicipio().getNombre(), estadoDTO);
-            if (usuario instanceof Normal) {
-                usuarioDTO = new NormalDTO(
-                        usuario.getNombres(),
-                        usuario.getApellidoPaterno(),
-                        usuario.getApellidoMaterno(),
-                        usuario.getCorreo(),
-                        usuario.getContrasenia(),
-                        usuario.getTelefono(),
-                        usuario.getNombreUsuario(),
-                        usuario.getAvatar(),
-                        usuario.getCiudad(),
-                        usuario.getFechaNacimiento(),
-                        usuario.getGenero(),
-                        convertirPostsAPostsDTO(usuario.getPosts()),
-                        municipioDTO);
-            } else if (usuario instanceof Administrador) {
-                usuarioDTO = new AdministradorDTO(
-                        usuario.getNombres(),
-                        usuario.getApellidoPaterno(),
-                        usuario.getApellidoMaterno(),
-                        usuario.getCorreo(),
-                        usuario.getContrasenia(),
-                        usuario.getTelefono(),
-                        usuario.getNombreUsuario(),
-                        usuario.getAvatar(),
-                        usuario.getCiudad(),
-                        usuario.getFechaNacimiento(),
-                        usuario.getGenero(),
-                        convertirPostsAPostsDTO(usuario.getPosts()),
-                        municipioDTO);
-            }
+            if (usuario != null) {
+                // Convertimos el usuario de entidad a DTO.
+                UsuarioDTO usuarioDTO = null;
+                EstadoDTO estadoDTO = new EstadoDTO(usuario.getMunicipio().getEstado().getNombre());
+                MunicipioDTO municipioDTO = new MunicipioDTO(usuario.getMunicipio().getNombre(), estadoDTO);
+                if (usuario instanceof Normal) {
+                    usuarioDTO = new NormalDTO(
+                            usuario.getNombres(),
+                            usuario.getApellidoPaterno(),
+                            usuario.getApellidoMaterno(),
+                            usuario.getCorreo(),
+                            usuario.getContrasenia(),
+                            usuario.getTelefono(),
+                            usuario.getNombreUsuario(),
+                            usuario.getAvatar(),
+                            usuario.getCiudad(),
+                            usuario.getFechaNacimiento(),
+                            usuario.getGenero(),
+                            convertirPostsAPostsDTO(usuario.getPosts()),
+                            municipioDTO);
+                } else if (usuario instanceof Administrador) {
+                    usuarioDTO = new AdministradorDTO(
+                            usuario.getNombres(),
+                            usuario.getApellidoPaterno(),
+                            usuario.getApellidoMaterno(),
+                            usuario.getCorreo(),
+                            usuario.getContrasenia(),
+                            usuario.getTelefono(),
+                            usuario.getNombreUsuario(),
+                            usuario.getAvatar(),
+                            usuario.getCiudad(),
+                            usuario.getFechaNacimiento(),
+                            usuario.getGenero(),
+                            convertirPostsAPostsDTO(usuario.getPosts()),
+                            municipioDTO);
+                }
 
-            // Retornamos el usuario.
-            return usuarioDTO;
+                // Retornamos el usuario.
+                return usuarioDTO;
+            } else {
+                return null;
+            }
         } catch (PersistenciaException ex) {
             throw new FacadeException("No se encontró ningún usuario con los datos proporcionados.");
         }
@@ -476,7 +479,7 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
                 (NormalDTO) convertirUsuarioAUsuarioDTO(comentario.getUsuario()));
         return comentarioDTO;
     }
-    
+
     private ComentarioDTO acortarComentarioDTO(Comentario comentario) {
         ComentarioDTO comentarioCorto = new ComentarioDTO(
                 comentario.getId(),
@@ -485,7 +488,7 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
                 (NormalDTO) convertirUsuarioAUsuarioDTO(comentario.getUsuario()));
         return comentarioCorto;
     }
-    
+
     private PostDTO acortarPostDTO(Post post) {
         PostDTO postCorto = new PostDTO(
                 post.getId(),

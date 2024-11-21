@@ -61,6 +61,7 @@ public class Post extends HttpServlet {
         try {
             System.out.println("HOLA DESDE SERVLET POST");
             PostDTO post = accesoDatos.obtenerPostID(Long.parseLong(id));
+            request.setAttribute("id", id);
             request.setAttribute("titulo", post.getTitulo());
             request.setAttribute("nombreUsuario", post.getUsuario().getNombreUsuario());
             request.setAttribute("subtitulo", post.getSubtitulo());

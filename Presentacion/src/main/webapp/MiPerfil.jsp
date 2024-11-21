@@ -45,7 +45,7 @@
                         <button class="editar-button" onclick="location.href = 'EditarPost.jsp'">
                             <img src="imagenes/edit.png" alt="Ícono de editar.">
                         </button>
-                        <a target="_blank" href="">
+                        <a href="Post.jsp">
                             <article>
                                 <h2>@${post.getUsuario().getNombreUsuario()}</h2>
                                 <h3>${post.getTitulo()}</h3>
