@@ -57,6 +57,10 @@
         <servlet-name>EliminarComentario</servlet-name>
         <servlet-class>servlets.EliminarComentario</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Playlist</servlet-name>
+        <servlet-class>servlets.Playlist</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>IniciarSesion</servlet-name>
         <url-pattern>/IniciarSesion</url-pattern>
@@ -118,6 +122,10 @@
     <servlet-mapping>
         <servlet-name>EliminarComentario</servlet-name>
         <url-pattern>/EliminarComentario</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Playlist</servlet-name>
+        <url-pattern>/Playlist</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
