@@ -3,17 +3,31 @@
  */
 package servlets;
 
+import beans.UsuarioBean;
+import com.mycompany.dto.PostDTO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.itson.aplicacionesweb.themusichub.facade.AccesoDatosFacade;
+import org.itson.aplicacionesweb.themusichub.facade.IAccesoDatosFacade;
+import org.itson.aplicacionesweb.themusichub.persistenciaException.FacadeException;
 
 /**
  * @author Equipo1
  */
 public class AnclarPost extends HttpServlet {
+
+    private IAccesoDatosFacade accesoDatos;
+
+    @Override
+    public void init() throws ServletException {
+        accesoDatos = new AccesoDatosFacade();
+    }
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,6 +54,19 @@ public class AnclarPost extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        String idPost = request.getParameter("idPost");
+
+        HttpSession sesion = request.getSession();
+
+        UsuarioBean administrador = (UsuarioBean) sesion.getAttribute("usuario");
+
+        try {
+            accesoDatos.anclarPost(Long.valueOf(idPost), administrador.getCorreo());
+        } catch (FacadeException ex) {
+            request.setAttribute("error", "Ocurrió un error al anclar el post");
+            this.getServletContext().getRequestDispatcher("/IniciarRegistrar.jsp").forward(request, response);
+        }
     }
 
     /**
