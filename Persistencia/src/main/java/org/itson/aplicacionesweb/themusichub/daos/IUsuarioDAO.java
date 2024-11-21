@@ -4,7 +4,6 @@
  */
 package org.itson.aplicacionesweb.themusichub.daos;
 
-import com.mycompany.dto.UsuarioNuevoDTO;
 import org.itson.aplicacionesweb.themusichub.modelo.Usuario;
 import org.itson.aplicacionesweb.themusichub.persistenciaException.PersistenciaException;
 
@@ -15,8 +14,7 @@ import org.itson.aplicacionesweb.themusichub.persistenciaException.PersistenciaE
 public interface IUsuarioDAO {
     public Usuario registrarUsuario(Usuario usuario) throws PersistenciaException;
     
-    public Usuario iniciarSesion(String contrasena, String correo) throws PersistenciaException;
-    
     public Usuario buscarUsuario(String correo) throws PersistenciaException;
-    
+
+    public Usuario obtenerUsuarioCorreoContra(String contrasenia, String correo) throws PersistenciaException;
 }

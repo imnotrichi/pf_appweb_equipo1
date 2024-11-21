@@ -1,0 +1,259 @@
+/* 
+    Created on : 13 nov 2024, 20:32:29
+    Author     : Equipo1
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
+
+* {
+    scrollbar-width: auto;
+    scrollbar-color: #6FC0F8 #262727;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+    width: 12px;
+}
+
+*::-webkit-scrollbar-track {
+    background: #262727;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: #6FC0F8;
+    border-radius: 10px;
+    border: 2px solid #ffffff;
+    background-clip: padding-box;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat';
+}
+
+body {
+    background-color: #101111;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    height: 100vh;
+    overflow: hidden;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header .logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 2.5rem;
+    font-weight: 900;
+    text-decoration: none;
+    width: max-content;
+}
+
+header img {
+    width: 7%;
+}
+
+.the {
+    color: #6FC0F8;
+    text-decoration: underline;
+}
+
+.music {
+    color: #F539B4;
+    text-decoration: underline;
+}
+
+.hub {
+    color: #6FC0F8;
+    text-decoration: underline;
+}
+
+.header-derecha {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+    background-color: #262727;
+    padding: 0.3rem 0.7rem;
+    border-radius: 0.7rem;
+}
+
+.header-derecha:hover {
+    transform: scale(1.03);
+}
+
+.header-derecha>p {
+    color: #FFFFFF;
+    font-size: 3rem;
+}
+
+.header-derecha img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.header-derecha i {
+    color: #FFFFFF;
+    font-size: 2rem;
+}
+
+.mi-perfil {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+    font-size: 2rem;
+    gap: 1rem;
+    font-weight: 600;
+}
+
+.contenedor {
+    display: flex;
+    gap: 1rem;
+    height: calc(100vh - 90px);
+    overflow: hidden;
+}
+
+aside {
+    width: 15vw;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+}
+
+aside li {
+    list-style-type: none;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+aside li a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.3rem;
+}
+
+aside li a:hover {
+    background-color: #F539B4;
+    border-radius: 1rem;
+}
+
+aside img {
+    width: 20%;
+    margin-right: 10px;
+}
+
+aside a {
+    color: #FFFFFF;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav {
+    height: calc(100vh - 90px);
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.secciones {
+    background-color: #262727;
+    border-radius: 0.7rem 0.7rem 0 0;
+    padding: 1rem;
+    height: 90%;
+}
+
+.secciones ul {
+    display: flex;
+    flex-direction: column;
+    align-content: space-between;
+    gap: 1rem;
+    height: 100%;
+}
+
+.secciones ul li {
+    height: 70%;
+    font-size: 1.5rem;
+}
+
+.cerrar-sesion {
+    background-color: #262727;
+    border-radius: 0 0 0.7rem 0.7rem;
+    height: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cerrar-sesion-button {
+    border: none;
+    font-size: 1.5rem;
+    font-weight: 700;
+    background-color: #262727;
+    color: #6FC0F8;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.cerrar-sesion-button:hover {
+    color: #F539B4;
+}
+
+main {
+    background-color: #262727;
+    padding: 1.7rem 1.7rem;
+    border-radius: 0.7rem;
+    flex-grow: 1;
+    height: 100%;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.perfil {
+    color: #FFFFFF;
+}
+
+.perfil>p {
+    font-size: 1.3rem;
+}
+
+.nuevo-post-button {
+    width: 4rem;
+    height: 4rem;
+    font-size: 4rem;
+    display: flex;
+    font-weight: 450;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background-color: #F539B4;
+    border-radius: 3rem;
+    position: fixed;
+    bottom: 6%;
+    right: 5%;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.16);
+}
+
+.nuevo-post-button:hover {
+    transform: scale(1.1);
+}

@@ -1,0 +1,40 @@
+/* 
+    Created on : 17 nov 2024, 22:05:06
+    Author     : Equipo1
+*/
+
+.secciones li:nth-child(5) a{
+    background-color: #F539B4;
+    border-radius: 1rem;
+}
+main a:nth-child(2) article {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(111, 192, 248, 1)), url(../imagenes/playlist-sunflower.png);
+    background-size: cover;
+    background-position: center;
+}
+
+main article {
+    background-color: #F539B4;
+    border-radius: 1.2rem;
+    padding: 1rem;
+    height: fit-content;
+    background: linear-gradient(#6FC0F8, #F539B4);
+}
+
+main article h3 {
+    font-size: 2rem;
+}
+
+main article h2 {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+main article p {
+    font-weight: 550;
+}
+
+main a {
+    text-decoration: none;
+    color: #000000;
+}

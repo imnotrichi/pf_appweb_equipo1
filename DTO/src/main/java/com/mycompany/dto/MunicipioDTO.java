@@ -10,7 +10,7 @@ import java.util.Objects;
  */public class MunicipioDTO {
     
     private String nombre;
-    private List<UsuarioNuevoDTO> usuarios;
+    private List<UsuarioDTO> usuarios;
     private EstadoDTO estado;
 
     public MunicipioDTO(String nombre, EstadoDTO estado) {
@@ -23,7 +23,7 @@ import java.util.Objects;
         return nombre;
     }
 
-    public List<UsuarioNuevoDTO> getUsuarios() {
+    public List<UsuarioDTO> getUsuarios() {
         return usuarios;
     }
 

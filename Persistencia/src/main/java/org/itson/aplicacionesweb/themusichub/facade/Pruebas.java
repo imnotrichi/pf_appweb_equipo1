@@ -6,15 +6,12 @@ package org.itson.aplicacionesweb.themusichub.facade;
 
 import com.mycompany.dto.ComentarioDTO;
 import com.mycompany.dto.ComunDTO;
-import com.mycompany.dto.EstadoDTO;
-import com.mycompany.dto.MunicipioDTO;
 import com.mycompany.dto.NormalDTO;
-import com.mycompany.dto.NormalNuevoDTO;
-import com.mycompany.dto.PostNuevoDTO;
+import com.mycompany.dto.PostDTO;
 import com.mycompany.dto.UsuarioDTO;
-import com.mycompany.dto.UsuarioNuevoDTO;
-import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
+import static org.itson.aplicacionesweb.themusichub.enums.CategoriaPost.GENERAL;
 import org.itson.aplicacionesweb.themusichub.persistenciaException.FacadeException;
 
 /**
@@ -27,60 +24,32 @@ public class Pruebas {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws FacadeException {
-        IAccesoDatosFacade accesoDatos = new AccesoDatosFacade();
+        IAccesoDatosFacade facade = new AccesoDatosFacade();
+//        facade.registrarUsuario(new UsuarioDTO("Diego", "Valenzuela", "Parra", "eskibidio@gmail.com", "12345", "0123456789", "Pipucate", "", "Ciudad Obregón", new GregorianCalendar(2004, 6, 3), "M", new MunicipioDTO("Cajeme", new EstadoDTO("Sonora"))));
+        NormalDTO usuario = (NormalDTO) facade.obtenerUsuario("eskibidio@gmail.com", "12345");
+//        NormalDTO usuarioDTO = new NormalDTO(
+//                usuario.getNombres(),
+//                usuario.getApellidoPaterno(),
+//                usuario.getApellidoMaterno(),
+//                usuario.getCorreo(),
+//                usuario.getContrasenia(),
+//                usuario.getTelefono(),
+//                usuario.getNombreUsuario(),
+//                usuario.getAvatar(),
+//                usuario.getCiudad(),
+//                usuario.getFechaNacimiento(),
+//                usuario.getGenero(),
+//                usuario.getMunicipio());
+//        ComunDTO post = new ComunDTO(new GregorianCalendar(), "Fishmans", "Nice choice", "sdasdasdas", GENERAL.toString(), usuarioDTO);
+//        facade.publicarPost(post);
 
-        EstadoDTO estado = new EstadoDTO("Sonora");
-        MunicipioDTO municipio = new MunicipioDTO("Cajeme",
-                estado);
-//        UsuarioNuevoDTO usuarioNuevodto = new NormalNuevoDTO("Ricardo Alán", 
-//                "Gutierrez", 
-//                "Garcés", 
-//                "ricardo.gutierrez@gmail.com", 
-//                "Ricardo12345", 
-//                "45545", 
-//                "Obregón", 
-//                new GregorianCalendar(2004, 3, 21), 
-//                "Masculino", 
-//                municipio);
-//        accesoDatos.registrarUsuario(usuarioNuevodto);
+        PostDTO postDTO = facade.obtenerPostID(3L);
 
-        UsuarioDTO usuarioComenta = new NormalDTO("Ricardo Alán", 
-                "Gutierrez",
-                "Garcés",
-                "ricardo.gutierrez@gmail.com",
-                "Ricardo12345",
-                "45545",
-                "Obregón",
-                new GregorianCalendar(2004, 3, 21),
-                "Masculino",
-                municipio);
-                
-        UsuarioDTO usuarioDTO = new NormalDTO("Abel Eduardo",
-                "Sanchez",
-                "Guerrero",
-                "abel.sanchez@gmail.com",
-                "Abel12345",
-                "65656566",
-                "Obregón",
-                new GregorianCalendar(2004, 5, 13),
-                "Masculino",
-                municipio);
+        ComentarioDTO comentarioDTO2 = facade.obtenerComentarioID(1L);
 
-        PostNuevoDTO post = new ComunDTO(new GregorianCalendar(2024, 10, 27),
-                "Bb XCX",
-                "Me encanta esta canción",
-                "review");
-//
-//        accesoDatos.publicarPost(post, usuarioDTO);
-//        accesoDatos.eliminarPost(post, usuarioDTO);
-//
-        ComentarioDTO comentario = new ComentarioDTO(
-                Calendar.getInstance(), 
-                "Me encanta, opino lo mismo", 
-               (NormalDTO)usuarioComenta);
-
-        accesoDatos.comentarPost(comentario, usuarioDTO, post);
-
+        ComentarioDTO respuestaDTO = new ComentarioDTO(new GregorianCalendar(), "RESPUESTA DE PRUEBA", comentarioDTO2, usuario);
+        
+        facade.responderComentario(respuestaDTO, comentarioDTO2);
     }
 
 }

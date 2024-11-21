@@ -2,3 +2,5 @@
 /Persistencia/target/
 /DTO/target/
 /Persistencia/nbproject/
+/Presentacion/target/
+*.lst

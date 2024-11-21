@@ -1,0 +1,282 @@
+/* 
+    Created on : 13 nov 2024, 20:50:54
+    Author     : Equipo1
+*/
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
+
+.post{
+    font-size: 16px;
+    color: white;
+}
+
+article{
+    display: flex;
+    flex-direction: column;
+}
+.post>img{
+    border-radius: 1.2rem;
+}
+
+h1{
+    font-size: 2.5rem;
+    margin: 0.5rem 0rem;
+}
+h2{
+    font-size: 1.3rem;
+    font-weight: 300;
+    margin-top: 0.4rem;
+    text-decoration: underline;
+}
+
+.usuario-fecha{
+    text-decoration: none;
+}
+
+main p{
+    text-align: left;
+    font-size: 1.2rem;
+    font-weight:350;
+}
+
+.post p{
+    margin: 1rem 0rem;
+}
+.usuario{
+    font-weight: 600;
+}
+
+hr {
+    margin-top: 0.5rem;
+    height: 4px;
+    border: 2px solid rgb(24, 24, 24);
+    background-color: rgb(24, 24, 24);
+}
+
+.post div{
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.contenedor-comentario{
+    color: white;
+}
+
+.comentario{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    margin: 0.5rem 0rem;
+}
+
+.comentario p{
+}
+
+.comentario img{
+}
+
+.boton-comentario{
+    all: unset;
+    cursor: pointer;
+    height: fit-content;
+    margin-left: 0.5rem;
+}
+
+.boton-comentario img {
+    width: 40px;
+}
+
+.post div{
+    display: flex;
+}
+
+.eliminar{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 10%;
+    height: 3rem;
+    border-style: none;
+    border-radius: 1rem;
+    padding: 1rem 0.5rem;
+    background-color: #F539B4;
+    color: #000000;
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.eliminar img {
+    height: 30px;
+}
+
+.eliminar a{
+    color: white;
+    text-decoration: none;
+}
+
+
+.eliminar:hover {
+    transform: scale(1.1);
+}
+
+.comentario{
+    background-color: #5D5D5D;
+    border-radius: 1rem;
+    padding: 1rem 0.3rem;
+}
+
+.post .imagen-post {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 1.2rem;
+}
+
+.comentario{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5em;
+}
+.contenido-comentario{
+    display: flex;
+    flex-direction: row;
+}
+.comentar{
+    display: flex;
+    flex-direction: column;
+}
+
+.comentar> textarea{
+    height: 4rem;
+    border-radius: 1.2rem;
+    margin: 0.5rem 0rem;
+}
+
+.comentar button{
+    width:8rem;
+    height: 2rem;
+    border-radius: 1.2rem;
+}
+
+.respuestas {
+    margin-left: 2rem;
+    margin-top: 1rem;
+    border-left: 2px solid #F539B4;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    width: 100%;
+
+}
+
+.comentario.respuesta {
+    font-size: 0.9em; 
+    background-color: #4d4d4d;
+    margin-bottom: 0.8rem;
+}
+
+.comentario.respuesta p {
+    margin: 0.5rem 0;
+}
+
+.comentario .responder-btn {
+    font-size: 0.8em;
+    color: #F539B4;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    display: inline-block;
+}
+
+.responder-form {
+    margin-top: 0.5rem;
+    margin-left: 2rem;
+}
+
+.responder-form button {
+    background-color: #F539B4;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+}
+
+.comentario {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border-radius: 1rem;
+}
+
+.responder-btn {
+    background-color: transparent;
+    color: #F539B4;
+    border: none;
+
+    cursor: pointer;
+    font-size: 0.9em;
+    margin-top: 0.5rem;
+}
+
+.responder-btn:hover {
+    text-decoration: underline;
+}
+
+.comentar textarea {
+    width: 100%;
+    min-height: 80px;
+    border-radius: 1.2rem;
+    margin: 0.5rem 0;
+    padding: 1rem;
+    background-color: #5D5D5D;
+    font-size: 1.2rem;
+    color: white;
+    border: none;
+    resize: none;
+}
+
+.comentar textarea::placeholder{
+    color: #C4C4C4;
+    font-size: 1.2rem;
+}
+.boton-comentar {
+    width: 8rem;
+    height: 2rem;
+    border-radius: 1.2rem;
+    background-color: #F539B4;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.boton-comentar:hover {
+    opacity: 0.9;
+}
+
+.funciones-admin button img {
+    width: 2.2rem;
+}
+
+.funciones-admin button{
+    cursor: pointer;
+    border: none;
+    padding: 0.5rem;
+    border-radius: 0.8rem;
+    background-color: #F539B4;
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.funciones-admin button:hover {
+    transform: scale(1.05);
+}
+
+.funciones-admin {
+    gap: 1rem;
+}

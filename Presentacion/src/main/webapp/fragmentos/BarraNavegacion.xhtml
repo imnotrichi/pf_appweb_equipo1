@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="jakarta.faces.html">
+    <h:head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Barra de Navegación</title>
+        <link rel="stylesheet" href="../estilos/estiloEstructura.css"/>
+    </h:head>
+    <h:body>
+        <aside>
+            <nav>
+                <div class="secciones">
+                    <ul>
+                        <li><a href="Inicio.jsp"><img src="./imagenes/white-home-icon.png" alt=""/>Inicio</a></li>
+                        <li><a href="Reviews.jsp"><img src="./imagenes/white-review-icon.png" alt="">Reviews</a></li>
+                        <li><a href="Popular.jsp"><img src="./imagenes/white-popular-icon.png" alt="">Popular</a></li>
+                        <li><a href="Noticias.jsp"><img src="./imagenes/white-news-icon.png" alt="">Noticias</a></li>
+                        <li><a href="Playlists.jsp"><img src="./imagenes/white-playlist-icon.png" alt="">Playlists</a></li>
+                        <li><a href="General"><img src="./imagenes/white-general-icon.png" alt="">General</a></li>
+                    </ul>
+                </div>
+                <div class="cerrar-sesion">
+                    <form action="CerrarSesion" method="POST">
+                        <input type="submit" value="Cerrar Sesi&#243;n" class="cerrar-sesion-button"/>
+                    </form>
+                </div>
+            </nav>
+        </aside>
+    </h:body>
+</html>

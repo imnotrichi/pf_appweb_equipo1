@@ -1,0 +1,87 @@
+/* 
+    Created on : 17 nov 2024, 23:22:04
+    Author     : Equipo1
+*/
+
+.perfil {
+    color: #FFFFFF;
+}
+
+.perfil>p {
+    font-size: 1.3rem;
+}
+
+.datos {
+    display: flex;
+    margin-bottom: 1rem;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.datos img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.datos p {
+    font-style: italic;
+}
+
+main article {
+    background-color: #F539B4;
+    border-radius: 1.2rem;
+    padding: 1rem;
+    height: fit-content;
+    background: linear-gradient(#6FC0F8, #F539B4);
+}
+
+main div:nth-child(2) article {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(111, 192, 248, 1)), url(../imagenes/bort-playlist.png);
+    background-size: cover;
+    background-position: center;
+}
+
+main div:nth-child(3) article {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(111, 192, 248, 1)), url(../imagenes/fishmans.jpg);
+    background-size: cover;
+    background-position: center;
+}
+
+main article h3 {
+    font-size: 2rem;
+}
+
+main article h2 {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+main article p {
+    font-weight: 550;
+}
+
+main a {
+    text-decoration: none;
+    color: #000000;
+}
+
+.editar-button {
+    all: unset;
+    float: right;
+    position: relative;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+.editar-button img {
+    width: 40px;
+}
+
+.editar-button:hover {
+    transform: scale(1.1);
+}

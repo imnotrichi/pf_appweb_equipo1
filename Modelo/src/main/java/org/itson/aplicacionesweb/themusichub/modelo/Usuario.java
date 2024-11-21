@@ -5,12 +5,15 @@ package org.itson.aplicacionesweb.themusichub.modelo;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -40,17 +43,20 @@ public class Usuario implements Serializable {
     @Column(name = "apellidoPaterno", nullable = false, length = 50)
     protected String apellidoPaterno;
 
-    @Column(name = "apellidoMaterno", length = 50)
+    @Column(name = "apellidoMaterno", length = 50, nullable = true)
     protected String apellidoMaterno;
+
+    @Column(name = "nombreUsuario", length = 50, nullable = false, unique = true)
+    protected String nombreUsuario;
 
     @Column(name = "contrasenia", nullable = false, length = 128)
     @Lob
     protected String contrasenia;
 
-    @Column(name = "telefono", nullable = false, length = 128) 
+    @Column(name = "telefono", nullable = false, length = 128)
     protected String telefono;
-
-    @Column(name = "avatar", length = 500)
+    
+    @Column(name = "avatar", nullable = false, length = 500)
     protected String avatar;
 
     @Column(name = "ciudad", length = 150)
@@ -67,7 +73,7 @@ public class Usuario implements Serializable {
     protected Municipio municipio;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.PERSIST)
-    private List<Comun> posts;
+    protected List<Post> posts;
 
     /**
      * Constructor vacío.
@@ -75,17 +81,36 @@ public class Usuario implements Serializable {
     public Usuario() {
     }
 
-    public Usuario(String nombres, String apellidoPaterno, String apellidoMaterno, String correo, String contrasenia, String telefono, String avatar, String ciudad, Calendar fechaNacimiento, String genero) {
+    public Usuario(String correo, String nombres, String apellidoPaterno, String apellidoMaterno, String nombreUsuario, String contrasenia, String telefono, String avatar, String ciudad, Calendar fechaNacimiento, String genero, Municipio municipio) {
+        this.correo = correo;
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
-        this.correo = correo;
+        this.nombreUsuario = nombreUsuario;
         this.contrasenia = contrasenia;
         this.telefono = telefono;
         this.avatar = avatar;
         this.ciudad = ciudad;
         this.fechaNacimiento = fechaNacimiento;
         this.genero = genero;
+        this.municipio = municipio;
+        this.posts = new LinkedList<>();
+    }
+
+    public Usuario(String correo, String nombres, String apellidoPaterno, String apellidoMaterno, String nombreUsuario, String contrasenia, String telefono, String avatar, String ciudad, Calendar fechaNacimiento, String genero, Municipio municipio, List<Post> posts) {
+        this.correo = correo;
+        this.nombres = nombres;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
+        this.nombreUsuario = nombreUsuario;
+        this.contrasenia = contrasenia;
+        this.telefono = telefono;
+        this.avatar = avatar;
+        this.ciudad = ciudad;
+        this.fechaNacimiento = fechaNacimiento;
+        this.genero = genero;
+        this.municipio = municipio;
+        this.posts = posts;
     }
 
     public String getNombres() {
@@ -174,6 +199,22 @@ public class Usuario implements Serializable {
 
     public void setMunicipio(Municipio municipio) {
         this.municipio = municipio;
+    }
+
+    public String getNombreUsuario() {
+        return nombreUsuario;
+    }
+
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
+    }
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
     }
 
     @Override
