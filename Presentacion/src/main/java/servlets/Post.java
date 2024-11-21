@@ -67,7 +67,7 @@ public class Post extends HttpServlet {
             request.setAttribute("contenido", post.getContenido());
             request.setAttribute("imagenPost", post.getImagen());
 
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
             String fechaFormateada = dateFormat.format(post.getFechaHoraCreacion().getTime());
             request.setAttribute("fechaPublicacion", fechaFormateada);
 
@@ -96,6 +96,9 @@ public class Post extends HttpServlet {
 
     }
 
+    /**
+     * Convierte un comentario DTO en un objeto ComentarioBean
+     */
     private ComentarioBean convertirComentario(ComentarioDTO comentarioDTO, SimpleDateFormat dateFormat) {
         String fechaComentario = dateFormat.format(comentarioDTO.getFechaHora().getTime());
         List<ComentarioBean> respuestas = null;
@@ -116,7 +119,7 @@ public class Post extends HttpServlet {
     private void agregarRespuestaAComentario(List<ComentarioBean> comentariosPrincipales, ComentarioDTO respuestaDTO, SimpleDateFormat dateFormat) {
         // Buscar el comentario principal al que pertenece la respuesta
         for (ComentarioBean comentarioBean : comentariosPrincipales) {
-            if (comentarioBean.getContenido().equals(respuestaDTO.getRespuesta().getContenido())) {
+            if (comentarioBean.getContenido().equals(respuestaDTO.getRespuesta().getId())) {
                 // Agregar la respuesta al comentario padre
                 comentarioBean.getRespuesta().add(convertirComentario(respuestaDTO, dateFormat));
                 break;
