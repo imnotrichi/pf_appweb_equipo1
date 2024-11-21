@@ -50,7 +50,6 @@
                         <p>${contenido}</p> 
                     </article>
 
-
                     <article class="contenedor-comentario">
                         <h3 class="subtitulo-comentario">Comentarios (${cantidadComentarios}):</h3>
                         <hr>
@@ -60,7 +59,14 @@
                                     <span class="usuario">@${comentario.nombreUsuario} (${comentario.fechaComentario}): </span>
                                     ${comentario.contenido}
                                 </p>
-                                <button class="responder-btn">Responder</button>
+                                <c:choose>
+                                    <c:when test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"normal\")}">
+                                        <button class="responder-btn">Responder</button>
+                                    </c:when>
+                                    <c:when test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"administrador\")}">
+                                        <button class="responder-btn">Eliminar</button>
+                                    </c:when>
+                                </c:choose>
 
                                 <c:if test="${not empty comentario.respuesta}">
                                     <div class="respuestas">
@@ -68,12 +74,9 @@
                                             <jsp:param name="comentarios" value="${comentario.respuesta}" />
                                         </jsp:include>
                                     </div>
-
                                 </c:if>
                             </div>
                         </c:forEach>
-
-
 
                         <div class="comentario">
                             <p><span class="usuario">@abel_sanchez123 (14/10/2024): </span>yo la verdad estoy muy emocionado
@@ -91,40 +94,6 @@
                             </c:choose>
                         </div>
 
-                        <!--  
-                        <div class="comentario">
-                            <p><span class="usuario">@ricardoalan (14/10/2024): </span>yo la verdad estoy muy emocionado
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis assumenda fugit error
-                                quasi accusantium dolores nobis aspernatur ullam, vitae earum! Fugiat iure rem doloremque ad
-                                labore amet quas ut enim!
-                            </p>
-                            <button class="responder-btn">Responder</button>
-
-                        </div>
-
-                        <div class="comentario">
-                            <p><span class="usuario">@pipucate (14/10/2024): </span>yo la verdad estoy muy emocionado
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis assumenda fugit error
-                                quasi accusantium dolores nobis aspernatur ullam, vitae earum! Fugiat iure rem doloremque ad
-                                labore amet quas ut enim!
-                            </p>
-                            <button class="responder-btn">Responder</button>
-
-                            <div class="respuestas">
-                                <div class="comentario respuesta">
-                                    <p><span class="usuario">@ricardoalan (14/10/2024): </span>Estoy de acuerdo contigo, pero Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum totam, assumenda molestiae dolore unde porro cum. Numquam vel officiis aperiam, ducimus eius ipsa voluptas autem necessitatibus nisi. Ut, rerum iste.</p>
-                                    <button class="responder-btn">Responder</button>
-                                </div>
-
-                                <div class="comentario respuesta">
-                                    <p><span class="usuario">@pipucate (14/10/2024): </span>Muy buen punto</p>
-                                    <button class="responder-btn">Responder</button>
-                                </div>
-                            </div>
-
-                        </div>
-                        -->
-
                         <c:choose>
                             <c:when test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"normal\")}">
                                 <div class="comentar">
@@ -137,7 +106,6 @@
                         </c:choose>
                     </article>
                 </section>
-
             </main>
         </div>
     </body>

@@ -23,7 +23,7 @@ import java.io.StringWriter;
 public class FiltroIniciarSesion implements Filter {
 
     private static final boolean debug = true;
-    private static final String[] RUTAS_PUBLICAS = {"IniciarRegistrar.jsp", "estilos/estiloIniciarRegistrar.css", "IniciarSesion", "CerrarSesion", "RegistrarUsuario"};
+    private static final String[] RUTAS_PUBLICAS = {"IniciarRegistrar.jsp", "estilos/estiloIniciarRegistrar.css", "estilos/estiloErrores.css", "IniciarSesion", "CerrarSesion", "RegistrarUsuario"};
 
     // The filter configuration object we are associated with.  If
     // this value is null, this filter instance is not currently
