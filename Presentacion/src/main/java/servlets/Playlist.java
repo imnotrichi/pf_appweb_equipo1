@@ -66,7 +66,7 @@ public class Playlist extends HttpServlet {
             request.setAttribute("posts", posts);
             
             System.out.println("SERVLET POSTS ");
-            request.getRequestDispatcher("/General.jsp").forward(request, response);
+            request.getRequestDispatcher("/Playlist.jsp").forward(request, response);
         } catch (FacadeException ex) {
             Logger.getLogger(General.class.getName()).log(Level.SEVERE, null, ex);
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error al cargar los posts.");

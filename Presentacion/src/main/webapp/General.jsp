@@ -24,8 +24,6 @@
         <%@include file="./fragmentos/BarraNavegacion.xhtml" %>
 
         <main>
-            <!-- Mostrar posts anclados -->
-            <h2>Posts Anclados</h2>
             <c:forEach var="post" items="${posts}">
                 <a href="Post?id=${post.getId()}">
                     <article>
