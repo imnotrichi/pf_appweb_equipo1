@@ -19,6 +19,7 @@ import org.itson.aplicacionesweb.themusichub.enums.CategoriaPost;
 import org.itson.aplicacionesweb.themusichub.modelo.Comun;
 import org.itson.aplicacionesweb.themusichub.modelo.Post;
 import org.itson.aplicacionesweb.themusichub.modelo.Usuario;
+import org.itson.aplicacionesweb.themusichub.persistenciaException.FacadeException;
 import org.itson.aplicacionesweb.themusichub.persistenciaException.PersistenciaException;
 
 /**
@@ -188,7 +189,7 @@ public class PostDAO implements IPostDAO {
             em.close();
         }
     }
-    
+
     @Override
     public List<Post> obtenerPostsUsuario(Usuario usuario) throws PersistenciaException {
         // Creamos un entity manager.
@@ -255,6 +256,7 @@ public class PostDAO implements IPostDAO {
             // Imprimimos un mensaje de que se registró un post.
             logger.log(Level.INFO, "Se ha insertado 1 post correctamente.");
         } catch (PersistenceException pe) {
+            logger.log(Level.WARNING, pe.getMessage());
             throw new PersistenciaException("No se pudo insertar el post.");
         }
     }
@@ -375,6 +377,73 @@ public class PostDAO implements IPostDAO {
             throw new PersistenciaException("Error al buscar el post.", pe);
         } finally {
             em.close();
+        }
+    }
+
+    @Override
+    public void anclarPost(Comun postComun, Anclado postAnclado) throws PersistenciaException {
+        // Creamos un entity manager.
+        EntityManager em = conexion.crearConexion();
+
+        try {
+            // Iniciamos la transacción.
+            em.getTransaction().begin();
+
+            // Se sincroniza la entidad.
+            postComun = em.merge(postComun);
+
+            // Mandamos a eliminar el post de la tabla de comunes.
+            em.remove(postComun);
+
+            // Mandamos a guardar el post en la tabla de anclados.
+            em.persist(postAnclado);
+
+            // Hacemos el commit y cerramos el entity manager.
+            em.getTransaction().commit();
+            em.close();
+
+            // Imprimimos un mensaje de que se eliminó un post.
+            logger.log(Level.INFO, "Se ha eliminado 1 post común correctamente.");
+            logger.log(Level.INFO, "Se ha insertado 1 post anclado correctamente.");
+        } catch (PersistenceException pe) {
+            throw new PersistenciaException("No se pudo eliminar el post.");
+        }
+    }
+
+    /**
+     * Método para eliminar un post anclado y persistirlo como un post común.
+     *
+     * @param postComun El id del post que se quiere desanclar.
+     * @param postAnclado El id del post que se quiere desanclar.
+     * @throws PersistenciaException 
+     */
+    @Override
+    public void desanclarPost(Comun postComun, Anclado postAnclado) throws PersistenciaException {
+        // Creamos un entity manager.
+        EntityManager em = conexion.crearConexion();
+
+        try {
+            // Iniciamos la transacción.
+            em.getTransaction().begin();
+
+            // Se sincroniza la entidad.
+            postAnclado = em.merge(postAnclado);
+
+            // Mandamos a eliminar el post de la tabla de comunes.
+            em.remove(postAnclado);
+
+            // Mandamos a guardar el post en la tabla de anclados.
+            em.persist(postComun);
+
+            // Hacemos el commit y cerramos el entity manager.
+            em.getTransaction().commit();
+            em.close();
+
+            // Imprimimos un mensaje de que se eliminó un post.
+            logger.log(Level.INFO, "Se ha eliminado 1 post anclado correctamente.");
+            logger.log(Level.INFO, "Se ha insertado 1 post común correctamente.");
+        } catch (PersistenceException pe) {
+            throw new PersistenciaException("No se pudo eliminar el post.");
         }
     }
 

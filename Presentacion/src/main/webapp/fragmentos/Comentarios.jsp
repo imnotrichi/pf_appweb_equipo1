@@ -7,21 +7,15 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<c:forEach var="comentario" items="${comentarios}">
+<c:forEach var="comentarioRespuesta" items="${comentarios}">
     <div class="comentario respuesta">
         <p>
-            <span class="usuario">@${comentario.nombreUsuario} (${comentario.fechaComentario}): </span>
-            ${comentario.contenido}
+            <span class="usuario">@${comentarioRespuesta.nombreUsuario} (${comentarioRespuesta.fechaComentario}): </span>
+            ${comentarioRespuesta.contenido}
         </p>
         <button class="responder-btn">Responder</button>
 
-        <c:if test="${not empty comentario.respuesta}">
-            <div class="respuestas">
-                <jsp:include page="./fragmentos/Comentarios.jsp">
-                    <jsp:param name="comentarios" value="${comentario.respuesta}" />
-                </jsp:include>
-            </div>
-        </c:if>
+        <h1>AUXILIO, SALVENME, YA NO QUIERO NADOTA</h1>
 
         
     </div>

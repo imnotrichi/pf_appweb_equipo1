@@ -60,6 +60,11 @@ public class UsuarioDTO {
         this.municipio = municipio;
     }
 
+    public UsuarioDTO(String correo, String nombreUsuario) {
+        this.correo = correo;
+        this.nombreUsuario = nombreUsuario;
+    }
+
     public String getNombres() {
         return nombres;
     }

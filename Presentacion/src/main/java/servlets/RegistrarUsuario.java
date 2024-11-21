@@ -4,7 +4,6 @@
 package servlets;
 
 import beans.UsuarioBean;
-import com.mycompany.dto.AdministradorDTO;
 import com.mycompany.dto.EstadoDTO;
 import com.mycompany.dto.MunicipioDTO;
 import com.mycompany.dto.NormalDTO;
@@ -18,11 +17,17 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.Calendar;
+import org.apache.commons.io.IOUtils;
 import org.itson.aplicacionesweb.themusichub.facade.AccesoDatosFacade;
 import org.itson.aplicacionesweb.themusichub.facade.IAccesoDatosFacade;
 import org.itson.aplicacionesweb.themusichub.persistenciaException.FacadeException;
 
+//*
 /**
  * @author Equipo1
  */
@@ -102,7 +107,7 @@ public class RegistrarUsuario extends HttpServlet {
 
         // Se crea el directorio si no existe
         if (!directorioAvatares.exists()) {
-        directorioAvatares.mkdir();
+            directorioAvatares.mkdir();
         }
 
         // Se obtiene el archivo
@@ -110,15 +115,15 @@ public class RegistrarUsuario extends HttpServlet {
 
         // Se obtiene la referencia del archivo (nombre del archivo)
         String referencia = avatar.getSubmittedFileName();
-
+        
         // Ruta completa donde se almacenará el archivo en el servidor
         String rutaAvatar = rutaDirectorio + File.separator + referencia;
-
+        
         // Se almacena el archivo en el directorio
         avatar.write(rutaAvatar);
-
+        
         // Guardar la ruta relativa que será accesible por la aplicación web
-        String rutaRelativa = "avatares/" + referencia;  // Ejemplo: "avatares/imagen123.jpg"
+        String rutaRelativa = "avatares/" + referencia;
         request.getSession().setAttribute("avatar", rutaRelativa);
         //FIN PROCESAMIENTO IMAGEN
 
@@ -136,7 +141,7 @@ public class RegistrarUsuario extends HttpServlet {
             String tipo = "normal";
             System.out.println("REGISTRO DE USUARIO SERVLET");
             accesoDatos.registrarUsuario(usuario);
-            UsuarioBean bean = new UsuarioBean(nombreUsuario, correo, ciudad, rutaAvatar, tipo);
+            UsuarioBean bean = new UsuarioBean(nombreUsuario, correo, ciudad, rutaRelativa, tipo);
             HttpSession session = request.getSession();
             session.setAttribute("usuario", bean);
             response.sendRedirect(request.getContextPath() + "/Inicio.jsp");

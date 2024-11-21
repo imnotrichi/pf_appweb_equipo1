@@ -29,7 +29,6 @@
             <c:forEach var="post" items="${posts}">
                 <a href="Post?id=${post.getId()}">
                     <article>
-                        <img src="" alt="Imagen del post">
                         <h2>@${post.usuario.nombreUsuario}</h2> 
                         <h3>${post.titulo}</h3> 
                         <p>${post.subtitulo}</p> 

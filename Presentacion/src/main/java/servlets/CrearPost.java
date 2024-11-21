@@ -15,9 +15,14 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.commons.io.IOUtils;
 import org.itson.aplicacionesweb.themusichub.facade.AccesoDatosFacade;
 import org.itson.aplicacionesweb.themusichub.facade.IAccesoDatosFacade;
 import org.itson.aplicacionesweb.themusichub.persistenciaException.FacadeException;
@@ -79,30 +84,33 @@ public class CrearPost extends HttpServlet {
             Logger.getLogger(CrearPost.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+        String rutaRelativa = "";
         //PROCESAMIENTO DE LA IMAGEN
-        //Se crea la ruta del directorio donde se almacenarán las imagenes
-        String rutaImagen = "";
         if (request.getPart("imagen") != null) {
-            String ruta = getServletContext().getRealPath("");
-            String rutaDirectorio = ruta + "imagenesPosts";
-            File directorioAvatares = new File(rutaDirectorio);
+        // Se crea la ruta del directorio donde se almacenarán las imagenes
+        String rutaDirectorio = getServletContext().getRealPath("/imagenesPost");
+        File directorioImagenesPost = new File(rutaDirectorio);
 
-            //Se crea el directorio si no existe
-            if (!directorioAvatares.exists()) {
-                directorioAvatares.mkdir();
-            }
+        // Se crea el directorio si no existe
+        if (!directorioImagenesPost.exists()) {
+            directorioImagenesPost.mkdir();
+        }
 
-            //Se obtiene el archivo
-            Part imagen = request.getPart("imagen");
+        // Se obtiene el archivo
+        Part imagen = request.getPart("imagen");
 
-            //Se obtiene la referencia del archivo
-            String referencia = imagen.getSubmittedFileName();
-
-            //Se escribe la ruta donde se almacenará el archivo
-            rutaImagen = rutaDirectorio + File.separator + referencia;
-
-            //Se almacena el archivo en el directorio
-            imagen.write(rutaImagen);
+        // Se obtiene la referencia del archivo (nombre del archivo)
+        String referencia = imagen.getSubmittedFileName();
+        
+        // Ruta completa donde se almacenará el archivo en el servidor
+        String rutaImagen = rutaDirectorio + File.separator + referencia;
+        
+        // Se almacena el archivo en el directorio
+        imagen.write(rutaImagen);
+        
+        // Guardar la ruta relativa que será accesible por la aplicación web
+        rutaRelativa = "imagenesPost/" + referencia;
+        request.getSession().setAttribute("imagen", rutaRelativa);
         }
         //FIN PROCESAMIENTO IMAGEN
 
@@ -112,10 +120,10 @@ public class CrearPost extends HttpServlet {
             }
 
             try {
-                ComunDTO postNuevo = new ComunDTO(new GregorianCalendar(), titulo, subtitulo, cuerpo, tipoPost, usuario, rutaImagen);
+                ComunDTO postNuevo = new ComunDTO(new GregorianCalendar(), titulo, subtitulo, cuerpo, tipoPost, usuario, rutaRelativa);
                 accesoDatos.publicarPost(postNuevo);
             } catch (FacadeException ex) {
-                System.out.println("Error al crear la publicación");
+                System.out.println("Error al crear la publicacion");
             }
 
             HttpSession session = request.getSession();

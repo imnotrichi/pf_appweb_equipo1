@@ -39,18 +39,6 @@ main article {
     background: linear-gradient(#6FC0F8, #F539B4);
 }
 
-main div:nth-child(2) article {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(111, 192, 248, 1)), url(../imagenes/bort-playlist.png);
-    background-size: cover;
-    background-position: center;
-}
-
-main div:nth-child(3) article {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(111, 192, 248, 1)), url(../imagenes/fishmans.jpg);
-    background-size: cover;
-    background-position: center;
-}
-
 main article h3 {
     font-size: 2rem;
 }
