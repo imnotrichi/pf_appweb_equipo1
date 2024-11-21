@@ -21,11 +21,11 @@ public interface IAccesoDatosFacade {
 
     public void publicarPost(ComunDTO post) throws FacadeException;
 
-    public void eliminarPost(PostDTO post) throws FacadeException;
+    public void eliminarPost(PostDTO post, UsuarioDTO usuario) throws FacadeException;
 
     public void comentarPost(ComentarioDTO comentarioDTO, PostDTO postDTO) throws FacadeException;
 
-    public void eliminarComentario(ComentarioDTO comentario) throws FacadeException;
+    public void eliminarComentario(ComentarioDTO comentario, UsuarioDTO usuario) throws FacadeException;
 
     public void responderComentario(ComentarioDTO respuesta, ComentarioDTO comentario) throws FacadeException;
 
@@ -34,11 +34,14 @@ public interface IAccesoDatosFacade {
     public UsuarioDTO obtenerUsuario(String correo) throws FacadeException;
 
     public List<PostDTO> obtenerPostsPorCategoria(CategoriaPost categoria) throws FacadeException;
-    
+
     public List<PostDTO> obtenerPostsPorUsuario(String correo) throws FacadeException;
-    
+
     public PostDTO obtenerPostID(Long id) throws FacadeException;
-    
+
     public ComentarioDTO obtenerComentarioID(Long id) throws FacadeException;
 
+    public void anclarPost(Long idPost, String correoAdmin) throws FacadeException;
+
+    public void desanclarPost(Long idPost) throws FacadeException;
 }

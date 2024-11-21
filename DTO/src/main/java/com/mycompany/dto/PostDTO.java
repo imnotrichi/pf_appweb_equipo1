@@ -98,6 +98,24 @@ public class PostDTO {
         this.usuario = usuario;
     }
 
+    public PostDTO(Long id, Calendar fechaHoraCreacion, String titulo, String subtitulo, String contenido, String imagen, List<ComentarioDTO> comentarios, UsuarioDTO usuario) {
+        this.id = id;
+        this.fechaHoraCreacion = fechaHoraCreacion;
+        this.titulo = titulo;
+        this.subtitulo = subtitulo;
+        this.contenido = contenido;
+        this.imagen = imagen;
+        this.comentarios = comentarios;
+        this.usuario = usuario;
+    }
+
+    public PostDTO(Long id, Calendar fechaHoraCreacion, String contenido, NormalDTO usuario) {
+        this.id = id;
+        this.fechaHoraCreacion = fechaHoraCreacion;
+        this.contenido = contenido;
+        this.usuario = usuario;
+    }
+
     public Long getId() {
         return id;
     }

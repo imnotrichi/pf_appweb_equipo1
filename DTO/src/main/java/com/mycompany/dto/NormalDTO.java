@@ -19,6 +19,10 @@ public class NormalDTO extends UsuarioDTO {
         super(nombres, apellidoPaterno, apellidoMaterno, correo, contrasenia, telefono, nombreUsuario, avatar, ciudad, fechaNacimiento, genero, posts, municipio);
     }
 
+    public NormalDTO(String correo, String nombreUsuario) {
+        super(correo, nombreUsuario);
+    }
+
     public List<ComentarioDTO> getComentarios() {
         return comentarios;
     }

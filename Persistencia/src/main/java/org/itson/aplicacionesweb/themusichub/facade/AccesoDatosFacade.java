@@ -26,7 +26,9 @@ import org.itson.aplicacionesweb.themusichub.factory.AbstractDAOFactory;
 import org.itson.aplicacionesweb.themusichub.factory.DAOFactory;
 import org.itson.aplicacionesweb.themusichub.modelo.Administrador;
 import org.itson.aplicacionesweb.themusichub.enums.CategoriaPost;
+import org.itson.aplicacionesweb.themusichub.modelo.Anclado;
 import org.itson.aplicacionesweb.themusichub.modelo.Comentario;
+import static org.itson.aplicacionesweb.themusichub.modelo.Comentario_.post;
 import org.itson.aplicacionesweb.themusichub.modelo.Comun;
 import org.itson.aplicacionesweb.themusichub.modelo.Estado;
 import org.itson.aplicacionesweb.themusichub.modelo.Municipio;
@@ -129,12 +131,21 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
     }
 
     @Override
-    public void eliminarPost(PostDTO post) throws FacadeException {
+    public void eliminarPost(PostDTO post, UsuarioDTO usuario) throws FacadeException {
         try {
             Post postExistente = postsDAO.obtenerPostPorID(post.getId());
 
+
             if (postExistente == null) {
                 throw new FacadeException("El post no existe.");
+            }
+            
+            /**
+             * Si el usuario que quiere borrar el post no es el dueño o un
+             * administrador, se lanza excepción.
+             */
+            if (!post.getUsuario().getCorreo().equals(usuario.getCorreo()) && !(usuario instanceof AdministradorDTO)) {
+                throw new FacadeException("No tiene permisos para borrar este post.");
             }
 
             postsDAO.eliminarPost(postExistente);
@@ -173,12 +184,20 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
     }
 
     @Override
-    public void eliminarComentario(ComentarioDTO comentarioDTO) throws FacadeException {
+    public void eliminarComentario(ComentarioDTO comentarioDTO, UsuarioDTO usuario) throws FacadeException {
         try {
             Comentario comentario = comentariosDAO.obtenerComentario(comentarioDTO.getId());
-
+            
             if (comentario == null) {
                 throw new FacadeException("El comentario no existe.");
+            }
+            
+            /**
+             * Si el usuario que quiere borrar el post no es el dueño o un
+             * administrador, se lanza excepción.
+             */
+            if (!comentario.getUsuario().getCorreo().equals(usuario.getCorreo()) && !(usuario instanceof AdministradorDTO)) {
+                throw new FacadeException("No tiene permisos para borrar este comentario.");
             }
 
             comentariosDAO.eliminarComentario(comentario);
@@ -452,8 +471,29 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
                 comentario.getId(),
                 comentario.getFechaHora(),
                 comentario.getContenido(),
+                convertirComentariosAComentariosDTO(comentario.getRespuestas()),
+                (comentario.getRespuesta() != null) ? acortarComentarioDTO(comentario.getRespuesta()) : null,
+                (comentario.getPost() != null) ? acortarPostDTO(comentario.getPost()) : null,
                 (NormalDTO) convertirUsuarioAUsuarioDTO(comentario.getUsuario()));
         return comentarioDTO;
+    }
+    
+    private ComentarioDTO acortarComentarioDTO(Comentario comentario) {
+        ComentarioDTO comentarioCorto = new ComentarioDTO(
+                comentario.getId(),
+                comentario.getFechaHora(),
+                comentario.getContenido(),
+                (NormalDTO) convertirUsuarioAUsuarioDTO(comentario.getUsuario()));
+        return comentarioCorto;
+    }
+    
+    private PostDTO acortarPostDTO(Post post) {
+        PostDTO postCorto = new PostDTO(
+                post.getId(),
+                post.getFechaHoraCreacion(),
+                post.getContenido(),
+                (NormalDTO) convertirUsuarioAUsuarioDTO(post.getUsuario()));
+        return postCorto;
     }
 
     @Override
@@ -492,7 +532,7 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
         List<PostDTO> postsDTO = null;
         try {
             Usuario usuario = usuariosDAO.buscarUsuario(correo);
-            
+
             // Se obtienen los posts.
             List<Post> posts = postsDAO.obtenerPostsUsuario(usuario);
             // Se convierten a DTO.
@@ -501,6 +541,70 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
             throw new FacadeException(ex.getMessage());
         }
         return postsDTO;
+    }
+
+    @Override
+    public void anclarPost(Long idPost, String correoAdmin) throws FacadeException {
+        try {
+            Comun comun = null;
+            try {
+                comun = (Comun) postsDAO.obtenerPostPorID(idPost);
+            } catch (ClassCastException cce) {
+                throw new FacadeException("El post que trata de anclar ya está anclado.");
+            }
+
+            Administrador admin = (Administrador) usuariosDAO.buscarUsuario(correoAdmin);
+
+            Anclado anclado = new Anclado(
+                    comun.getId(),
+                    comun.getFechaHoraCreacion(),
+                    comun.getTitulo(),
+                    comun.getSubtitulo(),
+                    comun.getContenido(),
+                    comun.getCategoria(),
+                    comun.getComentarios(),
+                    comun.getUsuario(),
+                    admin,
+                    comun.getImagen());
+
+            postsDAO.anclarPost(comun, anclado);
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(AccesoDatosFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    /**
+     * Método para desanclar un post anclado.
+     *
+     * @param idPost El id del post que se quiere desanclar.
+     * @throws FacadeException Si el post que se quiere desanclar no es del tipo
+     * anclado.
+     */
+    @Override
+    public void desanclarPost(Long idPost) throws FacadeException {
+        try {
+            Anclado anclado = null;
+            try {
+                anclado = (Anclado) postsDAO.obtenerPostPorID(idPost);
+            } catch (ClassCastException cce) {
+                throw new FacadeException("El post que trata de desanclar no está anclado.");
+            }
+
+            Comun comun = new Comun(
+                    anclado.getId(),
+                    anclado.getFechaHoraCreacion(),
+                    anclado.getTitulo(),
+                    anclado.getSubtitulo(),
+                    anclado.getContenido(),
+                    anclado.getCategoria(),
+                    anclado.getComentarios(),
+                    anclado.getUsuario(),
+                    anclado.getImagen());
+
+            postsDAO.desanclarPost(comun, anclado);
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(AccesoDatosFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

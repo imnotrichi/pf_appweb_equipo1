@@ -58,11 +58,20 @@ public class ComentarioDTO {
         this.usuario = usuario;
     }
 
+    public ComentarioDTO(Long id, Calendar fechaHora, String contenido, List<ComentarioDTO> respuestas, NormalDTO usuario) {
+        this.id = id;
+        this.fechaHora = fechaHora;
+        this.contenido = contenido;
+        this.respuestas = respuestas;
+        this.usuario = usuario;
+    }
+
     public ComentarioDTO(Long id, Calendar fechaHora, String contenido, NormalDTO usuario) {
         this.id = id;
         this.fechaHora = fechaHora;
         this.contenido = contenido;
         this.usuario = usuario;
+        
     }
 
     public Long getId() {
