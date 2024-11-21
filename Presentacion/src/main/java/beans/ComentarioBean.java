@@ -13,17 +13,36 @@ import java.util.List;
  */
 public class ComentarioBean implements Serializable {
     
+    private Long id;
     private String nombreUsuario;
     private String fechaComentario;
     private String contenido;
     private List<ComentarioBean> respuesta;
 
-    public ComentarioBean(String nombreUsuario, String fechaComentario, String contenido, List<ComentarioBean> respuesta) {
+    public ComentarioBean() {
+    }
+
+    public ComentarioBean(Long id, String nombreUsuario, String fechaComentario, String contenido, List<ComentarioBean> respuesta) {
+        this.id = id;
         this.nombreUsuario = nombreUsuario;
         this.fechaComentario = fechaComentario;
         this.contenido = contenido;
         this.respuesta = respuesta;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    
+    
+    
+
+    
 
     
 

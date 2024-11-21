@@ -66,21 +66,24 @@ public class Post extends HttpServlet {
             request.setAttribute("subtitulo", post.getSubtitulo());
             request.setAttribute("contenido", post.getContenido());
             request.setAttribute("imagenPost", post.getImagen());
-
+            
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
             String fechaFormateada = dateFormat.format(post.getFechaHoraCreacion().getTime());
             request.setAttribute("fechaPublicacion", fechaFormateada);
 
             if (post.getComentarios() != null && !post.getComentarios().isEmpty()) {
                 request.setAttribute("cantidadComentarios", post.getComentarios().size());
-
+                System.out.println("SE OBTUBO COMENTARIOS");
                 // Filtrar solo los comentarios principales (aquellos que no son respuestas)
                 List<ComentarioBean> comentariosPrincipales = new LinkedList<>();
                 for (ComentarioDTO comentario : post.getComentarios()) {
+                    
                     if (comentario.getRespuesta().getId() == null) {
+                        System.out.println("COMENTARIO PRINCIPAL");
                         // Es un comentario principal, agregarlo a la lista
                         comentariosPrincipales.add(convertirComentario(comentario, dateFormat));
                     } else {
+                        System.out.println("COMENTARIO RESPUESTA");
                         // Es una respuesta, asignar al comentario padre
                         agregarRespuestaAComentario(comentariosPrincipales, comentario, dateFormat);
                     }
@@ -106,6 +109,7 @@ public class Post extends HttpServlet {
             respuestas = convertirComentarios(comentarioDTO.getRespuestas(), dateFormat);
         }
         return new ComentarioBean(
+                comentarioDTO.getId(),
                 comentarioDTO.getUsuario().getNombreUsuario(),
                 fechaComentario,
                 comentarioDTO.getContenido(),
@@ -119,7 +123,7 @@ public class Post extends HttpServlet {
     private void agregarRespuestaAComentario(List<ComentarioBean> comentariosPrincipales, ComentarioDTO respuestaDTO, SimpleDateFormat dateFormat) {
         // Buscar el comentario principal al que pertenece la respuesta
         for (ComentarioBean comentarioBean : comentariosPrincipales) {
-            if (comentarioBean.getContenido().equals(respuestaDTO.getRespuesta().getId())) {
+            if (comentarioBean.getId().equals(respuestaDTO.getRespuesta().getId())) {
                 // Agregar la respuesta al comentario padre
                 comentarioBean.getRespuesta().add(convertirComentario(respuestaDTO, dateFormat));
                 break;

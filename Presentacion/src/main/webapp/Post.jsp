@@ -29,7 +29,7 @@
                     <article class="post">
                         <img class="imagen-post" src="${imagenPost}" alt="">
                         <div>
-                            <h2 class="usuario-fecha">@${nombreUsuario} - <span>10/10/2024</span></h2>
+                            <h2 class="usuario-fecha">@${nombreUsuario} - <span>${fechaPublicacion}</span></h2>
                             <c:choose>
                                 <c:when test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"administrador\")}">
                                     <div class="funciones-admin">
