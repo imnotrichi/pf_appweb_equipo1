@@ -46,7 +46,7 @@ public class Comentario implements Serializable {
     @JoinColumn(name = "id_respuesta")
     private Comentario respuesta;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "id_post")
     private Post post;
 
@@ -70,7 +70,7 @@ public class Comentario implements Serializable {
         this.respuesta = respuesta;
         this.usuario = usuario;
     }
-    
+
     public Long getId() {
         return id;
     }

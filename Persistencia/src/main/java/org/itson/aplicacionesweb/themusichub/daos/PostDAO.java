@@ -406,6 +406,7 @@ public class PostDAO implements IPostDAO {
             logger.log(Level.INFO, "Se ha eliminado 1 post común correctamente.");
             logger.log(Level.INFO, "Se ha insertado 1 post anclado correctamente.");
         } catch (PersistenceException pe) {
+            logger.log(Level.WARNING, pe.getMessage());
             throw new PersistenciaException("No se pudo eliminar el post.");
         }
     }
