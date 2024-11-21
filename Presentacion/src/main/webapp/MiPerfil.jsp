@@ -34,7 +34,7 @@
             <main>
                 <div class="perfil">
                     <div class="datos">
-                        <img src="${pageContext.request.contextPath}/${sessionScope.avatar}" alt="Avatar">
+                        <img src="${pageContext.request.contextPath}/${sessionScope.usuario.getAvatar()}" alt="Avatar">
                         <h2>@${sessionScope.usuario.getNombreUsuario()}</h2>
                         <p>${sessionScope.usuario.getCiudad()}</p>
                     </div>

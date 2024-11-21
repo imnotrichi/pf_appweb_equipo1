@@ -96,29 +96,29 @@ public class RegistrarUsuario extends HttpServlet {
         String genero = request.getParameter("genero");
 
         //PROCESAMIENTO DE LA IMAGEN
-        //Se crea la ruta del directorio donde se almacenarán las imagenes
+        // Se crea la ruta del directorio donde se almacenarán las imagenes
         String rutaDirectorio = getServletContext().getRealPath("/avatares");
         File directorioAvatares = new File(rutaDirectorio);
 
-        //Se crea el directorio si no existe
+        // Se crea el directorio si no existe
         if (!directorioAvatares.exists()) {
-            directorioAvatares.mkdir();
+        directorioAvatares.mkdir();
         }
 
-        //Se obtiene el archivo
+        // Se obtiene el archivo
         Part avatar = request.getPart("avatar");
 
-        //Se obtiene la referencia del archivo
+        // Se obtiene la referencia del archivo (nombre del archivo)
         String referencia = avatar.getSubmittedFileName();
 
-        //Se escribe la ruta donde se almacenará el archivo
+        // Ruta completa donde se almacenará el archivo en el servidor
         String rutaAvatar = rutaDirectorio + File.separator + referencia;
 
-        //Se almacena el archivo en el directorio
+        // Se almacena el archivo en el directorio
         avatar.write(rutaAvatar);
-        
-        // Guardar la ruta relativa
-        String rutaRelativa = "avatares/" + referencia;
+
+        // Guardar la ruta relativa que será accesible por la aplicación web
+        String rutaRelativa = "avatares/" + referencia;  // Ejemplo: "avatares/imagen123.jpg"
         request.getSession().setAttribute("avatar", rutaRelativa);
         //FIN PROCESAMIENTO IMAGEN
 
@@ -130,7 +130,7 @@ public class RegistrarUsuario extends HttpServlet {
         EstadoDTO estado = new EstadoDTO("Sonora");
         MunicipioDTO municipio = new MunicipioDTO("Cajeme", estado);
 
-        UsuarioDTO usuario = new NormalDTO(nombre, apellido1, apellido2, correo, contrasenia, telefono, nombreUsuario, rutaAvatar, ciudad, fechaNacimiento, genero, municipio);
+        UsuarioDTO usuario = new NormalDTO(nombre, apellido1, apellido2, correo, contrasenia, telefono, nombreUsuario, rutaRelativa, ciudad, fechaNacimiento, genero, municipio);
         System.out.println("HOLA DESDE EL SERVLET");
         try {
             String tipo = "normal";
