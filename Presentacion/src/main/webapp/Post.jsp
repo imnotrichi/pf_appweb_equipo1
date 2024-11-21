@@ -91,6 +91,7 @@
                             </c:choose>
                         </div>
 
+                        <!--  
                         <div class="comentario">
                             <p><span class="usuario">@ricardoalan (14/10/2024): </span>yo la verdad estoy muy emocionado
                                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis assumenda fugit error
@@ -122,6 +123,7 @@
                             </div>
 
                         </div>
+                        -->
 
                         <c:choose>
                             <c:when test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"normal\")}">
