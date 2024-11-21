@@ -4,7 +4,6 @@
 package servlets;
 
 import beans.UsuarioBean;
-import com.mycompany.dto.AdministradorDTO;
 import com.mycompany.dto.EstadoDTO;
 import com.mycompany.dto.MunicipioDTO;
 import com.mycompany.dto.NormalDTO;
@@ -18,7 +17,12 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.Calendar;
+import org.apache.commons.io.IOUtils;
 import org.itson.aplicacionesweb.themusichub.facade.AccesoDatosFacade;
 import org.itson.aplicacionesweb.themusichub.facade.IAccesoDatosFacade;
 import org.itson.aplicacionesweb.themusichub.persistenciaException.FacadeException;
@@ -97,29 +101,25 @@ public class RegistrarUsuario extends HttpServlet {
 
         //PROCESAMIENTO DE LA IMAGEN
         // Se crea la ruta del directorio donde se almacenarán las imagenes
-        String rutaDirectorio = getServletContext().getRealPath("/avatares");
-        File directorioAvatares = new File(rutaDirectorio);
+        String path = request.getServletContext().getRealPath("");
+        String pathGuardar = path + "avatares";
+        File dir = new File(pathGuardar);
 
         // Se crea el directorio si no existe
-        if (!directorioAvatares.exists()) {
-        directorioAvatares.mkdir();
+        if (!dir.exists()) {
+            dir.mkdir();
         }
 
         // Se obtiene el archivo
-        Part avatar = request.getPart("avatar");
+        Part filePart = request.getPart("avatar");
 
         // Se obtiene la referencia del archivo (nombre del archivo)
-        String referencia = avatar.getSubmittedFileName();
-
-        // Ruta completa donde se almacenará el archivo en el servidor
-        String rutaAvatar = rutaDirectorio + File.separator + referencia;
-
-        // Se almacena el archivo en el directorio
-        avatar.write(rutaAvatar);
-
-        // Guardar la ruta relativa que será accesible por la aplicación web
-        String rutaRelativa = "avatares/" + referencia;  // Ejemplo: "avatares/imagen123.jpg"
-        request.getSession().setAttribute("avatar", rutaRelativa);
+        String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+        
+        InputStream fileContent = filePart.getInputStream();
+        File targetFile = new File(pathGuardar + File.separator + fileName);
+        Files.copy(fileContent, targetFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+        IOUtils.closeQuietly(fileContent);
         //FIN PROCESAMIENTO IMAGEN
 
         String fechaNacimientoStr = request.getParameter("fechaNacimiento");
@@ -130,13 +130,13 @@ public class RegistrarUsuario extends HttpServlet {
         EstadoDTO estado = new EstadoDTO("Sonora");
         MunicipioDTO municipio = new MunicipioDTO("Cajeme", estado);
 
-        UsuarioDTO usuario = new NormalDTO(nombre, apellido1, apellido2, correo, contrasenia, telefono, nombreUsuario, rutaRelativa, ciudad, fechaNacimiento, genero, municipio);
+        UsuarioDTO usuario = new NormalDTO(nombre, apellido1, apellido2, correo, contrasenia, telefono, nombreUsuario, new byte[1], ciudad, fechaNacimiento, genero, municipio);
         System.out.println("HOLA DESDE EL SERVLET");
         try {
             String tipo = "normal";
             System.out.println("REGISTRO DE USUARIO SERVLET");
             accesoDatos.registrarUsuario(usuario);
-            UsuarioBean bean = new UsuarioBean(nombreUsuario, correo, ciudad, rutaAvatar, tipo);
+            UsuarioBean bean = new UsuarioBean(nombreUsuario, correo, ciudad, new byte[1], tipo);
             HttpSession session = request.getSession();
             session.setAttribute("usuario", bean);
             response.sendRedirect(request.getContextPath() + "/Inicio.jsp");
