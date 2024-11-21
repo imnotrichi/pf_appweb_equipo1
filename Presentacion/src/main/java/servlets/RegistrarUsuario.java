@@ -150,7 +150,6 @@ public class RegistrarUsuario extends HttpServlet {
                     .getRequestDispatcher("/IniciarRegistrar.jsp")
                     .forward(request, response);
         }
-    }
 
     /**
      * Returns a short description of the servlet.

@@ -6,13 +6,16 @@ package servlets;
 
 import beans.ComentarioBean;
 import com.mycompany.dto.ComentarioDTO;
+import com.mycompany.dto.NormalDTO;
 import com.mycompany.dto.PostDTO;
+import com.mycompany.dto.UsuarioDTO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import org.itson.aplicacionesweb.themusichub.facade.AccesoDatosFacade;
@@ -45,7 +48,6 @@ public class Post extends HttpServlet {
 
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -60,37 +62,9 @@ public class Post extends HttpServlet {
         String id = request.getParameter("id");
         try {
             System.out.println("HOLA DESDE SERVLET POST");
-            PostDTO post = accesoDatos.obtenerPostID(Long.parseLong(id));
-            request.setAttribute("titulo", post.getTitulo());
-            request.setAttribute("nombreUsuario", post.getUsuario().getNombreUsuario());
-            request.setAttribute("subtitulo", post.getSubtitulo());
-            request.setAttribute("contenido", post.getContenido());
-            request.setAttribute("imagenPost", post.getImagen());
-            
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
-            String fechaFormateada = dateFormat.format(post.getFechaHoraCreacion().getTime());
-            request.setAttribute("fechaPublicacion", fechaFormateada);
-
-            if (post.getComentarios() != null && !post.getComentarios().isEmpty()) {
-                request.setAttribute("cantidadComentarios", post.getComentarios().size());
-                System.out.println("SE OBTUBO COMENTARIOS");
-                // Filtrar solo los comentarios principales (aquellos que no son respuestas)
-                List<ComentarioBean> comentariosPrincipales = new LinkedList<>();
-                for (ComentarioDTO comentario : post.getComentarios()) {
-                    
-                    if (comentario.getRespuesta().getId() == null) {
-                        System.out.println("COMENTARIO PRINCIPAL");
-                        // Es un comentario principal, agregarlo a la lista
-                        comentariosPrincipales.add(convertirComentario(comentario, dateFormat));
-                    } else {
-                        System.out.println("COMENTARIO RESPUESTA");
-                        // Es una respuesta, asignar al comentario padre
-                        agregarRespuestaAComentario(comentariosPrincipales, comentario, dateFormat);
-                    }
-                }
-
-                request.setAttribute("comentarios", comentariosPrincipales);
-            }
+            PostDTO post = accesoDatos.obtenerPostID(Long.valueOf(id));
+            post = sanitizarPost(post);
+            request.setAttribute("post", post);
 
             request.getRequestDispatcher("/Post.jsp").forward(request, response);
         } catch (Exception e) {
@@ -99,50 +73,52 @@ public class Post extends HttpServlet {
 
     }
 
-    /**
-     * Convierte un comentario DTO en un objeto ComentarioBean
-     */
-    private ComentarioBean convertirComentario(ComentarioDTO comentarioDTO, SimpleDateFormat dateFormat) {
-        String fechaComentario = dateFormat.format(comentarioDTO.getFechaHora().getTime());
-        List<ComentarioBean> respuestas = null;
-        if (comentarioDTO.getRespuestas() != null && !comentarioDTO.getRespuestas().isEmpty()) {
-            respuestas = convertirComentarios(comentarioDTO.getRespuestas(), dateFormat);
-        }
-        return new ComentarioBean(
-                comentarioDTO.getId(),
-                comentarioDTO.getUsuario().getNombreUsuario(),
-                fechaComentario,
-                comentarioDTO.getContenido(),
-                respuestas
-        );
+    private PostDTO sanitizarPost(PostDTO post) {
+        UsuarioDTO usuario = post.getUsuario();
+        PostDTO postSanitizado = new PostDTO(
+                post.getId(),
+                post.getFechaHoraCreacion(),
+                post.getTitulo(),
+                post.getSubtitulo(),
+                post.getContenido(),
+                post.getImagen(),
+                sanitizarComentarios(post.getComentarios()),
+                sanitizarUsuario(usuario));
+        return postSanitizado;
     }
 
-    /**
-     * Asocia una respuesta a su comentario principal.
-     */
-    private void agregarRespuestaAComentario(List<ComentarioBean> comentariosPrincipales, ComentarioDTO respuestaDTO, SimpleDateFormat dateFormat) {
-        // Buscar el comentario principal al que pertenece la respuesta
-        for (ComentarioBean comentarioBean : comentariosPrincipales) {
-            if (comentarioBean.getId().equals(respuestaDTO.getRespuesta().getId())) {
-                // Agregar la respuesta al comentario padre
-                comentarioBean.getRespuesta().add(convertirComentario(respuestaDTO, dateFormat));
-                break;
-            }
-        }
+    private NormalDTO sanitizarUsuario(UsuarioDTO usuario) {
+        NormalDTO usuarioSanitizado = new NormalDTO(
+                usuario.getCorreo(),
+                usuario.getNombreUsuario());
+
+        return usuarioSanitizado;
     }
 
-    /**
-     * Convierte una lista de comentarios DTO en una lista de ComentarioBean.
-     */
-    private List<ComentarioBean> convertirComentarios(List<ComentarioDTO> comentariosDTO, SimpleDateFormat dateFormat) {
-        List<ComentarioBean> comentariosBean = new LinkedList<>();
-        for (ComentarioDTO comentario : comentariosDTO) {
-            // Solo agregar los comentarios que no son respuestas
-            if (comentario.getRespuesta().getId()== null) {
-                comentariosBean.add(convertirComentario(comentario, dateFormat));
-            }
+    private List<ComentarioDTO> sanitizarComentarios(List<ComentarioDTO> comentarios) {
+        List<ComentarioDTO> comentariosSanitizados = new ArrayList<>();
+        if (comentarios == null || comentarios.isEmpty()) {
+            return comentariosSanitizados;
         }
-        return comentariosBean;
+        for (ComentarioDTO comentario : comentarios) {
+            comentariosSanitizados.add(sanitizarComentario(comentario));
+        }
+
+        return comentariosSanitizados;
+    }
+
+    private ComentarioDTO sanitizarComentario(ComentarioDTO comentario) {
+        if (comentario == null) {
+            return null;
+        }
+        ComentarioDTO comentarioDTO;
+        comentarioDTO = new ComentarioDTO(
+                comentario.getId(),
+                comentario.getFechaHora(),
+                comentario.getContenido(),
+                sanitizarComentarios(comentario.getRespuestas()),
+                (NormalDTO) sanitizarUsuario(comentario.getUsuario()));
+        return comentarioDTO;
     }
 
     /**
@@ -167,6 +143,6 @@ public class Post extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }
 
 }
