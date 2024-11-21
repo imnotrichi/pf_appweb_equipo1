@@ -61,6 +61,10 @@
         <servlet-name>Playlist</servlet-name>
         <servlet-class>servlets.Playlist</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Reviews</servlet-name>
+        <servlet-class>servlets.Reviews</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>IniciarSesion</servlet-name>
         <url-pattern>/IniciarSesion</url-pattern>
@@ -126,6 +130,10 @@
     <servlet-mapping>
         <servlet-name>Playlist</servlet-name>
         <url-pattern>/Playlist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Reviews</servlet-name>
+        <url-pattern>/Reviews</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
