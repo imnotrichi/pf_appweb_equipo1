@@ -28,7 +28,6 @@ import org.itson.aplicacionesweb.themusichub.modelo.Administrador;
 import org.itson.aplicacionesweb.themusichub.enums.CategoriaPost;
 import org.itson.aplicacionesweb.themusichub.modelo.Anclado;
 import org.itson.aplicacionesweb.themusichub.modelo.Comentario;
-import static org.itson.aplicacionesweb.themusichub.modelo.Comentario_.post;
 import org.itson.aplicacionesweb.themusichub.modelo.Comun;
 import org.itson.aplicacionesweb.themusichub.modelo.Estado;
 import org.itson.aplicacionesweb.themusichub.modelo.Municipio;

@@ -256,6 +256,7 @@ public class PostDAO implements IPostDAO {
             // Imprimimos un mensaje de que se registró un post.
             logger.log(Level.INFO, "Se ha insertado 1 post correctamente.");
         } catch (PersistenceException pe) {
+            logger.log(Level.WARNING, pe.getMessage());
             throw new PersistenciaException("No se pudo insertar el post.");
         }
     }
