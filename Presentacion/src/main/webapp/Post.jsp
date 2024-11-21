@@ -40,7 +40,7 @@
                                             <img src="./imagenes/white-trash-icon.png" alt="white trash icon">
                                         </button>
                                         </a>
-                                        <button href="AnclarPost?idPost=${requestScope.post.geId()}">
+                                        <button href="AnclarPost?idPost=${id}">
                                             Anclar
                                             <img src="./imagenes/white-pin-icon.png">
                                         </button>

@@ -446,7 +446,6 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
                     usuario.getCiudad(),
                     usuario.getFechaNacimiento(),
                     usuario.getGenero(),
-                    convertirPostsAPostsDTO(usuario.getPosts()),
                     municipioDTO);
         }
 
