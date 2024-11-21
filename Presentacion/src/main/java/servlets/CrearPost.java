@@ -84,40 +84,45 @@ public class CrearPost extends HttpServlet {
             Logger.getLogger(CrearPost.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+        String avatar = "";
         //PROCESAMIENTO DE LA IMAGEN
-        // Se crea la ruta del directorio donde se almacenarán las imagenes
-        String path = request.getServletContext().getRealPath("");
-        String pathGuardar = path + "avatares";
-        File dir = new File(pathGuardar);
+        if (request.getPart("avatar") != null) {
+            // Se crea la ruta del directorio donde se almacenarán las imagenes
+            String path = request.getServletContext().getRealPath("");
+            String pathGuardar = path + "imagenesPosts";
+            File dir = new File(pathGuardar);
 
-        // Se crea el directorio si no existe
-        if (!dir.exists()) {
-            dir.mkdir();
+            // Se crea el directorio si no existe
+            if (!dir.exists()) {
+                dir.mkdir();
+            }
+
+            // Se obtiene el archivo
+            Part filePart = request.getPart("avatar");
+
+            // Se obtiene la referencia del archivo (nombre del archivo)
+            String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+
+            InputStream fileContent = filePart.getInputStream();
+            File targetFile = new File(pathGuardar + File.separator + fileName);
+            Files.copy(fileContent, targetFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            IOUtils.closeQuietly(fileContent);
+            avatar = targetFile.toString();
         }
-
-        // Se obtiene el archivo
-        Part filePart = request.getPart("avatar");
-
-        // Se obtiene la referencia del archivo (nombre del archivo)
-        String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-        
-        InputStream fileContent = filePart.getInputStream();
-        File targetFile = new File(pathGuardar + File.separator + fileName);
-        Files.copy(fileContent, targetFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-        IOUtils.closeQuietly(fileContent);
         //FIN PROCESAMIENTO IMAGEN
 
         if (!titulo.isBlank() && !tipoPost.isBlank()) {
+            String imagen = "";
             if (subtitulo.isBlank()) {
                 subtitulo = "";
             }
 
-//            try {
-//                ComunDTO postNuevo = new ComunDTO(new GregorianCalendar(), titulo, subtitulo, cuerpo, tipoPost, usuario, new byte[1]);
-//                accesoDatos.publicarPost(postNuevo);
-//            } catch (FacadeException ex) {
-//                System.out.println("Error al crear la publicación");
-//            }
+            try {
+                ComunDTO postNuevo = new ComunDTO(new GregorianCalendar(), titulo, subtitulo, cuerpo, tipoPost, usuario, avatar);
+                accesoDatos.publicarPost(postNuevo);
+            } catch (FacadeException ex) {
+                System.out.println("Error al crear la publicación");
+            }
 
             HttpSession session = request.getSession();
             String returnTo = (String) session.getAttribute("returnTo");
