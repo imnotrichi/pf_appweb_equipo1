@@ -131,9 +131,9 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
     }
 
     @Override
-    public void eliminarPost(PostDTO post, UsuarioDTO usuario) throws FacadeException {
+    public void eliminarPost(Long id, UsuarioDTO usuario) throws FacadeException {
         try {
-            Post postExistente = postsDAO.obtenerPostPorID(post.getId());
+            Post postExistente = postsDAO.obtenerPostPorID(id);
 
 
             if (postExistente == null) {
@@ -144,7 +144,7 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
              * Si el usuario que quiere borrar el post no es el dueño o un
              * administrador, se lanza excepción.
              */
-            if (!post.getUsuario().getCorreo().equals(usuario.getCorreo()) && !(usuario instanceof AdministradorDTO)) {
+            if (!postExistente.getUsuario().getCorreo().equals(usuario.getCorreo()) && !(usuario instanceof AdministradorDTO)) {
                 throw new FacadeException("No tiene permisos para borrar este post.");
             }
 

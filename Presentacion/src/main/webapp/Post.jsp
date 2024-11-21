@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -27,9 +28,9 @@
             <main>
                 <section>
                     <article class="post">
-                        <img class="imagen-post" src="${imagenPost}" alt="">
+                        <img class="imagen-post" src="${requestScope.post.getImagen()}" alt="">
                         <div>
-                            <h2 class="usuario-fecha">@${nombreUsuario} - <span>${fechaPublicacion}</span></h2>
+                            <h2 class="usuario-fecha">@${requestScope.post.getUsuario().getNombreUsuario()} - <span>${requestScope.post.getFechaHora()}</span></h2>
                             <c:choose>
                                 <c:when test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"administrador\")}">
                                     <div class="funciones-admin">
@@ -45,19 +46,19 @@
                                 </c:when>
                             </c:choose>
                         </div>
-                        <h1>${titulo}</h1> 
-                        <h2>${subtitulo}</h2> 
-                        <p>${contenido}</p> 
+                        <h1>${requestScope.post.getTitulo()}</h1> 
+                        <h2>${requestScope.post.getSubtitulo()}</h2> 
+                        <p>${requestScope.post.getContenido()}</p> 
                     </article>
 
                     <article class="contenedor-comentario">
-                        <h3 class="subtitulo-comentario">Comentarios (${cantidadComentarios}):</h3>
+                        <h3 class="subtitulo-comentario">Comentarios (${fn:length(requestScope.post.getComentarios())}):</h3>
                         <hr>
-                        <c:forEach var="comentario" items="${comentarios}">
+                        <c:forEach var="comentario" items="${requestScope.post.getComentarios()}">
                             <div class="comentario">
                                 <p>
-                                    <span class="usuario">@${comentario.nombreUsuario} (${comentario.fechaComentario}): </span>
-                                    ${comentario.contenido}
+                                    <span class="usuario">@${comentario.getUsuario().getNombreUsuario()} (${comentario.getFechaHora()}): </span>
+                                    ${comentario.getContenido()}
                                 </p>
                                 <c:choose>
                                     <c:when test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"normal\")}">
