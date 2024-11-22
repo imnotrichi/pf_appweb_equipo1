@@ -24,15 +24,27 @@
         <%@include file="./fragmentos/BarraNavegacion.xhtml" %>
 
         <main>
+            
             <c:forEach var="post" items="${posts}">
-                <a href="Post?id=${post.getId()}">
-                    <article>
-                        <h2>@${post.usuario.nombreUsuario}</h2> 
-                        <h3>${post.titulo}</h3> 
-                        <p>${post.subtitulo}</p> 
-                    </article>
-                </a>
-            </c:forEach>
+                    <a href="Post?id=${post.getId()}">
+                        <c:choose>
+                            <c:when test="${post.imagen != null and not empty post.imagen}">
+                                <article style="background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(111, 192, 248, 1)), url('${post.imagen}');
+                                         background-size: cover;
+                                         background-position: center;">
+                            </c:when>    
+                            <c:otherwise>
+                                <article>
+                            </c:otherwise>
+                        </c:choose>            
+                                
+                            <img src="" alt="">
+                            <h2>@${post.usuario.nombreUsuario}</h2> 
+                            <h3>${post.titulo}</h3> 
+                            <p>${post.subtitulo}</p> 
+                        </article>
+                    </a>
+                </c:forEach>
 
             <%@include file="./fragmentos/BotonNuevoPost.xhtml"%>
         </main>
