@@ -13,8 +13,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import org.itson.aplicacionesweb.themusichub.facade.AccesoDatosFacade;
 import org.itson.aplicacionesweb.themusichub.facade.IAccesoDatosFacade;
 
@@ -66,32 +68,19 @@ public class Post extends HttpServlet {
             request.setAttribute("subtitulo", post.getSubtitulo());
             request.setAttribute("contenido", post.getContenido());
             request.setAttribute("imagenPost", post.getImagen());
-            
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
             String fechaFormateada = dateFormat.format(post.getFechaHoraCreacion().getTime());
             request.setAttribute("fechaPublicacion", fechaFormateada);
 
             if (post.getComentarios() != null && !post.getComentarios().isEmpty()) {
                 request.setAttribute("cantidadComentarios", post.getComentarios().size());
                 System.out.println("SE OBTUVO COMENTARIOS");
-                // Filtrar solo los comentarios principales (aquellos que no son respuestas)
-                List<ComentarioBean> comentariosPrincipales = new LinkedList<>();
-                List<ComentarioDTO> comentariosDTO = post.getComentarios();
-                
-                for (ComentarioDTO comentario : comentariosDTO) {
-                    System.out.println(comentario.getContenido());
-                    
-                    if (comentario.getRespuesta() == null) {
-                        System.out.println("COMENTARIO PRINCIPAL");
-                        // Es un comentario principal, agregarlo a la lista
-                        comentariosPrincipales.add(convertirComentario(comentario, dateFormat));
-                    } else {
-                        System.out.println("COMENTARIO RESPUESTA");
-                        // Es una respuesta, asignar al comentario padre
-                        agregarRespuestaAComentario(comentariosPrincipales, comentario, dateFormat);
-                    }
-                }
 
+                // Procesar comentarios
+                List<ComentarioBean> comentariosPrincipales = procesarComentarios(post.getComentarios(), dateFormat);
+                
+                
                 request.setAttribute("comentarios", comentariosPrincipales);
             }
 
@@ -99,53 +88,53 @@ public class Post extends HttpServlet {
         } catch (Exception e) {
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error al cargar el post.");
         }
-
     }
 
     /**
-     * Convierte un comentario DTO en un objeto ComentarioBean
+     * Procesa la lista de comentarios, separando comentarios principales y
+     * respuestas.
+     */
+    private List<ComentarioBean> procesarComentarios(List<ComentarioDTO> comentariosDTO, SimpleDateFormat dateFormat) {
+        List<ComentarioBean> comentariosPrincipales = new LinkedList<>();
+        Map<Long, ComentarioBean> mapaComentarios = new HashMap<>();
+
+        // Convertir todos los ComentarioDTO a ComentarioBean y organizarlos por ID
+        for (ComentarioDTO comentario : comentariosDTO) {
+            ComentarioBean comentarioBean = convertirComentario(comentario, dateFormat);
+            mapaComentarios.put(comentarioBean.getId(), comentarioBean);
+
+            // Si el comentario no es una respuesta, es principal
+            if (comentario.getRespuesta() == null) {
+                comentariosPrincipales.add(comentarioBean);
+            }
+        }
+
+        // Asignar respuestas a los comentarios principales
+        for (ComentarioDTO comentario : comentariosDTO) {
+            if (comentario.getRespuesta() != null) {
+                Long idPadre = comentario.getRespuesta().getId();
+                ComentarioBean comentarioPadre = mapaComentarios.get(idPadre);
+                if (comentarioPadre != null) {
+                    comentarioPadre.getRespuesta().add(mapaComentarios.get(comentario.getId()));
+                }
+            }
+        }
+
+        return comentariosPrincipales;
+    }
+
+    /**
+     * Convierte un ComentarioDTO en un ComentarioBean.
      */
     private ComentarioBean convertirComentario(ComentarioDTO comentarioDTO, SimpleDateFormat dateFormat) {
         String fechaComentario = dateFormat.format(comentarioDTO.getFechaHora().getTime());
-        List<ComentarioBean> respuestas = null;
-        if (comentarioDTO.getRespuestas() != null && !comentarioDTO.getRespuestas().isEmpty()) {
-            respuestas = convertirComentarios(comentarioDTO.getRespuestas(), dateFormat);
-        }
         return new ComentarioBean(
                 comentarioDTO.getId(),
                 comentarioDTO.getUsuario().getNombreUsuario(),
                 fechaComentario,
                 comentarioDTO.getContenido(),
-                respuestas
+                new LinkedList<>() // Inicializamos la lista de respuestas vacía
         );
-    }
-
-    /**
-     * Asocia una respuesta a su comentario principal.
-     */
-    private void agregarRespuestaAComentario(List<ComentarioBean> comentariosPrincipales, ComentarioDTO respuestaDTO, SimpleDateFormat dateFormat) {
-        // Buscar el comentario principal al que pertenece la respuesta
-        for (ComentarioBean comentarioBean : comentariosPrincipales) {
-            if (comentarioBean.getId().equals(respuestaDTO.getRespuesta().getId())) {
-                // Agregar la respuesta al comentario padre
-                comentarioBean.getRespuesta().add(convertirComentario(respuestaDTO, dateFormat));
-                break;
-            }
-        }
-    }
-
-    /**
-     * Convierte una lista de comentarios DTO en una lista de ComentarioBean.
-     */
-    private List<ComentarioBean> convertirComentarios(List<ComentarioDTO> comentariosDTO, SimpleDateFormat dateFormat) {
-        List<ComentarioBean> comentariosBean = new LinkedList<>();
-        for (ComentarioDTO comentario : comentariosDTO) {
-            // Solo agregar los comentarios que no son respuestas
-            if (comentario.getRespuesta().getId()== null) {
-                comentariosBean.add(convertirComentario(comentario, dateFormat));
-            }
-        }
-        return comentariosBean;
     }
 
     /**

@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -42,7 +43,7 @@
                             <p>${post.subtitulo}</p> 
                         </article>
                     </a>
-                </c:forEach>
+                </c:forEach> 
             
 
             <%@include file="./fragmentos/BotonNuevoPost.xhtml"%>

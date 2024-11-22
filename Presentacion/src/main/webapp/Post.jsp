@@ -58,31 +58,45 @@
                     <article class="contenedor-comentario">
                         <h3 class="subtitulo-comentario">Comentarios (${cantidadComentarios}):</h3>
                         <hr>
-                        <c:forEach var="comentario" items="${comentarios}">
-                            <div class="comentario">
-                                <p>
-                                    <span class="usuario">@${comentario.nombreUsuario} (${comentario.fechaComentario}): </span>
-                                    ${comentario.getContenido()}
-                                </p>
-                                <c:choose>
-                                    <c:when test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"normal\")}">
-                                        <button class="responder-btn">Responder</button>
-                                    </c:when>
-                                    <c:when test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"administrador\")}">
-                                        <button class="responder-btn">Eliminar</button>
-                                    </c:when>
-                                </c:choose>
+                        <c:if test="${not empty comentarios}">
+                            <c:forEach var="comentario" items="${comentarios}">
+                                <div class="comentario">
+                                    <p>
+                                        <span class="usuario">@${comentario.nombreUsuario} (${comentario.fechaComentario}): </span>
+                                        ${comentario.contenido}
+                                    </p>
+                                    <c:choose>
+                                        <c:when test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"normal\")}">
+                                            <button class="responder-btn">Responder</button>
+                                        </c:when>
+                                        <c:when test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"administrador\")}">
+                                            <button class="responder-btn">Eliminar</button>
+                                        </c:when>
+                                    </c:choose>
 
-                                <c:if test="${not empty comentario.respuesta}">
-                                    <div class="respuestas">
-                                        <jsp:include page="/fragmentos/Comentarios.jsp">
-                                            <jsp:param name="comentarios" value="${comentario.respuesta}" />
-                                        </jsp:include>
-                                    </div>
-                                </c:if>
-                            </div>
-                        </c:forEach>
-
+                                    <c:if test="${not empty comentario.respuesta}">
+                                        <div class="respuestas">
+                                            <c:forEach var="comentarioRespuesta" items="${comentario.respuesta}">
+                                                <div class="comentario respuesta">
+                                                    <p>
+                                                        <span class="usuario">@${comentarioRespuesta.nombreUsuario} (${comentarioRespuesta.fechaComentario}): </span>
+                                                        ${comentarioRespuesta.contenido}
+                                                    </p>
+                                                    <c:choose>
+                                                        <c:when test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"normal\")}">
+                                                            <button class="responder-btn">Responder</button>
+                                                        </c:when>
+                                                        <c:when test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"administrador\")}">
+                                                            <button class="responder-btn">Eliminar</button>
+                                                        </c:when>
+                                                    </c:choose>
+                                                </div>
+                                            </c:forEach>
+                                        </div>
+                                    </c:if>
+                                </div>
+                            </c:forEach>
+                        </c:if>
 
                         <c:choose>
                             <c:when test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"normal\")}">
@@ -94,7 +108,7 @@
                                 </div>
                             </c:when>
                         </c:choose>
-                    </article>
+                    </article> 
                 </section>
             </main>
         </div>

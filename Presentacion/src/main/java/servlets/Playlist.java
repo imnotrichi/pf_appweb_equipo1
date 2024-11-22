@@ -69,14 +69,13 @@ public class Playlist extends HttpServlet {
          System.out.println("HOLA DESDE SERVLET PLAYLIST");
         try {
             List<PostDTO> posts = accesoDatos.obtenerPostsPorCategoria(CategoriaPost.PLAYLIST);
+            
             List<PostBean> postBeans = posts.stream()
                     .map(this::toBean)
                     .collect(Collectors.toList());
 
             request.setAttribute("posts", postBeans);
-            
-            System.out.println("SERVLET POSTS ");
-            request.getRequestDispatcher("/Playlist.jsp").forward(request, response);
+            request.getRequestDispatcher("/Playlists.jsp").forward(request, response);
         } catch (FacadeException ex) {
             Logger.getLogger(General.class.getName()).log(Level.SEVERE, null, ex);
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error al cargar los posts.");
