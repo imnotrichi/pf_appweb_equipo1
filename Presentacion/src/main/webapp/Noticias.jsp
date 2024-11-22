@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -17,57 +18,24 @@
 </head>
 
 <body>
-    <%@include file="./fragmentos/Encabezado.xhtml"%>
+    <%@include file="./fragmentos/Encabezado.xhtml" %>
 
     <div class="contenedor">
-        <%@include file="./fragmentos/BarraNavegacion.xhtml"%>
+        <%@include file="./fragmentos/BarraNavegacion.xhtml" %>
 
         <main>
-            <a href="">
-                <article>
-                    <h2>@pipucate</h2>
-                    <h3>Black Midi se desintegran</h3>
-                    <p>El pasado 10 de agosto, en un Live de Instagram, Geordie Greep anunció que la banda se
-                        disolvería.</p>
-                </article>
-            </a>
-            <a href="">
-                <article>
-                    <h2>@pipucate</h2>
-                    <h3>Nuevo álbum de King Gizzard</h3>
-                    <p>El sexteto australiano de rock psicodélico lanzó su vigésimo quinto album. Ésta nueva entrega nos
-                        presenta un sonido similar al de Fishing For Fishies.</p>
-                </article>
-            </a>
-            <a href="">
-                <article>
-                    <h2>@ricardoalann</h2>
-                    <h3>Hola, quería anunciarles que voy a sacar un nuevo album</h3>
-                    <p>El próximo mes sacaré mi nuevo album titulado "Queremos que el Richi nos baile la pelusa".</p>
-                </article>
-            </a>
-            <a href="">
-                <article>
-                    <h2>@mintfield_official</h2>
-                    <h3>Nuevo álbum!!</h3>
-                    <p>Holiii, queremos anunciarles que nuestro nuevo album "Aprende a Ser: Extended" ya está en todas las plataformas de streaming.</p>
-                </article>
-            </a>
-            <a href="">
-                <article>
-                    <h2>@pipucate</h2>
-                    <h3>Aphex Twins vuelve</h3>
-                    <p>El mítico compositor y DJ vuelve con su remasterización del "Selected Ambient Works Volume II" de 1994.</p>
-                </article>
-            </a>
-            <a href="">
-                <article>
-                    <h2>@licoree</h2>
-                    <h3>Björk anuncia nueva gira</h3>
-                    <p>El fenómeno mundial del artpop anuncia una nueva gira mundial. Dentro de la lista de ciudades elegidas están Bacadéhuachi y Bratislava.</p>
-                </article>
-            </a>
+        
             
+            <c:forEach var="post" items="${posts}">
+                <a href="Post?id=${post.getId()}">
+                    <article>
+                        <h2>@${post.usuario.nombreUsuario}</h2> 
+                        <h3>${post.titulo}</h3> 
+                        <p>${post.subtitulo}</p> 
+                    </article>
+                </a>
+            </c:forEach>
+
             <%@include file="./fragmentos/BotonNuevoPost.xhtml"%>
         </main>
     </div>

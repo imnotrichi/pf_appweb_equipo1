@@ -98,7 +98,7 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
             case "GENERAL":
                 categoria = CategoriaPost.GENERAL;
                 break;
-            case "NOTICIAS":
+            case "NOTICIA":
                 categoria = CategoriaPost.NOTICIAS;
                 break;
             case "PLAYLIST":
