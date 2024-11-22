@@ -7,7 +7,9 @@ package servlets;
 import beans.ComentarioBean;
 import beans.PostBean;
 import beans.UsuarioBean;
+import com.mycompany.dto.AncladoDTO;
 import com.mycompany.dto.ComentarioDTO;
+import com.mycompany.dto.ComunDTO;
 import com.mycompany.dto.PostDTO;
 import com.mycompany.dto.UsuarioDTO;
 import java.io.IOException;
@@ -51,7 +53,7 @@ public class Playlist extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -66,10 +68,10 @@ public class Playlist extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         System.out.println("HOLA DESDE SERVLET PLAYLIST");
+        System.out.println("HOLA DESDE SERVLET PLAYLIST");
         try {
             List<PostDTO> posts = accesoDatos.obtenerPostsPorCategoria(CategoriaPost.PLAYLIST);
-            
+
             List<PostBean> postBeans = posts.stream()
                     .map(this::toBean)
                     .collect(Collectors.toList());
@@ -80,9 +82,9 @@ public class Playlist extends HttpServlet {
             Logger.getLogger(General.class.getName()).log(Level.SEVERE, null, ex);
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error al cargar los posts.");
         }
-        
+
     }
-    
+
     private PostBean toBean(PostDTO dto) {
         if (dto == null) {
             return null;
@@ -92,7 +94,12 @@ public class Playlist extends HttpServlet {
         List<ComentarioBean> comentarios = dto.getComentarios() != null
                 ? dto.getComentarios().stream().map(this::toBean).collect(Collectors.toList())
                 : null;
-
+        String tipo = "";
+        if (dto instanceof ComunDTO) {
+            tipo = "comun";
+        } else if (dto instanceof AncladoDTO) {
+            tipo = "anclado";
+        }
         return new PostBean(
                 dto.getId(),
                 toBean(dto.getUsuario()),
@@ -102,7 +109,8 @@ public class Playlist extends HttpServlet {
                 dto.getContenido(),
                 dto.getCategoria(),
                 dto.getImagen(),
-                comentarios
+                comentarios,
+                tipo
         );
     }
 
@@ -149,7 +157,7 @@ public class Playlist extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
     }
 
     /**

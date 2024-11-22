@@ -7,7 +7,9 @@ package servlets;
 import beans.ComentarioBean;
 import beans.PostBean;
 import beans.UsuarioBean;
+import com.mycompany.dto.AncladoDTO;
 import com.mycompany.dto.ComentarioDTO;
+import com.mycompany.dto.ComunDTO;
 import com.mycompany.dto.PostDTO;
 import com.mycompany.dto.UsuarioDTO;
 import jakarta.servlet.ServletException;
@@ -88,6 +90,12 @@ public class General extends HttpServlet {
         List<ComentarioBean> comentarios = dto.getComentarios() != null
                 ? dto.getComentarios().stream().map(this::toBean).collect(Collectors.toList())
                 : null;
+        String tipo = "";
+        if (dto instanceof ComunDTO) {
+            tipo = "comun";
+        } else if (dto instanceof AncladoDTO) {
+            tipo = "anclado";
+        }
 
         return new PostBean(
                 dto.getId(),
@@ -98,7 +106,8 @@ public class General extends HttpServlet {
                 dto.getContenido(),
                 dto.getCategoria(),
                 dto.getImagen(),
-                comentarios
+                comentarios,
+                tipo
         );
     }
 
@@ -119,7 +128,7 @@ public class General extends HttpServlet {
                 dto.getUsuario().getNombreUsuario(),
                 dto.getFechaHora().getTime().toString(),
                 dto.getContenido(),
-                respuestas 
+                respuestas
         );
     }
 
