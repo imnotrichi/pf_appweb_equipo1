@@ -42,7 +42,6 @@ public class EliminarPost extends HttpServlet {
             throws ServletException, IOException {
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -59,10 +58,11 @@ public class EliminarPost extends HttpServlet {
         HttpSession sesion = request.getSession();
 
         UsuarioBean usuario = (UsuarioBean) sesion.getAttribute("usuario");
-        
+
         try {
             UsuarioDTO usuarioObtenido = accesoDatos.obtenerUsuario(usuario.getCorreo());
             accesoDatos.eliminarPost(Long.valueOf(idPost), usuarioObtenido);
+            request.getRequestDispatcher("/Inicio.jsp").forward(request, response);
         } catch (FacadeException ex) {
             Logger.getLogger(EliminarPost.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -89,6 +89,6 @@ public class EliminarPost extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }
 
 }

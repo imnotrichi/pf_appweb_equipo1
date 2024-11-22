@@ -4,6 +4,8 @@
 package servlets;
 
 import beans.UsuarioBean;
+import com.mycompany.dto.AncladoDTO;
+import com.mycompany.dto.ComunDTO;
 import com.mycompany.dto.PostDTO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -42,7 +44,6 @@ public class AnclarPost extends HttpServlet {
             throws ServletException, IOException {
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -56,16 +57,20 @@ public class AnclarPost extends HttpServlet {
             throws ServletException, IOException {
 
         String idPost = request.getParameter("idPost");
-
         HttpSession sesion = request.getSession();
 
-        UsuarioBean administrador = (UsuarioBean) sesion.getAttribute("usuario");
-
+        UsuarioBean usuario = (UsuarioBean) sesion.getAttribute("usuario");
         try {
-            accesoDatos.anclarPost(Long.valueOf(idPost), administrador.getCorreo());
+            PostDTO post = accesoDatos.obtenerPostID(Long.valueOf(idPost));
+            if (post instanceof ComunDTO) {
+                accesoDatos.anclarPost(Long.valueOf(idPost), usuario.getCorreo());
+            } else if (post instanceof AncladoDTO) {
+                accesoDatos.desanclarPost(Long.valueOf(idPost));
+            }
+            Long id = Long.valueOf(idPost)+1;
+            request.getRequestDispatcher("/Post?id=" + id).forward(request, response);
         } catch (FacadeException ex) {
-            request.setAttribute("error", "Ocurrió un error al anclar el post");
-            this.getServletContext().getRequestDispatcher("/IniciarRegistrar.jsp").forward(request, response);
+            Logger.getLogger(EliminarPost.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

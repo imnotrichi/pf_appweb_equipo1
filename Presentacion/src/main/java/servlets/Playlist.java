@@ -10,12 +10,13 @@ import beans.UsuarioBean;
 import com.mycompany.dto.ComentarioDTO;
 import com.mycompany.dto.PostDTO;
 import com.mycompany.dto.UsuarioDTO;
+import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,10 +28,10 @@ import org.itson.aplicacionesweb.themusichub.persistenciaException.FacadeExcepti
 
 /**
  *
- * @author Equipo 1
+ * @author Abe
  */
-@WebServlet(name = "General", urlPatterns = {"/General"})
-public class General extends HttpServlet {
+@WebServlet(name = "Playlist", urlPatterns = {"/Playlist"})
+public class Playlist extends HttpServlet {
 
     private IAccesoDatosFacade accesoDatos;
 
@@ -50,9 +51,10 @@ public class General extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
     }
 
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -64,23 +66,24 @@ public class General extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("HOLA DESDE SERVLET GENERAL");
+         System.out.println("HOLA DESDE SERVLET PLAYLIST");
         try {
-            List<PostDTO> posts = accesoDatos.obtenerPostsPorCategoria(CategoriaPost.GENERAL);
-            
+            List<PostDTO> posts = accesoDatos.obtenerPostsPorCategoria(CategoriaPost.PLAYLIST);
             List<PostBean> postBeans = posts.stream()
                     .map(this::toBean)
                     .collect(Collectors.toList());
 
             request.setAttribute("posts", postBeans);
+            
             System.out.println("SERVLET POSTS ");
-            request.getRequestDispatcher("/General.jsp").forward(request, response);
+            request.getRequestDispatcher("/Playlist.jsp").forward(request, response);
         } catch (FacadeException ex) {
             Logger.getLogger(General.class.getName()).log(Level.SEVERE, null, ex);
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error al cargar los posts.");
         }
+        
     }
-
+    
     private PostBean toBean(PostDTO dto) {
         if (dto == null) {
             return null;
@@ -147,7 +150,7 @@ public class General extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
     }
 
     /**
@@ -158,6 +161,6 @@ public class General extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }
+    }// </editor-fold>
 
 }

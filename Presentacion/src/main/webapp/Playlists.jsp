@@ -23,31 +23,27 @@
         <%@include file="./fragmentos/BarraNavegacion.xhtml"%>
 
         <main>
-            <a href="">
-                <article>
-                    <img src="" alt="">
-                    <h2>@licoreeee</h2>
-                    <h3>Ya tienen disponible mi playlist para..</h3>
-                    <p>Sé que fue una larga espera pero ya tienen la playlist de octubre muejeje vayan a escucharla </p>
-                </article>
-            </a>
-
-            <a href="">
-                <article>
-                    <h2>@sunflower4</h2>
-                    <h3>He hecho esta nueva playlist :)</h3>
-                    <p>Aquí abajo les dejaré el link a mi playlist nueva “Sunflower” la hice con lo que escucho.</p>
-                </article>
-            </a>
-
-            <a href="">
-                <article>
-                    <img src="" alt="">
-                    <h2>@abel_sanchez123</h2>
-                    <h3>No quiero que se acabe el verano brat así que les dejo la playlist que hice wachen:</h3>
-                    <p></p>
-                </article>
-            </a>
+            <c:forEach var="post" items="${posts}">
+                    <a href="Post?id=${post.getId()}">
+                        <c:choose>
+                            <c:when test="${post.imagen != null and not empty post.imagen}">
+                                <article style="background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(111, 192, 248, 1)), url('${post.imagen}');
+                                         background-size: cover;
+                                         background-position: center;">
+                            </c:when>    
+                            <c:otherwise>
+                                <article>
+                            </c:otherwise>
+                        </c:choose>            
+                                
+                            <img src="" alt="">
+                            <h2>@${post.usuario.nombreUsuario}</h2> 
+                            <h3>${post.titulo}</h3> 
+                            <p>${post.subtitulo}</p> 
+                        </article>
+                    </a>
+                </c:forEach>
+            
 
             <%@include file="./fragmentos/BotonNuevoPost.xhtml"%>
         </main>

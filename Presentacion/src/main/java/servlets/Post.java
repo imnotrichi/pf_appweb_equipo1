@@ -45,7 +45,6 @@ public class Post extends HttpServlet {
 
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -60,7 +59,7 @@ public class Post extends HttpServlet {
         String id = request.getParameter("id");
         try {
             System.out.println("HOLA DESDE SERVLET POST");
-            PostDTO post = accesoDatos.obtenerPostID(Long.parseLong(id));
+            PostDTO post = accesoDatos.obtenerPostID(Long.valueOf(id));
             request.setAttribute("id", id);
             request.setAttribute("titulo", post.getTitulo());
             request.setAttribute("nombreUsuario", post.getUsuario().getNombreUsuario());

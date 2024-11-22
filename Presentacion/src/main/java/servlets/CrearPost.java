@@ -15,14 +15,9 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.apache.commons.io.IOUtils;
 import org.itson.aplicacionesweb.themusichub.facade.AccesoDatosFacade;
 import org.itson.aplicacionesweb.themusichub.facade.IAccesoDatosFacade;
 import org.itson.aplicacionesweb.themusichub.persistenciaException.FacadeException;
@@ -86,7 +81,7 @@ public class CrearPost extends HttpServlet {
 
         String rutaRelativa = "";
         //PROCESAMIENTO DE LA IMAGEN
-        if (request.getPart("imagen") != null) {
+        if (!request.getPart("imagen").getSubmittedFileName().isBlank()) {
         // Se crea la ruta del directorio donde se almacenarán las imagenes
         String rutaDirectorio = getServletContext().getRealPath("/imagenesPost");
         File directorioImagenesPost = new File(rutaDirectorio);

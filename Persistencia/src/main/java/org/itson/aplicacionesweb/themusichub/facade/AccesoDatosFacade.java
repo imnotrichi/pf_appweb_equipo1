@@ -98,7 +98,7 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
             case "GENERAL":
                 categoria = CategoriaPost.GENERAL;
                 break;
-            case "NOTICIAS":
+            case "NOTICIA":
                 categoria = CategoriaPost.NOTICIAS;
                 break;
             case "PLAYLIST":
@@ -446,7 +446,6 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
                     usuario.getCiudad(),
                     usuario.getFechaNacimiento(),
                     usuario.getGenero(),
-                    convertirPostsAPostsDTO(usuario.getPosts()),
                     municipioDTO);
         }
 

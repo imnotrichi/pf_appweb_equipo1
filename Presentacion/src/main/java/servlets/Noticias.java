@@ -16,6 +16,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,10 +28,10 @@ import org.itson.aplicacionesweb.themusichub.persistenciaException.FacadeExcepti
 
 /**
  *
- * @author Equipo 1
+ * @author Dell
  */
-@WebServlet(name = "General", urlPatterns = {"/General"})
-public class General extends HttpServlet {
+@WebServlet(name = "General", urlPatterns = {"/Noticias"})
+public class Noticias extends HttpServlet {
 
     private IAccesoDatosFacade accesoDatos;
 
@@ -64,9 +65,9 @@ public class General extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("HOLA DESDE SERVLET GENERAL");
+        System.out.println("HOLA DESDE SERVLET NOTICIAS");
         try {
-            List<PostDTO> posts = accesoDatos.obtenerPostsPorCategoria(CategoriaPost.GENERAL);
+            List<PostDTO> posts = accesoDatos.obtenerPostsPorCategoria(CategoriaPost.NOTICIAS);
             
             List<PostBean> postBeans = posts.stream()
                     .map(this::toBean)
@@ -74,7 +75,7 @@ public class General extends HttpServlet {
 
             request.setAttribute("posts", postBeans);
             System.out.println("SERVLET POSTS ");
-            request.getRequestDispatcher("/General.jsp").forward(request, response);
+            request.getRequestDispatcher("/Noticias.jsp").forward(request, response);
         } catch (FacadeException ex) {
             Logger.getLogger(General.class.getName()).log(Level.SEVERE, null, ex);
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error al cargar los posts.");
