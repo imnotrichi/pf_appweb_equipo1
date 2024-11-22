@@ -65,6 +65,10 @@
         <servlet-name>Reviews</servlet-name>
         <servlet-class>servlets.Reviews</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Noticias</servlet-name>
+        <servlet-class>servlets.Noticias</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>IniciarSesion</servlet-name>
         <url-pattern>/IniciarSesion</url-pattern>
@@ -134,6 +138,10 @@
     <servlet-mapping>
         <servlet-name>Reviews</servlet-name>
         <url-pattern>/Reviews</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Noticias</servlet-name>
+        <url-pattern>/Noticias</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

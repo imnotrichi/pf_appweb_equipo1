@@ -26,13 +26,12 @@ import org.itson.aplicacionesweb.themusichub.facade.AccesoDatosFacade;
 import org.itson.aplicacionesweb.themusichub.facade.IAccesoDatosFacade;
 import org.itson.aplicacionesweb.themusichub.persistenciaException.FacadeException;
 
-
 /**
  *
- * @author Equipo1
+ * @author Dell
  */
-@WebServlet(name = "General", urlPatterns = {"/Reviews"})
-public class Reviews extends HttpServlet {
+@WebServlet(name = "General", urlPatterns = {"/Noticias"})
+public class Noticias extends HttpServlet {
 
     private IAccesoDatosFacade accesoDatos;
 
@@ -66,9 +65,9 @@ public class Reviews extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("HOLA DESDE SERVLET REVIEWS");
+        System.out.println("HOLA DESDE SERVLET NOTICIAS");
         try {
-            List<PostDTO> posts = accesoDatos.obtenerPostsPorCategoria(CategoriaPost.REVIEWS);
+            List<PostDTO> posts = accesoDatos.obtenerPostsPorCategoria(CategoriaPost.NOTICIAS);
             
             List<PostBean> postBeans = posts.stream()
                     .map(this::toBean)
@@ -76,13 +75,13 @@ public class Reviews extends HttpServlet {
 
             request.setAttribute("posts", postBeans);
             System.out.println("SERVLET POSTS ");
-            request.getRequestDispatcher("/Reviews.jsp").forward(request, response);
+            request.getRequestDispatcher("/Noticias.jsp").forward(request, response);
         } catch (FacadeException ex) {
             Logger.getLogger(General.class.getName()).log(Level.SEVERE, null, ex);
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error al cargar los posts.");
         }
     }
-    
+
     private PostBean toBean(PostDTO dto) {
         if (dto == null) {
             return null;
