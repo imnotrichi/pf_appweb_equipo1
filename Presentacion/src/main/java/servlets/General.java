@@ -7,7 +7,9 @@ package servlets;
 import beans.ComentarioBean;
 import beans.PostBean;
 import beans.UsuarioBean;
+import com.mycompany.dto.AncladoDTO;
 import com.mycompany.dto.ComentarioDTO;
+import com.mycompany.dto.ComunDTO;
 import com.mycompany.dto.PostDTO;
 import com.mycompany.dto.UsuarioDTO;
 import jakarta.servlet.ServletException;
@@ -67,13 +69,12 @@ public class General extends HttpServlet {
         System.out.println("HOLA DESDE SERVLET GENERAL");
         try {
             List<PostDTO> posts = accesoDatos.obtenerPostsPorCategoria(CategoriaPost.GENERAL);
-            
+
             List<PostBean> postBeans = posts.stream()
                     .map(this::toBean)
                     .collect(Collectors.toList());
 
             request.setAttribute("posts", postBeans);
-            System.out.println("SERVLET POSTS ");
             request.getRequestDispatcher("/General.jsp").forward(request, response);
         } catch (FacadeException ex) {
             Logger.getLogger(General.class.getName()).log(Level.SEVERE, null, ex);
@@ -86,10 +87,15 @@ public class General extends HttpServlet {
             return null;
         }
 
-        // Convierte comentarios
         List<ComentarioBean> comentarios = dto.getComentarios() != null
                 ? dto.getComentarios().stream().map(this::toBean).collect(Collectors.toList())
                 : null;
+        String tipo = "";
+        if (dto instanceof ComunDTO) {
+            tipo = "comun";
+        } else if (dto instanceof AncladoDTO) {
+            tipo = "anclado";
+        }
 
         return new PostBean(
                 dto.getId(),
@@ -100,7 +106,8 @@ public class General extends HttpServlet {
                 dto.getContenido(),
                 dto.getCategoria(),
                 dto.getImagen(),
-                comentarios
+                comentarios,
+                tipo
         );
     }
 
@@ -111,12 +118,17 @@ public class General extends HttpServlet {
         if (dto == null) {
             return null;
         }
+
+        List<ComentarioBean> respuestas = dto.getRespuestas() != null
+                ? dto.getRespuestas().stream().map(this::toBean).collect(Collectors.toList())
+                : null;
+
         return new ComentarioBean(
                 dto.getId(),
                 dto.getUsuario().getNombreUsuario(),
                 dto.getFechaHora().getTime().toString(),
                 dto.getContenido(),
-                null //Aun no se pueden poner respustas saluditos
+                respuestas
         );
     }
 
