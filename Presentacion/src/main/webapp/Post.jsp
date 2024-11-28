@@ -31,8 +31,8 @@
                         <img class="imagen-post" src="${pageContext.request.contextPath}/${imagenPost}" alt="">
                         <div>
                             <h2 class="usuario-fecha">@${nombreUsuario} - <span>${fechaPublicacion}</span></h2>
-                            <c:choose>
-                                <c:when test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"administrador\")}">
+                            <c:if test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"administrador\") 
+                                  || sessionScope.usuario.getNombreUsuario().equals(nombreUsuario)}">
                                     <div class="funciones-admin">
                                         <a href="EliminarPost?idPost=${id}">
                                             <button>
@@ -40,15 +40,16 @@
                                                 <img src="./imagenes/white-trash-icon.png" alt="white trash icon">
                                             </button>
                                         </a>
-                                        <a href="AnclarPost?idPost=${id}">
-                                            <button>
-                                                Anclar
-                                                <img src="./imagenes/white-pin-icon.png">
-                                            </button>
-                                        </a>
+                                        <c:if test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"administrador\")}">
+                                            <a href="AnclarPost?idPost=${id}">
+                                                <button>
+                                                    Anclar
+                                                    <img src="./imagenes/white-pin-icon.png">
+                                                </button>
+                                            </a>
+                                        </c:if>
                                     </div>
-                                </c:when>
-                            </c:choose>
+                            </c:if>
                         </div>
                         <h1>${titulo}</h1> 
                         <h2>${subtitulo}</h2> 
