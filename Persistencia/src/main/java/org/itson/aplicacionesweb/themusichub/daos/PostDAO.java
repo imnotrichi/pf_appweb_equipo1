@@ -3,6 +3,7 @@
  */
 package org.itson.aplicacionesweb.themusichub.daos;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -181,7 +182,25 @@ public class PostDAO implements IPostDAO {
             // Imprimimos un mensaje de que se ejecutó una consulta.
             logger.log(Level.INFO, "Se ha consultado la tabla 'posts' y se obtuvieron " + i + " resultados.");
             // Retornamos la lista de posts.
-            return listaPosts;
+
+            // Ordenamos la lista: primero los anclados y luego los comunes.
+            List<Post> postsAnclados = new ArrayList<>();
+            List<Post> postsComunes = new ArrayList<>();
+
+            for (Post post : listaPosts) {
+                if (post instanceof Comun) {
+                    postsComunes.add(post);
+                } else {
+                    postsAnclados.add(post);
+                }
+            }
+
+            // Combinar ambas listas.
+            postsAnclados.addAll(postsComunes);
+
+            // Retornamos la lista ordenada.
+            return postsAnclados;
+
         } catch (PersistenceException pe) {
             throw new PersistenciaException("No se pudieron consultar los posts.");
         } finally {
@@ -416,7 +435,7 @@ public class PostDAO implements IPostDAO {
      *
      * @param postComun El id del post que se quiere desanclar.
      * @param postAnclado El id del post que se quiere desanclar.
-     * @throws PersistenciaException 
+     * @throws PersistenciaException
      */
     @Override
     public void desanclarPost(Comun postComun, Anclado postAnclado) throws PersistenciaException {
