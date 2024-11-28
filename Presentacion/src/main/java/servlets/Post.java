@@ -26,12 +26,7 @@ import org.itson.aplicacionesweb.themusichub.facade.IAccesoDatosFacade;
  */
 public class Post extends HttpServlet {
 
-    private IAccesoDatosFacade accesoDatos;
-
-    @Override
-    public void init() throws ServletException {
-        accesoDatos = new AccesoDatosFacade();
-    }
+    public static int contador = 0;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -59,9 +54,14 @@ public class Post extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String id = request.getParameter("id");
+        IAccesoDatosFacade accesoDatos = new AccesoDatosFacade();
+
         try {
             System.out.println("HOLA DESDE SERVLET POST");
+            contador++;
+            System.out.println(contador);
             PostDTO post = accesoDatos.obtenerPostID(Long.valueOf(id));
+            System.out.println(post.getComentarios().size() + "en la vuelta" + contador);
             request.setAttribute("id", id);
             request.setAttribute("titulo", post.getTitulo());
             request.setAttribute("nombreUsuario", post.getUsuario().getNombreUsuario());
@@ -79,8 +79,7 @@ public class Post extends HttpServlet {
 
                 // Procesar comentarios
                 List<ComentarioBean> comentariosPrincipales = procesarComentarios(post.getComentarios(), dateFormat);
-                
-                
+
                 request.setAttribute("comentarios", comentariosPrincipales);
             }
 

@@ -15,6 +15,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="./estilos/estiloEstructura.css">
         <link rel="stylesheet" href="./estilos/estiloPost.css">
+        <script src="./Scripts/AgregarComentario.js" defer></script>
 
         <title>The Music Hub - Post</title>
     </head>
@@ -32,23 +33,23 @@
                         <div>
                             <h2 class="usuario-fecha">@${nombreUsuario} - <span>${fechaPublicacion}</span></h2>
                             <c:if test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"administrador\") 
-                                  || sessionScope.usuario.getNombreUsuario().equals(nombreUsuario)}">
-                                    <div class="funciones-admin">
-                                        <a href="EliminarPost?idPost=${id}">
-                                            <button>
-                                                Eliminar
-                                                <img src="./imagenes/white-trash-icon.png" alt="white trash icon">
-                                            </button>
-                                        </a>
-                                        <c:if test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"administrador\")}">
-                                            <a href="AnclarPost?idPost=${id}">
-                                                <button>
-                                                    Anclar
-                                                    <img src="./imagenes/white-pin-icon.png">
-                                                </button>
-                                            </a>
-                                        </c:if>
-                                    </div>
+                                          || sessionScope.usuario.getNombreUsuario().equals(nombreUsuario)}">
+                                  <div class="funciones-admin">
+                                      <a href="EliminarPost?idPost=${id}">
+                                          <button>
+                                              Eliminar
+                                              <img src="./imagenes/white-trash-icon.png" alt="white trash icon">
+                                          </button>
+                                      </a>
+                                      <c:if test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"administrador\")}">
+                                          <a href="AnclarPost?idPost=${id}">
+                                              <button>
+                                                  Anclar
+                                                  <img src="./imagenes/white-pin-icon.png">
+                                              </button>
+                                          </a>
+                                      </c:if>
+                                  </div>
                             </c:if>
                         </div>
                         <h1>${titulo}</h1> 
@@ -102,10 +103,12 @@
                         <c:choose>
                             <c:when test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"normal\")}">
                                 <div class="comentar">
-                                    <textarea placeholder="Escribe un comentario..."></textarea>
-                                    <button class="boton-comentar">
-                                        Comentar
-                                    </button>
+                                    <form  id="comentarioForm">
+                                        <input type="hidden" id="postId" value="${id}">                                        
+                                        <textarea id="contenidoComentario" placeholder="Escribe tu comentario aquí..." required></textarea>
+                                        <button class="boton-comentar" type="submit">Comentar</button>
+                                    </form>
+
                                 </div>
                             </c:when>
                         </c:choose>

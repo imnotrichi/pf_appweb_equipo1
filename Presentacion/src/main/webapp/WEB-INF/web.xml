@@ -71,7 +71,7 @@
     </servlet>
     <servlet>
         <servlet-name>agregarComentario</servlet-name>
-        <servlet-class>servlets.agregarComentario</servlet-class>
+        <servlet-class>servlets.AgregarComentario</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>IniciarSesion</servlet-name>
