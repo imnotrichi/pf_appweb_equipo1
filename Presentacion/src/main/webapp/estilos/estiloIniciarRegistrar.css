@@ -299,6 +299,7 @@ select {
 
 input[type="submit"],
 .switch{
+    cursor: pointer;
     display: flex;
     flex-direction: column;
     justify-content: center;
