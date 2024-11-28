@@ -6,8 +6,6 @@ package org.itson.aplicacionesweb.themusichub.daos;
 
 import java.util.List;
 import org.itson.aplicacionesweb.themusichub.enums.CategoriaPost;
-import org.itson.aplicacionesweb.themusichub.modelo.Anclado;
-import org.itson.aplicacionesweb.themusichub.modelo.Comun;
 import org.itson.aplicacionesweb.themusichub.modelo.Post;
 import org.itson.aplicacionesweb.themusichub.modelo.Usuario;
 import org.itson.aplicacionesweb.themusichub.persistenciaException.PersistenciaException;
@@ -24,7 +22,7 @@ public interface IPostDAO {
     public void publicarPost(Post post) throws PersistenciaException;
     public void editarPost(Post post) throws PersistenciaException;
     public void eliminarPost(Post post) throws PersistenciaException;
-    public Post buscarPostPorAtributos(Post post) throws PersistenciaException;
-    public void anclarPost(Comun postComun, Anclado postAnclado) throws PersistenciaException;
-    public void desanclarPost(Comun comun, Anclado anclado) throws PersistenciaException;
+//    public Post buscarPostPorAtributos(Post post) throws PersistenciaException;
+    public void anclarPost(Post postComun) throws PersistenciaException;
+    public void desanclarPost(Post postAnclado) throws PersistenciaException;
 }

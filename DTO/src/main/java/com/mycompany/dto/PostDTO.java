@@ -22,6 +22,7 @@ public class PostDTO {
     private String imagen;
     private List<ComentarioDTO> comentarios;
     private UsuarioDTO usuario;
+    private boolean anclado;
 
     /**
      * Constructor para un PostDTO nuevo.
@@ -58,7 +59,7 @@ public class PostDTO {
      * @param categoria
      * @param usuario
      */
-    public PostDTO(Long id, Calendar fechaHoraCreacion, String titulo, String subtitulo, String contenido, String categoria, UsuarioDTO usuario, List<ComentarioDTO> comentarios, String imagen) {
+    public PostDTO(Long id, Calendar fechaHoraCreacion, String titulo, String subtitulo, String contenido, String categoria, UsuarioDTO usuario, List<ComentarioDTO> comentarios, String imagen, boolean anclado) {
         this.id = id;
         this.fechaHoraCreacion = fechaHoraCreacion;
         this.titulo = titulo;
@@ -71,6 +72,7 @@ public class PostDTO {
         }
         this.imagen = imagen;
         this.comentarios = comentarios;
+        this.anclado = anclado;
     }
 
     /**
@@ -156,4 +158,13 @@ public class PostDTO {
         this.imagen = imagen;
     }
 
+    public boolean estaAnclado() {
+        return anclado;
+    }
+
+    public void setEstaAnclado(boolean anclado) {
+        this.anclado = anclado;
+    }
+
+    
 }

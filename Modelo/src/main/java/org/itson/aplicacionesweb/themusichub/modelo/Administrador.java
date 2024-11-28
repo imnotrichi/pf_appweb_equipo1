@@ -19,7 +19,7 @@ import javax.persistence.Table;
 public class Administrador extends Usuario implements Serializable {
 
     @OneToMany(mappedBy = "administrador", cascade = CascadeType.PERSIST)
-    private List<Anclado> postsAnclados;
+    private List<Post> postsAnclados;
 
     /**
      * Constructor vacío.
@@ -31,11 +31,11 @@ public class Administrador extends Usuario implements Serializable {
         super(correo, nombres, apellidoPaterno, apellidoMaterno, nombreUsuario, contrasenia, telefono, avatar, ciudad, fechaNacimiento, genero, municipio);
     }
 
-    public List<Anclado> getPostsAnclados() {
+    public List<Post> getPostsAnclados() {
         return postsAnclados;
     }
 
-    public void setPostsAnclados(List<Anclado> postsAnclados) {
+    public void setPostsAnclados(List<Post> postsAnclados) {
         this.postsAnclados = postsAnclados;
     }
 
