@@ -64,6 +64,13 @@ public class Post implements Serializable {
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     protected List<Comentario> comentarios;
 
+    @Column(name = "anclado", nullable = true)
+    protected boolean anclado;
+
+    @ManyToOne
+    @JoinColumn(name = "id_administrador", nullable = true)
+    private Administrador administrador;
+
     @ManyToOne
     @JoinColumn(name = "id_usuario", nullable = false)
     protected Usuario usuario;
@@ -116,6 +123,19 @@ public class Post implements Serializable {
         this.usuario = usuario;
         this.imagen = imagen;
         this.comentarios = comentarios;
+    }
+
+    public Post(Long id, Calendar fechaHoraCreacion, String titulo, String subtitulo, String contenido, CategoriaPost categoria, List<Comentario> comentarios, Usuario usuario, Administrador administrador, String imagen) {
+        this.id = id;
+        this.fechaHoraCreacion = fechaHoraCreacion;
+        this.titulo = titulo;
+        this.subtitulo = subtitulo;
+        this.contenido = contenido;
+        this.categoria = categoria;
+        this.usuario = usuario;
+        this.imagen = imagen;
+        this.comentarios = comentarios;
+        this.administrador = administrador;
     }
 
     public Long getId() {
@@ -188,6 +208,22 @@ public class Post implements Serializable {
 
     public void setImagen(String imagen) {
         this.imagen = imagen;
+    }
+
+    public boolean estaAnclado() {
+        return anclado;
+    }
+
+    public void setAnclado(boolean anclado) {
+        this.anclado = anclado;
+    }
+
+    public Administrador getAdministrador() {
+        return administrador;
+    }
+
+    public void setAdministrador(Administrador administrador) {
+        this.administrador = administrador;
     }
 
     @Override

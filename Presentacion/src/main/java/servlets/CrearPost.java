@@ -4,7 +4,7 @@
 package servlets;
 
 import beans.UsuarioBean;
-import com.mycompany.dto.ComunDTO;
+import com.mycompany.dto.PostDTO;
 import com.mycompany.dto.UsuarioDTO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -115,7 +115,7 @@ public class CrearPost extends HttpServlet {
             }
 
             try {
-                ComunDTO postNuevo = new ComunDTO(new GregorianCalendar(), titulo, subtitulo, cuerpo, tipoPost, usuario, rutaRelativa);
+                PostDTO postNuevo = new PostDTO(new GregorianCalendar(), titulo, subtitulo, cuerpo, tipoPost, usuario, rutaRelativa);
                 accesoDatos.publicarPost(postNuevo);
             } catch (FacadeException ex) {
                 System.out.println("Error al crear la publicacion");

@@ -4,8 +4,6 @@
 package servlets;
 
 import beans.UsuarioBean;
-import com.mycompany.dto.AncladoDTO;
-import com.mycompany.dto.ComunDTO;
 import com.mycompany.dto.PostDTO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -62,12 +60,12 @@ public class AnclarPost extends HttpServlet {
         UsuarioBean usuario = (UsuarioBean) sesion.getAttribute("usuario");
         try {
             PostDTO post = accesoDatos.obtenerPostID(Long.valueOf(idPost));
-            if (post instanceof ComunDTO) {
+            if (!post.estaAnclado()) {
                 accesoDatos.anclarPost(Long.valueOf(idPost), usuario.getCorreo());
-            } else if (post instanceof AncladoDTO) {
+            } else if (post.estaAnclado()) {
                 accesoDatos.desanclarPost(Long.valueOf(idPost));
             }
-            Long id = Long.valueOf(idPost)+1;
+            Long id = Long.valueOf(idPost);
             request.getRequestDispatcher("/Post?id=" + id).forward(request, response);
         } catch (FacadeException ex) {
             Logger.getLogger(EliminarPost.class.getName()).log(Level.SEVERE, null, ex);

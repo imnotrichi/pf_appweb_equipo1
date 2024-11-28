@@ -4,8 +4,6 @@
 package org.itson.aplicacionesweb.themusichub.facade;
 
 import com.mycompany.dto.ComentarioDTO;
-import com.mycompany.dto.ComunDTO;
-import com.mycompany.dto.NormalDTO;
 import com.mycompany.dto.PostDTO;
 import com.mycompany.dto.UsuarioDTO;
 import java.util.List;
@@ -19,7 +17,7 @@ public interface IAccesoDatosFacade {
 
     public void registrarUsuario(UsuarioDTO usuario) throws FacadeException;
 
-    public void publicarPost(ComunDTO post) throws FacadeException;
+    public void publicarPost(PostDTO post) throws FacadeException;
 
     public void eliminarPost(Long id, UsuarioDTO usuario) throws FacadeException;
 

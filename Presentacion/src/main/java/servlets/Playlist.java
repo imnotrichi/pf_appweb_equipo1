@@ -7,13 +7,10 @@ package servlets;
 import beans.ComentarioBean;
 import beans.PostBean;
 import beans.UsuarioBean;
-import com.mycompany.dto.AncladoDTO;
 import com.mycompany.dto.ComentarioDTO;
-import com.mycompany.dto.ComunDTO;
 import com.mycompany.dto.PostDTO;
 import com.mycompany.dto.UsuarioDTO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -95,9 +92,9 @@ public class Playlist extends HttpServlet {
                 ? dto.getComentarios().stream().map(this::toBean).collect(Collectors.toList())
                 : null;
         String tipo = "";
-        if (dto instanceof ComunDTO) {
+        if (!dto.estaAnclado()) {
             tipo = "comun";
-        } else if (dto instanceof AncladoDTO) {
+        } else if (dto.estaAnclado()) {
             tipo = "anclado";
         }
         return new PostBean(

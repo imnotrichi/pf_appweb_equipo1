@@ -9,9 +9,9 @@ import java.util.List;
  */
 public class AdministradorDTO extends UsuarioDTO{
     
-    private List<AncladoDTO> postsAnclados;
+    private List<PostDTO> postsAnclados;
 
-    public AdministradorDTO(List<AncladoDTO> postsAnclados, String nombres, String apellidoPaterno, String apellidoMaterno, String correo, String contrasenia, String telefono, String nombreUsuario, String avatar, String ciudad, Calendar fechaNacimiento, String genero, MunicipioDTO municipio) {
+    public AdministradorDTO(List<PostDTO> postsAnclados, String nombres, String apellidoPaterno, String apellidoMaterno, String correo, String contrasenia, String telefono, String nombreUsuario, String avatar, String ciudad, Calendar fechaNacimiento, String genero, MunicipioDTO municipio) {
         super(nombres, apellidoPaterno, apellidoMaterno, correo, contrasenia, telefono, nombreUsuario, avatar, ciudad, fechaNacimiento, genero, municipio);
         this.postsAnclados = postsAnclados;
     }
@@ -24,7 +24,7 @@ public class AdministradorDTO extends UsuarioDTO{
         super(nombres, apellidoPaterno, apellidoMaterno, correo, contrasenia, telefono, nombreUsuario, avatar, ciudad, fechaNacimiento, genero, municipio);
     }
 
-    public List<AncladoDTO> getPostsAnclados() {
+    public List<PostDTO> getPostsAnclados() {
         return postsAnclados;
     }
     

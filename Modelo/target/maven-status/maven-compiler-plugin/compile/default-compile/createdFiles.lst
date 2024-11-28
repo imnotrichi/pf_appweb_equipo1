@@ -3,17 +3,13 @@ org\itson\aplicacionesweb\themusichub\modelo\Comentario_.class
 org\itson\aplicacionesweb\themusichub\modelo\Municipio_.class
 org\itson\aplicacionesweb\themusichub\enums\CategoriaPost.class
 org\itson\aplicacionesweb\themusichub\modelo\Administrador_.class
-org\itson\aplicacionesweb\themusichub\modelo\Anclado.class
 org\itson\aplicacionesweb\themusichub\modelo\Comentario.class
 org\itson\aplicacionesweb\themusichub\modelo\Normal.class
 org\itson\aplicacionesweb\themusichub\modelo\Usuario.class
 org\itson\aplicacionesweb\themusichub\modelo\Estado_.class
 org\itson\aplicacionesweb\themusichub\modelo\Post.class
-org\itson\aplicacionesweb\themusichub\modelo\Anclado_.class
-org\itson\aplicacionesweb\themusichub\modelo\Comun.class
 org\itson\aplicacionesweb\themusichub\modelo\Administrador.class
 org\itson\aplicacionesweb\themusichub\modelo\Usuario_.class
-org\itson\aplicacionesweb\themusichub\modelo\Comun_.class
 org\itson\aplicacionesweb\themusichub\modelo\Municipio.class
 org\itson\aplicacionesweb\themusichub\modelo\Normal_.class
 org\itson\aplicacionesweb\themusichub\modelo\Estado.class

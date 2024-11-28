@@ -56,7 +56,7 @@ public class IniciarSesion extends HttpServlet {
         String contrasenia = request.getParameter("contrasenia");
 
         try {
-            UsuarioDTO usuario = accesoDatos.obtenerUsuario(correo, contrasenia);
+                UsuarioDTO usuario = accesoDatos.obtenerUsuario(correo, contrasenia);
             if (usuario != null) {
                 String tipo = "";
                 if (usuario instanceof NormalDTO) {
