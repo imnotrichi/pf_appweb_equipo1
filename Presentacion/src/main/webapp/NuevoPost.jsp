@@ -1,7 +1,7 @@
 <%-- 
     Document   : NuevoPost
     Created on : 17 nov 2024, 23:13:32
-    Author     : ricar
+    Author     : Equipo1
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -23,17 +23,17 @@
         <%@include file="./fragmentos/BarraNavegacion.xhtml"%>
 
         <main>
-            <form action="CrearPost" method="POST" enctype="multipart/form-data">
+            <form id="nuevoPost">
                 <h2>Nuevo post</h2>
                 <br>
                 <div>
                     <label for="titulo">Título</label>
-                    <input type="text" name="titulo" />
+                    <input type="text" name="titulo" id="titulo"/>
                 </div>
 
                 <div>
                     <label for="subtitulo">Subtítulo</label>
-                    <input type="text" name="subtitulo" />
+                    <input type="text" name="subtitulo" id="subtitulo"/>
                 </div>
 
                 <div class="imagen-tipo">
@@ -66,7 +66,7 @@
                     <button class="boton-descartar">
                         <a href="Inicio.jsp">Descartar</a>
                     </button>
-                    <input type="submit" value="Publicar" class="publicar-button">
+                    <button type="submit" class="publicar-button">Publicar</button>
                 </div>
             </form>
         </main>

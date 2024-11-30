@@ -4,6 +4,8 @@
 package servlets;
 
 import beans.UsuarioBean;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.mycompany.dto.PostDTO;
 import com.mycompany.dto.UsuarioDTO;
 import jakarta.servlet.ServletException;
@@ -15,7 +17,9 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.GregorianCalendar;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.itson.aplicacionesweb.themusichub.facade.AccesoDatosFacade;
@@ -66,17 +70,33 @@ public class CrearPost extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        IAccesoDatosFacade accesoDatos = new AccesoDatosFacade();
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
 
-        String titulo = request.getParameter("titulo");
-        String subtitulo = request.getParameter("subtitulo");
-        String tipoPost = request.getParameter("tipo-post");
-        String cuerpo = request.getParameter("cuerpo");
-        UsuarioDTO usuario = null;
+        String json = request.getParameter("data");
+        
+        if (json == null || json.isBlank()) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "No llego el JSON.");
+            return;
+        }
+        
+        Gson gson = new Gson();
+        Type type = new TypeToken<Map<String, String>>(){}.getType();
+        Map<String, String> postData = gson.fromJson(json, type);
+
+        String titulo = postData.get("titulo");
+        String subtitulo = postData.get("subtitulo");
+        String tipoPost = postData.get("tipoPost");
+        String cuerpo = postData.get("cuerpo");
+
+        UsuarioDTO usuario;
+        IAccesoDatosFacade accesoDatos = new AccesoDatosFacade();
         try {
             usuario = accesoDatos.obtenerUsuario(((UsuarioBean) request.getSession().getAttribute("usuario")).getCorreo());
         } catch (FacadeException ex) {
             Logger.getLogger(CrearPost.class.getName()).log(Level.SEVERE, null, ex);
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error al obtener el usuario.");
+            return;
         }
 
         String rutaRelativa = "";

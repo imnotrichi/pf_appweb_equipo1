@@ -1,7 +1,7 @@
 <%-- 
     Document   : Comentarios
     Created on : 20 nov 2024, 00:18:21
-    Author     : Abe
+    Author     : Equipo1
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
