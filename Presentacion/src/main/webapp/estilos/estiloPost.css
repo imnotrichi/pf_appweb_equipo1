@@ -280,3 +280,7 @@ hr {
 .funciones-admin {
     gap: 1rem;
 }
+
+.comentarRespuesta{
+    display: none;
+}

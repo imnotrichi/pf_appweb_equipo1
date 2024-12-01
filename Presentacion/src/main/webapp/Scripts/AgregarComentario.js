@@ -42,6 +42,7 @@ class ComentarioManager {
                 },
                 body: JSON.stringify(comentarioData)
             });
+            console.log(contenido);
 
             // Verificar si la respuesta es un JSON válido
             const contentType = response.headers.get('content-type');
@@ -55,19 +56,20 @@ class ComentarioManager {
             if (result.status === 'success') {
                 alert('Comentario registrado exitosamente.');
                 contenidoInput.value = '';
-
-                // Crear nuevo elemento de comentario y agregarlo a la lista
-                const nuevoComentario = document.createElement('div');
-                nuevoComentario.classList.add('comentario');
-                nuevoComentario.innerHTML = `
-                <p>
-                    <span class="usuario"></span>
-                    <br>
-                    ${comentarioData.contenido}
-                </p>`;
-
-                const contenedorComentarios = document.querySelector('.contenedor-comentario');
-                contenedorComentarios.appendChild(nuevoComentario);
+                location.reload(true);
+//
+//                // Crear nuevo elemento de comentario y agregarlo a la lista
+//                const nuevoComentario = document.createElement('div');
+//                nuevoComentario.classList.add('comentario');
+//                nuevoComentario.innerHTML = `
+//                <p>
+//                    <span class="usuario"></span>
+//                    <br>
+//                    ${comentarioData.contenido}
+//                </p>`;
+//
+//                const contenedorComentarios = document.querySelector('.contenedor-comentario');
+//                contenedorComentarios.appendChild(nuevoComentario);
 
             } else {
                 alert('Error: ' + result.message);

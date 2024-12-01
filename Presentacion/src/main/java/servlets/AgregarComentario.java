@@ -26,7 +26,7 @@ import org.itson.aplicacionesweb.themusichub.facade.IAccesoDatosFacade;
 
 /**
  *
- * @author Abe
+ * @author Equipo1
  */
 @WebServlet("/AgregarComentario")
 public class AgregarComentario extends HttpServlet {
@@ -117,8 +117,7 @@ public class AgregarComentario extends HttpServlet {
 
             // Guardar comentario
             accesoDatos.comentarPost(comentarioDTO, comentarioDTO.getPost());
-//            List<ComentarioDTO> comentariosActualizados = accesoDatos.obtenerComentariosPorPost(postId);
-//            request.setAttribute("comentarios", comentariosActualizados);
+
             // Respuesta de éxito
             respuesta.put("status", "success");
             respuesta.put("message", "Comentario agregado correctamenteeeeeeeeeeeeeeee");

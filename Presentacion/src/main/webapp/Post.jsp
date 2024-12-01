@@ -16,7 +16,7 @@
         <link rel="stylesheet" href="./estilos/estiloEstructura.css">
         <link rel="stylesheet" href="./estilos/estiloPost.css">
         <script src="./scripts/AgregarComentario.js" defer></script>
-        
+
         <title>The Music Hub - Post</title>
     </head>
 
@@ -76,16 +76,13 @@
                                     <c:choose>
                                         <c:when test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"normal\")}">
                                             <button class="responder-btn">Responder</button>
-                                            <!-- ESTO SE TIENE QUE BORRAR DESPUES PARA AGREAGRLO CUANDO SE PRESIONA EL BOTON RESPONDER-->
-                                            <div class="comentar">
-                                                <form  id="comentarioForm">
-                                                    <input type="hidden" id="postId" value="${id}">                                        
-                                                    <textarea id="contenidoComentario" placeholder="Escribe tu comentario aquí..." required></textarea>
+                                            <div class="comentar comentarRespuesta">
+                                                <form id="respuestaForm">
+                                                    <input type="hidden" id="comentarioId" value="${comentario.id}">                                        
+                                                    <textarea id="contenidoComentarioRespuesta" placeholder="Escribe tu comentario aquí..." required></textarea>
                                                     <button class="boton-comentar" type="submit">Comentar</button>
                                                 </form>
-
                                             </div>
-
                                         </c:when>
                                         <c:when test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"administrador\")}">
                                             <button class="responder-btn">Eliminar</button>
@@ -103,15 +100,6 @@
                                                     <c:choose>
                                                         <c:when test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"normal\")}">
                                                             <button class="responder-btn">Responder</button
-                                                            <!-- ESTO SE TIENE QUE BORRAR DESPUES PARA AGREAGRLO CUANDO SE PRESIONA EL BOTON RESPONDER-->
-                                                            <div class="comentar">
-                                                                <form  id="comentarioForm">
-                                                                    <input type="hidden" id="postId" value="${id}">                                        
-                                                                    <textarea id="contenidoComentario" placeholder="Escribe tu comentario aquí..." required></textarea>
-                                                                    <button class="boton-comentar" type="submit">Comentar</button>
-                                                                </form>
-
-                                                            </div>
                                                         </c:when>
                                                         <c:when test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"administrador\")}">
                                                             <button class="responder-btn">Eliminar</button>

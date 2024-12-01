@@ -69,7 +69,10 @@ public class General extends HttpServlet {
         System.out.println("HOLA DESDE SERVLET GENERAL");
         try {
             List<PostDTO> posts = accesoDatos.obtenerPostsPorCategoria(CategoriaPost.GENERAL);
-
+            for (PostDTO post : posts) {
+                System.out.println("cantidad de comentarios: "+post.getComentarios().size());
+                
+            }
             List<PostBean> postBeans = posts.stream()
                     .map(this::toBean)
                     .collect(Collectors.toList());
