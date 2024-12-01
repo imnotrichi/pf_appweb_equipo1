@@ -24,7 +24,7 @@ class AgregarPost {
         const titulo = tituloInput.value.trim();
         const subtitulo = subtituloInput.value.trim();
         const tipoPost = tipoPostInput.value;
-        const cuerpo = cuerpoInput.value.trim();
+        const contenido = cuerpoInput.value.trim();
 
         if (!titulo) {
             alert('Por favor, ingresa un titulo.');
@@ -36,7 +36,7 @@ class AgregarPost {
             return;
         }
 
-        if (!cuerpo) {
+        if (!contenido) {
             alert('Por favor, escribe el contenido del cuerpo del post.');
             return;
         }
@@ -46,14 +46,14 @@ class AgregarPost {
             return;
         }
 
-        const nombreImagen = archivoInput.files[0].name;
+        const imagen = archivoInput.files[0].name;
         
         const postNuevo = {
             titulo: titulo,
             subtitulo: subtitulo,
             tipoPost: tipoPost,
-            cuerpo: cuerpo,
-            nombreImagen: nombreImagen
+            contenido: contenido,
+            imagen: imagen
         };
         
         try {

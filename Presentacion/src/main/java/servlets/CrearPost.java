@@ -5,7 +5,6 @@ package servlets;
 
 import beans.UsuarioBean;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.mycompany.dto.PostDTO;
 import com.mycompany.dto.UsuarioDTO;
 import jakarta.servlet.ServletException;
@@ -14,11 +13,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import jakarta.servlet.http.Part;
-import java.io.File;
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -73,13 +71,19 @@ public class CrearPost extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         IAccesoDatosFacade accesoDatos = new AccesoDatosFacade();
-
-        String titulo = request.getParameter("titulo");
-        String subtitulo = request.getParameter("subtitulo");
-        String tipoPost = request.getParameter("tipo-post");
-        String cuerpo = request.getParameter("cuerpo");
-        UsuarioDTO usuario = null;
         
+        Gson gson = new Gson();
+
+        BufferedReader reader = request.getReader();
+        StringBuilder jsonBuilder = new StringBuilder();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            jsonBuilder.append(line);
+        }
+        
+        PostDTO post = gson.fromJson(jsonBuilder.toString(), PostDTO.class);
+
+        UsuarioDTO usuario = null;      
         try {
             usuario = accesoDatos.obtenerUsuario(((UsuarioBean) request.getSession().getAttribute("usuario")).getCorreo());
         } catch (FacadeException ex) {
@@ -87,18 +91,41 @@ public class CrearPost extends HttpServlet {
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error al obtener el usuario.");
             return;
         }
+        
+        String rutaRelativa = "imagenesPost/" + post.getImagen();
+        
+        Map<String, String> responseBody = new HashMap<>();
 
-        if (!titulo.isBlank() && !tipoPost.isBlank()) {
-            if (subtitulo.isBlank()) {
-                subtitulo = "";
+        if (!post.getTitulo().isBlank() && !post.getTipoPost().isBlank()) {
+            try {
+                PostDTO postNuevo = new PostDTO(
+                        new GregorianCalendar(),
+                        post.getTitulo(),
+                        post.getSubtitulo(),
+                        post.getContenido(),
+                        post.getTipoPost(),
+                        usuario,
+                        rutaRelativa
+                );
+
+                accesoDatos.publicarPost(postNuevo);
+                
+                responseBody.put("status", "success");
+                responseBody.put("message", "Si se pudo crear el post");
+                response.setStatus(HttpServletResponse.SC_OK);
+                response.getWriter().write(gson.toJson(responseBody));
+            } catch (FacadeException ex) {
+                responseBody.put("status", "error");
+                responseBody.put("message", "No se pudo crear el post");
+                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                response.getWriter().write(gson.toJson(responseBody));
             }
-
-//            try {
-//                PostDTO postNuevo = new PostDTO(new GregorianCalendar(), titulo, subtitulo, cuerpo, tipoPost, usuario, rutaRelativa);
-//                accesoDatos.publicarPost(postNuevo);
-//            } catch (FacadeException ex) {
-//                System.out.println("Error al crear la publicacion");
-//            }
+        } else {
+            responseBody.put("status", "error");
+            responseBody.put("message", "Datos de post incompletos");
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.getWriter().write(gson.toJson(responseBody));
+        }
 
             HttpSession session = request.getSession();
             String returnTo = (String) session.getAttribute("returnTo");
@@ -110,8 +137,6 @@ public class CrearPost extends HttpServlet {
                 response.sendRedirect("Inicio.jsp");
             }
         }
-
-    }
 
     /**
      * Returns a short description of the servlet.
