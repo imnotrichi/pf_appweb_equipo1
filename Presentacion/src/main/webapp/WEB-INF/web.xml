@@ -70,12 +70,8 @@
         <servlet-class>servlets.Noticias</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>agregarComentario</servlet-name>
-        <servlet-class>servlets.AgregarComentario</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ResponderComentario</servlet-name>
-        <servlet-class>servlets.ResponderComentario</servlet-class>
+        <servlet-name>GuardarImagenPost</servlet-name>
+        <servlet-class>servlets.GuardarImagenPost</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>IniciarSesion</servlet-name>
@@ -152,12 +148,8 @@
         <url-pattern>/Noticias</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>agregarComentario</servlet-name>
-        <url-pattern>/agregarComentario</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ResponderComentario</servlet-name>
-        <url-pattern>/ResponderComentario</url-pattern>
+        <servlet-name>GuardarImagenPost</servlet-name>
+        <url-pattern>/GuardarImagenPost</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
