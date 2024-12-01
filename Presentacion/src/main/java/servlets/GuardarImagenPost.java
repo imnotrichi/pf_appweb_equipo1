@@ -4,6 +4,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
+import java.io.File;
 import java.io.IOException;
 
 
@@ -42,6 +44,35 @@ public class GuardarImagenPost extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        String rutaRelativa = "";
+        //PROCESAMIENTO DE LA IMAGEN
+        if (!request.getPart("imagen").getSubmittedFileName().isBlank()) {
+        // Se crea la ruta del directorio donde se almacenarán las imagenes
+        String rutaDirectorio = getServletContext().getRealPath("/imagenesPost");
+        File directorioImagenesPost = new File(rutaDirectorio);
+
+        // Se crea el directorio si no existe
+        if (!directorioImagenesPost.exists()) {
+            directorioImagenesPost.mkdir();
+        }
+
+        // Se obtiene el archivo
+        Part imagen = request.getPart("imagen");
+
+        // Se obtiene la referencia del archivo (nombre del archivo)
+        String referencia = imagen.getSubmittedFileName();
+        
+        // Ruta completa donde se almacenará el archivo en el servidor
+        String rutaImagen = rutaDirectorio + File.separator + referencia;
+        
+        // Se almacena el archivo en el directorio
+        imagen.write(rutaImagen);
+        
+        // Guardar la ruta relativa que será accesible por la aplicación web
+        rutaRelativa = "imagenesPost/" + referencia;
+        request.getSession().setAttribute("imagen", rutaRelativa);
+        }
+        //FIN PROCESAMIENTO IMAGEN
     }
 
     /**
