@@ -59,7 +59,7 @@ public class PostDTO {
      * @param categoria
      * @param usuario
      */
-    public PostDTO(Long id, Calendar fechaHoraCreacion, String titulo, String subtitulo, String contenido, String categoria, UsuarioDTO usuario, List<ComentarioDTO> comentarios, String imagen, boolean anclado) {
+    public PostDTO(Long id, Calendar fechaHoraCreacion, String titulo, String subtitulo, String contenido, String categoria, UsuarioDTO usuario, List<ComentarioDTO> comentarios, String imagen) {
         this.id = id;
         this.fechaHoraCreacion = fechaHoraCreacion;
         this.titulo = titulo;
@@ -72,7 +72,6 @@ public class PostDTO {
         }
         this.imagen = imagen;
         this.comentarios = comentarios;
-        this.anclado = anclado;
     }
 
     /**
@@ -85,6 +84,7 @@ public class PostDTO {
      * @param contenido
      * @param categoria
      * @param usuario
+     * @param imagen
      */
     public PostDTO(Long id, Calendar fechaHoraCreacion, String titulo, String subtitulo, String contenido, String categoria, UsuarioDTO usuario, String imagen) {
         this.id = id;
