@@ -32,7 +32,7 @@ public interface IPostDAO {
 
     public void eliminarPost(Post post) throws PersistenciaException;
 
-    public void anclarPost(Comun postComun, Anclado postAnclado) throws PersistenciaException;
+    public void anclarPost(Anclado postAnclado) throws PersistenciaException;
 
-    public void desanclarPost(Comun postComun, Anclado postAnclado) throws PersistenciaException;
+    public void desanclarPost(Comun postComun) throws PersistenciaException;
 }

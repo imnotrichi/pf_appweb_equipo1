@@ -391,7 +391,8 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
                     post.getCategoria().toString(),
                     convertirUsuarioAUsuarioDTO(post.getUsuario()),
                     convertirComentariosAComentariosDTO(post.getComentarios()),
-                    post.getImagen());
+                    post.getImagen(),
+                    post.getTipoPost());
         } else {
             postDTO = new AncladoDTO(
                     post.getId(),
@@ -402,7 +403,8 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
                     post.getCategoria().toString(),
                     convertirUsuarioAUsuarioDTO(post.getUsuario()),
                     convertirComentariosAComentariosDTO(post.getComentarios()),
-                    post.getImagen());
+                    post.getImagen(),
+                    post.getTipoPost());
         }
         // Si el post es común, se obtiene el usuario que lo publicó.
         return postDTO;
@@ -560,7 +562,7 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
                     admin,
                     comun.getImagen());
 
-            postsDAO.anclarPost(comun, anclado);
+            postsDAO.anclarPost(anclado);
         } catch (PersistenciaException ex) {
             Logger.getLogger(AccesoDatosFacade.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -594,7 +596,7 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
                     anclado.getUsuario(),
                     anclado.getImagen());
 
-            postsDAO.desanclarPost(comun, anclado);
+            postsDAO.desanclarPost(comun);
         } catch (PersistenciaException ex) {
             Logger.getLogger(AccesoDatosFacade.class.getName()).log(Level.SEVERE, null, ex);
         }

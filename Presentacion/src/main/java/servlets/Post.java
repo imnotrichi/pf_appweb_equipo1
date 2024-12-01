@@ -68,6 +68,7 @@ public class Post extends HttpServlet {
             request.setAttribute("subtitulo", post.getSubtitulo());
             request.setAttribute("contenido", post.getContenido());
             request.setAttribute("imagenPost", post.getImagen());
+            request.setAttribute("tipoPost", post.getTipoPost());
 
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
             String fechaFormateada = dateFormat.format(post.getFechaHoraCreacion().getTime());

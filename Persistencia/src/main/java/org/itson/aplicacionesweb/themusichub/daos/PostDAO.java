@@ -16,6 +16,7 @@ import javax.persistence.criteria.Root;
 import org.itson.aplicacionesweb.themusichub.conexion.IConexion;
 import org.itson.aplicacionesweb.themusichub.enums.CategoriaPost;
 import org.itson.aplicacionesweb.themusichub.modelo.Anclado;
+import org.itson.aplicacionesweb.themusichub.modelo.Comentario;
 import org.itson.aplicacionesweb.themusichub.modelo.Comun;
 import org.itson.aplicacionesweb.themusichub.modelo.Post;
 import org.itson.aplicacionesweb.themusichub.modelo.Usuario;
@@ -317,10 +318,32 @@ public class PostDAO implements IPostDAO {
         EntityManager em = conexion.crearConexion();
 
         try {
-            // Iniciamos la transacción.
+            // Obtenemos la lista de comentarios del post.
+            List<Comentario> comentarios = post.getComentarios();
+
+            for (Comentario comentario : comentarios) {
+                // Se obtiene la lista de respuestas de cada comentario.
+                List<Comentario> respuestas = comentario.getRespuestas();
+                for (Comentario respuesta : respuestas) {
+                    // Iniciamos la transacción.
+                    em.getTransaction().begin();
+
+                    // Mergeamos la entidad.
+                    respuesta = em.merge(respuesta);
+
+                    // Mandamos a eliminar la respuesta.
+                    em.remove(respuesta);
+
+                    // Hacemos el commit y cerramos el entity manager.
+                    em.getTransaction().commit();
+                }
+            }
+            // Iniciamos otra transacción.
             em.getTransaction().begin();
 
+            // Mergeamos la entidad de Post y la refrescamos.
             post = em.merge(post);
+            em.refresh(post);
 
             // Mandamos a eliminar el post.
             em.remove(post);
@@ -336,68 +359,8 @@ public class PostDAO implements IPostDAO {
         }
     }
 
-//    /**
-//     * Obtiene un post que cumpla con todos los atributos
-//     *
-//     * @param postParaBuscar
-//     * @return
-//     * @throws PersistenciaException
-//     */
-//    @Override
-//    public Post buscarPostPorAtributos(Post postParaBuscar) throws PersistenciaException {
-//        EntityManager em = conexion.crearConexion();
-//
-//        try {
-//            CriteriaBuilder cb = em.getCriteriaBuilder();
-//            CriteriaQuery<Post> cq = cb.createQuery(Post.class);
-//
-//            Root<? extends Post> root;
-//            if (!postParaBuscar.estaAnclado()) {
-//                root = cq.from(Comun.class);
-//            } else if (postParaBuscar instanceof Anclado) {
-//                root = cq.from(Anclado.class);
-//            } else {
-//                root = cq.from(Post.class);
-//            }
-//
-//            cq.select(root);
-//
-//            if (postParaBuscar.getTitulo() != null) {
-//                cq.where(cb.equal(root.get("titulo"), postParaBuscar.getTitulo()));
-//            }
-//            if (postParaBuscar.getContenido() != null) {
-//                cq.where(cb.equal(root.get("contenido"), postParaBuscar.getContenido()));
-//            }
-//            if (postParaBuscar.getCategoria() != null) {
-//                cq.where(cb.equal(root.get("categoria"), postParaBuscar.getCategoria()));
-//            }
-//
-//            if (postParaBuscar instanceof Comun) {
-//                Comun comun = (Comun) postParaBuscar;
-//                if (comun.getUsuario() != null) {
-//                    cq.where(cb.equal(root.get("usuario"), comun.getUsuario()));
-//                }
-//            }
-////
-////            if (postParaBuscar instanceof Anclado) {
-////                Anclado anclado = (Anclado) postParaBuscar;
-////                if (anclado.getAdministrador() != null) {
-////                    cq.where(cb.equal(root.get("administrador"), anclado.getAdministrador()));
-////                }
-////            }
-//
-//            TypedQuery<Post> query = em.createQuery(cq);
-//            List<Post> resultados = query.getResultList();
-//
-//            return resultados.isEmpty() ? null : resultados.get(0);
-//        } catch (PersistenceException pe) {
-//            throw new PersistenciaException("Error al buscar el post.", pe);
-//        } finally {
-//            em.close();
-//        }
-//    }
     @Override
-    public void anclarPost(Comun postComun, Anclado postAnclado) throws PersistenciaException {
+    public void anclarPost(Anclado postAnclado) throws PersistenciaException {
         // Creamos un entity manager.
         EntityManager em = conexion.crearConexion();
 
@@ -405,14 +368,15 @@ public class PostDAO implements IPostDAO {
             // Iniciamos la transacción.
             em.getTransaction().begin();
 
-            // Se sincroniza la entidad.
-            postComun = em.merge(postComun);
-
-            // Mandamos a eliminar el post de la tabla de comunes.
-            em.remove(postComun);
-
-            // Mandamos a guardar el post en la tabla de anclados.
-            em.persist(postAnclado);
+            // Consulta JPQL para actualizar el tipoPost y el administrador
+            em.createQuery(
+                    "UPDATE Post p "
+                    + "SET p.tipoPost = :tipoPost, p.administrador = :adminId "
+                    + "WHERE p.id = :idPost")
+                    .setParameter("tipoPost", "Anclado")
+                    .setParameter("adminId", postAnclado.getAdministrador())
+                    .setParameter("idPost", postAnclado.getId())
+                    .executeUpdate();
 
             // Hacemos el commit y cerramos el entity manager.
             em.getTransaction().commit();
@@ -435,7 +399,7 @@ public class PostDAO implements IPostDAO {
      * @throws PersistenciaException
      */
     @Override
-    public void desanclarPost(Comun postComun, Anclado postAnclado) throws PersistenciaException {
+    public void desanclarPost(Comun postComun) throws PersistenciaException {
         // Creamos un entity manager.
         EntityManager em = conexion.crearConexion();
 
@@ -443,14 +407,15 @@ public class PostDAO implements IPostDAO {
             // Iniciamos la transacción.
             em.getTransaction().begin();
 
-            // Se sincroniza la entidad.
-            postAnclado = em.merge(postAnclado);
-
-            // Mandamos a eliminar el post de la tabla de comunes.
-            em.remove(postAnclado);
-
-            // Mandamos a guardar el post en la tabla de anclados.
-            em.persist(postComun);
+            // Consulta JPQL para actualizar el tipoPost y el administrador
+            em.createQuery(
+                    "UPDATE Post p "
+                    + "SET p.tipoPost = :tipoPost, p.administrador = :adminId "
+                    + "WHERE p.id = :idPost")
+                    .setParameter("tipoPost", "Comun")
+                    .setParameter("adminId", null)
+                    .setParameter("idPost", postComun.getId())
+                    .executeUpdate();
 
             // Hacemos el commit y cerramos el entity manager.
             em.getTransaction().commit();

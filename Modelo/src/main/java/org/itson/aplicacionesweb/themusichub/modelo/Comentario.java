@@ -39,7 +39,7 @@ public class Comentario implements Serializable {
     @Column(name = "contenido", nullable = false, length = 200)
     private String contenido;
 
-    @OneToMany(mappedBy = "respuesta", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "respuesta", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
     private List<Comentario> respuestas;
 
     @ManyToOne

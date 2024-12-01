@@ -33,4 +33,18 @@ public class AncladoDTO extends PostDTO{
                 imagen);
     }
     
+    public AncladoDTO(Long id, Calendar fechaHoraCreacion, String titulo, String subtitulo, String contenido, String categoria, UsuarioDTO usuario, List<ComentarioDTO> comentarios, String imagen, String tipoPost) {
+        super(
+                id,
+                fechaHoraCreacion,
+                titulo,
+                subtitulo,
+                contenido,
+                categoria,
+                usuario,
+                comentarios,
+                imagen,
+                tipoPost);
+    }
+    
 }

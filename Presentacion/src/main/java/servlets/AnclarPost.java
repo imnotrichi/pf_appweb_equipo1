@@ -57,17 +57,26 @@ public class AnclarPost extends HttpServlet {
             throws ServletException, IOException {
 
         String idPost = request.getParameter("idPost");
+        Long id = Long.valueOf(idPost);
         HttpSession sesion = request.getSession();
 
         UsuarioBean usuario = (UsuarioBean) sesion.getAttribute("usuario");
         try {
-            PostDTO post = accesoDatos.obtenerPostID(Long.valueOf(idPost));
+            PostDTO post = accesoDatos.obtenerPostID(id);
             if (post instanceof ComunDTO) {
-                accesoDatos.anclarPost(Long.valueOf(idPost), usuario.getCorreo());
+                accesoDatos.anclarPost(id, usuario.getCorreo());
             } else if (post instanceof AncladoDTO) {
                 accesoDatos.desanclarPost(Long.valueOf(idPost));
             }
-            Long id = Long.valueOf(idPost);
+            // Actualizamos el post
+            post = accesoDatos.obtenerPostID(Long.valueOf(idPost));
+            request.setAttribute("id", idPost);
+            request.setAttribute("titulo", post.getTitulo());
+            request.setAttribute("nombreUsuario", post.getUsuario().getNombreUsuario());
+            request.setAttribute("subtitulo", post.getSubtitulo());
+            request.setAttribute("contenido", post.getContenido());
+            request.setAttribute("imagenPost", post.getImagen());
+            request.setAttribute("tipoPost", post.getTipoPost());
             request.getRequestDispatcher("/Post?id=" + id).forward(request, response);
         } catch (FacadeException ex) {
             Logger.getLogger(EliminarPost.class.getName()).log(Level.SEVERE, null, ex);

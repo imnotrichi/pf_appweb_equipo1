@@ -44,7 +44,12 @@
                                       <c:if test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"administrador\")}">
                                           <a href="AnclarPost?idPost=${id}">
                                               <button>
-                                                  Anclar
+                                                  <c:if test="${tipoPost.equalsIgnoreCase(\"Comun\")}">
+                                                      Anclar
+                                                  </c:if>
+                                                  <c:if test="${tipoPost.equalsIgnoreCase(\"Anclado\")}">
+                                                      Desanclar
+                                                  </c:if>
                                                   <img src="./imagenes/white-pin-icon.png">
                                               </button>
                                           </a>

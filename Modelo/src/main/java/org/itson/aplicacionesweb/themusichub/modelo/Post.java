@@ -53,6 +53,9 @@ public class Post implements Serializable {
 
     @Column(name = "contenido", nullable = false)
     protected String contenido;
+    
+    @Column(name = "tipoPost")
+    protected String tipoPost;
 
     @Column(name = "imagen", nullable = true, length = 500)
     protected String imagen;
@@ -61,7 +64,7 @@ public class Post implements Serializable {
     @Column(name = "categoria", nullable = false)
     protected CategoriaPost categoria;
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "post", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE, CascadeType.REFRESH})
     protected List<Comentario> comentarios;
 
     @ManyToOne
@@ -213,6 +216,14 @@ public class Post implements Serializable {
 
     public void setAdministrador(Administrador administrador) {
         this.administrador = administrador;
+    }
+
+    public String getTipoPost() {
+        return tipoPost;
+    }
+
+    public void setTipoPost(String tipoPost) {
+        this.tipoPost = tipoPost;
     }
 
     @Override

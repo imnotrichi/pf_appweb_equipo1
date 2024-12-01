@@ -37,3 +37,9 @@ main a {
 img{
     height: 10%;
 }
+
+.pin {
+    width: 2rem;
+    position: relative;
+    right: -96%;
+}

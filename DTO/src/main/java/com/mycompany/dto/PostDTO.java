@@ -22,6 +22,7 @@ public class PostDTO {
     private String imagen;
     private List<ComentarioDTO> comentarios;
     private UsuarioDTO usuario;
+    private String tipoPost;
 
     /**
      * Constructor para un PostDTO nuevo.
@@ -117,6 +118,22 @@ public class PostDTO {
         this.usuario = usuario;
     }
 
+    public PostDTO(Long id, Calendar fechaHoraCreacion, String titulo, String subtitulo, String contenido, String categoria, UsuarioDTO usuario, List<ComentarioDTO> comentarios, String imagen, String tipoPost) {
+        this.id = id;
+        this.fechaHoraCreacion = fechaHoraCreacion;
+        this.titulo = titulo;
+        this.subtitulo = subtitulo;
+        this.contenido = contenido;
+        this.categoria = categoria;
+        this.usuario = usuario;
+        if (imagen.isBlank()) {
+            imagen = "";
+        }
+        this.imagen = imagen;
+        this.comentarios = comentarios;
+        this.tipoPost = tipoPost;
+    }
+
     public Long getId() {
         return id;
     }
@@ -155,5 +172,13 @@ public class PostDTO {
 
     public void setImagen(String imagen) {
         this.imagen = imagen;
-    }    
+    }
+
+    public String getTipoPost() {
+        return tipoPost;
+    }
+
+    public void setTipoPost(String tipoPost) {
+        this.tipoPost = tipoPost;
+    }
 }
