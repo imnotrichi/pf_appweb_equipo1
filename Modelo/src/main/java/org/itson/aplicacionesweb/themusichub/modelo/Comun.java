@@ -6,14 +6,15 @@ package org.itson.aplicacionesweb.themusichub.modelo;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Table;
 import org.itson.aplicacionesweb.themusichub.enums.CategoriaPost;
 
 /**
  * @author Equipo1
  */
 @Entity
+@DiscriminatorValue("Comun") // Valor discriminador para posts normales
 public class Comun extends Post implements Serializable {
 
     public Comun() {

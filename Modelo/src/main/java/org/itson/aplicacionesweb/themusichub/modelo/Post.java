@@ -64,9 +64,6 @@ public class Post implements Serializable {
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     protected List<Comentario> comentarios;
 
-    @Column(name = "anclado", nullable = true)
-    protected boolean anclado;
-
     @ManyToOne
     @JoinColumn(name = "id_administrador", nullable = true)
     private Administrador administrador;
@@ -208,14 +205,6 @@ public class Post implements Serializable {
 
     public void setImagen(String imagen) {
         this.imagen = imagen;
-    }
-
-    public boolean estaAnclado() {
-        return anclado;
-    }
-
-    public void setAnclado(boolean anclado) {
-        this.anclado = anclado;
     }
 
     public Administrador getAdministrador() {

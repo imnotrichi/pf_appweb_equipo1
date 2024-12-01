@@ -6,6 +6,7 @@ package org.itson.aplicacionesweb.themusichub.modelo;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -15,6 +16,7 @@ import org.itson.aplicacionesweb.themusichub.enums.CategoriaPost;
  * @author Equipo1
  */
 @Entity
+@DiscriminatorValue("Anclado")
 public class Anclado extends Post implements Serializable {
 
     @ManyToOne
