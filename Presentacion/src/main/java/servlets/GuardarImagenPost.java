@@ -44,8 +44,7 @@ public class GuardarImagenPost extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String rutaRelativa = "";
-        //PROCESAMIENTO DE LA IMAGEN
+        
         if (!request.getPart("imagen").getSubmittedFileName().isBlank()) {
         // Se crea la ruta del directorio donde se almacenarán las imagenes
         String rutaDirectorio = getServletContext().getRealPath("/imagenesPost");
@@ -67,12 +66,7 @@ public class GuardarImagenPost extends HttpServlet {
         
         // Se almacena el archivo en el directorio
         imagen.write(rutaImagen);
-        
-        // Guardar la ruta relativa que será accesible por la aplicación web
-        rutaRelativa = "imagenesPost/" + referencia;
-        request.getSession().setAttribute("imagen", rutaRelativa);
         }
-        //FIN PROCESAMIENTO IMAGEN
     }
 
     /**

@@ -1,6 +1,6 @@
 class AgregarPost {
     constructor() {
-        this.apiUrl = './AgregarPost';
+        this.apiUrl = './CrearPost';
         this.enviarEvento();
     }
     
@@ -78,5 +78,9 @@ class AgregarPost {
         }
     }
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    new AgregarPost();
+});
 
 

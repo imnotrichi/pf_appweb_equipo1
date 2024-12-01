@@ -1,17 +1,17 @@
 class AgregarImagenPost {
     constructor() {
-        this.apiUrl = './AgregarPost';
+        this.apiUrl = './GuardarImagenPost';
         this.enviarEvento();
     }
     
     enviarEvento() {
         const form = document.getElementById('nuevoPost');
         if (form){
-            form.addEventListener('submit', (event) => this.enviarPost(event));
+            form.addEventListener('submit', (event) => this.enviarImagenPost(event));
         }
     }
     
-    async enviarPost(event) {
+    async enviarImagenPost(event) {
         event.preventDefault();
         
         const archivoInput = document.getElementById('archivo');
@@ -42,6 +42,11 @@ class AgregarImagenPost {
             alert('Hubo un problema al enviar la imagen del post');
         }
     }
+    
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    new AgregarImagenPost();
+});
 
 
