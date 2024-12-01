@@ -15,7 +15,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="./estilos/estiloEstructura.css">
         <link rel="stylesheet" href="./estilos/estiloPost.css">
-        <script src="./Scripts/AgregarComentario.js" defer></script>
+        <script src="./scripts/AgregarComentario.js" defer></script>
 
         <title>The Music Hub - Post</title>
     </head>
