@@ -93,7 +93,7 @@
                                                 <div class="comentario respuesta">
                                                     <p>
                                                         <span class="usuario">@${comentarioRespuesta.nombreUsuario} (${comentarioRespuesta.fechaComentario}): </span>
-                                                        ${comentarioRespuesta.contenido}
+                                                        <br>${comentarioRespuesta.contenido}
                                                     </p>
                                                     <c:choose>
                                                         <c:when test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"normal\")}">
@@ -107,7 +107,6 @@
                                                                 </form>
 
                                                             </div>
-
                                                         </c:when>
                                                         <c:when test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"administrador\")}">
                                                             <button class="responder-btn">Eliminar</button>
@@ -124,12 +123,11 @@
                         <c:choose>
                             <c:when test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"normal\")}">
                                 <div class="comentar">
-                                    <form  id="comentarioForm">
+                                    <form id="comentarioForm">
                                         <input type="hidden" id="postId" value="${id}">                                        
                                         <textarea id="contenidoComentario" placeholder="Escribe tu comentario aquí..." required></textarea>
                                         <button class="boton-comentar" type="submit">Comentar</button>
                                     </form>
-
                                 </div>
                             </c:when>
                         </c:choose>
