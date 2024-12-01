@@ -31,7 +31,7 @@ import org.itson.aplicacionesweb.themusichub.enums.CategoriaPost;
  * @author Equipo 1
  */
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "tipoPost")
 @Table(name = "posts")
 public class Post implements Serializable {
