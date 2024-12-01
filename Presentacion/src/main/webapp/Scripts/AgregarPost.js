@@ -5,16 +5,14 @@ class AgregarPost {
     }
     
     enviarEvento() {
-        const form = document.getElementById("nuevoPost");
-        if(form){
+        const form = document.getElementById('nuevoPost');
+        if (form){
             form.addEventListener('submit', (event) => this.enviarPost(event));
         }
     }
     
-    async enviarPost(evento) {
-        evento.preventDefault();
-        
-        const data = new FormData();
+    async enviarPost(event) {
+        event.preventDefault();
         
         const tituloInput = document.getElementById('titulo');
         const subtituloInput = document.getElementById('subtitulo');
@@ -27,45 +25,56 @@ class AgregarPost {
         const subtitulo = subtituloInput.value.trim();
         const tipoPost = tipoPostInput.value;
         const cuerpo = cuerpoInput.value.trim();
-        const archivo = archivoInput.files[0];
 
         if (!titulo) {
-        alert('Por favor, ingresa un titulo.');
-        return;
+            alert('Por favor, ingresa un titulo.');
+            return;
         }
 
         if (!subtitulo) {
-        alert('Por favor, ingresa un subtitulo.');
-        return;
+            alert('Por favor, ingresa un subtitulo.');
+            return;
         }
 
         if (!cuerpo) {
-        alert('Por favor, escribe el contenido del cuerpo del post.');
-        return;
+            alert('Por favor, escribe el contenido del cuerpo del post.');
+            return;
         }
         
-        data.append('titulo', titulo);
-        data.append('subtitulo', subtitulo);
-        data.append('tipoPost', tipoPost);
-        data.append('cuerpo', cuerpo);
-        data.append('archivo', archivo);
+        if (archivoInput.files.length === 0) {
+            alert('Por favor, selecciona una imagen.');
+            return;
+        }
 
+        const nombreImagen = archivoInput.files[0].name;
+        
+        const postNuevo = {
+            titulo: titulo,
+            subtitulo: subtitulo,
+            tipoPost: tipoPost,
+            cuerpo: cuerpo,
+            nombreImagen: nombreImagen
+        };
+        
         try {
-            const response = await fetch(this.apiUrl, {
-                method: 'POST',
-                body: data
-            });
+        const response = await fetch(this.apiUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(postNuevo)
+        });
 
-            const result = await response.json();
+        if (!response.ok) {
+            throw new Error('Error al subir el post');
+        }
 
-            if (response.ok) {
-                alert('Post publicado exitosamente.');
-            } else {
-                alert('Error al crear el post');
-            }
+        const resultado = await response.json();
+        console.log('Post subido exitosamente', resultado);
+        
         } catch (error) {
-            console.error('Error completo:', error);
-            alert('Ocurrió un error al registrar el comentario. ' + error.toString());
+            console.error('Error:', error);
+            alert('Hubo un problema al subir el post');
         }
     }
 }

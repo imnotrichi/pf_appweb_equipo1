@@ -88,47 +88,17 @@ public class CrearPost extends HttpServlet {
             return;
         }
 
-        String rutaRelativa = "";
-        //PROCESAMIENTO DE LA IMAGEN
-        if (!request.getPart("imagen").getSubmittedFileName().isBlank()) {
-        // Se crea la ruta del directorio donde se almacenarán las imagenes
-        String rutaDirectorio = getServletContext().getRealPath("/imagenesPost");
-        File directorioImagenesPost = new File(rutaDirectorio);
-
-        // Se crea el directorio si no existe
-        if (!directorioImagenesPost.exists()) {
-            directorioImagenesPost.mkdir();
-        }
-
-        // Se obtiene el archivo
-        Part imagen = request.getPart("imagen");
-
-        // Se obtiene la referencia del archivo (nombre del archivo)
-        String referencia = imagen.getSubmittedFileName();
-        
-        // Ruta completa donde se almacenará el archivo en el servidor
-        String rutaImagen = rutaDirectorio + File.separator + referencia;
-        
-        // Se almacena el archivo en el directorio
-        imagen.write(rutaImagen);
-        
-        // Guardar la ruta relativa que será accesible por la aplicación web
-        rutaRelativa = "imagenesPost/" + referencia;
-        request.getSession().setAttribute("imagen", rutaRelativa);
-        }
-        //FIN PROCESAMIENTO IMAGEN
-
         if (!titulo.isBlank() && !tipoPost.isBlank()) {
             if (subtitulo.isBlank()) {
                 subtitulo = "";
             }
 
-            try {
-                PostDTO postNuevo = new PostDTO(new GregorianCalendar(), titulo, subtitulo, cuerpo, tipoPost, usuario, rutaRelativa);
-                accesoDatos.publicarPost(postNuevo);
-            } catch (FacadeException ex) {
-                System.out.println("Error al crear la publicacion");
-            }
+//            try {
+//                PostDTO postNuevo = new PostDTO(new GregorianCalendar(), titulo, subtitulo, cuerpo, tipoPost, usuario, rutaRelativa);
+//                accesoDatos.publicarPost(postNuevo);
+//            } catch (FacadeException ex) {
+//                System.out.println("Error al crear la publicacion");
+//            }
 
             HttpSession session = request.getSession();
             String returnTo = (String) session.getAttribute("returnTo");
