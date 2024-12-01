@@ -16,7 +16,7 @@
         <link rel="stylesheet" href="./estilos/estiloEstructura.css">
         <link rel="stylesheet" href="./estilos/estiloPost.css">
         <script src="./scripts/AgregarComentario.js" defer></script>
-
+        
         <title>The Music Hub - Post</title>
     </head>
 

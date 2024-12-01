@@ -1,6 +1,6 @@
 class ComentarioManager {
     constructor() {
-        this.apiUrl = './AgregarComentario'; 
+        this.apiUrl = './AgregarComentario';
         this.enviarEvento();
     }
 
@@ -9,14 +9,14 @@ class ComentarioManager {
         if (form) {
             form.addEventListener('submit', (event) => this.enviarComentario(event));
         }
-    } 
+    }
 
     async enviarComentario(event) {
         event.preventDefault();
-        
+
         const contenidoInput = document.getElementById('contenidoComentario');
         const idPostInput = document.getElementById('postId');
-        
+
         const contenido = contenidoInput.value.trim();
         const idPost = idPostInput.value;
 
@@ -29,8 +29,8 @@ class ComentarioManager {
         // Preparar datos para enviar
         const comentarioData = {
             contenido: contenido,
-            post: { 
-                id: parseInt(idPost) 
+            post: {
+                id: parseInt(idPost)
             }
         };
 
@@ -54,9 +54,21 @@ class ComentarioManager {
             // Manejar respuesta del servidor
             if (result.status === 'success') {
                 alert('Comentario registrado exitosamente.');
-                contenidoInput.value = ''; 
-                // Recargar página para mostrar nuevo comentario
-                location.reload(true); 
+                contenidoInput.value = '';
+
+                // Crear nuevo elemento de comentario y agregarlo a la lista
+                const nuevoComentario = document.createElement('div');
+                nuevoComentario.classList.add('comentario');
+                nuevoComentario.innerHTML = `
+                <p>
+                    <span class="usuario"></span>
+                    <br>
+                    ${comentarioData.contenido}
+                </p>`;
+
+                const contenedorComentarios = document.querySelector('.contenedor-comentario');
+                contenedorComentarios.appendChild(nuevoComentario);
+
             } else {
                 alert('Error: ' + result.message);
             }
