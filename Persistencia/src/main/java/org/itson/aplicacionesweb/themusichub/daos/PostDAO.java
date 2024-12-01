@@ -10,13 +10,13 @@ import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
-import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import org.itson.aplicacionesweb.themusichub.conexion.IConexion;
 import org.itson.aplicacionesweb.themusichub.enums.CategoriaPost;
-import org.itson.aplicacionesweb.themusichub.modelo.Comentario;
+import org.itson.aplicacionesweb.themusichub.modelo.Anclado;
+import org.itson.aplicacionesweb.themusichub.modelo.Comun;
 import org.itson.aplicacionesweb.themusichub.modelo.Post;
 import org.itson.aplicacionesweb.themusichub.modelo.Usuario;
 import org.itson.aplicacionesweb.themusichub.persistenciaException.PersistenciaException;
@@ -172,7 +172,7 @@ public class PostDAO implements IPostDAO {
             int i = 0;
             for (Post post : listaPosts) {
                 i++;
-                if (!post.estaAnclado()) {
+                if (post instanceof Comun) {
                     post = obtenerPostPorID(post.getId());
                 }
             }
@@ -186,7 +186,7 @@ public class PostDAO implements IPostDAO {
             List<Post> postsComunes = new ArrayList<>();
 
             for (Post post : listaPosts) {
-                if (!post.estaAnclado()) {
+                if (post instanceof Comun) {
                     postsComunes.add(post);
                 } else {
                     postsAnclados.add(post);
@@ -232,7 +232,7 @@ public class PostDAO implements IPostDAO {
             int i = 0;
             for (Post post : listaPosts) {
                 i++;
-                if (!post.estaAnclado()) {
+                if (post instanceof Comun) {
                     post = obtenerPostPorID(post.getId());
                 }
             }
@@ -396,21 +396,29 @@ public class PostDAO implements IPostDAO {
 //            em.close();
 //        }
 //    }
-
     @Override
-    public void anclarPost(Post postComun) throws PersistenciaException {
+    public void anclarPost(Comun postComun, Anclado postAnclado) throws PersistenciaException {
+        // Creamos un entity manager.
         EntityManager em = conexion.crearConexion();
 
         try {
+            // Iniciamos la transacción.
             em.getTransaction().begin();
 
-            // Sincronizamos las entidades
-            em.merge(postComun);
-            
-            // Finaliza la transacción
+            // Se sincroniza la entidad.
+            postComun = em.merge(postComun);
+
+            // Mandamos a eliminar el post de la tabla de comunes.
+            em.remove(postComun);
+
+            // Mandamos a guardar el post en la tabla de anclados.
+            em.persist(postAnclado);
+
+            // Hacemos el commit y cerramos el entity manager.
             em.getTransaction().commit();
             em.close();
 
+            // Imprimimos un mensaje de que se eliminó un post.
             logger.log(Level.INFO, "Se ha eliminado 1 post común correctamente.");
             logger.log(Level.INFO, "Se ha insertado 1 post anclado correctamente.");
         } catch (PersistenceException pe) {
@@ -427,7 +435,7 @@ public class PostDAO implements IPostDAO {
      * @throws PersistenciaException
      */
     @Override
-    public void desanclarPost(Post postAnclado) throws PersistenciaException {
+    public void desanclarPost(Comun postComun, Anclado postAnclado) throws PersistenciaException {
         // Creamos un entity manager.
         EntityManager em = conexion.crearConexion();
 
@@ -436,7 +444,13 @@ public class PostDAO implements IPostDAO {
             em.getTransaction().begin();
 
             // Se sincroniza la entidad.
-            em.merge(postAnclado);
+            postAnclado = em.merge(postAnclado);
+
+            // Mandamos a eliminar el post de la tabla de comunes.
+            em.remove(postAnclado);
+
+            // Mandamos a guardar el post en la tabla de anclados.
+            em.persist(postComun);
 
             // Hacemos el commit y cerramos el entity manager.
             em.getTransaction().commit();

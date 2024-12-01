@@ -4,7 +4,9 @@
 package org.itson.aplicacionesweb.themusichub.facade;
 
 import com.mycompany.dto.AdministradorDTO;
+import com.mycompany.dto.AncladoDTO;
 import com.mycompany.dto.ComentarioDTO;
+import com.mycompany.dto.ComunDTO;
 import com.mycompany.dto.EstadoDTO;
 import com.mycompany.dto.MunicipioDTO;
 import com.mycompany.dto.NormalDTO;
@@ -24,7 +26,9 @@ import org.itson.aplicacionesweb.themusichub.factory.AbstractDAOFactory;
 import org.itson.aplicacionesweb.themusichub.factory.DAOFactory;
 import org.itson.aplicacionesweb.themusichub.modelo.Administrador;
 import org.itson.aplicacionesweb.themusichub.enums.CategoriaPost;
+import org.itson.aplicacionesweb.themusichub.modelo.Anclado;
 import org.itson.aplicacionesweb.themusichub.modelo.Comentario;
+import org.itson.aplicacionesweb.themusichub.modelo.Comun;
 import org.itson.aplicacionesweb.themusichub.modelo.Estado;
 import org.itson.aplicacionesweb.themusichub.modelo.Municipio;
 import org.itson.aplicacionesweb.themusichub.modelo.Normal;
@@ -152,7 +156,7 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
     @Override
     public void comentarPost(ComentarioDTO comentarioDTO, PostDTO postDTO) throws FacadeException {
         try {
-            if (postDTO.estaAnclado()) {
+            if (postDTO instanceof AncladoDTO) {
                 // Error si se trata comentar un post anclado.
                 throw new FacadeException("No se pueden comentar posts anclados.");
             }
@@ -160,13 +164,15 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
             // Obtenemos la entidad de Post.
             Post post = postsDAO.obtenerPostPorID(postDTO.getId());
 
+            Comun postComun = new Comun(post.getId(), post.getFechaHoraCreacion(), post.getTitulo(), post.getSubtitulo(), post.getContenido(), post.getCategoria(), post.getComentarios(), post.getUsuario(), post.getImagen());
+
             // Buscamos la entidad del usuario que comentó.
             Normal usuario = (Normal) usuariosDAO.buscarUsuario(comentarioDTO.getUsuario().getCorreo());
 
             Comentario comentario = new Comentario(
                     comentarioDTO.getFechaHora(),
                     comentarioDTO.getContenido(),
-                    post,
+                    postComun,
                     usuario);
             comentariosDAO.publicarComentario(comentario);
         } catch (PersistenciaException ex) {
@@ -374,17 +380,30 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
     }
 
     private PostDTO convertirPostAPostDTO(Post post) {
-        PostDTO postDTO = new PostDTO(
-                post.getId(),
-                post.getFechaHoraCreacion(),
-                post.getTitulo(),
-                post.getSubtitulo(),
-                post.getContenido(),
-                post.getCategoria().toString(),
-                convertirUsuarioAUsuarioDTO(post.getUsuario()),
-                convertirComentariosAComentariosDTO(post.getComentarios()),
-                post.getImagen(),
-                post.estaAnclado());
+        PostDTO postDTO = null;
+        if (post instanceof Comun) {
+            postDTO = new ComunDTO(
+                    post.getId(),
+                    post.getFechaHoraCreacion(),
+                    post.getTitulo(),
+                    post.getSubtitulo(),
+                    post.getContenido(),
+                    post.getCategoria().toString(),
+                    convertirUsuarioAUsuarioDTO(post.getUsuario()),
+                    convertirComentariosAComentariosDTO(post.getComentarios()),
+                    post.getImagen());
+        } else {
+            postDTO = new AncladoDTO(
+                    post.getId(),
+                    post.getFechaHoraCreacion(),
+                    post.getTitulo(),
+                    post.getSubtitulo(),
+                    post.getContenido(),
+                    post.getCategoria().toString(),
+                    convertirUsuarioAUsuarioDTO(post.getUsuario()),
+                    convertirComentariosAComentariosDTO(post.getComentarios()),
+                    post.getImagen());
+        }
         // Si el post es común, se obtiene el usuario que lo publicó.
         return postDTO;
     }
@@ -520,18 +539,28 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
     @Override
     public void anclarPost(Long idPost, String correoAdmin) throws FacadeException {
         try {
-            Post post = postsDAO.obtenerPostPorID(idPost);
-
-            if (post.estaAnclado()) {
+            Comun comun = null;
+            try {
+                comun = (Comun) postsDAO.obtenerPostPorID(idPost);
+            } catch (ClassCastException cce) {
                 throw new FacadeException("El post que trata de anclar ya está anclado.");
             }
 
             Administrador admin = (Administrador) usuariosDAO.buscarUsuario(correoAdmin);
-            
-            post.setAnclado(true);
-            post.setAdministrador(admin);
 
-            postsDAO.anclarPost(post);
+            Anclado anclado = new Anclado(
+                    comun.getId(),
+                    comun.getFechaHoraCreacion(),
+                    comun.getTitulo(),
+                    comun.getSubtitulo(),
+                    comun.getContenido(),
+                    comun.getCategoria(),
+                    comun.getComentarios(),
+                    comun.getUsuario(),
+                    admin,
+                    comun.getImagen());
+
+            postsDAO.anclarPost(comun, anclado);
         } catch (PersistenciaException ex) {
             Logger.getLogger(AccesoDatosFacade.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -547,16 +576,25 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
     @Override
     public void desanclarPost(Long idPost) throws FacadeException {
         try {
-            Post post = postsDAO.obtenerPostPorID(idPost);
-
-            if (!post.estaAnclado()) {
+            Anclado anclado = null;
+            try {
+                anclado = (Anclado) postsDAO.obtenerPostPorID(idPost);
+            } catch (ClassCastException cce) {
                 throw new FacadeException("El post que trata de desanclar no está anclado.");
             }
 
-            post.setAnclado(false);
-            post.setAdministrador(null);
-            
-            postsDAO.desanclarPost(post);
+            Comun comun = new Comun(
+                    anclado.getId(),
+                    anclado.getFechaHoraCreacion(),
+                    anclado.getTitulo(),
+                    anclado.getSubtitulo(),
+                    anclado.getContenido(),
+                    anclado.getCategoria(),
+                    anclado.getComentarios(),
+                    anclado.getUsuario(),
+                    anclado.getImagen());
+
+            postsDAO.desanclarPost(comun, anclado);
         } catch (PersistenciaException ex) {
             Logger.getLogger(AccesoDatosFacade.class.getName()).log(Level.SEVERE, null, ex);
         }
