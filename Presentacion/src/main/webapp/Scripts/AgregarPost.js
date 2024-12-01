@@ -12,7 +12,7 @@ class AgregarPost {
     }
     
     async enviarPost(evento) {
-        event.preventDefault();
+        evento.preventDefault();
         
         const data = new FormData();
         

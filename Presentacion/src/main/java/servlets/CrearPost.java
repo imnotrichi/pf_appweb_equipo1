@@ -72,25 +72,14 @@ public class CrearPost extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-
-        String json = request.getParameter("data");
-        
-        if (json == null || json.isBlank()) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "No llego el JSON.");
-            return;
-        }
-        
-        Gson gson = new Gson();
-        Type type = new TypeToken<Map<String, String>>(){}.getType();
-        Map<String, String> postData = gson.fromJson(json, type);
-
-        String titulo = postData.get("titulo");
-        String subtitulo = postData.get("subtitulo");
-        String tipoPost = postData.get("tipoPost");
-        String cuerpo = postData.get("cuerpo");
-
-        UsuarioDTO usuario;
         IAccesoDatosFacade accesoDatos = new AccesoDatosFacade();
+
+        String titulo = request.getParameter("titulo");
+        String subtitulo = request.getParameter("subtitulo");
+        String tipoPost = request.getParameter("tipo-post");
+        String cuerpo = request.getParameter("cuerpo");
+        UsuarioDTO usuario = null;
+        
         try {
             usuario = accesoDatos.obtenerUsuario(((UsuarioBean) request.getSession().getAttribute("usuario")).getCorreo());
         } catch (FacadeException ex) {
