@@ -1,7 +1,6 @@
 /* 
  * ResponderComentario.js
  */
-
 class RespuestaComentario {
     constructor() {
         this.apiUrl = './ResponderComentario';
@@ -9,7 +8,7 @@ class RespuestaComentario {
     }
 
     enviarEvento() {
-        const form = document.getElementById('comentarioForm');
+        const form = document.getElementById('respuestaForm');
         if (form) {
             form.addEventListener('submit', (event) => this.enviarComentario(event));
         }
@@ -17,24 +16,24 @@ class RespuestaComentario {
     
     async enviarComentario(event) {
         event.preventDefault();
-
-        const contenidoInput = document.getElementById('contenidoComentarioRespuesta');
-        const idComentarioInput = document.getElementById('comentarioId');
+        
+        const contenidoInput = document.getElementById('contenidoRespuesta');
+        const idComentarioInput = document.getElementById('postComentario');
 
         const contenido = contenidoInput.value.trim();
         const idComentario = idComentarioInput.value;
 
         // Validar campos
         if (!contenido) {
-            alert('Por favor escribe un comentario.');
+            alert('Por favor escribe una respuesta.');
             return;
         }
 
         // Preparar datos para enviar
-        const comentarioData = {
+        const respuestaData = {
             contenido: contenido,
-            respuesta: {
-                id: parseInt(idComentario)
+            comentario: { 
+                id: parseInt(idComentario) 
             }
         };
 
@@ -44,9 +43,8 @@ class RespuestaComentario {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(comentarioData)
+                body: JSON.stringify(respuestaData)
             });
-            console.log(contenido);
 
             // Verificar si la respuesta es un JSON válido
             const contentType = response.headers.get('content-type');
@@ -58,34 +56,20 @@ class RespuestaComentario {
 
             // Manejar respuesta del servidor
             if (result.status === 'success') {
-                alert('Comentario registrado exitosamente.');
-                contenidoInput.value = '';
-                location.reload(true);
-//
-//                // Crear nuevo elemento de comentario y agregarlo a la lista
-//                const nuevoComentario = document.createElement('div');
-//                nuevoComentario.classList.add('comentario');
-//                nuevoComentario.innerHTML = `
-//                <p>
-//                    <span class="usuario"></span>
-//                    <br>
-//                    ${comentarioData.contenido}
-//                </p>`;
-//
-//                const contenedorComentarios = document.querySelector('.contenedor-comentario');
-//                contenedorComentarios.appendChild(nuevoComentario);
-
+                alert('Respuesta registrado exitosamente.');
+                contenidoInput.value = ''; 
+                // Recargar página para mostrar nueva respuesta
+                location.reload(true); 
             } else {
                 alert('Error: ' + result.message);
             }
         } catch (error) {
             console.error('Error completo:', error);
-            alert('Ocurrió un error al registrar el comentario. ' + error.toString());
+            alert('Ocurrió un error al registrar la respuesta. ' + error.toString());
         }
     }
 }
 
-// Inicializar el manejador de comentarios al cargar la página
 document.addEventListener('DOMContentLoaded', () => {
-    new ComentarioManager();
+    new ResponderComentario();
 });

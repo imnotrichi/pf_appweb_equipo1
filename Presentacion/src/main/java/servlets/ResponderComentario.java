@@ -128,7 +128,6 @@ public class ResponderComentario extends HttpServlet {
         // Enviar respuesta
         out.print(gson.toJson(respuesta));
         out.flush();
-
     }
 
     /**

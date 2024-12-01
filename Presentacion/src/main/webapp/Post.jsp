@@ -76,11 +76,12 @@
                                     <c:choose>
                                         <c:when test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"normal\")}">
                                             <button class="responder-btn">Responder</button>
-                                            <div class="comentar comentarRespuesta">
+                                            <!-- ESTO SE TIENE QUE BORRAR DESPUES PARA AGREAGRLO CUANDO SE PRESIONA EL BOTON RESPONDER-->
+                                            <div class="comentar">
                                                 <form id="respuestaForm">
-                                                    <input type="hidden" id="comentarioId" value="${comentario.id}">                                        
-                                                    <textarea id="contenidoComentarioRespuesta" placeholder="Escribe tu comentario aquí..." required></textarea>
-                                                    <button class="boton-comentar" type="submit">Comentar</button>
+                                                    <input type="hidden" id="postComentario" value="${comentario.getId()}">                                        
+                                                    <textarea id="contenidoRespuesta" placeholder="Escribe tu respuesta aquí..." required></textarea>
+                                                    <button class="boton-comentar" type="submit">Responder</button>
                                                 </form>
                                             </div>
                                         </c:when>
