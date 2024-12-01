@@ -22,7 +22,6 @@ public class PostDTO {
     private String imagen;
     private List<ComentarioDTO> comentarios;
     private UsuarioDTO usuario;
-    private boolean anclado;
 
     /**
      * Constructor para un PostDTO nuevo.
@@ -156,15 +155,5 @@ public class PostDTO {
 
     public void setImagen(String imagen) {
         this.imagen = imagen;
-    }
-
-    public boolean estaAnclado() {
-        return anclado;
-    }
-
-    public void setEstaAnclado(boolean anclado) {
-        this.anclado = anclado;
-    }
-
-    
+    }    
 }

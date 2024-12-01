@@ -7,7 +7,9 @@ package servlets;
 import beans.ComentarioBean;
 import beans.PostBean;
 import beans.UsuarioBean;
+import com.mycompany.dto.AncladoDTO;
 import com.mycompany.dto.ComentarioDTO;
+import com.mycompany.dto.ComunDTO;
 import com.mycompany.dto.PostDTO;
 import com.mycompany.dto.UsuarioDTO;
 import jakarta.servlet.ServletException;
@@ -16,7 +18,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -93,9 +94,9 @@ public class Noticias extends HttpServlet {
                 : null;
 
         String tipo = "";
-        if (!dto.estaAnclado()) {
+        if (dto instanceof ComunDTO) {
             tipo = "comun";
-        } else if (dto.estaAnclado()) {
+        } else if (dto instanceof AncladoDTO) {
             tipo = "anclado";
         }
         return new PostBean(
