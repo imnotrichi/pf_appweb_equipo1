@@ -18,6 +18,7 @@ main article {
 
 main article h3 {
     font-size: 2rem;
+    overflow: hidden;
 }
 
 main article h2 {
