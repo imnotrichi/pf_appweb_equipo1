@@ -18,7 +18,7 @@ import org.itson.aplicacionesweb.themusichub.persistenciaException.PersistenciaE
  * @author Equipo1
  */
 public class ComentarioDAO implements IComentarioDAO {
-    
+
     private IConexion conexion;
     private static final Logger logger = Logger.getLogger(ComentarioDAO.class.getName());
 
@@ -29,7 +29,7 @@ public class ComentarioDAO implements IComentarioDAO {
     @Override
     public Comentario obtenerComentario(Long id) throws PersistenciaException {
         EntityManager em = conexion.crearConexion();
-        
+
         try {
             CriteriaBuilder cb = em.getCriteriaBuilder();
             CriteriaQuery<Comentario> cq = cb.createQuery(Comentario.class);
@@ -38,7 +38,7 @@ public class ComentarioDAO implements IComentarioDAO {
             Comentario comentario = em.createQuery(cq).getSingleResult();
             logger.log(Level.INFO, "Se ha consultado la tabla 'comentarios' y se obtuvo 1 resultado.");
             return comentario;
-        } catch (NoResultException nre){
+        } catch (NoResultException nre) {
             logger.log(Level.INFO, "La tabla 'comentarios' está vacía.");
             return null;
         } catch (PersistenceException pe) {
@@ -66,7 +66,7 @@ public class ComentarioDAO implements IComentarioDAO {
 
             logger.log(Level.INFO, "Se ha consultado la tabla 'comentarios' y se obtuvieron " + i + " resultados.");
             return listaComentarios;
-        } catch (NoResultException nre){
+        } catch (NoResultException nre) {
             logger.log(Level.INFO, "La tabla 'comentarios' está vacía.");
             return null;
         } catch (PersistenceException pe) {
@@ -96,8 +96,24 @@ public class ComentarioDAO implements IComentarioDAO {
         EntityManager em = conexion.crearConexion();
 
         try {
+            for (Comentario respuesta : comentario.getRespuestas()) {
+                // Iniciamos la transacción.
+                em.getTransaction().begin();
+
+                // Mergeamos la entidad.
+                respuesta = em.merge(respuesta);
+
+                // Mandamos a eliminar la respuesta.
+                em.remove(respuesta);
+
+                // Hacemos el commit y cerramos el entity manager.
+                em.getTransaction().commit();
+
+            }
             em.getTransaction().begin();
+            // Mergeamos la entidad de Post y la refrescamos.
             comentario = em.merge(comentario);
+            em.refresh(comentario);
             em.remove(comentario);
             em.getTransaction().commit();
             em.close();
