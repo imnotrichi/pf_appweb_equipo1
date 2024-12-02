@@ -77,7 +77,7 @@ public class AnclarPost extends HttpServlet {
             request.setAttribute("contenido", post.getContenido());
             request.setAttribute("imagenPost", post.getImagen());
             request.setAttribute("tipoPost", post.getTipoPost());
-            request.getRequestDispatcher("/Post?id=" + id).forward(request, response);
+            request.getRequestDispatcher("/Post.jsp").forward(request, response);
         } catch (FacadeException ex) {
             Logger.getLogger(EliminarPost.class.getName()).log(Level.SEVERE, null, ex);
         }

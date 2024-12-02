@@ -121,26 +121,16 @@ public class Post extends HttpServlet {
         Map<Long, ComentarioBean> mapaComentarios = new HashMap<>();
 
         for (ComentarioDTO comentario : comentariosDTO) {
-            if (comentario.getRespuesta() == null) {
-                ComentarioBean comentarioBean = convertirComentario(comentario, dateFormat);
-                mapaComentarios.put(comentarioBean.getId(), comentarioBean);
-                comentariosPrincipales.add(comentarioBean);
-            }
-        }
+            ComentarioBean comentarioBean = convertirComentario(comentario, dateFormat);
+            mapaComentarios.put(comentarioBean.getId(), comentarioBean);
 
-    for (ComentarioDTO comentario : comentariosDTO) {
-        if (comentario.getRespuestas() != null) {
-            ComentarioBean comentarioPadre = mapaComentarios.get(comentario.getId());
-            
-            ComentarioBean comentarioHijo = convertirComentario(comentario, dateFormat);
-            
-            if (comentarioPadre != null) {
-                comentarioPadre.getRespuesta().add(comentarioHijo);
+            for (ComentarioDTO respuesta : comentario.getRespuestas()) {
+                ComentarioBean respuestaBean = convertirComentario(respuesta, dateFormat);
+                comentarioBean.getRespuesta().add(respuestaBean);
             }
+            comentariosPrincipales.add(comentarioBean);
         }
-    }
-
-    return comentariosPrincipales;
+        return comentariosPrincipales;
     }
 
     /**

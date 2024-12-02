@@ -13,8 +13,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./estilos/estiloNuevoPost.css">
     <link rel="stylesheet" href="./estilos/estiloEstructura.css">
-    <script src="./Scripts/AgregarPost.js"></script>
-    <script src="./Scripts/AgregarImagenPost.js"></script>
+    <script src="scripts/AgregarPost.js"></script>
+    <script src="scripts/AgregarImagenPost.js"></script>
     <title>The Music Hub - Nuevo post</title>
 </head>
 

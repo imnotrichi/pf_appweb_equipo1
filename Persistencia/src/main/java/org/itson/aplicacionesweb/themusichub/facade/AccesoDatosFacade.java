@@ -115,7 +115,7 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
             UsuarioDTO usuarioDTO = post.getUsuario();
             Usuario usuario = usuariosDAO.buscarUsuario(usuarioDTO.getCorreo());
 
-            Post nuevoPost = new Post(
+            Post nuevoPost = new Comun(
                     post.getFechaHoraCreacion(),
                     post.getTitulo(),
                     post.getSubtitulo(),

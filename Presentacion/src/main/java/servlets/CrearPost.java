@@ -5,6 +5,7 @@ package servlets;
 
 import beans.UsuarioBean;
 import com.google.gson.Gson;
+import com.mycompany.dto.ComunDTO;
 import com.mycompany.dto.PostDTO;
 import com.mycompany.dto.UsuarioDTO;
 import jakarta.servlet.ServletException;
@@ -12,7 +13,6 @@ import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.GregorianCalendar;
@@ -97,7 +97,7 @@ public class CrearPost extends HttpServlet {
 
         if (!post.getTitulo().isBlank() && !post.getTipoPost().isBlank()) {
             try {
-                PostDTO postNuevo = new PostDTO(
+                ComunDTO postNuevo = new ComunDTO(
                         new GregorianCalendar(),
                         post.getTitulo(),
                         post.getSubtitulo(),

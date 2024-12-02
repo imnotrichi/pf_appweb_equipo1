@@ -15,8 +15,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="./estilos/estiloEstructura.css">
         <link rel="stylesheet" href="./estilos/estiloPost.css">
-        <script src="./scripts/AgregarComentario.js" defer></script>
-        <script src="./scripts/ResponderComentario.js" defer></script>
+        <script src="scripts/AgregarComentario.js" defer></script>
+        <script src="scripts/ResponderComentario.js" defer></script>
 
         <title>The Music Hub - Post</title>
     </head>
@@ -80,7 +80,7 @@
                                     </c:if>
                                     <c:if test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"administrador\")
                                                   || sessionScope.usuario.getNombreUsuario().equals(comentario.nombreUsuario)}">
-                                          <a href="EliminarComentario?idComentario=${comentario.getId()}">
+                                          <a href="EliminarComentario?idComentario=${comentario.getId()}&idPost=${id}">
                                               <button type="submit" class="responder-btn">Eliminar</button>
                                           </a>
                                     </c:if>
@@ -97,7 +97,9 @@
                                                     <c:choose>         
                                                         <c:when test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"administrador\")
                                                                         || sessionScope.usuario.getNombreUsuario().equals(comentario.nombreUsuario)}">
-                                                                <button class="responder-btn">Eliminar</button>                                                        
+                                                                <a href="EliminarComentario?idComentario=${comentarioRespuesta.id}&idPost=${id}">
+                                                                    <button class="responder-btn">Eliminar</button>
+                                                                </a>
                                                         </c:when>
                                                     </c:choose>
                                                 </div>
