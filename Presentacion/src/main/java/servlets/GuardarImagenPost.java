@@ -1,23 +1,24 @@
 package servlets;
 
+import com.google.gson.Gson;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
-
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
  * @author Equipo1
  */
+@MultipartConfig
 public class GuardarImagenPost extends HttpServlet {
 
-    
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -29,7 +30,7 @@ public class GuardarImagenPost extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
     }
 
     /**
@@ -41,31 +42,53 @@ public class GuardarImagenPost extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        
-        
-        if (!request.getPart("imagen").getSubmittedFileName().isBlank()) {
-        // Se crea la ruta del directorio donde se almacenarán las imagenes
-        String rutaDirectorio = getServletContext().getRealPath("/imagenesPost");
-        File directorioImagenesPost = new File(rutaDirectorio);
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("application/json"); // Cambiar a JSON para la respuesta
+        response.setCharacterEncoding("UTF-8");
 
-        // Se crea el directorio si no existe
-        if (!directorioImagenesPost.exists()) {
-            directorioImagenesPost.mkdir();
-        }
+        Map<String, String> responseBody = new HashMap<>();
+        Gson gson = new Gson();
 
-        // Se obtiene el archivo
-        Part imagen = request.getPart("imagen");
+        try {
+            // Ruta del directorio donde se almacenarán las imágenes
+            String rutaDirectorio = getServletContext().getRealPath("/imagenesPost");
+            File directorioImagenesPost = new File(rutaDirectorio);
 
-        // Se obtiene la referencia del archivo (nombre del archivo)
-        String referencia = imagen.getSubmittedFileName();
-        
-        // Ruta completa donde se almacenará el archivo en el servidor
-        String rutaImagen = rutaDirectorio + File.separator + referencia;
-        
-        // Se almacena el archivo en el directorio
-        imagen.write(rutaImagen);
+            // Crear el directorio si no existe
+            if (!directorioImagenesPost.exists()) {
+                directorioImagenesPost.mkdir();
+            }
+
+            // Obtener el archivo
+            Part imagen = request.getPart("imagen"); // Asegúrate de que el nombre coincida con el del FormData en JS
+
+            if (imagen == null || imagen.getSubmittedFileName().isBlank()) {
+                responseBody.put("status", "error");
+                responseBody.put("message", "No se envió ninguna imagen.");
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                response.getWriter().write(gson.toJson(responseBody));
+                return;
+            }
+
+            // Guardar el archivo
+            String referencia = imagen.getSubmittedFileName();
+            String rutaImagen = rutaDirectorio + File.separator + referencia;
+            imagen.write(rutaImagen);
+
+            // Responder con éxito
+            responseBody.put("status", "success");
+            responseBody.put("message", "Imagen subida exitosamente.");
+            responseBody.put("filePath", "/imagenesPost/" + referencia); // Ruta relativa para usar en la app
+            response.setStatus(HttpServletResponse.SC_OK);
+            response.getWriter().write(gson.toJson(responseBody));
+
+        } catch (Exception e) {
+            // Manejo de errores
+            System.out.println(e.getMessage());
+            responseBody.put("status", "error");
+            responseBody.put("message", "Hubo un error al guardar la imagen.");
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            response.getWriter().write(gson.toJson(responseBody));
         }
     }
 
@@ -77,6 +100,5 @@ public class GuardarImagenPost extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
-
+    }
 }

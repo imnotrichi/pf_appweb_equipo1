@@ -66,12 +66,11 @@ public class CrearPost extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         IAccesoDatosFacade accesoDatos = new AccesoDatosFacade();
-        
+
         Gson gson = new Gson();
 
         BufferedReader reader = request.getReader();
@@ -80,10 +79,10 @@ public class CrearPost extends HttpServlet {
         while ((line = reader.readLine()) != null) {
             jsonBuilder.append(line);
         }
-        
+
         PostDTO post = gson.fromJson(jsonBuilder.toString(), PostDTO.class);
 
-        UsuarioDTO usuario = null;      
+        UsuarioDTO usuario = null;
         try {
             usuario = accesoDatos.obtenerUsuario(((UsuarioBean) request.getSession().getAttribute("usuario")).getCorreo());
         } catch (FacadeException ex) {
@@ -91,9 +90,9 @@ public class CrearPost extends HttpServlet {
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error al obtener el usuario.");
             return;
         }
-        
+
         String rutaRelativa = "imagenesPost/" + post.getImagen();
-        
+
         Map<String, String> responseBody = new HashMap<>();
 
         if (!post.getTitulo().isBlank() && !post.getTipoPost().isBlank()) {
@@ -109,7 +108,7 @@ public class CrearPost extends HttpServlet {
                 );
 
                 accesoDatos.publicarPost(postNuevo);
-                
+
                 responseBody.put("status", "success");
                 responseBody.put("message", "Si se pudo crear el post");
                 response.setStatus(HttpServletResponse.SC_OK);
@@ -126,17 +125,7 @@ public class CrearPost extends HttpServlet {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             response.getWriter().write(gson.toJson(responseBody));
         }
-
-            HttpSession session = request.getSession();
-            String returnTo = (String) session.getAttribute("returnTo");
-
-            if (returnTo != null) {
-                session.removeAttribute("returnTo");
-                response.sendRedirect(returnTo);
-            } else {
-                response.sendRedirect("Inicio.jsp");
-            }
-        }
+    }
 
     /**
      * Returns a short description of the servlet.
