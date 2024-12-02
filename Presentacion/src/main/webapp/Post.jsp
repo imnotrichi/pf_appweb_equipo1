@@ -74,17 +74,17 @@
                                         </br>
                                         ${comentario.contenido}
                                     </p>
-                                    <c:choose>
-                                        <c:when test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"normal\")}">
+                                    
+                                        <c:if test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"normal\")}">
                                             <button class="responder-btn">Responder</button>
 
 
-                                        </c:when>
-                                        <c:when test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"administrador\")
+                                        </c:if>
+                                        <c:if test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"administrador\")
                                                 || sessionScope.usuario.getNombreUsuario().equals(comentario.nombreUsuario)}">
                                             <button class="responder-btn">Eliminar</button>
-                                        </c:when>
-                                    </c:choose>
+                                        </c:if>
+                                   
 
                                     <c:if test="${not empty comentario.respuesta}">
                                         <div class="respuestas">
