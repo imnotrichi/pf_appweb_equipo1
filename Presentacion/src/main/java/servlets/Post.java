@@ -69,6 +69,7 @@ public class Post extends HttpServlet {
 
             PostDTO post = accesoDatos.obtenerPostID(Long.valueOf(id));
             List<ComentarioDTO> comentatiosDTO = post.getComentarios();
+            System.out.println("Comentarios con DTO");
             for (ComentarioDTO comentariosPrincipale : comentatiosDTO) {
                 System.out.println("ID comentario padre:" + comentariosPrincipale.getId());
                 for (ComentarioDTO coment : comentariosPrincipale.getRespuestas()) {
@@ -95,6 +96,7 @@ public class Post extends HttpServlet {
 
                 // Procesar comentarios
                 List<ComentarioBean> comentariosPrincipales = procesarComentarios(post.getComentarios(), dateFormat);
+                System.out.println("COMENTARIOS CON BEAN");
                 for (ComentarioBean comentariosPrincipale : comentariosPrincipales) {
                     System.out.println("ID comentario padre:" + comentariosPrincipale.getId());
                     for (ComentarioBean comentarioBean : comentariosPrincipale.getRespuesta()) {
@@ -118,31 +120,27 @@ public class Post extends HttpServlet {
         List<ComentarioBean> comentariosPrincipales = new LinkedList<>();
         Map<Long, ComentarioBean> mapaComentarios = new HashMap<>();
 
-        // Convertir todos los ComentarioDTO a ComentarioBean y organizarlos por ID
         for (ComentarioDTO comentario : comentariosDTO) {
-            ComentarioBean comentarioBean = convertirComentario(comentario, dateFormat);
-            mapaComentarios.put(comentarioBean.getId(), comentarioBean);
-
-            // Si el comentario no es una respuesta, es principal
             if (comentario.getRespuesta() == null) {
+                ComentarioBean comentarioBean = convertirComentario(comentario, dateFormat);
+                mapaComentarios.put(comentarioBean.getId(), comentarioBean);
                 comentariosPrincipales.add(comentarioBean);
             }
         }
 
-        // Asignar respuestas a los comentarios principales
-        for (ComentarioDTO comentario : comentariosDTO) {
-            if (comentario.getRespuesta() != null) {
-                Long idPadre = comentario.getRespuesta().getId();
-                ComentarioBean comentarioPadre = mapaComentarios.get(idPadre);
-                ComentarioBean comentarioHijo = mapaComentarios.get(comentario.getId());
-
-                if (comentarioPadre != null && comentarioHijo != null) {
-                    comentarioPadre.getRespuesta().add(comentarioHijo);
-                }
+    for (ComentarioDTO comentario : comentariosDTO) {
+        if (comentario.getRespuestas() != null) {
+            ComentarioBean comentarioPadre = mapaComentarios.get(comentario.getId());
+            
+            ComentarioBean comentarioHijo = convertirComentario(comentario, dateFormat);
+            
+            if (comentarioPadre != null) {
+                comentarioPadre.getRespuesta().add(comentarioHijo);
             }
         }
+    }
 
-        return comentariosPrincipales;
+    return comentariosPrincipales;
     }
 
     /**
