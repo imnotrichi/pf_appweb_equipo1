@@ -77,18 +77,11 @@
                                     <c:choose>
                                         <c:when test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"normal\")}">
                                             <button class="responder-btn">Responder</button>
-                                            <!-- ESTO SE TIENE QUE BORRAR DESPUES PARA AGREAGRLO CUANDO SE PRESIONA EL BOTON RESPONDER-->
-                                            <!--
-                                            <div class="comentar">
-                                                <form id="respuestaForm">
-                                                    <input type="hidden" id="postComentario" value="${comentario.getId()}">                                        
-                                                    <textarea id="contenidoRespuesta" placeholder="Escribe tu respuesta aquí..." required></textarea>
-                                                    <button class="boton-comentar" type="submit">Responder</button>
-                                                </form>
-                                            </div>
-                                            -->
+
+
                                         </c:when>
-                                        <c:when test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"administrador\")}">
+                                        <c:when test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"administrador\")
+                                                || sessionScope.usuario.getNombreUsuario().equals(comentario.nombreUsuario)}">
                                             <button class="responder-btn">Eliminar</button>
                                         </c:when>
                                     </c:choose>
@@ -101,18 +94,25 @@
                                                         <span class="usuario">@${comentarioRespuesta.nombreUsuario} (${comentarioRespuesta.fechaComentario}): </span>
                                                         <br>${comentarioRespuesta.contenido}
                                                     </p>
-                                                    <c:choose>
-                                                        <c:when test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"normal\")}">
-                                                            <button class="responder-btn">Responder</button
-                                                        </c:when>
-                                                        <c:when test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"administrador\")}">
-                                                            <button class="responder-btn">Eliminar</button>
+                                                    <c:choose>         
+                                                        <c:when test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"administrador\")
+                                                                || sessionScope.usuario.getNombreUsuario().equals(comentario.nombreUsuario)}">
+                                                            <button class="responder-btn">Eliminar</button>                                                        
                                                         </c:when>
                                                     </c:choose>
                                                 </div>
                                             </c:forEach>
                                         </div>
                                     </c:if>
+                                    <!-- ESTO SE TIENE QUE BORRAR DESPUES PARA AGREAGRLO CUANDO SE PRESIONA EL BOTON RESPONDER-->
+
+                                    <div class="comentar respuestaEsconder" >
+                                        <form id="respuestaForm">
+                                            <input type="hidden" id="postComentario" value="${comentario.getId()}">                                        
+                                            <textarea id="contenidoRespuesta" placeholder="Escribe tu respuesta aquí..." required></textarea>
+                                            <button class="boton-comentar" type="submit">Responder</button>
+                                        </form>
+                                    </div>
                                 </div>
                             </c:forEach>
                         </c:if>

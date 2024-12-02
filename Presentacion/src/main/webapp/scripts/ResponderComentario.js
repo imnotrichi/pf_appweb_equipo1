@@ -5,6 +5,7 @@ class RespuestaComentario {
     constructor() {
         this.apiUrl = './ResponderComentario';
         this.enviarEvento();
+         this.mostrarFormularioEvento();
     }
 
     enviarEvento() {
@@ -13,6 +14,24 @@ class RespuestaComentario {
             form.addEventListener('submit', (event) => this.enviarComentario(event));
         });
     } 
+    
+    mostrarFormularioEvento() {
+        const botonesResponder = document.querySelectorAll('.responder-btn');
+        
+        botonesResponder.forEach(boton => {
+            boton.addEventListener('click', function () {
+                const divRespuestas = document.querySelectorAll('.respuestaEsconder');
+                const divRespuesta = event.target
+                
+                if (divRespuesta.style.display === 'none' || !divRespuesta.style.display) {
+                    divRespuesta.style.display = 'block';
+                } else {
+                    divRespuesta.style.display = 'none';
+                }
+            });
+        });
+    }
+F
     
     async enviarComentario(event) {
         
@@ -25,9 +44,7 @@ class RespuestaComentario {
         const contenido = contenidoInput.value.trim();
         const idComentario = idComentarioInput.value;
         
-        console.log('Contenido:', contenido);
-        console.log('ID Comentario:', idComentario);
-        console.log("*****************************")
+      
 
         // Validar campos
         if (!contenido) {
