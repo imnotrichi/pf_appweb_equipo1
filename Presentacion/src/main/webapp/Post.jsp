@@ -16,6 +16,7 @@
         <link rel="stylesheet" href="./estilos/estiloEstructura.css">
         <link rel="stylesheet" href="./estilos/estiloPost.css">
         <script src="./scripts/AgregarComentario.js" defer></script>
+        <script src="./scripts/ResponderComentario.js" defer></script>
 
         <title>The Music Hub - Post</title>
     </head>
@@ -77,6 +78,7 @@
                                         <c:when test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"normal\")}">
                                             <button class="responder-btn">Responder</button>
                                             <!-- ESTO SE TIENE QUE BORRAR DESPUES PARA AGREAGRLO CUANDO SE PRESIONA EL BOTON RESPONDER-->
+                                            <!--
                                             <div class="comentar">
                                                 <form id="respuestaForm">
                                                     <input type="hidden" id="postComentario" value="${comentario.getId()}">                                        
@@ -84,6 +86,7 @@
                                                     <button class="boton-comentar" type="submit">Responder</button>
                                                 </form>
                                             </div>
+                                            -->
                                         </c:when>
                                         <c:when test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"administrador\")}">
                                             <button class="responder-btn">Eliminar</button>

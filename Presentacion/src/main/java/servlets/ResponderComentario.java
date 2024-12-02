@@ -83,11 +83,13 @@ public class ResponderComentario extends HttpServlet {
 
         try {
             // Obtener usuario de la sesión
+            System.out.println("HOLA DESDE SERVLET AGREGARCOMENTARIO");
+
             HttpSession session = request.getSession(false);
             UsuarioBean usuarioSesion = (UsuarioBean) session.getAttribute("usuario");
 
             NormalDTO usuarioActual = (NormalDTO) accesoDatos.obtenerUsuario(usuarioSesion.getCorreo());
-
+            System.out.println(usuarioActual.toString());
             if (usuarioActual == null) {
                 throw new Exception("Usuario no autenticado");
             }
@@ -95,7 +97,7 @@ public class ResponderComentario extends HttpServlet {
             // Leer JSON del cuerpo de la solicitud
             BufferedReader reader = request.getReader();
             ComentarioDTO comentarioDTO = gson.fromJson(reader, ComentarioDTO.class);
-
+            System.out.println(comentarioDTO.toString());
             // Validaciones
             if (comentarioDTO == null) {
                 throw new Exception("Datos de comentario inválidos");

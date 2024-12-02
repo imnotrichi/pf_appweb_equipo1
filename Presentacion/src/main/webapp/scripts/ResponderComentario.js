@@ -8,20 +8,26 @@ class RespuestaComentario {
     }
 
     enviarEvento() {
-        const form = document.getElementById('respuestaForm');
-        if (form) {
+        const forms = document.querySelectorAll('#respuestaForm');
+        forms.forEach(form => {
             form.addEventListener('submit', (event) => this.enviarComentario(event));
-        }
+        });
     } 
     
     async enviarComentario(event) {
+        
         event.preventDefault();
         
-        const contenidoInput = document.getElementById('contenidoRespuesta');
-        const idComentarioInput = document.getElementById('postComentario');
-
+        const form = event.target;
+        const contenidoInput = form.querySelector('#contenidoRespuesta');
+        const idComentarioInput = form.querySelector('#postComentario');
+        
         const contenido = contenidoInput.value.trim();
         const idComentario = idComentarioInput.value;
+        
+        console.log('Contenido:', contenido);
+        console.log('ID Comentario:', idComentario);
+        console.log("*****************************")
 
         // Validar campos
         if (!contenido) {
@@ -32,10 +38,12 @@ class RespuestaComentario {
         // Preparar datos para enviar
         const respuestaData = {
             contenido: contenido,
-            comentario: { 
+            respuesta: { 
                 id: parseInt(idComentario) 
             }
         };
+        
+        console.log(respuestaData);
 
         try {
             const response = await fetch(this.apiUrl, {
@@ -71,5 +79,5 @@ class RespuestaComentario {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    new ResponderComentario();
+    new RespuestaComentario();
 });

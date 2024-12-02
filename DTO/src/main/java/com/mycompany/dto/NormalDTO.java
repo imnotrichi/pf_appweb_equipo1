@@ -27,4 +27,13 @@ public class NormalDTO extends UsuarioDTO {
         return comentarios;
     }
 
+    @Override
+    public String toString() {
+        return super.toString()+ "NormalDTO{" + "comentarios=" + comentarios +  '}';
+    }
+
+   
+    
+    
+
 }

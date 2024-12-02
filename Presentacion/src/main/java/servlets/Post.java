@@ -66,8 +66,16 @@ public class Post extends HttpServlet {
             System.out.println("HOLA DESDE SERVLET POST");
             contador++;
             System.out.println(contador);
-        
+
             PostDTO post = accesoDatos.obtenerPostID(Long.valueOf(id));
+            List<ComentarioDTO> comentatiosDTO = post.getComentarios();
+            for (ComentarioDTO comentariosPrincipale : comentatiosDTO) {
+                System.out.println("ID comentario padre:" + comentariosPrincipale.getId());
+                for (ComentarioDTO coment : comentariosPrincipale.getRespuestas()) {
+                    System.out.println("-----ID comentario hijo" + coment.getId());
+                }
+            }
+
             System.out.println(post.getComentarios().size() + "en la vuelta" + contador);
             request.setAttribute("id", id);
             request.setAttribute("titulo", post.getTitulo());
@@ -87,7 +95,12 @@ public class Post extends HttpServlet {
 
                 // Procesar comentarios
                 List<ComentarioBean> comentariosPrincipales = procesarComentarios(post.getComentarios(), dateFormat);
-
+                for (ComentarioBean comentariosPrincipale : comentariosPrincipales) {
+                    System.out.println("ID comentario padre:" + comentariosPrincipale.getId());
+                    for (ComentarioBean comentarioBean : comentariosPrincipale.getRespuesta()) {
+                        System.out.println("-----ID comentario hijo" + comentarioBean.getId());
+                    }
+                }
                 request.setAttribute("comentarios", comentariosPrincipales);
             }
 
@@ -121,8 +134,10 @@ public class Post extends HttpServlet {
             if (comentario.getRespuesta() != null) {
                 Long idPadre = comentario.getRespuesta().getId();
                 ComentarioBean comentarioPadre = mapaComentarios.get(idPadre);
-                if (comentarioPadre != null) {
-                    comentarioPadre.getRespuesta().add(mapaComentarios.get(comentario.getId()));
+                ComentarioBean comentarioHijo = mapaComentarios.get(comentario.getId());
+
+                if (comentarioPadre != null && comentarioHijo != null) {
+                    comentarioPadre.getRespuesta().add(comentarioHijo);
                 }
             }
         }

@@ -125,4 +125,10 @@ public class UsuarioDTO {
         return posts;
     }
 
+    @Override
+    public String toString() {
+        return "UsuarioDTO{" + "nombres=" + nombres + ", apellidoPaterno=" + apellidoPaterno + ", apellidoMaterno=" + apellidoMaterno + ", correo=" + correo + ", contrasenia=" + contrasenia + ", telefono=" + telefono + ", nombreUsuario=" + nombreUsuario + ", avatar=" + avatar + ", ciudad=" + ciudad + ", fechaNacimiento=" + fechaNacimiento + ", genero=" + genero + ", posts=" + posts + ", municipio=" + municipio + '}';
+    }
+
+    
 }
