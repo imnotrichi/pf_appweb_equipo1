@@ -3,10 +3,11 @@
     Author     : Equipo1
 */
 
-.secciones li:nth-child(5) a{
+.secciones li:nth-child(4) a{
     background-color: #F539B4;
     border-radius: 1rem;
 }
+
 main a:nth-child(2) article {
     background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(111, 192, 248, 1)), url(../imagenes/playlist-sunflower.png);
     background-size: cover;
