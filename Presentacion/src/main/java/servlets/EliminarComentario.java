@@ -3,17 +3,32 @@
  */
 package servlets;
 
+import beans.UsuarioBean;
+import com.mycompany.dto.ComentarioDTO;
+import com.mycompany.dto.UsuarioDTO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.itson.aplicacionesweb.themusichub.facade.AccesoDatosFacade;
+import org.itson.aplicacionesweb.themusichub.facade.IAccesoDatosFacade;
+import org.itson.aplicacionesweb.themusichub.persistenciaException.FacadeException;
 
 /**
  * @author Equipo1
  */
 public class EliminarComentario extends HttpServlet {
+    
+    private IAccesoDatosFacade accesoDatos;
+
+    @Override
+    public void init() throws ServletException {
+        accesoDatos = new AccesoDatosFacade();
+    }
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,6 +55,21 @@ public class EliminarComentario extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String idComentario = request.getParameter("Comentario");
+        HttpSession sesion = request.getSession();
+
+        UsuarioBean usuario = (UsuarioBean) sesion.getAttribute("usuario");
+
+        try {
+            UsuarioDTO usuarioObtenido = accesoDatos.obtenerUsuario(usuario.getCorreo());
+            
+            ComentarioDTO comentario = accesoDatos.obtenerComentarioID(Long.valueOf(idComentario));
+            
+            accesoDatos.eliminarComentario(comentario, usuarioObtenido);
+            request.getRequestDispatcher("/Post.jsp").forward(request, response);
+        } catch (FacadeException ex) {
+            Logger.getLogger(EliminarPost.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -53,6 +83,21 @@ public class EliminarComentario extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+    }
+
+    /**
+     * Handles the HTTP <code>DELETE</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doDelete(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
+        
     }
 
     /**

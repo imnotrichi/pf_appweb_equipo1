@@ -53,7 +53,6 @@ public class EliminarPost extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         String idPost = request.getParameter("idPost");
         HttpSession sesion = request.getSession();
 

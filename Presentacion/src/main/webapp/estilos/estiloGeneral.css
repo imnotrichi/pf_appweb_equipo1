@@ -3,7 +3,7 @@
     Author     : Equipo1
 */
 
-.secciones li:nth-child(6) a{
+.secciones li:nth-child(5) a{
     background-color: #F539B4;
     border-radius: 1rem;
 }

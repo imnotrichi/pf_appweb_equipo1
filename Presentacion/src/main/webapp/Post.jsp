@@ -74,17 +74,17 @@
                                         </br>
                                         ${comentario.contenido}
                                     </p>
-                                    
-                                        <c:if test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"normal\")}">
-                                            <button class="responder-btn">Responder</button>
 
+                                    <c:if test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"normal\")}">
+                                        <button class="responder-btn">Responder</button>
+                                    </c:if>
+                                    <c:if test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"administrador\")
+                                                  || sessionScope.usuario.getNombreUsuario().equals(comentario.nombreUsuario)}">
+                                          <a href="EliminarComentario?idComentario=${comentario.getId()}">
+                                              <button type="submit" class="responder-btn">Eliminar</button>
+                                          </a>
+                                    </c:if>
 
-                                        </c:if>
-                                        <c:if test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"administrador\")
-                                                || sessionScope.usuario.getNombreUsuario().equals(comentario.nombreUsuario)}">
-                                            <button class="responder-btn">Eliminar</button>
-                                        </c:if>
-                                   
 
                                     <c:if test="${not empty comentario.respuesta}">
                                         <div class="respuestas">
@@ -96,8 +96,8 @@
                                                     </p>
                                                     <c:choose>         
                                                         <c:when test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"administrador\")
-                                                                || sessionScope.usuario.getNombreUsuario().equals(comentario.nombreUsuario)}">
-                                                            <button class="responder-btn">Eliminar</button>                                                        
+                                                                        || sessionScope.usuario.getNombreUsuario().equals(comentario.nombreUsuario)}">
+                                                                <button class="responder-btn">Eliminar</button>                                                        
                                                         </c:when>
                                                     </c:choose>
                                                 </div>
