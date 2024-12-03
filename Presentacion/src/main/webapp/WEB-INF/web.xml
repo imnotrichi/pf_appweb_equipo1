@@ -73,6 +73,10 @@
         <servlet-name>GuardarImagenPost</servlet-name>
         <servlet-class>servlets.GuardarImagenPost</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Inicio</servlet-name>
+        <servlet-class>servlets.Inicio</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>IniciarSesion</servlet-name>
         <url-pattern>/IniciarSesion</url-pattern>
@@ -150,6 +154,10 @@
     <servlet-mapping>
         <servlet-name>GuardarImagenPost</servlet-name>
         <url-pattern>/GuardarImagenPost</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Inicio</servlet-name>
+        <url-pattern>/Inicio</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

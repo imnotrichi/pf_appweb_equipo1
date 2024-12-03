@@ -144,7 +144,7 @@ public class RegistrarUsuario extends HttpServlet {
             UsuarioBean bean = new UsuarioBean(nombreUsuario, correo, ciudad, rutaRelativa, tipo);
             HttpSession session = request.getSession();
             session.setAttribute("usuario", bean);
-            response.sendRedirect(request.getContextPath() + "/Inicio.jsp");
+            response.sendRedirect(request.getContextPath() + "/Inicio");
         } catch (FacadeException e) {
             System.out.println("EXCEPCION");
             this.getServletContext()

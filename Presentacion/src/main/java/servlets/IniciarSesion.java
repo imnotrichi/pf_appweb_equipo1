@@ -67,7 +67,7 @@ public class IniciarSesion extends HttpServlet {
                 UsuarioBean bean = new UsuarioBean(usuario.getNombreUsuario(), usuario.getCorreo(), usuario.getCiudad(), usuario.getAvatar(), tipo);
                 HttpSession session = request.getSession();
                 session.setAttribute("usuario", bean);
-                response.sendRedirect(request.getContextPath() + "/Inicio.jsp");
+                response.sendRedirect(request.getContextPath() + "/Inicio");
             } else {
                 request.setAttribute("error", "Correo o contraseña incorrectos");
                 this.getServletContext().getRequestDispatcher("/IniciarRegistrar.jsp").forward(request, response);
