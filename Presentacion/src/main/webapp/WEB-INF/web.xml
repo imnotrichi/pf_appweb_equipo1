@@ -76,7 +76,8 @@
     <servlet>
         <servlet-name>Inicio</servlet-name>
         <servlet-class>servlets.Inicio</servlet-class>
-
+    </servlet>
+    <servlet>
         <servlet-name>EditarPost</servlet-name>
         <servlet-class>servlets.EditarPost</servlet-class>
     </servlet>
@@ -165,6 +166,8 @@
     <servlet-mapping>
         <servlet-name>Inicio</servlet-name>
         <url-pattern>/Inicio</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>EditarPost</servlet-name>
         <url-pattern>/EditarPost</url-pattern>
     </servlet-mapping>
