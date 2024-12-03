@@ -20,6 +20,8 @@ public interface IAccesoDatosFacade {
     public void publicarPost(PostDTO post) throws FacadeException;
 
     public void eliminarPost(Long id, UsuarioDTO usuario) throws FacadeException;
+    
+    public void editarPost(PostDTO postDTO, UsuarioDTO usuario) throws FacadeException;
 
     public void comentarPost(ComentarioDTO comentarioDTO, PostDTO postDTO) throws FacadeException;
 

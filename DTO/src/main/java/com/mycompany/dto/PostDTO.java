@@ -138,32 +138,48 @@ public class PostDTO {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public Calendar getFechaHoraCreacion() {
         return fechaHoraCreacion;
+    }
+
+    public void setFechaHoraCreacion(Calendar fechaHoraCreacion) {
+        this.fechaHoraCreacion = fechaHoraCreacion;
     }
 
     public String getTitulo() {
         return titulo;
     }
 
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
     public String getSubtitulo() {
         return subtitulo;
+    }
+
+    public void setSubtitulo(String subtitulo) {
+        this.subtitulo = subtitulo;
     }
 
     public String getContenido() {
         return contenido;
     }
 
+    public void setContenido(String contenido) {
+        this.contenido = contenido;
+    }
+
     public String getCategoria() {
         return categoria;
     }
 
-    public UsuarioDTO getUsuario() {
-        return usuario;
-    }
-
-    public List<ComentarioDTO> getComentarios() {
-        return comentarios;
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
     }
 
     public String getImagen() {
@@ -174,6 +190,22 @@ public class PostDTO {
         this.imagen = imagen;
     }
 
+    public List<ComentarioDTO> getComentarios() {
+        return comentarios;
+    }
+
+    public void setComentarios(List<ComentarioDTO> comentarios) {
+        this.comentarios = comentarios;
+    }
+
+    public UsuarioDTO getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(UsuarioDTO usuario) {
+        this.usuario = usuario;
+    }
+
     public String getTipoPost() {
         return tipoPost;
     }
@@ -181,4 +213,6 @@ public class PostDTO {
     public void setTipoPost(String tipoPost) {
         this.tipoPost = tipoPost;
     }
+
+    
 }

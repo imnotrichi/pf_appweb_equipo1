@@ -7,12 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%
-    String referer = request.getHeader("referer");
-    if (referer != null && !referer.isEmpty()) {
-        session.setAttribute("returnTo", referer);
-    }
-%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -42,9 +37,11 @@
                 </div>
                 <c:forEach items="${requestScope.listaPosts}" var="post">
                     <div>
-                        <button class="editar-button" onclick="location.href = 'EditarPost.jsp'">
-                            <img src="imagenes/edit.png" alt="Ícono de editar.">
-                        </button>
+                        <a href="EditarDatosPost?id=${post.getId()}">
+                            <button class="editar-button" onclick="location.href = 'EditarPost.jsp'">
+                                <img src="imagenes/edit.png" alt="Ícono de editar.">
+                            </button>
+                        </a>
                         <a href="Post?id=${post.getId()}">
                             <article>
                                 <h2>@${post.getUsuario().getNombreUsuario()}</h2>
