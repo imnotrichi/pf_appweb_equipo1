@@ -17,6 +17,7 @@
         <link rel="stylesheet" href="./estilos/estiloPost.css">
         <script src="scripts/AgregarComentario.js" defer></script>
         <script src="scripts/ResponderComentario.js" defer></script>
+        <script src="scripts/ConfirmarEliminacion.js" defer></script>
 
         <title>The Music Hub - Post</title>
     </head>
@@ -35,8 +36,8 @@
                             <h2 class="usuario-fecha">@${nombreUsuario} - <span>${fechaPublicacion}</span></h2>
                             <c:if test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"administrador\") 
                                           || sessionScope.usuario.getNombreUsuario().equals(nombreUsuario)}">
-                                  <div class="funciones-admin">
-                                      <a href="EliminarPost?idPost=${id}">
+                                  <div class="funciones-admin" >
+                                      <a href="EliminarPost?idPost=${id}"  class="eliminar-post">
                                           <button>
                                               Eliminar
                                               <img src="./imagenes/white-trash-icon.png" alt="white trash icon">
@@ -97,7 +98,7 @@
                                                     <c:choose>         
                                                         <c:when test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"administrador\")
                                                                         || sessionScope.usuario.getNombreUsuario().equals(comentario.nombreUsuario)}">
-                                                                <a href="EliminarComentario?idComentario=${comentarioRespuesta.id}&idPost=${id}">
+                                                                <a href="EliminarComentario?idComentario=${comentarioRespuesta.id}&idPost=${id}" >
                                                                     <button class="responder-btn">Eliminar</button>
                                                                 </a>
                                                         </c:when>

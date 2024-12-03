@@ -281,10 +281,6 @@ hr {
     gap: 1rem;
 }
 
-.respuestaEsconder{
-    display: none;
-}
-
 a {
     text-decoration: none;
 }
