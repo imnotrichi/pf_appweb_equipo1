@@ -18,36 +18,60 @@
 </head>
 
 <body>
-    <%@include file="./fragmentos/Encabezado.xhtml"%>
+    <%@include file="./fragmentos/Encabezado.xhtml" %>
 
-    <div class="contenedor">
-        <%@include file="./fragmentos/BarraNavegacion.xhtml"%>
+        <div class="contenedor">
+            <%@include file="./fragmentos/BarraNavegacion.xhtml" %>
 
-        <main>
-            <c:forEach var="post" items="${posts}">
-                    <a href="Post?id=${post.getId()}">
-                        <c:choose>
-                            <c:when test="${post.imagen != null and not empty post.imagen}">
-                                <article style="background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(111, 192, 248, 1)), url('${post.imagen}');
-                                         background-size: cover;
-                                         background-position: center;">
-                            </c:when>    
-                            <c:otherwise>
-                                <article>
-                            </c:otherwise>
-                        </c:choose>            
-                                
-                            <img src="" alt="">
-                            <h2>@${post.usuario.nombreUsuario}</h2> 
-                            <h3>${post.titulo}</h3> 
-                            <p>${post.subtitulo}</p> 
-                        </article>
-                    </a>
-                </c:forEach> 
-            
+            <main>
 
-            <%@include file="./fragmentos/BotonNuevoPost.xhtml"%>
-        </main>
-    </div>
+
+                <c:forEach var="post" items="${posts}">
+                    <c:if test="${post.tipo eq 'anclado'}">
+                        <a href="Post?id=${post.getId()}">
+                            <c:choose>
+                                <c:when test="${post.imagen != null and not empty post.imagen}">
+                                    <article style="background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(111, 192, 248, 1)), url('${post.imagen}');
+                                             background-size: cover;
+                                             background-position: center;">
+                                    </c:when>    
+                                    <c:otherwise>
+                                        <article>
+                                        </c:otherwise>
+                                    </c:choose>            
+
+                                    <img src="./imagenes/white-pin-icon.png" class="pin" alt="">
+                                    <h2>@${post.usuario.nombreUsuario}</h2> 
+                                    <h3>${post.titulo}</h3> 
+                                    <p>${post.subtitulo}</p> 
+                                </article>
+                        </a>
+                    </c:if>
+                    
+                    <c:if test="${post.tipo eq 'comun'}">
+                        <a href="Post?id=${post.getId()}">
+                            <c:choose>
+                                <c:when test="${post.imagen != null and not empty post.imagen}">
+                                    <article style="background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(111, 192, 248, 1)), url('${post.imagen}');
+                                             background-size: cover;
+                                             background-position: center;">
+                                    </c:when>    
+                                    <c:otherwise>
+                                        <article>
+                                        </c:otherwise>
+                                    </c:choose>            
+
+                                    <img src="" alt="">
+                                    <h2>@${post.usuario.nombreUsuario}</h2> 
+                                    <h3>${post.titulo}</h3> 
+                                    <p>${post.subtitulo}</p> 
+                                </article>
+                        </a>
+                    </c:if>
+                </c:forEach>
+
+                <%@include file="./fragmentos/BotonNuevoPost.xhtml"%>
+            </main>
+        </div>
 </body>
 </html>
