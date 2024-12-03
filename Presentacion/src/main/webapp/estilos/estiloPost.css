@@ -281,3 +281,11 @@ hr {
 a {
     text-decoration: none;
 }
+
+.post h1, 
+.post h2, 
+.post p {
+    word-wrap: break-word; /* Permite que las palabras largas se dividan y envuelvan a la siguiente línea */
+    overflow-wrap: break-word; /* Compatibilidad adicional para navegadores más modernos */
+    white-space: normal; /* Asegura que el texto se envuelva */
+}

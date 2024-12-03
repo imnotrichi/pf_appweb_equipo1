@@ -36,16 +36,6 @@ class AgregarImagenPost {
                 return;
             }
 
-            const resultado = await response.json();
-            console.log('Respuesta del servidor:', resultado);
-
-            if (resultado.status === 'success') {
-                alert('Post creado exitosamente');
-                // Redirige a la página principal o a la lista de posts
-                window.location.href = './Inicio.jsp';
-            } else {
-                alert(`Error: ${resultado.message}`);
-            }
         } catch (error) {
             console.error('Error:', error);
             alert('Hubo un problema al enviar la imagen del post');

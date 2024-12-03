@@ -81,7 +81,6 @@ public class GuardarImagenPost extends HttpServlet {
             responseBody.put("filePath", "/imagenesPost/" + referencia); // Ruta relativa para usar en la app
             response.setStatus(HttpServletResponse.SC_OK);
             response.getWriter().write(gson.toJson(responseBody));
-
         } catch (Exception e) {
             // Manejo de errores
             System.out.println(e.getMessage());

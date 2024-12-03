@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.itson.aplicacionesweb.themusichub.facade.AccesoDatosFacade;
@@ -77,9 +78,12 @@ public class AnclarPost extends HttpServlet {
             request.setAttribute("contenido", post.getContenido());
             request.setAttribute("imagenPost", post.getImagen());
             request.setAttribute("tipoPost", post.getTipoPost());
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            String fechaFormateada = dateFormat.format(post.getFechaHoraCreacion().getTime());
+            request.setAttribute("fechaPublicacion", fechaFormateada);
             request.getRequestDispatcher("/Post.jsp").forward(request, response);
         } catch (FacadeException ex) {
-            Logger.getLogger(EliminarPost.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AnclarPost.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

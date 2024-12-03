@@ -35,18 +35,23 @@
                     </div>
                     <p>Posts(${fn:length(requestScope.listaPosts)}):</p>
                 </div>
-                <c:forEach items="${requestScope.listaPosts}" var="post">
+                <c:forEach var="post" items="${listaPosts}">
                     <div>
-                        <a href="EditarDatosPost?id=${post.getId()}">
-                            <button class="editar-button" onclick="location.href = 'EditarPost.jsp'">
-                                <img src="imagenes/edit.png" alt="Ícono de editar.">
-                            </button>
+                        <a class="editar-button" href="EditarDatosPost?id=${post.getId()}">
+                            <img src="imagenes/edit.png" alt="Ícono de editar.">
                         </a>
                         <a href="Post?id=${post.getId()}">
-                            <article>
-                                <h2>@${post.getUsuario().getNombreUsuario()}</h2>
-                                <h3>${post.getTitulo()}</h3>
-                                <p>${post.getSubtitulo()}</p>
+                            <c:choose>
+                                <c:when test="${post.imagen != null and not empty post.imagen}">
+                                    <article style="background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(111, 192, 248, 1)), url('${post.imagen}'); background-size: cover; background-position: center;">
+                                </c:when>    
+                                <c:otherwise>
+                                    <article>
+                                </c:otherwise>
+                            </c:choose>            
+                                <h2>@${post.usuario.nombreUsuario}</h2> 
+                                <h3>${post.titulo}</h3> 
+                                <p>${post.subtitulo}</p> 
                             </article>
                         </a>
                     </div>

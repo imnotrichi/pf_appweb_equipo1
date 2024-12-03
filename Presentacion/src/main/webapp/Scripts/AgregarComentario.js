@@ -54,9 +54,8 @@ class ComentarioManager {
 
             // Manejar respuesta del servidor
             if (result.status === 'success') {
-                contenidoInput.value = '';
-                // Llamar al servlet para actualizar los comentarios
-                await this.actualizarComentarios(idPost);
+                contenidoInput.value = ''; 
+                location.reload(true); 
             } else {
                 alert('Error: ' + result.message);
             }

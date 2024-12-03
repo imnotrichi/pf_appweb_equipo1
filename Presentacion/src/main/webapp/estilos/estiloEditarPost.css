@@ -27,7 +27,7 @@ label {
     font-weight: 600;
 }
 
-input {
+input:not(.cerrar-sesion-button) {
     background-color: #696969;
     color: #FFFFFF;
     font-weight: 400;
@@ -115,7 +115,7 @@ textarea {
 }
 
 button,
-input[type="submit"] {
+input[type="submit"]:not(.cerrar-sesion-button) {
     border: none;
     background-color: #F539B4;
     color: #000;
@@ -134,12 +134,12 @@ input[type="submit"] {
     height: fit-content;
 }
 
-button:hover, input[type="submit"]:hover {
+button:hover, input[type="submit"]:hover:not(.cerrar-sesion-button) {
     background-color: #E52A9F;
     transform: scale(1.05);
 }
 
-button:active, input[type="submit"]:active {
+button:active, input[type="submit"]:active:not(.cerrar-sesion-button) {
     transform: scale(0.98);
 }
 

@@ -8,12 +8,6 @@
     border-radius: 1rem;
 }
 
-main a:nth-child(2) article {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(111, 192, 248, 1)), url(../imagenes/playlist-sunflower.png);
-    background-size: cover;
-    background-position: center;
-}
-
 main article {
     background-color: #F539B4;
     border-radius: 1.2rem;
@@ -24,18 +18,31 @@ main article {
 
 main article h3 {
     font-size: 2rem;
+    overflow: hidden;
 }
 
 main article h2 {
     font-size: 1rem;
     font-weight: 600;
+    overflow: hidden;
 }
 
 main article p {
     font-weight: 550;
+    overflow: hidden;
 }
 
 main a {
     text-decoration: none;
     color: #000000;
+}
+
+img{
+    height: 10%;
+}
+
+.pin {
+    width: 2rem;
+    position: relative;
+    right: -96%;
 }

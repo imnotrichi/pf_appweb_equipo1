@@ -70,8 +70,6 @@ public class PostDAO implements IPostDAO {
 
             // Se manda a ejecutar la consulta y guardamos el resultado.
             Post post = em.createQuery(cq).getSingleResult();
-            
-            em.refresh(post);
 
             // Imprimimos un mensaje de que se obtuvo 1 resultado.
             logger.log(Level.INFO, "Se ha consultado la tabla 'posts' y se obtuvo 1 resultado.");
@@ -125,8 +123,24 @@ public class PostDAO implements IPostDAO {
 
             // Imprimimos un mensaje de que se ejecutó una consulta.
             logger.log(Level.INFO, "Se ha consultado la tabla 'posts' y se obtuvieron " + i + " resultados.");
-            // Retornamos la lista de posts.
-            return listaPosts;
+            
+            // Ordenamos la lista: primero los anclados y luego los comunes.
+            List<Post> postsAnclados = new ArrayList<>();
+            List<Post> postsComunes = new ArrayList<>();
+
+            for (Post post : listaPosts) {
+                if (post instanceof Comun) {
+                    postsComunes.add(post);
+                } else {
+                    postsAnclados.add(post);
+                }
+            }
+
+            // Combinar ambas listas.
+            postsAnclados.addAll(postsComunes);
+
+            // Retornamos la lista ordenada.
+            return postsAnclados;
         } catch (PersistenceException pe) {
             logger.log(Level.WARNING, pe.getMessage());
             throw new PersistenciaException("No se pudieron consultar todos los posts.");

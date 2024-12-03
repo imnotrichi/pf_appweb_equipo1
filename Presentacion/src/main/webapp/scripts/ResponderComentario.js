@@ -81,7 +81,6 @@ class RespuestaComentario {
 
             // Manejar respuesta del servidor
             if (result.status === 'success') {
-                alert('Respuesta registrado exitosamente.');
                 contenidoInput.value = ''; 
                 // Recargar página para mostrar nueva respuesta
                 location.reload(true); 

@@ -16,7 +16,7 @@
         <link rel="stylesheet" href="./estilos/estiloGeneral.css">
         <title>The Music Hub - General</title>
     </head>
-
+    
     <body>
         <%@include file="./fragmentos/Encabezado.xhtml" %>
 

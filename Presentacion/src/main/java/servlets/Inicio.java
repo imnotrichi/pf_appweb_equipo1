@@ -58,7 +58,6 @@ public class Inicio extends HttpServlet {
     }
     
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -70,7 +69,6 @@ public class Inicio extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("HOLA DESDE SERVLET INICIO");
         try {
             List<PostDTO> posts = accesoDatos.obtenerPostsPorCategoria(null);
             for (PostDTO post : posts) {
@@ -177,6 +175,6 @@ public class Inicio extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }
 
 }

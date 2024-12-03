@@ -67,6 +67,9 @@ class AgregarPost {
 
             if (!response.ok) {
                 throw new Error('Error al subir el post');
+            } else {
+                // Redirige a la página principal o a la lista de posts
+//                window.location.href = './General.jsp';
             }
 
         } catch (error) {

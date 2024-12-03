@@ -24,10 +24,12 @@ main article h3 {
 main article h2 {
     font-size: 1rem;
     font-weight: 600;
+    overflow: hidden;
 }
 
 main article p {
     font-weight: 550;
+    overflow: hidden;
 }
 
 main a {
