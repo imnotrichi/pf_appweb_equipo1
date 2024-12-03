@@ -154,6 +154,53 @@ public class AccesoDatosFacade implements IAccesoDatosFacade {
     }
 
     @Override
+    public void editarPost(PostDTO postDTO, UsuarioDTO usuario) throws FacadeException {
+        try {
+            Post postExistente = postsDAO.obtenerPostPorID(postDTO.getId());
+
+            if (postExistente == null) {
+                throw new FacadeException("El post no existe.");
+            }
+
+            /**
+             * Si el usuario que quiere editar el post no es el dueño o un
+             * administrador, se lanza excepción.
+             */
+            if (!postExistente.getUsuario().getCorreo().equals(usuario.getCorreo()) && !(usuario instanceof AdministradorDTO)) {
+                throw new FacadeException("No tiene permisos para editar este post.");
+            }
+
+            CategoriaPost categoria;
+            switch (postDTO.getCategoria().toUpperCase()) {
+                case "GENERAL":
+                    categoria = CategoriaPost.GENERAL;
+                    break;
+                case "NOTICIA":
+                    categoria = CategoriaPost.NOTICIAS;
+                    break;
+                case "PLAYLIST":
+                    categoria = CategoriaPost.PLAYLIST;
+                    break;
+                case "REVIEW":
+                    categoria = CategoriaPost.REVIEWS;
+                    break;
+                default:
+                    categoria = CategoriaPost.GENERAL;
+            }
+
+            postExistente.setTitulo(postDTO.getTitulo());
+            postExistente.setSubtitulo(postDTO.getSubtitulo());
+            postExistente.setContenido(postDTO.getContenido());
+            postExistente.setCategoria(categoria);
+            postExistente.setImagen(postDTO.getImagen());
+
+            postsDAO.editarPost(postExistente);
+        } catch (PersistenciaException ex) {
+            throw new FacadeException("No se pudo editar el post.");
+        }
+    }
+
+    @Override
     public void comentarPost(ComentarioDTO comentarioDTO, PostDTO postDTO) throws FacadeException {
         try {
             if (postDTO instanceof AncladoDTO) {

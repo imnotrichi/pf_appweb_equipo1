@@ -31,7 +31,7 @@ class RespuestaComentario {
             });
         });
     }
-F
+
     
     async enviarComentario(event) {
         

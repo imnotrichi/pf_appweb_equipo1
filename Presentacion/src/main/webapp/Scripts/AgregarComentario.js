@@ -1,6 +1,7 @@
 class ComentarioManager {
     constructor() {
         this.apiUrl = './AgregarComentario';
+        this.postServletUrl = './Post';
         this.enviarEvento();
     }
 
@@ -42,7 +43,6 @@ class ComentarioManager {
                 },
                 body: JSON.stringify(comentarioData)
             });
-            console.log(contenido);
 
             // Verificar si la respuesta es un JSON válido
             const contentType = response.headers.get('content-type');
@@ -54,29 +54,38 @@ class ComentarioManager {
 
             // Manejar respuesta del servidor
             if (result.status === 'success') {
-                alert('Comentario registrado exitosamente.');
                 contenidoInput.value = '';
-                location.reload(true);
-//
-//                // Crear nuevo elemento de comentario y agregarlo a la lista
-//                const nuevoComentario = document.createElement('div');
-//                nuevoComentario.classList.add('comentario');
-//                nuevoComentario.innerHTML = `
-//                <p>
-//                    <span class="usuario"></span>
-//                    <br>
-//                    ${comentarioData.contenido}
-//                </p>`;
-//
-//                const contenedorComentarios = document.querySelector('.contenedor-comentario');
-//                contenedorComentarios.appendChild(nuevoComentario);
-
+                // Llamar al servlet para actualizar los comentarios
+                await this.actualizarComentarios(idPost);
             } else {
                 alert('Error: ' + result.message);
             }
         } catch (error) {
             console.error('Error completo:', error);
             alert('Ocurrió un error al registrar el comentario. ' + error.toString());
+        }
+    }
+
+    async actualizarComentarios(idPost) {
+        try {
+            const response = await fetch(`${this.postServletUrl}?id=${idPost}`, {
+                method: 'GET'
+            });
+
+            if (!response.ok) {
+                throw new Error('Error al obtener los comentarios del servidor.');
+            }
+
+            const html = await response.text();
+
+            // Actualizar la sección de comentarios en el DOM
+            const comentariosSection = document.getElementById('comentarios');
+            if (comentariosSection) {
+                comentariosSection.innerHTML = html;
+            }
+        } catch (error) {
+            console.error('Error al actualizar los comentarios:', error);
+            alert('No se pudo actualizar la lista de comentarios.');
         }
     }
 }

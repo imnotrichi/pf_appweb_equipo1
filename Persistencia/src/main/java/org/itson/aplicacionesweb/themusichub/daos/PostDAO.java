@@ -70,6 +70,8 @@ public class PostDAO implements IPostDAO {
 
             // Se manda a ejecutar la consulta y guardamos el resultado.
             Post post = em.createQuery(cq).getSingleResult();
+            
+            em.refresh(post);
 
             // Imprimimos un mensaje de que se obtuvo 1 resultado.
             logger.log(Level.INFO, "Se ha consultado la tabla 'posts' y se obtuvo 1 resultado.");

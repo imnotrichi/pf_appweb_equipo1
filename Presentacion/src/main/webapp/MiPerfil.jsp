@@ -42,9 +42,11 @@
                 </div>
                 <c:forEach items="${requestScope.listaPosts}" var="post">
                     <div>
-                        <button class="editar-button" onclick="location.href = 'EditarPost.jsp'">
-                            <img src="imagenes/edit.png" alt="Ícono de editar.">
-                        </button>
+                        <a href="EditarDatosPost?id=${post.getId()}">
+                            <button class="editar-button" onclick="location.href = 'EditarPost.jsp'">
+                                <img src="imagenes/edit.png" alt="Ícono de editar.">
+                            </button>
+                        </a>
                         <a href="Post?id=${post.getId()}">
                             <article>
                                 <h2>@${post.getUsuario().getNombreUsuario()}</h2>
