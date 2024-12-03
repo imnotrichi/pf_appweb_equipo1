@@ -183,10 +183,17 @@ hr {
 
 .comentario .responder-btn {
     font-size: 0.8em;
-    color: #F539B4;
+    color: #FFFFFF;
+    font-weight: 600;
     cursor: pointer;
     margin-top: 0.5rem;
     display: inline-block;
+    background-color: #F539B4;
+    border: none;
+    padding: 0.2rem 0.6rem;
+    border-radius: 0.7rem;
+    font-size: 0.9em;
+    margin-top: 0.5rem;
 }
 
 .responder-form {
@@ -209,18 +216,8 @@ hr {
     border-radius: 1rem;
 }
 
-.responder-btn {
-    background-color: transparent;
-    color: #F539B4;
-    border: none;
-
-    cursor: pointer;
-    font-size: 0.9em;
-    margin-top: 0.5rem;
-}
-
 .responder-btn:hover {
-    text-decoration: underline;
+    opacity: 0.9;
 }
 
 .comentar textarea {

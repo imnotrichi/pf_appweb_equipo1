@@ -75,10 +75,6 @@
                                         </br>
                                         ${comentario.contenido}
                                     </p>
-
-                                    <c:if test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"normal\")}">
-                                        <button class="responder-btn">Responder</button>
-                                    </c:if>
                                     <c:if test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"administrador\")
                                                   || sessionScope.usuario.getNombreUsuario().equals(comentario.nombreUsuario)}">
                                           <a href="EliminarComentario?idComentario=${comentario.getId()}&idPost=${id}">
@@ -108,29 +104,28 @@
                                         </div>
                                     </c:if>
                                     <!-- ESTO SE TIENE QUE BORRAR DESPUES PARA AGREAGRLO CUANDO SE PRESIONA EL BOTON RESPONDER-->
-
-                                    <div class="comentar respuestaEsconder" >
-                                        <form id="respuestaForm">
-                                            <input type="hidden" id="postComentario" value="${comentario.getId()}">                                        
-                                            <textarea id="contenidoRespuesta" placeholder="Escribe tu respuesta aquí..." required></textarea>
-                                            <button class="boton-comentar" type="submit">Responder</button>
-                                        </form>
-                                    </div>
+                                    <c:if test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"normal\")}">
+                                        <div class="comentar respuestaEsconder" >
+                                            <form id="respuestaForm">
+                                                <input type="hidden" id="postComentario" value="${comentario.getId()}">                                        
+                                                <textarea id="contenidoRespuesta" placeholder="Escribe tu respuesta aquí..." required></textarea>
+                                                <button class="boton-comentar" type="submit">Responder</button>
+                                            </form>
+                                        </div>
+                                    </c:if>
                                 </div>
                             </c:forEach>
                         </c:if>
 
-                        <c:choose>
-                            <c:when test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"normal\")}">
-                                <div class="comentar">
-                                    <form id="comentarioForm">
-                                        <input type="hidden" id="postId" value="${id}">                                        
-                                        <textarea id="contenidoComentario" placeholder="Escribe tu comentario aquí..." required></textarea>
-                                        <button class="boton-comentar" type="submit">Comentar</button>
-                                    </form>
-                                </div>
-                            </c:when>
-                        </c:choose>
+                        <c:if test="${sessionScope.usuario.getTipo().equalsIgnoreCase(\"normal\")}">
+                            <div class="comentar">
+                                <form id="comentarioForm">
+                                    <input type="hidden" id="postId" value="${id}">                                        
+                                    <textarea id="contenidoComentario" placeholder="Escribe tu comentario aquí..." required></textarea>
+                                    <button class="boton-comentar" type="submit">Comentar</button>
+                                </form>
+                            </div>
+                        </c:if>
                     </article> 
                 </section>
             </main>
