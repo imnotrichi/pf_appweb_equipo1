@@ -4,7 +4,7 @@ import java.util.Calendar;
 import java.util.List;
 
 /**
- *
+ * Clase que representa un Administrador en el sistema.
  * @author Equipo1
  */
 public class AdministradorDTO extends UsuarioDTO{

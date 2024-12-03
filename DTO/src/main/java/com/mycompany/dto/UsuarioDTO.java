@@ -6,7 +6,8 @@ package com.mycompany.dto;
 import java.util.Calendar;
 import java.util.List;
 
-/**
+/*
+ * Clase que representa un usuario en el sistema.
  * @author Equipo1
  */
 public class UsuarioDTO {

@@ -4,7 +4,7 @@ import java.util.Calendar;
 import java.util.List;
 
 /**
- *
+ * Clase que representa un comentario de un post en el sistema.
  * @author Equipo1
  */
 public class ComentarioDTO {

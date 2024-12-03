@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- *
+ * Clase que representa un municipio en el sistema.
  * @author Equipo1
  */public class MunicipioDTO {
     

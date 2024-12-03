@@ -8,7 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- *
+ * Clase que representa un post en el sistema.
  * @author Equipo 1
  */
 public class PostDTO {

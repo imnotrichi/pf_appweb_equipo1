@@ -4,7 +4,7 @@ import java.util.Calendar;
 import java.util.List;
 
 /**
- *
+ * Clase que representa un post anclado en el sistema.
  * @author Equipo1
  */
 public class AncladoDTO extends PostDTO{

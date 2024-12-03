@@ -4,7 +4,7 @@ import java.util.Calendar;
 import java.util.List;
 
 /**
- *
+ * Clase que representa un post (no anclado) común en el sistema.
  * @author Equipo1
  */
 public class ComunDTO extends PostDTO {
